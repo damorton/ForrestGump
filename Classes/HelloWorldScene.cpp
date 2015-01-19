@@ -1,6 +1,10 @@
 #include "HelloWorldScene.h"
+#include "WorldManager.h"
+#include "GameManager.h"
+#include "Player.h"
 
 USING_NS_CC;
+GameManager* pGameManager;
 
 Scene* HelloWorld::createScene()
 {
@@ -9,10 +13,13 @@ Scene* HelloWorld::createScene()
     
     // 'layer' is an autorelease object
     auto layer = HelloWorld::create();
-
+	
     // add layer as a child to scene
     scene->addChild(layer);
-
+	
+	// create game manager
+	pGameManager = new GameManager();
+	
     // return the scene
     return scene;
 }
@@ -54,7 +61,7 @@ bool HelloWorld::init()
     // add a label shows "Hello World"
     // create and initialize a label
     
-    auto label = LabelTTF::create("Hello World", "Arial", 24);
+    auto label = LabelTTF::create("Game Programming Assignment 2014\nGame Structure\nby\nDavid Morton", "Arial", 24);
     
     // position the label on the center of the screen
     label->setPosition(Vec2(origin.x + visibleSize.width/2,
@@ -65,16 +72,35 @@ bool HelloWorld::init()
 
     // add "HelloWorld" splash screen"
     auto sprite = Sprite::create("HelloWorld.png");
-
+	WorldManager::getInstance()->getPlayer()->setSprite("Player.png");
+	
+	auto playerSprite = WorldManager::getInstance()->getPlayer()->getSprite();
+	
     // position the sprite on the center of the screen
     sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-
+	
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
-    
+	this->addChild(playerSprite, 0);
+	
+	// call the schedule update in order to run this layers update function
+	this->scheduleUpdate();
     return true;
 }
 
+/*
+	The hello world upate function is calling the game managers
+	update function 60 times per second or whatever the fps is set
+	to. This is the game loop implementation because if a seperate loop was added to the 
+	game managers update function the application would be caught in an infinite loop.
+
+	@param delta time
+*/
+void HelloWorld::update(float delta){
+	
+	// call the game manager update function
+	pGameManager->update();	
+}
 
 void HelloWorld::menuCloseCallback(Ref* pSender)
 {
