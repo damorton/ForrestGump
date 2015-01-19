@@ -16,7 +16,7 @@ bool Player::init()
 #endif	
 	Player::playerPosition = cocos2d::Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y);
 	setType(EGameOjectType::PLAYER);
-	setName("Player");
+	setName("Player One - Forrest");
 	return true;
 }
 
