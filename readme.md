@@ -1,8 +1,4 @@
-# Cocos2dx Game #
-
-### What is this repository for? ###
-
-Cocos2dx Game is a template for a game using the Cocos2dx game engine. Outlined inside the project are the main classes needed to create a functional game and is an attempt at providing a pre-built structure that can be modified. 
+# Forrest Gump Game #
 
 ### How do I get set up? ###
 
