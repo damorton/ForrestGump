@@ -1,3 +1,11 @@
+/*
+3rd Year Project and Group dynamics assignment.
+
+Forrest Gump
+
+Copyright (c)	2014, 2015	David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+*/
 
 // includes
 #include <iostream>
