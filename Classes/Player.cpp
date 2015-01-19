@@ -1,3 +1,11 @@
+/*
+3rd Year Project and Group dynamics assignment.
+
+Forrest Gump
+
+Copyright (c)	2014, 2015	David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+*/
 
 // includes
 #include <iostream>
@@ -14,7 +22,7 @@ bool Player::init()
 #ifdef _DEBUG
 	CCLOG("Player::init() called");
 #endif	
-	Player::playerPosition = cocos2d::Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y);
+	Player::playerPosition = cocos2d::Vec2(visibleSize.width / 4 + origin.x, visibleSize.height / 3 + origin.y);
 	setType(EGameOjectType::PLAYER);
 	setName("Player One - Forrest");
 	return true;
@@ -45,9 +53,6 @@ void Player::update()
 {
 	CCLOG("Updating Player");
 	
-	// set the players position	
-	Player::playerPosition.x++;
-
 	// update the sprite position
 	Player::m_pCharacterSprite->setPosition(Player::playerPosition);
 	
