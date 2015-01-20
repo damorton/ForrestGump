@@ -111,7 +111,7 @@ void GameScene::Pause(cocos2d::Ref *pSender)
 
 	auto scene = MainMenu::createScene();
 
-	Director::getInstance()->pushScene(TransitionFlipX::create(2, scene));
+	Director::getInstance()->pushScene(TransitionFade::create(1, scene));
 }
 
 
