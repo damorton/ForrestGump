@@ -74,7 +74,7 @@ bool GameScene::init()
 	
 
 	// pause button
-	auto menu_item_pause = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1(GameScene::Pause, this));
+	auto menu_item_pause = MenuItemImage::create("pause11.png", "pause36.png", CC_CALLBACK_1(GameScene::Pause, this));
 	menu_item_pause->setPosition(Point(visibleSize.width - 50, visibleSize.height - 50));
 
 	// create menu and add menu items
