@@ -1,5 +1,5 @@
 #include "NewScene.h"
-#include "HelloWorldScene.h"
+#include "MainMenuScene.h"
 
 USING_NS_CC;
 
@@ -31,8 +31,8 @@ bool NewScene::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Point origin = Director::getInstance()->getVisibleOrigin();
     
-    auto menu_item_1 = MenuItemFont::create("Go Back", CC_CALLBACK_1(NewScene::GoBack, this));
-    auto menu_item_2 = MenuItemFont::create("BACK@", CC_CALLBACK_1(NewScene::GoBack2, this));
+    auto menu_item_1 = MenuItemFont::create("Go Back (pop)", CC_CALLBACK_1(NewScene::GoBack, this));
+    auto menu_item_2 = MenuItemFont::create("Go Back (replaceScene)", CC_CALLBACK_1(NewScene::GoBack2, this));
     
     menu_item_1->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 3) * 2));
     menu_item_2->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 3) * 1));
@@ -53,9 +53,9 @@ void NewScene::GoBack(cocos2d::Ref *pSender)
 // replace scene using transition
 void NewScene::GoBack2(cocos2d::Ref *pSender)
 {
-    auto scene = HelloWorld::createScene();
+    auto scene = MainMenu::createScene();
     
-    Director::getInstance()->replaceScene(TransitionFade::create(2, scene));
+	Director::getInstance()->replaceScene(TransitionFlipX::create(1, scene));
 }
 
 void NewScene::menuCloseCallback(Ref* pSender)
