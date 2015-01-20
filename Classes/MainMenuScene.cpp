@@ -64,7 +64,7 @@ void MainMenu::Play(cocos2d::Ref *pSender)
 
 	auto scene = GameScene::createScene();
 
-	Director::getInstance()->popScene();
+	Director::getInstance()->replaceScene(TransitionFade::create(1, scene));
 }
 
 void MainMenu::Highscores(cocos2d::Ref *pSender)

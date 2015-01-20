@@ -47,7 +47,9 @@ bool NewScene::init()
 // go back to previous scene
 void NewScene::GoBack(cocos2d::Ref *pSender)
 {
+	// pop screen
     Director::getInstance()->popScene();
+		
 }
 
 // replace scene using transition
