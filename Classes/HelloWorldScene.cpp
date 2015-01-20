@@ -1,10 +1,11 @@
 #include "HelloWorldScene.h"
+#include "NewScene.h"
+#include "GameScene.h"
 #include "WorldManager.h"
 #include "GameManager.h"
 #include "Player.h"
-// test comment
+
 USING_NS_CC;
-GameManager* pGameManager;
 
 Scene* HelloWorld::createScene()
 {
@@ -16,10 +17,7 @@ Scene* HelloWorld::createScene()
 	
     // add layer as a child to scene
     scene->addChild(layer);
-	
-	// create game manager
-	pGameManager = new GameManager();
-	
+
     // return the scene
     return scene;
 }
@@ -37,70 +35,68 @@ bool HelloWorld::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
+	mySprite = Sprite::create("CloseNormal.png");
 
-    // add a "close" icon to exit the progress. it's an autorelease object
-    auto closeItem = MenuItemImage::create(
-                                           "CloseNormal.png",
-                                           "CloseSelected.png",
-                                           CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
-    
-	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-                                origin.y + closeItem->getContentSize().height/2));
+	mySprite->setPosition(Point((visibleSize.width / 2) + origin.x, (visibleSize.height / 2) + origin.y));
 
-    // create menu, it's an autorelease object
-    auto menu = Menu::create(closeItem, NULL);
-    menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
+	this->addChild(mySprite);
 
-    /////////////////////////////
-    // 3. add your codes below...
 
-    // add a label shows "Hello World"
-    // create and initialize a label
-    
-    auto label = LabelTTF::create("Forrest Gump", "Arial", 24);
-    
-    // position the label on the center of the screen
-    label->setPosition(Vec2(origin.x + visibleSize.width/2,
-                            origin.y + visibleSize.height - label->getContentSize().height));
+	// create the main menu items
+	auto menu_item_1 = MenuItemFont::create("Play", CC_CALLBACK_1(HelloWorld::Play, this)); // start the game scene
+	auto menu_item_2 = MenuItemFont::create("Highscores", CC_CALLBACK_1(HelloWorld::Highscores, this)); // push the high scores scene
+	auto menu_item_3 = MenuItemFont::create("Settings", CC_CALLBACK_1(HelloWorld::Settings, this)); // push the settings scene
+	//auto menu_item_4 = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1(HelloWorld::ImageButton, this));
 
-    // add the label as a child to this layer
-    this->addChild(label, 1);
+	// position the menu buttons on screen
+	menu_item_1->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 5) * 4));
+	menu_item_2->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 5) * 3));
+	menu_item_3->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 5) * 2));
+	//menu_item_4->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 5) * 1));
 
-    // add "HelloWorld" splash screen"
-    auto sprite = Sprite::create("HelloWorld.png");
-	WorldManager::getInstance()->getPlayer()->setSprite("Player.png");
-	
-	auto playerSprite = WorldManager::getInstance()->getPlayer()->getSprite();
-	
-    // position the sprite on the center of the screen
-    sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-	
-    // add the sprite as a child to this layer
-    this->addChild(sprite, 0);
-	this->addChild(playerSprite, 0);
-	
-	// call the schedule update in order to run this layers update function
-	this->scheduleUpdate();
+	// create menu and add menu items
+	auto *menu = Menu::create(menu_item_1, menu_item_2, menu_item_3, NULL);
+
+	// position the main menu
+	menu->setPosition(Point(0, 0));
+
+	// add the menu to the scene
+	this->addChild(menu);
+
     return true;
 }
 
-/*
-	The hello world upate function is calling the game managers
-	update function 60 times per second or whatever the fps is set
-	to. This is the game loop implementation because if a seperate loop was added to the 
-	game managers update function the application would be caught in an infinite loop.
+void HelloWorld::Play(cocos2d::Ref *pSender)
+{
+	CCLOG("Play");
 
-	@param delta time
-*/
-void HelloWorld::update(float delta){
-	
-	// call the game manager update function
-	pGameManager->update();	
+	auto scene = GameScene::createScene();
+
+	Director::getInstance()->replaceScene(TransitionFlipX::create(2, scene));
 }
+
+void HelloWorld::Highscores(cocos2d::Ref *pSender)
+{
+	CCLOG("Highscores");
+
+	auto scene = NewScene::createScene();
+
+	Director::getInstance()->replaceScene(TransitionFlipX::create(2, scene));
+}
+
+void HelloWorld::Settings(cocos2d::Ref *pSender)
+{
+	CCLOG("Settings");
+}
+
+
+// image button
+void HelloWorld::ImageButton(cocos2d::Ref *pSender)
+{
+	CCLOG("IMAGE Button");
+}
+
+
 
 void HelloWorld::menuCloseCallback(Ref* pSender)
 {

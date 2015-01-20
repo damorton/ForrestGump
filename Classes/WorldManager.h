@@ -10,6 +10,7 @@ class Player;
 class Enemy;
 class Boss;
 class IEnemyFactory;
+class GameManager;
  
 /*
 	WorldManager Singleton
@@ -28,6 +29,9 @@ public:
 	std::shared_ptr<Boss> getBoss(){ return m_pBoss; };	// Boss
 	std::shared_ptr<IEnemyFactory> getEnemyFactory(){ return m_pIEnemyFactory; }; // EnemyFactory Interface
 
+	// get game manager
+	GameManager* getGameManager(){ return m_cGameManager; };
+
 	// setters
 	std::shared_ptr<Player> createPlayer();	// create Player	
 	std::shared_ptr<IEnemyFactory> WorldManager::createEnemyFactory(); // create EnemyFactory
@@ -39,6 +43,9 @@ private:
 	WorldManager(){ this->init(); }; // constructor 
 	~WorldManager(){ this->cleanUp(); }; // deconstructor
 	
+	// game manager
+	GameManager* m_cGameManager;
+
 	// store the Game World objects	
 	std::shared_ptr<Player> m_pPlayer; // Player
 	std::shared_ptr<Enemy> m_pEnemy1;

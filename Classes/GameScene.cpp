@@ -1,10 +1,10 @@
 #include "GameScene.h"
+#include "HelloWorldScene.h"
 #include "WorldManager.h"
 #include "GameManager.h"
 #include "Player.h"
 
 USING_NS_CC;
-GameManager* pGameManager;
 
 Scene* GameScene::createScene()
 {
@@ -16,10 +16,7 @@ Scene* GameScene::createScene()
 	
     // add layer as a child to scene
     scene->addChild(layer);
-	
-	// create game manager
-	pGameManager = new GameManager();
-	
+		
     // return the scene
     return scene;
 }
@@ -61,7 +58,7 @@ bool GameScene::init()
     // add a label shows "Hello World"
     // create and initialize a label
     
-    auto label = LabelTTF::create("Forrest Gump", "Arial", 24);
+    auto label = LabelTTF::create("Game Scene", "Helvetica", 18);
     
     // position the label on the center of the screen
     label->setPosition(Vec2(origin.x + visibleSize.width/2,
@@ -99,8 +96,20 @@ bool GameScene::init()
 void GameScene::update(float delta){
 	
 	// call the game manager update function
-	pGameManager->update();	
+	WorldManager::getInstance()->getGameManager()->update();
 }
+
+
+// pause the game and push the main menu scene
+void GameScene::Pause(cocos2d::Ref *pSender)
+{
+	CCLOG("Pause");
+
+	auto scene = HelloWorld::createScene();
+
+	Director::getInstance()->pushScene(TransitionFlipX::create(2, scene));
+}
+
 
 void GameScene::menuCloseCallback(Ref* pSender)
 {
