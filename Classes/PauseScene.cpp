@@ -47,19 +47,16 @@ bool PauseScene::init()
 // go back to previous scene
 void PauseScene::GoBack(cocos2d::Ref *pSender)
 {
-	// pop screen
-    Director::getInstance()->popScene();
-	auto scene = MainMenu::createScene();
-
-	Director::getInstance()->replaceScene(TransitionFlipX::create(1, scene));
-		
+	// pop pause scene
+    Director::getInstance()->popScene();		
 }
 
 // replace scene using transition
 void PauseScene::GoBack2(cocos2d::Ref *pSender)
 {
-    auto scene = MainMenu::createScene();
-    
+	// pop screen & replace game scene
+	Director::getInstance()->popScene();
+    auto scene = MainMenu::createScene();    
 	Director::getInstance()->replaceScene(TransitionFlipX::create(1, scene));
 }
 
