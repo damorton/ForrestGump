@@ -3,6 +3,8 @@
 
 #include "cocos2d.h"
 
+class GameManager;
+
 class GameScene : public cocos2d::Layer
 {
 public:
@@ -24,7 +26,7 @@ public:
 	cocos2d::Sprite *mySprite;
 
 	void Pause(Ref *pSender);
-
+	
 };
 
 #endif // __GAMESCENE_SCENE_H__

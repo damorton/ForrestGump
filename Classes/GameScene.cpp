@@ -6,6 +6,9 @@
 
 USING_NS_CC;
 
+// game manager
+GameManager* m_cGameManager;
+
 Scene* GameScene::createScene()
 {
     // 'scene' is an autorelease object
@@ -17,6 +20,9 @@ Scene* GameScene::createScene()
     // add layer as a child to scene
     scene->addChild(layer);
 		
+	// create the GameManager
+	m_cGameManager = new GameManager();
+
     // return the scene
     return scene;
 }
@@ -58,7 +64,7 @@ bool GameScene::init()
 	WorldManager::getInstance()->getPlayer()->setSprite("Player.png");
 	auto playerSprite = WorldManager::getInstance()->getPlayer()->getSprite();
 	
-    // position the sprite on the center of the screen
+    // position the player on th screen
     mySprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 	
     // add the sprite as a child to this layer
@@ -66,7 +72,7 @@ bool GameScene::init()
 	
 
 	// pause button
-	auto menu_item_pause = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1(HelloWorld::ImageButton, this));
+	auto menu_item_pause = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1(GameScene::Pause, this));
 	menu_item_pause->setPosition(Point(visibleSize.width - 50, visibleSize.height - 50));
 
 	// create menu and add menu items
@@ -91,10 +97,10 @@ bool GameScene::init()
 
 	@param delta time
 */
-void GameScene::update(float delta){
-	
+void GameScene::update(float delta)
+{	
 	// call the game manager update function
-	WorldManager::getInstance()->getGameManager()->update();
+	m_cGameManager->update();
 }
 
 

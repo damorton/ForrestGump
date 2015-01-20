@@ -1,6 +1,5 @@
 #include "WorldManager.h"
 #include "CollisionManager.h"
-#include "GameManager.h"
 #include "EnemyFactory.h"
 #include "Player.h"
 #include "Enemy.h"
@@ -56,8 +55,7 @@ bool WorldManager::init()
 	m_pBoss = m_pIEnemyFactory->createBoss(); // Boss	
 	CollisionManager::getInstance()->registerWithCollisionManager(m_pBoss); // register boss with collision manager
 
-	// create the GameManager
-	m_cGameManager = new GameManager();
+	
 
 	return true;
 }

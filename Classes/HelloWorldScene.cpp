@@ -2,7 +2,6 @@
 #include "NewScene.h"
 #include "GameScene.h"
 #include "WorldManager.h"
-#include "GameManager.h"
 #include "Player.h"
 
 USING_NS_CC;
@@ -17,7 +16,7 @@ Scene* HelloWorld::createScene()
 	
     // add layer as a child to scene
     scene->addChild(layer);
-
+	
     // return the scene
     return scene;
 }
@@ -34,14 +33,7 @@ bool HelloWorld::init()
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-	mySprite = Sprite::create("CloseNormal.png");
-
-	mySprite->setPosition(Point((visibleSize.width / 2) + origin.x, (visibleSize.height / 2) + origin.y));
-
-	this->addChild(mySprite);
-
-
+	
 	// create the main menu items
 	auto menu_item_1 = MenuItemFont::create("Play", CC_CALLBACK_1(HelloWorld::Play, this)); // start the game scene
 	auto menu_item_2 = MenuItemFont::create("Highscores", CC_CALLBACK_1(HelloWorld::Highscores, this)); // push the high scores scene

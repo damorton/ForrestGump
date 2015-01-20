@@ -2,6 +2,7 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
+#include "GameManager.h"
 
 class HelloWorld : public cocos2d::Layer
 {
@@ -25,6 +26,7 @@ public:
 	void Settings(Ref *pSender);
 
 	void ImageButton(Ref *pSender);
+		
 };
 
 #endif // __HELLOWORLD_SCENE_H__
