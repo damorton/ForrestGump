@@ -33,8 +33,7 @@ bool GameScene::init()
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-    
+	  
 
     /////////////////////////////
     // 3. add your codes below...
@@ -52,19 +51,33 @@ bool GameScene::init()
     this->addChild(label, 1);
 
     // add "GameScene" splash screen"
-    auto sprite = Sprite::create("foreground.png");
+    mySprite = Sprite::create("foreground.png");
+	this->addChild(mySprite, 0);
 
+	// player
 	WorldManager::getInstance()->getPlayer()->setSprite("Player.png");
-	
 	auto playerSprite = WorldManager::getInstance()->getPlayer()->getSprite();
 	
     // position the sprite on the center of the screen
-    sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+    mySprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 	
     // add the sprite as a child to this layer
-    this->addChild(sprite, 0);
-	this->addChild(playerSprite, 0);
+    this->addChild(playerSprite, 0);
 	
+
+	// pause button
+	auto menu_item_pause = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1(HelloWorld::ImageButton, this));
+	menu_item_pause->setPosition(Point(visibleSize.width - 50, visibleSize.height - 50));
+
+	// create menu and add menu items
+	auto *menu = Menu::create(menu_item_pause, NULL);
+
+	// position the main menu
+	menu->setPosition(Point(0, 0));
+
+	// add the menu to the scene
+	this->addChild(menu);
+
 	// call the schedule update in order to run this layers update function
 	this->scheduleUpdate();
     return true;
