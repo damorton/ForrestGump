@@ -31,8 +31,8 @@ bool PauseScene::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Point origin = Director::getInstance()->getVisibleOrigin();
     
-    auto menu_item_1 = MenuItemFont::create("Go Back (pop)", CC_CALLBACK_1(PauseScene::GoBack, this));
-    auto menu_item_2 = MenuItemFont::create("Go Back (replaceScene)", CC_CALLBACK_1(PauseScene::GoBack2, this));
+    auto menu_item_1 = MenuItemFont::create("Resume (pop)", CC_CALLBACK_1(PauseScene::GoBack, this));
+    auto menu_item_2 = MenuItemFont::create("Exit (replaceScene)", CC_CALLBACK_1(PauseScene::GoBack2, this));
     
     menu_item_1->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 3) * 2));
     menu_item_2->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 3) * 1));
@@ -49,6 +49,9 @@ void PauseScene::GoBack(cocos2d::Ref *pSender)
 {
 	// pop screen
     Director::getInstance()->popScene();
+	auto scene = MainMenu::createScene();
+
+	Director::getInstance()->replaceScene(TransitionFlipX::create(1, scene));
 		
 }
 

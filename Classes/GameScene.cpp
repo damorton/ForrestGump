@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "MainMenuScene.h"
 #include "NewScene.h"
+#include "PauseScene.h"
 #include "WorldManager.h"
 #include "GameManager.h"
 #include "Player.h"
@@ -110,7 +111,7 @@ void GameScene::Pause(cocos2d::Ref *pSender)
 {
 	CCLOG("Pause");
 
-	auto scene = NewScene::createScene();
+	auto scene = PauseScene::createScene();
 
 	Director::getInstance()->pushScene(TransitionFade::create(1, scene));
 }
