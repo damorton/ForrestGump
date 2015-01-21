@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "MainMenuScene.h"
 #include "NewScene.h"
+#include "EndScene.h"
 #include "PauseScene.h"
 #include "WorldManager.h"
 #include "GameManager.h"
@@ -77,6 +78,9 @@ bool GameScene::init()
 	auto menu_item_pause = MenuItemImage::create("pause11.png", "pause36.png", CC_CALLBACK_1(GameScene::Pause, this));
 	menu_item_pause->setPosition(Point(visibleSize.width - 50, visibleSize.height - 50));
 
+	auto menu_item_endScene = MenuItemImage::create("pause11.png", "pause36.png", CC_CALLBACK_1(GameScene::EndGame, this));
+	menu_item_pause->setPosition(Point(visibleSize.width - 50, 50));
+
 	// create menu and add menu items
 	auto *menu = Menu::create(menu_item_pause, NULL);
 
@@ -114,6 +118,16 @@ void GameScene::Pause(cocos2d::Ref *pSender)
 	auto scene = PauseScene::createScene();
 
 	Director::getInstance()->pushScene(TransitionFade::create(1, scene));
+}
+
+// pause the game and push the main menu scene
+void GameScene::EndGame(cocos2d::Ref *pSender)
+{
+	CCLOG("Pause");
+
+	auto scene = MainMenu::createScene();
+
+	Director::getInstance()->replaceScene(TransitionFade::create(1, scene));
 }
 
 
