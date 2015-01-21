@@ -26,6 +26,7 @@ public:
 	cocos2d::Sprite *mySprite;
 
 	void Pause(Ref *pSender);
+	void EndGame(Ref *pSender);
 	
 };
 
