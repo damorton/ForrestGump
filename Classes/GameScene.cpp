@@ -58,7 +58,7 @@ bool GameScene::init()
     // add the label as a child to this layer
     this->addChild(label, 1);
 
-    // add "GameScene" splash screen"
+    // add foreground to game scene
     mySprite = Sprite::create("foreground.png");
 	this->addChild(mySprite, 0);
 
@@ -77,6 +77,7 @@ bool GameScene::init()
 	auto menu_item_pause = MenuItemImage::create("pause11.png", "pause36.png", CC_CALLBACK_1(GameScene::Pause, this));
 	menu_item_pause->setPosition(Point(visibleSize.width - 50, visibleSize.height - 50));
 
+	// end game button
 	auto menu_item_endScene = MenuItemImage::create("cancel20.png", "cancel20.png", CC_CALLBACK_1(GameScene::EndGame, this));
 	menu_item_endScene->setPosition(Point(visibleSize.width - 50, 50));
 
@@ -109,23 +110,27 @@ void GameScene::update(float delta)
 }
 
 
-// pause the game and push the pause game scene
+/*
+	Pause button creates a new pause scene and pushes it over the game scene
+
+	@param cocos2d::Ref *pSender pointer used by the engine
+*/
 void GameScene::Pause(cocos2d::Ref *pSender)
 {
 	CCLOG("Pause");
-
 	auto scene = PauseScene::createScene();
-
 	Director::getInstance()->pushScene(TransitionFade::create(1, scene));
 }
 
-// replace the game scene with the end game scene
+/*
+	EndGame button creates a new game game scene and replaces the game scene
+
+	@param cocos2d::Ref *pSender pointer used by the engine
+*/
 void GameScene::EndGame(cocos2d::Ref *pSender)
 {
 	CCLOG("End Game");
-
 	auto scene = EndScene::createScene();
-
 	Director::getInstance()->replaceScene(TransitionFade::create(1, scene));
 }
 
