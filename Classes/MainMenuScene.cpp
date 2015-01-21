@@ -1,8 +1,6 @@
 #include "MainMenuScene.h"
-#include "NewScene.h"
 #include "GameScene.h"
 #include "WorldManager.h"
-#include "Player.h"
 
 USING_NS_CC;
 
