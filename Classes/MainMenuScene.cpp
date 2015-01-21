@@ -56,30 +56,56 @@ bool MainMenu::init()
     return true;
 }
 
+/* 
+	Play button creates a new game scene and replaces the main menu.
+
+	@param cocos2d::Ref *pSender pointer used by the engine
+*/
 void MainMenu::Play(cocos2d::Ref *pSender)
 {
 	CCLOG("Play");
-
 	auto scene = GameScene::createScene();
-
 	Director::getInstance()->replaceScene(TransitionFade::create(1, scene));
 }
 
+/*
+	Highscores button creates the highscores scene to display the current scores for 
+	players who have previously played the game.
+
+	@param cocos2d::Ref *pSender pointer used by the engine
+*/
 void MainMenu::Highscores(cocos2d::Ref *pSender)
 {
 	CCLOG("Highscores");
+	//auto scene = MainMenu::createScene();
+	//Director::getInstance()->replaceScene(TransitionFade::create(1, scene));
 }
 
+
+/*
+	Settings button creates the settings scene to modify how the game is rendered and
+	played.
+
+	@param cocos2d::Ref *pSender pointer used by the engine
+*/
 void MainMenu::Settings(cocos2d::Ref *pSender)
 {
 	CCLOG("Settings");	
+	//auto scene = MainMenu::createScene();
+	//Director::getInstance()->replaceScene(TransitionFade::create(1, scene));
 }
 
 
-// image button
+/*
+	ImageButton is an example of how an image can be used as a button.
+
+	@param cocos2d::Ref *pSender pointer used by the engine
+*/
 void MainMenu::ImageButton(cocos2d::Ref *pSender)
 {
 	CCLOG("IMAGE Button");
+	//auto scene = MainMenu::createScene();
+	//Director::getInstance()->replaceScene(TransitionFade::create(1, scene));
 }
 
 
