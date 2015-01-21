@@ -78,7 +78,7 @@ bool GameScene::init()
 	auto menu_item_pause = MenuItemImage::create("pause11.png", "pause36.png", CC_CALLBACK_1(GameScene::Pause, this));
 	menu_item_pause->setPosition(Point(visibleSize.width - 50, visibleSize.height - 50));
 
-	auto menu_item_endScene = MenuItemImage::create("pause11.png", "pause36.png", CC_CALLBACK_1(GameScene::EndGame, this));
+	auto menu_item_endScene = MenuItemImage::create("cancel20.png", "cancel20.png", CC_CALLBACK_1(GameScene::EndGame, this));
 	menu_item_pause->setPosition(Point(visibleSize.width - 50, 50));
 
 	// create menu and add menu items
