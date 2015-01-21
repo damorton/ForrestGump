@@ -68,19 +68,11 @@ void MainMenu::Play(cocos2d::Ref *pSender)
 void MainMenu::Highscores(cocos2d::Ref *pSender)
 {
 	CCLOG("Highscores");
-
-	auto scene = NewScene::createScene();
-
-	Director::getInstance()->replaceScene(TransitionFlipX::create(1, scene));
 }
 
 void MainMenu::Settings(cocos2d::Ref *pSender)
 {
-	CCLOG("Settings");
-	
-	auto scene = NewScene::createScene();
-
-	Director::getInstance()->replaceScene(TransitionFlipX::create(1, scene));
+	CCLOG("Settings");	
 }
 
 
