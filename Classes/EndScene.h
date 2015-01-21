@@ -1,9 +1,9 @@
-#ifndef __NEW_SCENE_H__
-#define __NEW_SCENE_H__
+#ifndef __END_SCENE_H__
+#define __END_SCENE_H__
 
 #include "cocos2d.h"
 
-class NewScene : public cocos2d::Layer
+class EndScene : public cocos2d::Layer
 {
 public:
 	// there's no 'id' in cpp, so we recommend returning the class instance pointer
@@ -16,13 +16,12 @@ public:
 	void menuCloseCallback(cocos2d::Ref* pSender);
 
 	// implement the "static create()" method manually
-	CREATE_FUNC(NewScene);
+	CREATE_FUNC(EndScene);
 
 	cocos2d::Sprite *mySprite;
 
-	void GoBack(Ref *pSender);
-	void GoBack2(Ref *pSender);
+	void MainMenu(Ref *pSender);
 
 };
 
-#endif // __NEW_SCENE_H__
+#endif // __END_SCENE_H__
