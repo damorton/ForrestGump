@@ -31,8 +31,8 @@ bool PauseScene::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Point origin = Director::getInstance()->getVisibleOrigin();
     
-    auto menu_item_1 = MenuItemFont::create("Resume (pop)", CC_CALLBACK_1(PauseScene::GoBack, this));
-    auto menu_item_2 = MenuItemFont::create("Exit (pop & replaceScene)", CC_CALLBACK_1(PauseScene::GoBack2, this));
+    auto menu_item_1 = MenuItemFont::create("Resume Game (pop)", CC_CALLBACK_1(PauseScene::Resume, this));
+    auto menu_item_2 = MenuItemFont::create("Exit to Main Menu (pop/replaceScene)", CC_CALLBACK_1(PauseScene::MainMenu, this));
     
     menu_item_1->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 3) * 2));
     menu_item_2->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 3) * 1));
@@ -44,15 +44,24 @@ bool PauseScene::init()
     return true;
 }
 
-// go back to previous scene
-void PauseScene::GoBack(cocos2d::Ref *pSender)
+/*
+	Resume button pops the pause scene and returns to the game scene
+
+	@param cocos2d::Ref *pSender pointer used by the engine
+*/
+void PauseScene::Resume(cocos2d::Ref *pSender)
 {
 	// pop pause scene
     Director::getInstance()->popScene();		
 }
 
-// replace scene using transition
-void PauseScene::GoBack2(cocos2d::Ref *pSender)
+/*
+	Main menu button pops the pause scene and then replaces the game scene with 
+	a new main menu scene.
+	
+	@param cocos2d::Ref *pSender pointer used by the engine
+*/
+void PauseScene::MainMenu(cocos2d::Ref *pSender)
 {
 	// pop screen & replace game scene
 	Director::getInstance()->popScene();

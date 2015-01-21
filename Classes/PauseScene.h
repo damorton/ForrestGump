@@ -20,8 +20,8 @@ public:
 
 	cocos2d::Sprite *mySprite;
 
-	void GoBack(Ref *pSender);
-	void GoBack2(Ref *pSender);
+	void Resume(Ref *pSender);
+	void MainMenu(Ref *pSender);
 
 };
 
