@@ -66,8 +66,8 @@ bool GameScene::init()
 	WorldManager::getInstance()->getPlayer()->setSprite("Player.png");
 	auto playerSprite = WorldManager::getInstance()->getPlayer()->getSprite();
 	
-    // position the player on th screen
-    mySprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+    // position the player on the screen
+    playerSprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 	
     // add the sprite as a child to this layer
     this->addChild(playerSprite, 0);

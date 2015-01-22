@@ -56,6 +56,8 @@ void Player::update()
 	// update the sprite position
 	Player::m_pCharacterSprite->setPosition(Player::playerPosition);
 	
+	this->m_fPositionX++;
+
 	// set the players bounding box to its Sprite Bounding box
 	Player::setBoundingBox(m_pCharacterSprite->getBoundingBox());
 }
