@@ -1,5 +1,3 @@
-[Images](http://www.cocos2d-x.org/attachments/801/cocos2dx_portrait.png)
-
 Cocos2d-x Game 
 ==================
 
