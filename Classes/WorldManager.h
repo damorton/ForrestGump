@@ -27,7 +27,7 @@ public:
 	std::vector<std::shared_ptr<Enemy>> getEnemyVector(){ return m_pvEnemies; }; // vector of enemies
 	std::shared_ptr<Boss> getBoss(){ return m_pBoss; };	// Boss
 	std::shared_ptr<IEnemyFactory> getEnemyFactory(){ return m_pIEnemyFactory; }; // EnemyFactory Interface
-
+		
 	// setters
 	std::shared_ptr<Player> createPlayer();	// create Player	
 	std::shared_ptr<IEnemyFactory> WorldManager::createEnemyFactory(); // create EnemyFactory
@@ -38,7 +38,7 @@ private:
 	static WorldManager* m_Instance; // WorldManager instance
 	WorldManager(){ this->init(); }; // constructor 
 	~WorldManager(){ this->cleanUp(); }; // deconstructor
-	
+		
 	// store the Game World objects	
 	std::shared_ptr<Player> m_pPlayer; // Player
 	std::shared_ptr<Enemy> m_pEnemy1;

@@ -55,6 +55,8 @@ bool WorldManager::init()
 	m_pBoss = m_pIEnemyFactory->createBoss(); // Boss	
 	CollisionManager::getInstance()->registerWithCollisionManager(m_pBoss); // register boss with collision manager
 
+	
+
 	return true;
 }
 
