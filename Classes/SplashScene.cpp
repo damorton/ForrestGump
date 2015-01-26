@@ -1,6 +1,7 @@
 #include "SplashScene.h"
 #include "MainMenuScene.h"
 #include "Definitions.h"
+#include "WorldManager.h"
 
 USING_NS_CC;
 
@@ -31,14 +32,18 @@ bool Splash::init()
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	WorldManager::getInstance()->setGameScale((visibleSize.width / visibleSize.height));
+
 	this->scheduleOnce(schedule_selector(Splash::goToMainMenuScene), DISPLY_TIME_SPLASH_SCENCE);
 
 	auto splashBackground = Sprite::create("SplashScene/Splash.png");
+	splashBackground->setScale(WorldManager::getInstance()->getGameScale());
 	splashBackground->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(splashBackground);
 
 	auto backgroundSprite = Sprite::create("SplashScene/ForrestGump.png");
 	backgroundSprite->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	backgroundSprite->setScale(WorldManager::getInstance()->getGameScale());
 	this->addChild(backgroundSprite);
 
 	return true;
