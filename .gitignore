@@ -1,6 +1,8 @@
 #ignore folders in the cocos2d project folder
 cocos2d/cocos/2d/Debug.win32/
 cocos2d/cocos/audio/proj.win32/Debug.win32/
+cocos2d/cocos/platform/android/java/bin/
+cocos2d/cocos/platform/android/java/gen/
 cocos2d/external/chipmunk/proj.win32/Debug.win32/
 
 #proj.win32
@@ -10,5 +12,9 @@ proj.win32/*.opensdf
 proj.android/assets/
 proj.android/obj/
 proj.android/libs/
+proj.android/.settings/org.eclipse.jdt.core.prefs
+proj.android/bin/
+proj.android/gen/
+
 
 Resources/Thumbs.db
