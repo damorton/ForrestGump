@@ -75,10 +75,8 @@ bool CollisionManager::checkCollisons()
 			// check the game objects type and cast appropriatly
 			// use std::static_pointer_cast to cast shared pointers
 			std::shared_ptr<Enemy> tempEnemy = std::static_pointer_cast<Enemy>(m_pvGameObjects.at(i));
-			CCLOG("Checking collision between %s and %s",m_pPlayer->getName(), tempEnemy->getName());
 			if (m_pPlayer->getSprite()->getBoundingBox().intersectsRect(tempEnemy->getSprite()->getBoundingBox()))
 			{
-				CCLOG("Collision detected! the %s hit the %s! :/", m_pPlayer->getName(), tempEnemy->getName());
 				return true;
 			}			
 		}
