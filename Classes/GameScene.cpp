@@ -44,16 +44,18 @@ bool GameScene::init()
 	this->addChild(label, 1);
 
 	// add foreground to game scene
-	auto mySprite = Sprite::create("foreground.png");
-	mySprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	this->addChild(mySprite, 0);
+	auto foregroundSprite = Sprite::create("foreground.png"); // sprite image
+	foregroundSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y)); // position
+	foregroundSprite->setScale(WorldManager::getInstance()->getGameScale()); // scale
+	this->addChild(foregroundSprite, 50); // add child
 
 	// player		
-	WorldManager::getInstance()->setPlayer(spPlayer(new Player())); // store shared pointer for player in world manager
-	auto playerSprite = Sprite::create("Player.png"); // create player sprite
-	WorldManager::getInstance()->getPlayer()->setSprite(playerSprite); // set player sprite
-	playerSprite->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2)); // set player sprite position
-	this->addChild(playerSprite); // add player sprite to the layer
+	WorldManager::getInstance()->setPlayer(spPlayer(new Player())); // store shared pointer in world manager
+	auto playerSprite = Sprite::create("Player.png"); // sprite image
+	WorldManager::getInstance()->getPlayer()->setSprite(playerSprite); // set sprite
+	playerSprite->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2)); // position
+	playerSprite->setScale(WorldManager::getInstance()->getGameScale()); // scale
+	this->addChild(playerSprite); // add child
 
 	// pause button
 	auto menu_item_pause = MenuItemImage::create("pause11.png", "pause36.png", CC_CALLBACK_1(GameScene::Pause, this));
