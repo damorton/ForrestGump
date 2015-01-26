@@ -49,8 +49,7 @@ void EndScene::MainMenu(cocos2d::Ref *pSender)
 	auto scene = MainMenu::createScene();
 
 	// replace the end game scene with the main menu
-	Director::getInstance()->replaceScene(TransitionFlipX::create(1, scene));
-		
+	Director::getInstance()->replaceScene(TransitionFlipX::create(1, scene));		
 }
 
 

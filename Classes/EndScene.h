@@ -18,8 +18,6 @@ public:
 	// implement the "static create()" method manually
 	CREATE_FUNC(EndScene);
 
-	cocos2d::Sprite *mySprite;
-
 	void MainMenu(Ref *pSender);
 
 };

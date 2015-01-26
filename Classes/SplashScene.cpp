@@ -41,6 +41,7 @@ bool Splash::init()
 	backgroundSprite->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(backgroundSprite);
 
+	return true;
 }
 
 void Splash::goToMainMenuScene(float dt)
