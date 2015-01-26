@@ -39,12 +39,14 @@ bool GameScene::init()
 
 	// add a label shows "Hello World"
 	// create and initialize a label    
-	auto label = Label::createWithTTF("Game Scene", "Marker Felt.ttf", 18);
+	auto label = LabelTTF::create("Game Scene", "Segoe UI", 18);	
 	label->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height - label->getContentSize().height));
 	this->addChild(label, 1);
 
 	// add foreground to game scene
 	auto foregroundSprite = Sprite::create("foreground.png"); // sprite image
+	foregroundSprite->setScaleX(visibleSize.width / foregroundSprite->getContentSize().width);
+	foregroundSprite->setScaleY(visibleSize.height / foregroundSprite->getContentSize().height);
 	foregroundSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y)); // position
 	this->addChild(foregroundSprite, 50); // add child
 
