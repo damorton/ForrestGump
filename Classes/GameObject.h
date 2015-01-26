@@ -4,13 +4,9 @@
 #include <string>
 
 class GameObject
-{
+{	
 public:
-	typedef enum { OBJECT, WALL, PLAYER, ENEMY, BOSS } EGameOjectType; 	
-protected:	
-	std::string m_strName; 
-	EGameOjectType m_eType; 
-public:
+	typedef enum { OBJECT, WALL, PLAYER, ENEMY, BOSS } EGameOjectType;
 	GameObject(){ this->init(); };
 	virtual bool init();
 
@@ -18,11 +14,13 @@ public:
 	virtual void cleanUp();
 
 	std::string getName(){ return m_strName; };
-	void setName(std::string name){ m_strName = name; };
-
 	EGameOjectType getType(){ return m_eType; };
-	
+
+	void setName(std::string name){ m_strName = name; };	
 	void setType(EGameOjectType type){ m_eType = type; };
+protected:
+	std::string m_strName;
+	EGameOjectType m_eType;
 };
 
 #endif

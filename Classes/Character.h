@@ -1,7 +1,6 @@
 #ifndef CHARACTER_H_
 #define CHARACTER_H_
 
-// includes
 #include "GameObject.h"
 #include "cocos2d.h"
 
@@ -10,19 +9,19 @@ USING_NS_CC;
 class Character : public GameObject
 {
 protected:
-	Sprite* m_pSprite; // cocos Sprite
+	Sprite* m_pSprite; 
 public:
-	Character(){ this->init(); }; // constructor
-	~Character(){ this->cleanUp(); }; // deconstructor	
-	
-	virtual bool init(); // initialization
-	virtual void cleanUp(); // delete Character 
+	Character(){ this->init(); }; 
+	virtual bool init();
+
+	virtual ~Character(){ this->cleanUp(); }; 
+	virtual void cleanUp();  
 
 	// getters
-	virtual cocos2d::Sprite* getSprite(){ return m_pSprite; }; // return sprite info
+	virtual cocos2d::Sprite* getSprite(){ return m_pSprite; }; 
 
 	// setters
-	virtual void setSprite(Sprite* sprite){ m_pSprite = sprite; }; // set sprite info
+	virtual void setSprite(Sprite* sprite){ m_pSprite = sprite; }; 
 };
 
 #endif
