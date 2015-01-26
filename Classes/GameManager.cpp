@@ -6,7 +6,6 @@
 #include "CollisionManager.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "Boss.h"
 
 /*
 	Initialization

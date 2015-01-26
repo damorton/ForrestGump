@@ -1,6 +1,4 @@
-
 #include "EnemyFactory.h"
-#include "Boss.h"
 
 /*
 	Initialization
@@ -9,9 +7,6 @@
 */
 bool EnemyFactory::init()
 {
-#ifdef _DEBUG
-	CCLOG("EnemyFactory::init() called");
-#endif
 	return true;
 }
 
