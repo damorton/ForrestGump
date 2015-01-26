@@ -46,7 +46,6 @@ bool GameScene::init()
 	// add foreground to game scene
 	auto foregroundSprite = Sprite::create("foreground.png"); // sprite image
 	foregroundSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y)); // position
-	foregroundSprite->setScale(WorldManager::getInstance()->getGameScale()); // scale
 	this->addChild(foregroundSprite, 50); // add child
 
 	// player		
@@ -54,7 +53,6 @@ bool GameScene::init()
 	auto playerSprite = Sprite::create("Player.png"); // sprite image
 	WorldManager::getInstance()->getPlayer()->setSprite(playerSprite); // set sprite
 	playerSprite->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2)); // position
-	playerSprite->setScale(WorldManager::getInstance()->getGameScale()); // scale
 	this->addChild(playerSprite); // add child
 
 	// pause button
