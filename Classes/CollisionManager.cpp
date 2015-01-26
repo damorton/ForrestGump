@@ -1,7 +1,8 @@
 #include <iostream>
 #include "CollisionManager.h"
+#include "GameObject.h"
 #include "Player.h"
-#include "Boss.h"
+#include "Enemy.h"
 
 CollisionManager* CollisionManager::m_Instance = 0;
 
@@ -69,27 +70,13 @@ bool CollisionManager::checkCollisons()
 	for (int i = 0; i < (int) m_pvGameObjects.size(); i++)
 	{		
 		// enemy game object
-		if (m_pvGameObjects.at(i)->getType() == EGameOjectType::ENEMY)
+		if (m_pvGameObjects.at(i)->getType() == GameObject::ENEMY)
 		{
 			// check the game objects type and cast appropriatly
 			// use std::static_pointer_cast to cast shared pointers
 			std::shared_ptr<Enemy> tempEnemy = std::static_pointer_cast<Enemy>(m_pvGameObjects.at(i));
 			CCLOG("Checking collision between %s and %s",m_pPlayer->getName(), tempEnemy->getName());
-			if (m_pPlayer->collidesWith(tempEnemy))
-			{
-				CCLOG("Collision detected! the %s hit the %s! :/", m_pPlayer->getName(), tempEnemy->getName());
-				return true;
-			}			
-		}
-
-		// boss game object
-		if (m_pvGameObjects.at(i)->getType() == EGameOjectType::BOSS)
-		{
-			// check the game objects type and cast appropriatly
-			// use std::static_pointer_cast to cast shared pointers
-			std::shared_ptr<Enemy> tempEnemy = std::static_pointer_cast<Enemy>(m_pvGameObjects.at(i));
-			CCLOG("Checking collision between %s and %s", m_pPlayer->getName(), tempEnemy->getName());
-			if (m_pPlayer->collidesWith(tempEnemy))
+			if (m_pPlayer->getSprite()->getBoundingBox().intersectsRect(tempEnemy->getSprite()->getBoundingBox()))
 			{
 				CCLOG("Collision detected! the %s hit the %s! :/", m_pPlayer->getName(), tempEnemy->getName());
 				return true;

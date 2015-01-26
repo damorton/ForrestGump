@@ -5,8 +5,9 @@
 
 class GameObject
 {
-protected:
-	typedef enum { OBJECT, WALL, PLAYER, ENEMY, BOSS } EGameOjectType; 	// enum to store game object types
+public:
+	typedef enum { OBJECT, WALL, PLAYER, ENEMY, BOSS } EGameOjectType; 	
+protected:	
 	std::string m_strName; 
 	EGameOjectType m_eType; 
 public:
