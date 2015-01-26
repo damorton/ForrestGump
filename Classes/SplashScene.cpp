@@ -37,15 +37,10 @@ bool Splash::init()
 
 	auto splashBackground = Sprite::create("SplashScene/Splash.png");
 	splashBackground->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	//WorldManager::getInstance()
-	splashBackground->setScaleX(visibleSize.width / splashBackground->getContentSize().width);
-	splashBackground->setScaleY(visibleSize.height / splashBackground->getContentSize().height);
 	this->addChild(splashBackground);
 
 	auto backgroundSprite = Sprite::create("SplashScene/ForrestGump.png");
 	backgroundSprite->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	backgroundSprite->setScaleX(visibleSize.width / backgroundSprite->getContentSize().width);
-	backgroundSprite->setScaleY(visibleSize.height / backgroundSprite->getContentSize().height);
 	this->addChild(backgroundSprite);
 
 	return true;

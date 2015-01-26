@@ -45,16 +45,14 @@ bool GameScene::init()
 
 	// add foreground to game scene
 	auto foregroundSprite = Sprite::create("foreground.png"); // sprite image
-	foregroundSprite->setScaleX(visibleSize.width / foregroundSprite->getContentSize().width);
-	foregroundSprite->setScaleY(visibleSize.height / foregroundSprite->getContentSize().height);
-	foregroundSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y)); // position
+	foregroundSprite->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y)); // position
 	this->addChild(foregroundSprite, 50); // add child
 
 	// player		
 	WorldManager::getInstance()->setPlayer(spPlayer(new Player())); // store shared pointer in world manager
 	auto playerSprite = Sprite::create("Player.png"); // sprite image
 	WorldManager::getInstance()->getPlayer()->setSprite(playerSprite); // set sprite
-	playerSprite->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2)); // position
+	playerSprite->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2)); // position
 	this->addChild(playerSprite); // add child
 
 	// pause button

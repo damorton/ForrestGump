@@ -11,14 +11,19 @@ AppDelegate::~AppDelegate()
 {
 }
 
+static cocos2d::CCSize designResolutionSize = cocos2d::CCSizeMake(480, 320);
+
 bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
+
     if(!glview) {
-        glview = GLView::create("Forrest Gump");
+        glview = GLView::create("Forrest Gump");		
         director->setOpenGLView(glview);
     }
+
+	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionNoBorder);
 
     // turn on display FPS
     director->setDisplayStats(true);
