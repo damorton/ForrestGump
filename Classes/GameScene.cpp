@@ -39,7 +39,7 @@ bool GameScene::init()
 
 	// add a label shows "Hello World"
 	// create and initialize a label    
-	auto label = LabelTTF::create("Game Scene", "Helvetica", 18);
+	auto label = Label::createWithTTF("Game Scene", "Marker Felt.ttf", 18);
 	label->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height - label->getContentSize().height));
 	this->addChild(label, 1);
 

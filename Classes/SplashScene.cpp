@@ -36,7 +36,7 @@ bool Splash::init()
 	this->scheduleOnce(schedule_selector(Splash::goToMainMenuScene), DISPLY_TIME_SPLASH_SCENCE);
 
 	auto splashBackground = Sprite::create("SplashScene/Splash.png");
-	splashBackground->setScale(WorldManager::getInstance()->getGameScale());
+	splashBackground->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(splashBackground);
 
 	auto backgroundSprite = Sprite::create("SplashScene/ForrestGump.png");
