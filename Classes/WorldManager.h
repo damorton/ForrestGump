@@ -2,37 +2,35 @@
 #define WORLDMANAGER_H_
 
 //includes
-#include <vector>
 #include <memory>
-
-// forward declarations
-class Player;
-class Enemy;
-class Boss;
-class IEnemyFactory;
+#include "Player.h"
+#include "Enemy.h"
+#include "Boss.h"
+#include "EnemyFactory.h"
  
-/*
-	WorldManager Singleton
-*/
-
 class WorldManager
 {
-
 public:
-	virtual bool init();	// initialization
+	// typedefs
+	typedef std::shared_ptr<Player> spPlayer;
+	typedef std::shared_ptr<Enemy> spEnemy;
+	typedef std::shared_ptr<Boss> spBoss;
+
 	static WorldManager* getInstance(); // WorldManager instance
+	virtual bool init();	// initialization
+	virtual void cleanUp(); // delete WorldManager and stored objects
 	
 	// getters
-	std::shared_ptr<Player> getPlayer(){ return m_pPlayer; }; // player
-	std::vector<std::shared_ptr<Enemy>> getEnemyVector(){ return m_pvEnemies; }; // vector of enemies
-	std::shared_ptr<Boss> getBoss(){ return m_pBoss; };	// Boss
-	std::shared_ptr<IEnemyFactory> getEnemyFactory(){ return m_pIEnemyFactory; }; // EnemyFactory Interface
-		
-	// setters
-	std::shared_ptr<Player> createPlayer();	// create Player	
-	std::shared_ptr<IEnemyFactory> WorldManager::createEnemyFactory(); // create EnemyFactory
+	spPlayer getPlayer(){ return m_pPlayer; }; // player
+	spEnemy getEnemy(){ return m_pEnemy; };
+	spBoss getBoss(){ return m_pBoss; };	// Boss
+	
 
-	virtual void cleanUp(); // delete WorldManager and stored objects
+	// setters
+	void setPlayer(spPlayer player){ m_pPlayer = player; };
+	void setEnemy(spEnemy enemy){ m_pEnemy = enemy; };
+	void setBoss(spBoss Boss){ m_pBoss = Boss; };
+	
 
 private:
 	static WorldManager* m_Instance; // WorldManager instance
@@ -40,13 +38,10 @@ private:
 	~WorldManager(){ this->cleanUp(); }; // deconstructor
 		
 	// store the Game World objects	
-	std::shared_ptr<Player> m_pPlayer; // Player
-	std::shared_ptr<Enemy> m_pEnemy1;
-	std::shared_ptr<Enemy> m_pEnemy2;
-	std::shared_ptr<Enemy> m_pEnemy3;
-	std::shared_ptr<IEnemyFactory> m_pIEnemyFactory; // EnemyFactory
-	std::vector<std::shared_ptr<Enemy>> m_pvEnemies; // Enemy vector
-	std::shared_ptr<Boss> m_pBoss; // Boss	
+	spPlayer m_pPlayer; // Player
+	spEnemy m_pEnemy; // Enemy		
+	spBoss m_pBoss; // Boss	
+	
 };
 
 #endif

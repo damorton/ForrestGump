@@ -2,7 +2,6 @@
 #define __MAINMENU_SCENE_H__
 
 #include "cocos2d.h"
-#include "GameManager.h"
 
 class MainMenu : public cocos2d::Layer
 {

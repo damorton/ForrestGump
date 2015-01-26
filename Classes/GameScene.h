@@ -22,9 +22,7 @@ public:
     
     // implement the "static create()" method manually
     CREATE_FUNC(GameScene);
-
-	cocos2d::Sprite *mySprite;
-
+		
 	void Pause(Ref *pSender);
 	void EndGame(Ref *pSender);
 	

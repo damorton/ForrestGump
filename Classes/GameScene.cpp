@@ -1,15 +1,13 @@
 #include "GameScene.h"
-#include "MainMenuScene.h"
-#include "EndScene.h"
-#include "PauseScene.h"
 #include "WorldManager.h"
-#include "GameManager.h"
+#include "MainMenuScene.h"
+#include "PauseScene.h"
+#include "EndScene.h"
 #include "Player.h"
 
 USING_NS_CC;
 
-// game manager
-GameManager* m_cGameManager;
+typedef std::shared_ptr<Player> spPlayer;
 
 Scene* GameScene::createScene()
 {
@@ -21,9 +19,6 @@ Scene* GameScene::createScene()
 
 	// add layer as a child to scene
 	scene->addChild(layer);
-
-	// create the GameManager
-	m_cGameManager = new GameManager();
 
 	// return the scene
 	return scene;
@@ -53,11 +48,12 @@ bool GameScene::init()
 	mySprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(mySprite, 0);
 
-	// player
-	WorldManager::getInstance()->getPlayer()->setSprite("Player.png");
-	auto playerSprite = WorldManager::getInstance()->getPlayer()->getSprite();
-	playerSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	this->addChild(playerSprite, 0);
+	// player		
+	WorldManager::getInstance()->setPlayer(spPlayer(new Player())); // store shared pointer for player in world manager
+	auto playerSprite = Sprite::create("Player.png"); // create player sprite
+	WorldManager::getInstance()->getPlayer()->setSprite(playerSprite); // set player sprite
+	playerSprite->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2)); // set player sprite position
+	this->addChild(playerSprite); // add player sprite to the layer
 
 	// pause button
 	auto menu_item_pause = MenuItemImage::create("pause11.png", "pause36.png", CC_CALLBACK_1(GameScene::Pause, this));
@@ -77,25 +73,20 @@ bool GameScene::init()
 	return true;
 }
 
-/*
-The hello world upate function is calling the game managers
-update function 60 times per second or whatever the fps is set
-to. This is the game loop implementation because if a seperate loop was added to the
-game managers update function the application would be caught in an infinite loop.
-
-@param delta time
-*/
 void GameScene::update(float delta)
 {
-	// call the game manager update function
-	m_cGameManager->update();
+	CCLOG("-------------GAME LOOP START--------------");
+	// call the player update
+	WorldManager::getInstance()->getPlayer()->update();
+	
+	CCLOG("-------------GAME LOOP END--------------");
 }
 
 
 /*
-Pause button creates a new pause scene and pushes it over the game scene
-
-@param cocos2d::Ref *pSender pointer used by the engine
+	Pause button creates a new pause scene and pushes it over the game scene
+	
+	@param cocos2d::Ref *pSender pointer used by the engine
 */
 void GameScene::Pause(cocos2d::Ref *pSender)
 {
@@ -105,9 +96,9 @@ void GameScene::Pause(cocos2d::Ref *pSender)
 }
 
 /*
-EndGame button creates a new game game scene and replaces the game scene
-
-@param cocos2d::Ref *pSender pointer used by the engine
+	EndGame button creates a new game game scene and replaces the game scene
+	
+	@param cocos2d::Ref *pSender pointer used by the engine
 */
 void GameScene::EndGame(cocos2d::Ref *pSender)
 {
@@ -124,8 +115,8 @@ void GameScene::menuCloseCallback(Ref* pSender)
 	return;
 #endif
 
-	Director::getInstance()->end();
-
+	WorldManager::getInstance()->cleanUp(); // close world manager
+	Director::getInstance()->end(); // close director 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	exit(0);
 #endif
