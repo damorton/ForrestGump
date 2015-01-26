@@ -25,7 +25,7 @@ public:
 
 	// check for collisions between the player and all other game objects
 	bool checkCollisons();
-	virtual void cleanUp(); // delete CollisionManager
+	void cleanUp(); // delete CollisionManager
 
 	// getters 
 	std::shared_ptr<Player> getPlayer(){ return m_pPlayer; }; // player

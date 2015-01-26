@@ -7,8 +7,8 @@ class GameObject
 {
 protected:
 	typedef enum { OBJECT, WALL, PLAYER, ENEMY, BOSS } EGameOjectType; 	// enum to store game object types
-	std::string m_strName; // name of the object
-	EGameOjectType m_eType; // type of game object
+	std::string m_strName; 
+	EGameOjectType m_eType; 
 public:
 	GameObject(){ this->init(); };
 	virtual bool init();

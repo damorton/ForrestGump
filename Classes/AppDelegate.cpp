@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "MainMenuScene.h"
+#include "SplashScene.h"
 
 USING_NS_CC;
 
@@ -16,7 +16,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-        glview = GLView::create("My Game");
+        glview = GLView::create("Forrest Gump");
         director->setOpenGLView(glview);
     }
 
@@ -27,7 +27,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0 / 60);
 
     // create a scene. it's an autorelease object
-    auto scene = MainMenu::createScene();
+    auto scene = Splash::createScene();
 
     // run
     director->runWithScene(scene);

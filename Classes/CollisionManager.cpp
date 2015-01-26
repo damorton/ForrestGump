@@ -1,17 +1,10 @@
-// includes 
 #include <iostream>
 #include "CollisionManager.h"
 #include "Player.h"
 #include "Boss.h"
 
-// implementation
 CollisionManager* CollisionManager::m_Instance = 0;
 
-/*
-	Get instance of CollisionManager Singleton
-
-	@return CollisionManager instance
-*/
 CollisionManager* CollisionManager::getInstance()
 {
 	// if the pointer is null set it to an instance 

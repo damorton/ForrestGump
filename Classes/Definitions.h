@@ -1,0 +1,19 @@
+#ifndef __DEFINITIONS_H__
+#define __DEFINITIONS_H__
+
+// definitions for RnG
+
+#define DISPLY_TIME_SPLASH_SCENCE 2
+#define TRANSITION_TIME 0.5
+#define PIPE_SPAWN_FREQ 0.0005
+
+#define	PIPE_GAP 5
+#define	UPPER_SCRENE_PIPE_THRESHOLD 0.75
+#define	LOWER_SCRENE_PIPE_THRESHOLD 0.25
+
+#define PIPE_MOVEMENT_SPEED 0.005
+
+#define SCROLL_SPEED 0.005
+
+
+#endif// __DEFINITIONS_H__
