@@ -9,5 +9,6 @@ proj.win32/*.sdf
 proj.win32/*.opensdf
 proj.android/assets/
 proj.android/obj/
+proj.android/libs/
 
 Resources/Thumbs.db
