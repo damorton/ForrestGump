@@ -37,21 +37,23 @@ bool GameScene::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+	CCLOG("Game scene : %f x %f", visibleSize.width, visibleSize.height);
+
 	// add a label shows "Hello World"
-	// create and initialize a label    
-	auto label = LabelTTF::create("Game Scene", "Segoe UI", 18);	
+	// create and initialize a label    	
+	auto label = LabelTTF::create("Game Scene", "Segoe UI", (visibleSize.width / 1920) * 72);		
 	label->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height - label->getContentSize().height));
 	this->addChild(label, 1);
 		
 	auto gameBackground = Sprite::create("gameBackground.png"); // sprite image
-	gameBackground->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y)); // position
+	gameBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(gameBackground, -50); // add child
 
 	// player		
 	WorldManager::getInstance()->setPlayer(spPlayer(new Player())); // store shared pointer in world manager
 	auto playerSprite = Sprite::create("Player.png"); // sprite image
 	WorldManager::getInstance()->getPlayer()->setSprite(playerSprite); // set sprite
-	playerSprite->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2)); // position
+	playerSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(playerSprite, 0); // add child
 
 	// pause button
@@ -76,7 +78,7 @@ void GameScene::update(float delta)
 {
 	CCLOG("-------------GAME LOOP START--------------");
 	// call the player update
-	WorldManager::getInstance()->getPlayer()->update();
+	//WorldManager::getInstance()->getPlayer()->update();
 	
 	CCLOG("-------------GAME LOOP END--------------");
 }

@@ -1,6 +1,5 @@
 #include "AppDelegate.h"
 #include "SplashScene.h"
-#include <string>
 
 USING_NS_CC;
 
@@ -11,12 +10,6 @@ AppDelegate::AppDelegate() {
 AppDelegate::~AppDelegate() 
 {
 }
-
-typedef struct tagResource
-{
-	Size size;
-	std::string directory;
-}Resource;
 
 bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
@@ -39,13 +32,15 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	auto screenSize = glview->getFrameSize();
 	std::vector<std::string> resourceDir;
 
-	//glview->setDesignResolutionSize(480, 320, ResolutionPolicy::NO_BORDER);
+	glview->setDesignResolutionSize(1280, 800, ResolutionPolicy::NO_BORDER);
+
 
 	// check which assets the devices requires
 	if (1920 >= screenSize.width || 1920 >= screenSize.height)
 	{
-		resourceDir.push_back("nexus7");
+		
 		resourceDir.push_back("s4");
+		resourceDir.push_back("nexus7");
 		
 		glview->setDesignResolutionSize(1920, 1080, ResolutionPolicy::NO_BORDER);
 	}	
