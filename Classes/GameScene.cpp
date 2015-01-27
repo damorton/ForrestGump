@@ -41,13 +41,16 @@ bool GameScene::init()
 
 	// add a label shows "Hello World"
 	// create and initialize a label    	
-	auto label = LabelTTF::create("Game Scene", "Segoe UI", (visibleSize.width / 1920) * 72);		
+	auto label = LabelTTF::create("Game Scene", "Segoe UI", FONT_SIZE);		
 	label->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height - label->getContentSize().height));
 	this->addChild(label, 1);
 		
 	auto gameBackground = Sprite::create("gameBackground.png"); // sprite image
 	gameBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(gameBackground, -50); // add child
+
+	// TMX map
+
 
 	// player		
 	WorldManager::getInstance()->setPlayer(spPlayer(new Player())); // store shared pointer in world manager
@@ -58,11 +61,13 @@ bool GameScene::init()
 
 	// pause button
 	auto menu_item_pause = MenuItemImage::create("pause11.png", "pause36.png", CC_CALLBACK_1(GameScene::Pause, this));
-	menu_item_pause->setPosition(Point(visibleSize.width - 50, visibleSize.height - 50));
+	menu_item_pause->setPosition(Vec2(origin.x + visibleSize.width - menu_item_pause->getContentSize().width/2,
+		origin.y + visibleSize.height - menu_item_pause->getContentSize().height / 2));
 
 	// end game button
-	auto menu_item_endScene = MenuItemImage::create("cancel20.png", "cancel20.png", CC_CALLBACK_1(GameScene::EndGame, this));
-	menu_item_endScene->setPosition(Point(visibleSize.width - 50, 50));
+	auto menu_item_endScene = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1(GameScene::EndGame, this));
+	menu_item_endScene->setPosition(Vec2(origin.x + visibleSize.width - menu_item_endScene->getContentSize().width / 2,
+		origin.y + menu_item_endScene->getContentSize().height / 2));
 
 	// create menu, add menu items and add to the game scene
 	auto *menu = Menu::create(menu_item_pause, menu_item_endScene, NULL);
