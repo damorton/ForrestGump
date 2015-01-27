@@ -47,7 +47,7 @@ bool MainMenu::init()
 	auto *menu = Menu::create(menu_item_1, menu_item_2, menu_item_3, NULL);
 
 	// position the main menu
-	menu->setPosition(Point(0, 0));
+	menu->setPosition(Vec2::ZERO);
 
 	// add the menu to the scene
 	this->addChild(menu);

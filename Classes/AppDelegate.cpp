@@ -11,15 +11,7 @@ AppDelegate::~AppDelegate()
 {
 }
 
-typedef struct tagResource
-{
-	cocos2d::CCSize size;
-	char directory[100];
-}Resource;
 
-static Resource nexus7Resource = { cocos2d::CCSizeMake(1280, 800), "nexus7" };
-static Resource s4Resource = { cocos2d::CCSizeMake(1920, 1080), "s4" };
-static cocos2d::CCSize designResolutionSize = cocos2d::CCSizeMake(1280, 800);
 
 bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
@@ -37,28 +29,30 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
 
+	// Set the design resolution
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
+	// a bug in DirectX 11 level9-x on the device prevents ResolutionPolicy::NO_BORDER from working correctly
+	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::SHOW_ALL);
+#else
 	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
+#endif
+
 	auto fileUtils = FileUtils::getInstance();
 	auto screenSize = glview->getFrameSize();
 	std::vector<std::string> resourceDir;
 
-	// check which assets the devices requires
 	if (screenSize.height > nexus7Resource.size.height)
 	{
-				
-		resourceDir.push_back("s4");		
-		resourceDir.push_back("nexus7");
-		
-		director->setContentScaleFactor(s4Resource.size.height / designResolutionSize.height);
-		glview->setDesignResolutionSize(1920, 1080, ResolutionPolicy::NO_BORDER);		
+		resourceDir.push_back(s4Resource.directory);
 
-	}	
+		director->setContentScaleFactor(s4Resource.size.height / designResolutionSize.height);
+	}
+	// if the frame's height is smaller than the height of medium resource size, select small resource.
 	else
 	{
-		resourceDir.push_back("nexus7");
+		resourceDir.push_back(nexus7Resource.directory);
 
 		director->setContentScaleFactor(nexus7Resource.size.height / designResolutionSize.height);
-		glview->setDesignResolutionSize(1280, 800, ResolutionPolicy::NO_BORDER);
 	}
 
 	fileUtils->setSearchPaths(resourceDir);
