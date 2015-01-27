@@ -50,8 +50,7 @@ bool GameScene::init()
 	this->addChild(gameBackground, -50); // add child
 
 	// TMX map
-
-
+	
 	// player		
 	WorldManager::getInstance()->setPlayer(spPlayer(new Player())); // store shared pointer in world manager
 	auto playerSprite = Sprite::create("Player.png"); // sprite image
@@ -60,17 +59,12 @@ bool GameScene::init()
 	this->addChild(playerSprite, 0); // add child
 
 	// pause button
-	auto menu_item_pause = MenuItemImage::create("pause11.png", "pause36.png", CC_CALLBACK_1(GameScene::Pause, this));
+	auto menu_item_pause = MenuItemImage::create("PauseNormal.png", "PauseSelected.png", CC_CALLBACK_1(GameScene::Pause, this));
 	menu_item_pause->setPosition(Vec2(origin.x + visibleSize.width - menu_item_pause->getContentSize().width/2,
 		origin.y + visibleSize.height - menu_item_pause->getContentSize().height / 2));
-
-	// end game button
-	auto menu_item_endScene = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1(GameScene::EndGame, this));
-	menu_item_endScene->setPosition(Vec2(origin.x + visibleSize.width - menu_item_endScene->getContentSize().width / 2,
-		origin.y + menu_item_endScene->getContentSize().height / 2));
-
+	
 	// create menu, add menu items and add to the game scene
-	auto *menu = Menu::create(menu_item_pause, menu_item_endScene, NULL);
+	auto *menu = Menu::create(menu_item_pause, NULL);
 	menu->setPosition(Point(0, 0));
 	this->addChild(menu);
 
