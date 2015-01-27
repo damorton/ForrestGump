@@ -37,17 +37,18 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
 #endif
 
-	auto fileUtils = FileUtils::getInstance();
-	auto screenSize = glview->getFrameSize();
-	std::vector<std::string> resourceDir;
+	auto fileUtils = FileUtils::getInstance(); // get the file utilities
+	auto screenSize = glview->getFrameSize(); // get the devices screen size
+	std::vector<std::string> resourceDir; // add the file path for resources for the file utilities
 
+	// galaxy s4 resources
 	if (screenSize.height > nexus7Resource.size.height)
 	{
 		resourceDir.push_back(s4Resource.directory);
 
 		director->setContentScaleFactor(s4Resource.size.height / designResolutionSize.height);
 	}
-	// if the frame's height is smaller than the height of medium resource size, select small resource.
+	// nexus 7 resources
 	else
 	{
 		resourceDir.push_back(nexus7Resource.directory);
@@ -55,6 +56,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 		director->setContentScaleFactor(nexus7Resource.size.height / designResolutionSize.height);
 	}
 
+	// add the directories to the file utilities
 	fileUtils->setSearchPaths(resourceDir);
 
     // create a scene. it's an autorelease object
