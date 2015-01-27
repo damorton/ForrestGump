@@ -1,5 +1,6 @@
 #include "AppDelegate.h"
 #include "SplashScene.h"
+#include <string>
 
 USING_NS_CC;
 
@@ -11,7 +12,11 @@ AppDelegate::~AppDelegate()
 {
 }
 
-static cocos2d::CCSize designResolutionSize = cocos2d::CCSizeMake(480, 320);
+typedef struct tagResource
+{
+	Size size;
+	std::string directory;
+}Resource;
 
 bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
@@ -23,13 +28,35 @@ bool AppDelegate::applicationDidFinishLaunching() {
         director->setOpenGLView(glview);
     }
 
-	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionNoBorder);
-
     // turn on display FPS
     director->setDisplayStats(true);
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
+
+
+	auto fileUtils = FileUtils::getInstance();
+	auto screenSize = glview->getFrameSize();
+	std::vector<std::string> resourceDir;
+
+	//glview->setDesignResolutionSize(480, 320, ResolutionPolicy::NO_BORDER);
+
+	// check which assets the devices requires
+	if (1920 >= screenSize.width || 1920 >= screenSize.height)
+	{
+		resourceDir.push_back("nexus7");
+		resourceDir.push_back("s4");
+		
+		glview->setDesignResolutionSize(1920, 1080, ResolutionPolicy::NO_BORDER);
+	}	
+	else
+	{
+		resourceDir.push_back("nexus7");
+
+		glview->setDesignResolutionSize(1280, 800, ResolutionPolicy::NO_BORDER);
+	}
+
+	fileUtils->setSearchPaths(resourceDir);
 
     // create a scene. it's an autorelease object
     auto scene = Splash::createScene();

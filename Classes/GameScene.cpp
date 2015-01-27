@@ -42,18 +42,17 @@ bool GameScene::init()
 	auto label = LabelTTF::create("Game Scene", "Segoe UI", 18);	
 	label->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height - label->getContentSize().height));
 	this->addChild(label, 1);
-
-	// add foreground to game scene
-	auto foregroundSprite = Sprite::create("foreground.png"); // sprite image
-	foregroundSprite->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y)); // position
-	this->addChild(foregroundSprite, 50); // add child
+		
+	auto gameBackground = Sprite::create("gameBackground.png"); // sprite image
+	gameBackground->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y)); // position
+	this->addChild(gameBackground, -50); // add child
 
 	// player		
 	WorldManager::getInstance()->setPlayer(spPlayer(new Player())); // store shared pointer in world manager
 	auto playerSprite = Sprite::create("Player.png"); // sprite image
 	WorldManager::getInstance()->getPlayer()->setSprite(playerSprite); // set sprite
 	playerSprite->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2)); // position
-	this->addChild(playerSprite); // add child
+	this->addChild(playerSprite, 0); // add child
 
 	// pause button
 	auto menu_item_pause = MenuItemImage::create("pause11.png", "pause36.png", CC_CALLBACK_1(GameScene::Pause, this));

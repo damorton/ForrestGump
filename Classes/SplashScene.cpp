@@ -35,11 +35,11 @@ bool Splash::init()
 
 	this->scheduleOnce(schedule_selector(Splash::goToMainMenuScene), DISPLY_TIME_SPLASH_SCENCE);
 
-	auto splashBackground = Sprite::create("SplashScene/Splash.png");
+	auto splashBackground = Sprite::create("Splash.png");
 	splashBackground->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(splashBackground);
 
-	auto backgroundSprite = Sprite::create("SplashScene/ForrestGump.png");
+	auto backgroundSprite = Sprite::create("ForrestGump.png");
 	backgroundSprite->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(backgroundSprite);
 
