@@ -76,11 +76,11 @@ bool GameScene::init()
 
 void GameScene::update(float delta)
 {
-	CCLOG("-------------GAME LOOP START--------------");
+	//CCLOG("-------------GAME LOOP START--------------");
 	// call the player update
 	//WorldManager::getInstance()->getPlayer()->update();
 	
-	CCLOG("-------------GAME LOOP END--------------");
+	//CCLOG("-------------GAME LOOP END--------------");
 }
 
 

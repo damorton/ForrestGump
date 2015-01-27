@@ -11,6 +11,16 @@ AppDelegate::~AppDelegate()
 {
 }
 
+typedef struct tagResource
+{
+	cocos2d::CCSize size;
+	char directory[100];
+}Resource;
+
+static Resource nexus7Resource = { cocos2d::CCSizeMake(1280, 800), "nexus7" };
+static Resource s4Resource = { cocos2d::CCSizeMake(1920, 1080), "s4" };
+static cocos2d::CCSize designResolutionSize = cocos2d::CCSizeMake(1280, 800);
+
 bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
     auto director = Director::getInstance();
@@ -27,27 +37,27 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
 
-
+	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
 	auto fileUtils = FileUtils::getInstance();
 	auto screenSize = glview->getFrameSize();
 	std::vector<std::string> resourceDir;
 
-	glview->setDesignResolutionSize(1280, 800, ResolutionPolicy::NO_BORDER);
-
-
 	// check which assets the devices requires
-	if (1920 >= screenSize.width || 1920 >= screenSize.height)
+	if (screenSize.height > nexus7Resource.size.height)
 	{
-		
-		resourceDir.push_back("s4");
+				
+		resourceDir.push_back("s4");		
 		resourceDir.push_back("nexus7");
 		
-		glview->setDesignResolutionSize(1920, 1080, ResolutionPolicy::NO_BORDER);
+		director->setContentScaleFactor(s4Resource.size.height / designResolutionSize.height);
+		glview->setDesignResolutionSize(1920, 1080, ResolutionPolicy::NO_BORDER);		
+
 	}	
 	else
 	{
 		resourceDir.push_back("nexus7");
 
+		director->setContentScaleFactor(nexus7Resource.size.height / designResolutionSize.height);
 		glview->setDesignResolutionSize(1280, 800, ResolutionPolicy::NO_BORDER);
 	}
 
