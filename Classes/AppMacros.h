@@ -35,16 +35,9 @@ typedef struct tagResource
 	char directory[100];
 }Resource;
 
-static Resource nexus7Resource = { cocos2d::CCSizeMake(1280, 800), "nexus7" };
-static Resource s4Resource = { cocos2d::CCSizeMake(1920, 1080), "s4" };
-
-#if (TARGET_DESIGN_RESOLUTION_SIZE == DESIGN_RESOLUTION_1280X800)
-static cocos2d::Size designResolutionSize = cocos2d::Size(1280, 800);
-#elif (TARGET_DESIGN_RESOLUTION_SIZE == DESIGN_RESOLUTION_1920X1080)
-static cocos2d::Size designResolutionSize = cocos2d::Size(1920, 1080);
-#else
-#error unknown target design resolution!
-#endif
+static Resource smallResource = { cocos2d::CCSizeMake(480, 320), "small" };
+static Resource mediumResource = { cocos2d::CCSizeMake(1024, 768), "medium" };
+static Resource largeResource = { cocos2d::CCSizeMake(2048, 1536), "large" };
 
 // The font size 24 is designed for small resolution, so we should change it to fit for current design resolution
 #define TITLE_FONT_SIZE  (cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize().width / smallResource.size.width * 24)
