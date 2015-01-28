@@ -19,7 +19,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto glview = director->getOpenGLView();
 
     if(!glview) {
-        glview = GLView::create("Forrest Gump");		
+        glview = GLView::create("Forrest Gump");	
+		glview->setFrameSize(1280, 800);
         director->setOpenGLView(glview);
     }
 

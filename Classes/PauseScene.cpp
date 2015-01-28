@@ -37,8 +37,8 @@ bool PauseScene::init()
     menu_item_1->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 3) * 2));
     menu_item_2->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 3) * 1));
     
-    auto *menu = Menu::create(menu_item_1, menu_item_2, NULL);
-    menu->setPosition(Point(0, 0));
+    auto* menu = Menu::create(menu_item_1, menu_item_2, NULL);
+	menu->setPosition(Vec2::ZERO);
     this->addChild(menu);
     
     return true;

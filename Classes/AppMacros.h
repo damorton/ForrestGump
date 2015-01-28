@@ -31,7 +31,7 @@
 
 typedef struct tagResource
 {
-	cocos2d::CCSize size;
+	cocos2d::Size size;
 	char directory[100];
 }Resource;
 

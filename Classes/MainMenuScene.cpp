@@ -50,7 +50,7 @@ bool MainMenu::init()
 	//menu_item_4->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 5) * 1));
 
 	// create menu and add menu items
-	auto *menu = Menu::create(menu_item_1, menu_item_2, NULL);
+	auto* menu = Menu::create(menu_item_1, menu_item_2, NULL);
 
 	// position the main menu
 	menu->setPosition(Vec2::ZERO);
