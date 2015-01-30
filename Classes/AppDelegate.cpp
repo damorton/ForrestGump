@@ -1,7 +1,22 @@
 #include "AppDelegate.h"
 #include "SplashScene.h"
+#include <string>
 
 USING_NS_CC;
+
+typedef struct tagResource
+{
+	Size size;
+	std::string directory;
+}Resource;
+
+static Resource smallResource = { Size(480, 320), "small" };
+static Resource mediumResource = { Size(1024, 768), "medium" };
+static Resource largeResource = { Size(2048, 1536), "large" };
+
+// The font size 24 is designed for small resolution, so we should change it to fit for current design resolution
+#define TITLE_FONT_SIZE  (cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize().width / smallResource.size.width * 24)
+
 
 AppDelegate::AppDelegate() {
 
@@ -23,6 +38,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
         director->setOpenGLView(glview);
     }
 	
+	//glview->setFrameSize(960, 640);
+
     // turn on display FPS
     director->setDisplayStats(true);
 
@@ -35,36 +52,58 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	auto fileUtils = FileUtils::getInstance(); // get the file utilities
 	std::vector<std::string> resourceDir; // add the file path for resources for the file utilities
 	
-	// galaxy s4 resources 1920x1080
-	if (screenSize.height > mediumResource.size.height)
+	if (2048 == screenSize.width || 2048 == screenSize.height)
 	{
-		resourceDir.push_back(largeResource.directory);	
-		resourceDir.push_back(mediumResource.directory);
-		resourceDir.push_back(smallResource.directory);
-		director->setContentScaleFactor(largeResource.size.height / designSize.height);
+		resourceDir.push_back("ipadhd");
+		resourceDir.push_back("ipad");
+		resourceDir.push_back("iphonehd5");
+		resourceDir.push_back("iphonehd");
+		resourceDir.push_back("iphone");
+
+		glview->setDesignResolutionSize(2048, 1536, ResolutionPolicy::NO_BORDER);
 	}
-	else if (screenSize.height > smallResource.size.height)
+	else if (1024 == screenSize.width || 1024 == screenSize.height)
 	{
-		resourceDir.push_back(mediumResource.directory);
-		resourceDir.push_back(smallResource.directory);
-		director->setContentScaleFactor(mediumResource.size.height / designSize.height);
+		resourceDir.push_back("ipad");
+		resourceDir.push_back("iphonehd5");
+		resourceDir.push_back("iphonehd");
+		resourceDir.push_back("iphone");
+
+		glview->setDesignResolutionSize(1024, 768, ResolutionPolicy::NO_BORDER);
 	}
-	// nexus 7 resources 1280x800
+	else if (1136 == screenSize.width || 1136 == screenSize.height)
+	{
+		resourceDir.push_back("iphonehd5");
+		resourceDir.push_back("iphonehd");
+		resourceDir.push_back("iphone");
+
+		glview->setDesignResolutionSize(1136, 640, ResolutionPolicy::NO_BORDER);
+	}
+	else if (960 == screenSize.width || 960 == screenSize.height)
+	{
+		resourceDir.push_back("iphonehd");
+		resourceDir.push_back("iphone");
+
+		glview->setDesignResolutionSize(960, 640, ResolutionPolicy::NO_BORDER);
+	}
 	else
 	{
-		resourceDir.push_back(smallResource.directory);
-		director->setContentScaleFactor(smallResource.size.height / designSize.height);
+		if (screenSize.width > 1080)
+		{
+			resourceDir.push_back("iphonehd");
+			resourceDir.push_back("iphone");
+
+			glview->setDesignResolutionSize(960, 640, ResolutionPolicy::NO_BORDER);
+		}
+		else
+		{
+			resourceDir.push_back("iphone");
+
+			glview->setDesignResolutionSize(480, 320, ResolutionPolicy::NO_BORDER);
+		}
 	}
 
-	// add the directories to the file utilities
 	fileUtils->setSearchPaths(resourceDir);
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
-	// a bug in DirectX 11 level9-x on the device prevents ResolutionPolicy::NO_BORDER from working correctly
-	glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::SHOW_ALL);
-#else
-	glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::NO_BORDER);
-#endif
 
     // create a scene. it's an autorelease object
     auto scene = Splash::createScene();

@@ -2,7 +2,6 @@
 #define  _APP_DELEGATE_H_
 
 #include "cocos2d.h"
-#include "AppMacros.h"
 
 /**
 @brief    The cocos2d Application.

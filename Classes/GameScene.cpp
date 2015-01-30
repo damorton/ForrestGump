@@ -45,7 +45,7 @@ bool GameScene::init()
 	label->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height - label->getContentSize().height));
 	this->addChild(label, 1);
 		
-	auto gameBackground = Sprite::create("gameBackground.png"); // sprite image
+	auto gameBackground = Sprite::create("background/gameBackground.png"); // sprite image
 	gameBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(gameBackground, -50); // add child
 
@@ -53,13 +53,13 @@ bool GameScene::init()
 	
 	// player		
 	WorldManager::getInstance()->setPlayer(spPlayer(new Player())); // store shared pointer in world manager
-	auto playerSprite = Sprite::create("Player.png"); // sprite image
+	auto playerSprite = Sprite::create("sprites/Player.png"); // sprite image
 	WorldManager::getInstance()->getPlayer()->setSprite(playerSprite); // set sprite
 	playerSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(playerSprite, 0); // add child
 
 	// pause button
-	auto menu_item_pause = MenuItemImage::create("PauseNormal.png", "PauseSelected.png", CC_CALLBACK_1(GameScene::Pause, this));
+	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(GameScene::Pause, this));
 	menu_item_pause->setPosition(Vec2(origin.x + visibleSize.width - menu_item_pause->getContentSize().width/2,
 		origin.y + visibleSize.height - menu_item_pause->getContentSize().height / 2));
 	

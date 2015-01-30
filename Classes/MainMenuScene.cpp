@@ -31,26 +31,26 @@ bool MainMenu::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	
-	auto mainMenuBackground = Sprite::create("MainMenuBackground.png"); // sprite image
+	auto mainMenuBackground = Sprite::create("background/MainMenuBackground.png"); // sprite image
 	mainMenuBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(mainMenuBackground, -50); // add child
 
 	// create the main menu items
-	auto menu_item_1 = MenuItemImage::create("PlayNormal.png", "PlaySelected.png", CC_CALLBACK_1(MainMenu::Play, this));
-	auto menu_item_2 = MenuItemImage::create("TrophyNormal.png", "TrophySelected.png", CC_CALLBACK_1(MainMenu::Highscores, this));
+	auto playButton = MenuItemImage::create("buttons/PlayNormal.png", "buttons/PlaySelected.png", CC_CALLBACK_1(MainMenu::Play, this));
+	auto highscoresButton = MenuItemImage::create("buttons/TrophyNormal.png", "buttons/TrophySelected.png", CC_CALLBACK_1(MainMenu::Highscores, this));
 	//auto menu_item_2 = MenuItemFont::create("Highscores", CC_CALLBACK_1(MainMenu::Highscores, this)); // push the high scores scene	
 	//auto menu_item_3 = MenuItemFont::create("Settings", CC_CALLBACK_1(MainMenu::Settings, this)); // push the settings scene	
 	
 
 	// position the menu buttons on screen
-	menu_item_1->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 5) * 3));
-	menu_item_2->setPosition(Point((visibleSize.width / 4) * 3, (visibleSize.height / 5) * 2));
+	playButton->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 5) * 3));
+	highscoresButton->setPosition(Point((visibleSize.width / 4) * 3, (visibleSize.height / 5) * 2));
 	//menu_item_2->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 5) * 3));
 	//menu_item_3->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 5) * 2));
 	//menu_item_4->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 5) * 1));
 
 	// create menu and add menu items
-	auto* menu = Menu::create(menu_item_1, menu_item_2, NULL);
+	auto* menu = Menu::create(playButton, highscoresButton, NULL);
 
 	// position the main menu
 	menu->setPosition(Vec2::ZERO);
