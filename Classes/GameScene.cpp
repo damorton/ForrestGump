@@ -49,14 +49,7 @@ bool GameScene::init()
 	auto gameBackground = Sprite::create("background/gameBackground.png"); // sprite image
 	gameBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(gameBackground, -50); // add child
-
-	// temp floor until tmx map created
-	auto gameFloor = Sprite::create("foreground/floor.png");
-	gameFloor->setPosition(Vec2(visibleSize.width / 2 + origin.x, ((visibleSize.height + origin.y) / 4) * 2));
-	auto gameFloorBody = PhysicsBody::createEdgeBox(gameFloor->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 10);
-	gameFloor->setPhysicsBody(gameFloorBody);
-	this->addChild(gameFloor);
-
+	
 	// create an outline around the edge of the screen
 	auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 10);
 	auto edgeNode = Node::create();
@@ -65,7 +58,14 @@ bool GameScene::init()
 	edgeNode->setPhysicsBody(edgeBody);
 	this->addChild(edgeNode);
 
-	// TMX map
+	// temp floor until tmx map created
+	auto gameFloor = Sprite::create("foreground/floor.png");
+	gameFloor->setPosition(Vec2(visibleSize.width / 2 + origin.x, ((visibleSize.height + origin.y) / 4) * 1));
+	auto gameFloorBody = PhysicsBody::createBox(gameFloor->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);	
+	gameFloorBody->setDynamic(false);
+	gameFloor->setPhysicsBody(gameFloorBody);
+	this->addChild(gameFloor);
+	
 	
 	// player		
 	WorldManager::getInstance()->setPlayer(spPlayer(new Player())); // store shared pointer in world manager
