@@ -18,8 +18,7 @@ void Player::update()
 }
 
 void Player::jump()
-{
-	m_pSprite->setPositionY(10.0f);
+{	
 	CCLOG("Player jumped");
 }
 

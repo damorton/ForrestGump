@@ -49,22 +49,26 @@ bool GameScene::init()
 	auto gameBackground = Sprite::create("background/gameBackground.png"); // sprite image
 	gameBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(gameBackground, -50); // add child
-	
+		
+	// TMX map
+	auto mazeLayer = LayerGradient::create(Color4B(255, 0, 0, 255), Color4B(255, 0, 255, 255));
+	mazeLayer->setPosition(Vec2(visibleSize.width / 2 + origin.x,
+		visibleSize.height / 2 + origin.y))
+	auto mazeTileMap = TMXTiledMap::create("maps/maze.tmx");
+
+	mazeLayer->addChild(mazeTileMap, 0, "TMXMaze");
+
 	// create an outline around the edge of the screen
-	auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 10);
+	auto edgeBody = PhysicsBody::createEdgeBox(mazeTileMap->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 5);
 	auto edgeNode = Node::create();
 	edgeNode->setPosition(Vec2(visibleSize.width / 2 + origin.x,
 		visibleSize.height / 2 + origin.y));
 	edgeNode->setPhysicsBody(edgeBody);
-	this->addChild(edgeNode);
+	mazeLayer->addChild(edgeNode);
 
-	// temp floor until tmx map created
-	auto gameFloor = Sprite::create("maps/floor.png");
-	gameFloor->setPosition(Vec2(visibleSize.width / 2 + origin.x, ((visibleSize.height + origin.y) / 4) * 1));
-	auto gameFloorBody = PhysicsBody::createBox(gameFloor->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);	
-	gameFloorBody->setDynamic(false);
-	gameFloor->setPhysicsBody(gameFloorBody);
-	this->addChild(gameFloor);
+	RotateBy* rotate = RotateBy::create(10.0f, 360);
+	mazeLayer->runAction(RepeatForever::create(rotate));
+	this->addChild(mazeLayer);
 	
 	// player		
 	WorldManager::getInstance()->setPlayer(spPlayer(new Player())); // store shared pointer in world manager
@@ -96,9 +100,7 @@ bool GameScene::init()
 	// call the schedule update in order to run this layers update function
 	this->scheduleUpdate();
 		
-	RotateBy* rotate = RotateBy::create(10.0f, 360);
-		
-	this->runAction(RepeatForever::create(rotate));
+	
 
 	return true;
 }
