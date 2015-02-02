@@ -51,13 +51,13 @@ bool GameScene::init()
 	this->addChild(gameBackground, -50); // add child
 		
 	// TMX map
-	auto mazeLayer = Layer::create();
+	auto mazeLayer = LayerGradient::create(Color4B(255,0,0,255), Color4B(255,0,255,255));
 	mazeLayer->setPosition(Vec2::ZERO); // center of game scene
 	RotateBy* rotate = RotateBy::create(15.0f, 360);
 	mazeLayer->runAction(RepeatForever::create(rotate));
-	auto mazeTileMap = TMXTiledMap::create("maps/maze.tmx");
-	//mazeTileMap->setPosition(Vec2::ZERO); // center of mapLayer
-	auto mazePhysicsEdge = PhysicsBody::createEdgeBox(mazeTileMap->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 5);
+	auto mazeTileMap = TMXTiledMap::create("maps/maze.tmx");	
+	mazeTileMap->setPosition(Vec2(mazeLayer->getContentSize().width / 2, mazeLayer->getContentSize().height / 2)); // center of mapLayer
+	auto mazePhysicsEdge = PhysicsBody::createEdgeBox(mazeTileMap->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
 	mazeTileMap->setPhysicsBody(mazePhysicsEdge); 	
 	mazeLayer->addChild(mazeTileMap, 0, "TMXMaze");
 		
@@ -73,6 +73,9 @@ bool GameScene::init()
 	playerPhysicsBody->setDynamic(true);
 	this->addChild(playerSprite, 10); // add child
 	
+	// camera
+	this->runAction(Follow::create(playerSprite));
+
 	// pause button
 	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(GameScene::Pause, this));
 	menu_item_pause->setPosition(Vec2(origin.x + visibleSize.width - menu_item_pause->getContentSize().width/2,
