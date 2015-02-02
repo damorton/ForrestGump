@@ -19,8 +19,7 @@ void Player::update()
 
 void Player::jump()
 {
-	auto action = JumpBy::create(1.5, Point(0,0), 300, 1);
-	m_pSprite->runAction(action);
+	m_pSprite->setPositionY(10.0f);
 	CCLOG("Player jumped");
 }
 

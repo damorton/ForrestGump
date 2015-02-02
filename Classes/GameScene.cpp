@@ -59,13 +59,12 @@ bool GameScene::init()
 	this->addChild(edgeNode);
 
 	// temp floor until tmx map created
-	auto gameFloor = Sprite::create("foreground/floor.png");
+	auto gameFloor = Sprite::create("maps/floor.png");
 	gameFloor->setPosition(Vec2(visibleSize.width / 2 + origin.x, ((visibleSize.height + origin.y) / 4) * 1));
 	auto gameFloorBody = PhysicsBody::createBox(gameFloor->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);	
 	gameFloorBody->setDynamic(false);
 	gameFloor->setPhysicsBody(gameFloorBody);
 	this->addChild(gameFloor);
-	
 	
 	// player		
 	WorldManager::getInstance()->setPlayer(spPlayer(new Player())); // store shared pointer in world manager
@@ -76,7 +75,7 @@ bool GameScene::init()
 	playerSprite->setPhysicsBody(playerPhysicsBody);
 	playerPhysicsBody->setDynamic(true);
 	this->addChild(playerSprite, 10); // add child
-
+	
 	// pause button
 	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(GameScene::Pause, this));
 	menu_item_pause->setPosition(Vec2(origin.x + visibleSize.width - menu_item_pause->getContentSize().width/2,
@@ -96,7 +95,11 @@ bool GameScene::init()
 
 	// call the schedule update in order to run this layers update function
 	this->scheduleUpdate();
-	
+		
+	RotateBy* rotate = RotateBy::create(10.0f, 360);
+		
+	this->runAction(RepeatForever::create(rotate));
+
 	return true;
 }
 
