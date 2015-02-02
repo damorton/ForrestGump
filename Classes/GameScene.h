@@ -1,12 +1,18 @@
 #ifndef __GAMESCENE_SCENE_H__
 #define __GAMESCENE_SCENE_H__
+
 #define FONT_SIZE ((visibleSize.width / 1920) * 100)
+
 #include "cocos2d.h"
 
-class GameManager;
+USING_NS_CC;
 
 class GameScene : public cocos2d::Layer
 {
+private:
+	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
+
+	PhysicsWorld* m_pSceneWorld;
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
@@ -25,6 +31,11 @@ public:
 		
 	void Pause(Ref *pSender);
 	void EndGame(Ref *pSender);
+
+	// touch controls 
+	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event * event);
+	//void onTouchMoved(cocos2d::Touch *touch, cocos2d::Event * event);
+	//void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event * event);
 	
 };
 

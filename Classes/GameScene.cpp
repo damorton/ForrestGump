@@ -12,10 +12,12 @@ typedef std::shared_ptr<Player> spPlayer;
 Scene* GameScene::createScene()
 {
 	// 'scene' is an autorelease object
-	auto scene = Scene::create();
-
+	auto scene = Scene::createWithPhysics();
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL); // draw debug lines around objects in the world
+	
 	// 'layer' is an autorelease object
 	auto layer = GameScene::create();
+	layer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics
 
 	// add layer as a child to scene
 	scene->addChild(layer);
@@ -38,8 +40,7 @@ bool GameScene::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	CCLOG("Game scene : %f x %f", visibleSize.width, visibleSize.height);
-
-	// add a label shows "Hello World"
+		
 	// create and initialize a label    	
 	auto label = LabelTTF::create("Game Scene", "Segoe UI", FONT_SIZE);		
 	label->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height - label->getContentSize().height));
@@ -48,6 +49,14 @@ bool GameScene::init()
 	auto gameBackground = Sprite::create("background/gameBackground.png"); // sprite image
 	gameBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(gameBackground, -50); // add child
+	
+	// create an outline around the edge of the screen
+	auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 1);
+	auto edgeNode = Node::create();
+	edgeNode->setPosition(Vec2(visibleSize.width / 2 + origin.x,
+		visibleSize.height / 2 + origin.y));
+	edgeNode->setPhysicsBody(edgeBody);
+	this->addChild(edgeNode);
 
 	// TMX map
 	
@@ -56,7 +65,10 @@ bool GameScene::init()
 	auto playerSprite = Sprite::create("sprites/Player.png"); // sprite image
 	WorldManager::getInstance()->getPlayer()->setSprite(playerSprite); // set sprite
 	playerSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	this->addChild(playerSprite, 0); // add child
+	auto playerPhysicsBody = PhysicsBody::createCircle(playerSprite->getContentSize().width /2, PhysicsMaterial(1, 0, 1));
+	playerSprite->setPhysicsBody(playerPhysicsBody);
+	playerPhysicsBody->setDynamic(true);
+	this->addChild(playerSprite, 10); // add child
 
 	// pause button
 	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(GameScene::Pause, this));
@@ -67,9 +79,10 @@ bool GameScene::init()
 	auto *menu = Menu::create(menu_item_pause, NULL);
 	menu->setPosition(Point(0, 0));
 	this->addChild(menu);
-
+	
 	// call the schedule update in order to run this layers update function
 	this->scheduleUpdate();
+	
 	return true;
 }
 
@@ -82,6 +95,12 @@ void GameScene::update(float delta)
 	//CCLOG("-------------GAME LOOP END--------------");
 }
 
+// TOUCH BEGIN
+bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
+{	
+	WorldManager::getInstance()->getPlayer()->jump();
+	return true;
+}
 
 /*
 	Pause button creates a new pause scene and pushes it over the game scene
