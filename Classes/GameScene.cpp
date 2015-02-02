@@ -53,7 +53,7 @@ bool GameScene::init()
 	// TMX map
 	auto mazeLayer = LayerGradient::create(Color4B(255, 0, 0, 255), Color4B(255, 0, 255, 255));
 	mazeLayer->setPosition(Vec2(visibleSize.width / 2 + origin.x,
-		visibleSize.height / 2 + origin.y))
+		visibleSize.height / 2 + origin.y));
 	auto mazeTileMap = TMXTiledMap::create("maps/maze.tmx");
 
 	mazeLayer->addChild(mazeTileMap, 0, "TMXMaze");
