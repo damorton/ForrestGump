@@ -49,9 +49,16 @@ bool GameScene::init()
 	auto gameBackground = Sprite::create("background/gameBackground.png"); // sprite image
 	gameBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(gameBackground, -50); // add child
-	
+
+	// temp floor until tmx map created
+	auto gameFloor = Sprite::create("foreground/floor.png");
+	gameFloor->setPosition(Vec2(visibleSize.width / 2 + origin.x, ((visibleSize.height + origin.y) / 4) * 2));
+	auto gameFloorBody = PhysicsBody::createEdgeBox(gameFloor->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 10);
+	gameFloor->setPhysicsBody(gameFloorBody);
+	this->addChild(gameFloor);
+
 	// create an outline around the edge of the screen
-	auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 1);
+	auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 10);
 	auto edgeNode = Node::create();
 	edgeNode->setPosition(Vec2(visibleSize.width / 2 + origin.x,
 		visibleSize.height / 2 + origin.y));
@@ -79,7 +86,14 @@ bool GameScene::init()
 	auto *menu = Menu::create(menu_item_pause, NULL);
 	menu->setPosition(Point(0, 0));
 	this->addChild(menu);
+
+	// touch controls
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->setSwallowTouches(true);
+	listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
 	
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
 	// call the schedule update in order to run this layers update function
 	this->scheduleUpdate();
 	
