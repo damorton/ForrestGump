@@ -51,7 +51,7 @@ bool GameScene::init()
 	this->addChild(gameBackground, -50); // add child
 		
 	// TMX map
-	auto mazeLayer = LayerGradient::create(Color4B(255,0,0,255), Color4B(255,0,255,255));
+	auto mazeLayer = LayerGradient::create(Color4B(0,0,255,255), Color4B(0,155,255,255));
 	mazeLayer->setPosition(Vec2::ZERO); // center of game scene
 	RotateBy* rotate = RotateBy::create(15.0f, 360);
 	mazeLayer->runAction(RepeatForever::create(rotate));
@@ -60,6 +60,24 @@ bool GameScene::init()
 	auto mazePhysicsEdge = PhysicsBody::createEdgeBox(mazeTileMap->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
 	mazeTileMap->setPhysicsBody(mazePhysicsEdge); 	
 	mazeLayer->addChild(mazeTileMap, 0, "TMXMaze");
+
+	// add physics bodies to each tile in the TMX layer(s)
+	auto tempMazeLayer = mazeTileMap->layerNamed("maze");
+	Size layerSize = tempMazeLayer->getLayerSize();
+	
+	for (int i = 0; i < layerSize.height; i++)
+	{
+		for (int j = 0; j < layerSize.width; j++)
+		{
+			// create a fixture if this tile has a sprite
+			auto tileSprite = tempMazeLayer->tileAt(Vec2(i, j));
+			if (tileSprite)
+			{
+				tileSprite->setPhysicsBody(PhysicsBody::createBox(tileSprite->getContentSize(), PhysicsMaterial(1, 0, 1)));				
+				tileSprite->getPhysicsBody()->setDynamic(false);
+			}
+		}
+	}	
 		
 	this->addChild(mazeLayer);
 	
