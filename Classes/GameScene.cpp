@@ -12,9 +12,8 @@ typedef std::shared_ptr<Player> spPlayer;
 Scene* GameScene::createScene()
 {
 	// 'scene' is an autorelease object
-	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL); // draw debug lines around objects in the world
-	
+	auto scene = Scene::createWithPhysics();	
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL); // draw debug lines around objects in the world	
 	// 'layer' is an autorelease object
 	auto layer = GameScene::create();
 	layer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics
@@ -53,7 +52,7 @@ bool GameScene::init()
 	// TMX map
 	auto mazeLayer = LayerGradient::create(Color4B(0,0,255,255), Color4B(0,155,255,255));
 	mazeLayer->setPosition(Vec2::ZERO); // center of game scene
-	RotateBy* rotate = RotateBy::create(15.0f, 360);
+	RotateBy* rotate = RotateBy::create(30.0f, 360);
 	mazeLayer->runAction(RepeatForever::create(rotate));
 	auto mazeTileMap = TMXTiledMap::create("maps/maze.tmx");	
 	mazeTileMap->setPosition(Vec2(mazeLayer->getContentSize().width / 2, mazeLayer->getContentSize().height / 2)); // center of mapLayer
@@ -61,20 +60,19 @@ bool GameScene::init()
 	mazeTileMap->setPhysicsBody(mazePhysicsEdge); 	
 	mazeLayer->addChild(mazeTileMap, 0, "TMXMaze");
 
-	// add physics bodies to each tile in the TMX layer(s)
-	auto tempMazeLayer = mazeTileMap->layerNamed("maze");
-	Size layerSize = tempMazeLayer->getLayerSize();
-	
+	// tiles in tmx layer need physics bodies
+	auto tempMazeLayer = mazeTileMap->getLayer("maze");
+	Size layerSize = tempMazeLayer->getLayerSize();	
 	for (int i = 0; i < layerSize.height; i++)
 	{
 		for (int j = 0; j < layerSize.width; j++)
-		{
-			// create a fixture if this tile has a sprite
+		{			
 			auto tileSprite = tempMazeLayer->tileAt(Vec2(i, j));
 			if (tileSprite)
-			{
-				tileSprite->setPhysicsBody(PhysicsBody::createBox(tileSprite->getContentSize(), PhysicsMaterial(1, 0, 1)));				
-				tileSprite->getPhysicsBody()->setDynamic(false);
+			{			
+				tileSprite->setPhysicsBody(PhysicsBody::createBox(Size(tileSprite->getContentSize().width, tileSprite->getContentSize().height)));
+				tileSprite->getPhysicsBody()->setDynamic(false);				
+				tileSprite->setPosition(Vec2((tileSprite->getPosition().x + tileSprite->getContentSize().width / 2), (tileSprite->getPosition().y + tileSprite->getContentSize().height / 2)));				
 			}
 		}
 	}	
@@ -86,10 +84,11 @@ bool GameScene::init()
 	auto playerSprite = Sprite::create("sprites/Player.png"); // sprite image
 	WorldManager::getInstance()->getPlayer()->setSprite(playerSprite); // set sprite
 	playerSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	auto playerPhysicsBody = PhysicsBody::createCircle(playerSprite->getContentSize().width /2, PhysicsMaterial(1, 0, 1));
+	auto playerPhysicsBody = PhysicsBody::createCircle(playerSprite->getContentSize().width / 2);
+		
 	playerSprite->setPhysicsBody(playerPhysicsBody);
 	playerPhysicsBody->setDynamic(true);
-	this->addChild(playerSprite, 10); // add child
+	this->addChild(playerSprite, 0); // add child
 	
 	// camera
 	this->runAction(Follow::create(playerSprite));
