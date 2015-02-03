@@ -4,6 +4,7 @@
 #define FONT_SIZE ((visibleSize.width / 1920) * 100)
 
 #include "cocos2d.h"
+#include "Maze.h"
 
 USING_NS_CC;
 
@@ -35,8 +36,7 @@ public:
 	// touch controls 
 	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event * event);
 	//void onTouchMoved(cocos2d::Touch *touch, cocos2d::Event * event);
-	//void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event * event);
-	
+	//void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event * event);	
 };
 
 #endif // __GAMESCENE_SCENE_H__

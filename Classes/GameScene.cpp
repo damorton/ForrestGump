@@ -48,36 +48,14 @@ bool GameScene::init()
 	auto gameBackground = Sprite::create("background/gameBackground.png"); // sprite image
 	gameBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(gameBackground, -50); // add child
-		
-	// TMX map
-	auto mazeLayer = LayerGradient::create(Color4B(0,0,255,255), Color4B(0,155,255,255));
-	mazeLayer->setPosition(Vec2::ZERO); // center of game scene
-	RotateBy* rotate = RotateBy::create(30.0f, 360);
-	mazeLayer->runAction(RepeatForever::create(rotate));
-	auto mazeTileMap = TMXTiledMap::create("maps/maze.tmx");	
-	mazeTileMap->setPosition(Vec2(mazeLayer->getContentSize().width / 2, mazeLayer->getContentSize().height / 2)); // center of mapLayer
-	auto mazePhysicsEdge = PhysicsBody::createEdgeBox(mazeTileMap->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
-	mazeTileMap->setPhysicsBody(mazePhysicsEdge); 	
-	mazeLayer->addChild(mazeTileMap, 0, "TMXMaze");
-
-	// tiles in tmx layer need physics bodies
-	auto tempMazeLayer = mazeTileMap->getLayer("maze");
-	Size layerSize = tempMazeLayer->getLayerSize();	
-	for (int i = 0; i < layerSize.height; i++)
-	{
-		for (int j = 0; j < layerSize.width; j++)
-		{			
-			auto tileSprite = tempMazeLayer->tileAt(Vec2(i, j));
-			if (tileSprite)
-			{			
-				tileSprite->setPhysicsBody(PhysicsBody::createBox(Size(tileSprite->getContentSize().width, tileSprite->getContentSize().height)));
-				tileSprite->getPhysicsBody()->setDynamic(false);				
-				tileSprite->setPosition(Vec2((tileSprite->getPosition().x + tileSprite->getContentSize().width / 2), (tileSprite->getPosition().y + tileSprite->getContentSize().height / 2)));				
-			}
-		}
-	}	
-		
-	this->addChild(mazeLayer);
+	
+	// add maze to game layer	
+	Maze* mazeLayer = Maze::createLayer("maps/maze.tmx");
+	//maze->addTMXTileMap("maps/maze.tmx");
+	//maze->rotateMaze();
+	//maze->addPhysicsEdgeBox();
+	//maze->addPhysicsToTilesOnLayer("maze");
+	this->addChild(mazeLayer, 2);
 	
 	// player		
 	WorldManager::getInstance()->setPlayer(spPlayer(new Player())); // store shared pointer in world manager
