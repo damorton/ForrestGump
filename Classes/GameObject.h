@@ -2,6 +2,9 @@
 #define GAMEOBJECT_H_
 
 #include <string>
+#include "cocos2d.h"
+
+USING_NS_CC;
 
 class GameObject
 {	
