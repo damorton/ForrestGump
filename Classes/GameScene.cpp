@@ -35,7 +35,7 @@ bool GameScene::init()
 	{
 		return false;
 	}
-
+	
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
@@ -55,7 +55,11 @@ bool GameScene::init()
 	mazeLayer->addTMXTileMap("maps/maze.tmx");
 	mazeLayer->addPhysicsEdgeBox();
 	mazeLayer->addPhysicsToTiles("maze");
-	this->addChild(mazeLayer, 0);
+	this->addChild(mazeLayer, 0, "maze");
+
+	// HUD
+	m_cHud = HUD::create();
+	this->addChild(m_cHud, 3, "hud");
 	
 	// Player		
 	WorldManager::getInstance()->setPlayer(spPlayer(new Player())); // store shared pointer in world manager
@@ -100,7 +104,7 @@ void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");
 	// call the player update
-	//WorldManager::getInstance()->getPlayer()->update();
+	m_cHud->updateScore();
 	
 	//CCLOG("-------------GAME LOOP END--------------");
 }
