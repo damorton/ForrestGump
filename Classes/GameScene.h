@@ -9,13 +9,6 @@ USING_NS_CC;
 
 class GameScene : public cocos2d::Layer
 {
-private:
-	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
-
-	PhysicsWorld* m_pSceneWorld;
-
-	HUD* m_cHud;
-
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
@@ -39,6 +32,14 @@ public:
 	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event * event);
 	//void onTouchMoved(cocos2d::Touch *touch, cocos2d::Event * event);
 	//void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event * event);	
+
+private:
+	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
+
+	PhysicsWorld* m_pSceneWorld;
+
+	Layer* gamePlayLayer;
+	HUD* m_cHud;
 };
 
 #endif // __GAMESCENE_SCENE_H__

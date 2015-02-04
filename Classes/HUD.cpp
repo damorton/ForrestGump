@@ -22,12 +22,12 @@ bool HUD::init()
 	this->addChild(m_lScore, 0);
 
 	// Timer?
-
+		
 	return true;
 }
 
 void HUD::updateScore()
 {
-	m_iScore ++; // update the score
+	m_iScore++; // update the score
 	m_lScore->setString(std::to_string(m_iScore));
 }
