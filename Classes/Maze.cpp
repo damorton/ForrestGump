@@ -1,17 +1,13 @@
 #include "Maze.h"
 
-Maze::Maze(){}
-Maze::~Maze(){}
-
-Maze* Maze::createLayer(const std::string& filename)
-{
-	Maze* maze = new Maze();	
-	maze->create(Color4B(0, 0, 255, 255), Color4B(0, 155, 255, 255));	
-	maze->setContentSize(Size(1, 1));
-	maze->setAnchorPoint(Vec2(0, 0));
-	maze->setPosition(Vec2::ZERO);
-	maze->addTMXTileMap(filename);
-	return maze;
+bool Maze::init()
+{	
+	if (!Layer::init())
+	{
+		return false;
+	}	
+	
+	return true;
 }
 
 bool Maze::addTMXTileMap(const std::string& filename)
@@ -36,7 +32,7 @@ bool Maze::addPhysicsEdgeBox()
 	return true;
 }
 
-bool Maze::addPhysicsToTilesOnLayer(const std::string& filename)
+bool Maze::addPhysicsToTiles(const std::string& filename)
 {
 	m_TiledMazeLayer = m_MazeTileMap->getLayer(filename);
 	Size layerSize = m_TiledMazeLayer->getLayerSize();

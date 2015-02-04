@@ -5,20 +5,17 @@
 
 USING_NS_CC;
 
-class Maze : public cocos2d::LayerGradient
+class Maze : public cocos2d::Layer
 {
-public:
-	Maze();
-	~Maze();
+public:		
+	/*
+		Initialize the maze layer
+	*/
+	virtual bool init();
 
 	/*
-		Create a maze layer using .tmx tilemap
-
-		@param const std::string& filename of the .tmx tilemap
-		@return Maze* maze
+		Add a TMX tilemap to the layer
 	*/
-	static Maze* createLayer(const std::string& filename);
-	
 	bool addTMXTileMap(const std::string& filename);
 
 	/*
@@ -29,8 +26,20 @@ public:
 	*/	
 	bool rotateMaze(float duration = 30.0f, float angle = 360);
 
+	/*
+		Add physic edge box to the edge of the tilemap
+
+		@return bool if physics edge box added
+	*/
 	bool addPhysicsEdgeBox();
-	bool addPhysicsToTilesOnLayer(const std::string& filename);
+
+	/*
+		Add physics bodies to each of the tiles in the tilemap. The tilemap
+		must be named in the Tiled software
+
+		@param const std::string& filename of the layer
+	*/
+	bool addPhysicsToTiles(const std::string& filename);
 	
 	/*
 		Set TMX tilemap for the maze
@@ -45,6 +54,11 @@ public:
 		@return TMXTiledMap* m_MazeTileMap
 	*/
 	TMXTiledMap* getTileMap(){ return m_MazeTileMap; };
+
+	/*
+		Initialize the parent node
+	*/
+	CREATE_FUNC(Maze);
 
 private:
 	TMXTiledMap* m_MazeTileMap;

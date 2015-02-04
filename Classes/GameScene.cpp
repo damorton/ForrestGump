@@ -50,11 +50,12 @@ bool GameScene::init()
 	this->addChild(gameBackground, -50); // add child
 	
 	// add maze to game layer	
-	Maze* mazeLayer = Maze::createLayer("maps/maze.tmx");
-	//maze->addTMXTileMap("maps/maze.tmx");
-	//maze->rotateMaze();
-	//maze->addPhysicsEdgeBox();
-	//maze->addPhysicsToTilesOnLayer("maze");
+	//Maze* mazeLayer = Maze::createLayer("maps/maze.tmx");
+	Maze* mazeLayer = Maze::create();
+	mazeLayer->addTMXTileMap("maps/maze.tmx");
+	mazeLayer->rotateMaze();
+	mazeLayer->addPhysicsEdgeBox();
+	mazeLayer->addPhysicsToTiles("maze");
 	this->addChild(mazeLayer, 2);
 	
 	// player		
