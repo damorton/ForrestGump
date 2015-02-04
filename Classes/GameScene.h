@@ -1,10 +1,9 @@
 #ifndef __GAMESCENE_SCENE_H__
 #define __GAMESCENE_SCENE_H__
 
-#define FONT_SIZE ((visibleSize.width / 1920) * 100)
-
 #include "cocos2d.h"
 #include "Maze.h"
+#include "HUD.h"
 
 USING_NS_CC;
 
@@ -14,6 +13,9 @@ private:
 	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
 
 	PhysicsWorld* m_pSceneWorld;
+
+	HUD* m_cHud;
+
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
