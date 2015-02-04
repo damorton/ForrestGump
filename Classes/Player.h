@@ -15,6 +15,8 @@ public:
 	~Player(){ this->cleanUp(); }; // deconstructor
 	virtual bool init(); // initialization
 	void jump();
+	void moveLeft();
+	void moveRight();
 	void duck(){ std::cout << "Player ducking" << std::endl; }; // duck
 	void boost(){ std::cout << "Player boosting" << std::endl; }; // boost
 	virtual void update(); // update Player

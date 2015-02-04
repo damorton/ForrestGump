@@ -25,6 +25,20 @@ void Player::jump()
 	m_pSprite->runAction(action);
 }
 
+void Player::moveLeft()
+{
+	CCLOG("Player moved left by velocity %f", m_pSprite->getPhysicsBody()->getAngularVelocity());
+	auto action = MoveBy::create(2, Vec2(-100, 0));
+	m_pSprite->runAction(action);
+}
+
+void Player::moveRight()
+{
+	CCLOG("Player jumped right by velocity %f", m_pSprite->getPhysicsBody()->getAngularVelocity());
+	auto action = MoveBy::create(2, Vec2(100, 0));
+	m_pSprite->runAction(action);
+}
+
 void Player::cleanUp()
 {
 }
