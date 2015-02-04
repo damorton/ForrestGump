@@ -49,11 +49,9 @@ bool GameScene::init()
 	gameBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(gameBackground, -50); // add child
 	
-	// add maze to game layer	
-	//Maze* mazeLayer = Maze::createLayer("maps/maze.tmx");
+	// add the maze	
 	Maze* mazeLayer = Maze::create();
-	mazeLayer->addTMXTileMap("maps/maze.tmx");
-	mazeLayer->rotateMaze();
+	mazeLayer->addTMXTileMap("maps/maze.tmx");	
 	mazeLayer->addPhysicsEdgeBox();
 	mazeLayer->addPhysicsToTiles("maze");
 	this->addChild(mazeLayer, 2);
