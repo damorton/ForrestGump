@@ -1,6 +1,8 @@
 #ifndef WORLDMANAGER_H_
 #define WORLDMANAGER_H_
 
+#define FONT_SIZE ((visibleSize.width / 1920) * 100)
+
 #include <memory>
 #include "Player.h"
 #include "Enemy.h"
@@ -12,7 +14,6 @@ public:
 	typedef std::shared_ptr<Player> spPlayer;
 	typedef std::shared_ptr<Enemy> spEnemy;
 	
-	// member functions	
 	virtual bool init();	
 	virtual void cleanUp(); 
 	
@@ -27,16 +28,18 @@ public:
 
 	void scaleSpriteToFullScreenSize(Sprite* sprite);
 
-protected:	
-	spPlayer m_pPlayer;
-	spEnemy m_pEnemy;
-
 private:
 	// private *tors and instance	
 	WorldManager(){ this->init(); };  
 	~WorldManager(){ this->cleanUp(); }; 	
 	
-	static WorldManager* m_Instance;	
+	static WorldManager* m_Instance;
+
+	Size m_sVisibleSize;
+	Vec2 m_vOrigin;
+
+	spPlayer m_pPlayer;
+	spEnemy m_pEnemy;
 	
 	
 	
