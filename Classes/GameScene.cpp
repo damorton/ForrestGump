@@ -40,40 +40,41 @@ bool GameScene::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	CCLOG("Game scene : %f x %f", visibleSize.width, visibleSize.height);
-		
-	// create and initialize a label    	
-	auto label = LabelTTF::create("Game Scene", "Segoe UI", FONT_SIZE);		
-	label->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height - label->getContentSize().height));
-	this->addChild(label, 1);
-		
+	
+	// game play layer
+	gamePlayLayer = Layer::create();
+	this->addChild(gamePlayLayer, 0, "gamePlayLayer");
+
+	// HUD layer
+	m_cHud = HUD::create();
+	this->addChild(m_cHud, 1, "hudLayer");
+
+	// Background
 	auto gameBackground = Sprite::create("background/gameBackground.png"); // sprite image
 	gameBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	this->addChild(gameBackground, -50); // add child
+	gamePlayLayer->addChild(gameBackground, -1); // add child
 	
 	// Maze	
 	Maze* mazeLayer = Maze::create();
 	mazeLayer->addTMXTileMap("maps/maze.tmx");
 	mazeLayer->addPhysicsEdgeBox();
 	mazeLayer->addPhysicsToTiles("maze");
-	this->addChild(mazeLayer, 0, "maze");
+	gamePlayLayer->addChild(mazeLayer, 0, "maze");
 
-	// HUD
-	m_cHud = HUD::create();
-	this->addChild(m_cHud, 3, "hud");
+	
 	
 	// Player		
 	WorldManager::getInstance()->setPlayer(spPlayer(new Player())); // store shared pointer in world manager
 	auto playerSprite = Sprite::create("sprites/Player.png"); // sprite image
 	WorldManager::getInstance()->getPlayer()->setSprite(playerSprite); // set sprite
 	playerSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-		
+	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);		
 	playerSprite->setPhysicsBody(playerPhysicsBody);
 	playerPhysicsBody->setDynamic(true);
-	this->addChild(playerSprite, 0); 
+	gamePlayLayer->addChild(playerSprite, 0);
 	
 	// camera
-	this->runAction(Follow::create(playerSprite));
+	gamePlayLayer->runAction(Follow::create(playerSprite));
 
 	// pause button
 	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(GameScene::Pause, this));
@@ -83,7 +84,7 @@ bool GameScene::init()
 	// create menu, add menu items and add to the game scene
 	auto *menu = Menu::create(menu_item_pause, NULL);
 	menu->setPosition(Point(0, 0));
-	this->addChild(menu);
+	m_cHud->addChild(menu);
 
 	// touch controls
 	auto listener = EventListenerTouchOneByOne::create();
@@ -103,7 +104,7 @@ bool GameScene::init()
 void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");
-	// call the player update
+	// call the player update	
 	m_cHud->updateScore();
 	
 	//CCLOG("-------------GAME LOOP END--------------");
