@@ -49,19 +49,19 @@ bool GameScene::init()
 	gameBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(gameBackground, -50); // add child
 	
-	// add the maze	
+	// Maze	
 	Maze* mazeLayer = Maze::create();
 	mazeLayer->addTMXTileMap("maps/maze.tmx");
 	mazeLayer->addPhysicsEdgeBox();
 	mazeLayer->addPhysicsToTiles("maze");
 	this->addChild(mazeLayer, 0);
 	
-	// player		
+	// Player		
 	WorldManager::getInstance()->setPlayer(spPlayer(new Player())); // store shared pointer in world manager
 	auto playerSprite = Sprite::create("sprites/Player.png"); // sprite image
 	WorldManager::getInstance()->getPlayer()->setSprite(playerSprite); // set sprite
 	playerSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	auto playerPhysicsBody = PhysicsBody::createCircle(playerSprite->getContentSize().width / 2);
+	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 		
 	playerSprite->setPhysicsBody(playerPhysicsBody);
 	playerPhysicsBody->setDynamic(true);
