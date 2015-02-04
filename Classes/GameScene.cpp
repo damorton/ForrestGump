@@ -66,7 +66,7 @@ bool GameScene::init()
 		
 	playerSprite->setPhysicsBody(playerPhysicsBody);
 	playerPhysicsBody->setDynamic(true);
-	this->addChild(playerSprite, 0); // add child
+	this->addChild(playerSprite, 0); 
 	
 	// camera
 	this->runAction(Follow::create(playerSprite));
