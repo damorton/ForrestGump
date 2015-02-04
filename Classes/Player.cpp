@@ -39,6 +39,29 @@ void Player::moveRight()
 	m_pSprite->runAction(action);
 }
 
+void Player::touch(const Point& location)
+{
+	auto winSize = Director::getInstance()->getWinSize();
+	
+	// walk
+	if (location.y < (winSize.height * 0.5f) && location.x < (winSize.width * 0.5f))
+	{
+		moveLeft();
+	}
+
+	else if (location.y < (winSize.height * 0.5f) && location.x > (winSize.width * 0.5f))
+	{
+		moveRight();
+	}
+
+	// jump
+	else
+	{
+	
+		jump();
+	}
+}
+
 void Player::cleanUp()
 {
 }
