@@ -60,9 +60,7 @@ bool GameScene::init()
 	mazeLayer->addPhysicsEdgeBox();
 	mazeLayer->addPhysicsToTiles("maze");
 	gamePlayLayer->addChild(mazeLayer, 0, "maze");
-
-	
-	
+		
 	// Player		
 	WorldManager::getInstance()->setPlayer(spPlayer(new Player())); // store shared pointer in world manager
 	auto playerSprite = Sprite::create("sprites/Player.png"); // sprite image
