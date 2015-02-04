@@ -61,10 +61,7 @@ public:
 	CREATE_FUNC(Maze);
 
 private:
-	TMXTiledMap* m_MazeTileMap;
-	PhysicsBody* m_MazePhysicsEdge;
-	RotateBy* rotate;
-	TMXLayer* m_TiledMazeLayer;
+	TMXTiledMap* m_MazeTileMap;	
 };
 
 #endif
