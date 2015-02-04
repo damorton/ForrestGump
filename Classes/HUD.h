@@ -13,7 +13,7 @@ public:
 	*/
 	virtual bool init();
 		
-	void updateScore(int score);
+	void updateScore();
 
 	/*
 		Initialize the parent node

@@ -17,7 +17,7 @@ bool HUD::init()
 	m_iScore = 0;
 	
 	// Score label	
-	m_lScore = LabelTTF::create("Score ", "Segoe UI", FONT_SIZE);
+	m_lScore = LabelTTF::create(std::to_string(m_iScore), "Segoe UI", FONT_SIZE);
 	m_lScore->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height - m_lScore->getContentSize().height));
 	this->addChild(m_lScore, 0);
 
@@ -26,7 +26,8 @@ bool HUD::init()
 	return true;
 }
 
-void HUD::updateScore(int score)
+void HUD::updateScore()
 {
-	m_iScore ++; // update the score	
+	m_iScore ++; // update the score
+	m_lScore->setString(std::to_string(m_iScore));
 }

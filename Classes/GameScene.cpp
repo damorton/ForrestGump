@@ -4,7 +4,6 @@
 #include "PauseScene.h"
 #include "EndScene.h"
 #include "Player.h"
-#include "HUD.h"
 
 USING_NS_CC;
 
@@ -59,8 +58,8 @@ bool GameScene::init()
 	this->addChild(mazeLayer, 0, "maze");
 
 	// HUD
-	HUD* hud = HUD::create();
-	this->addChild(hud, 3, "hud");
+	m_cHud = HUD::create();
+	this->addChild(m_cHud, 3, "hud");
 	
 	// Player		
 	WorldManager::getInstance()->setPlayer(spPlayer(new Player())); // store shared pointer in world manager
@@ -105,7 +104,7 @@ void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");
 	// call the player update
-	//WorldManager::getInstance()->getPlayer()->update();
+	m_cHud->updateScore();
 	
 	//CCLOG("-------------GAME LOOP END--------------");
 }
