@@ -52,10 +52,9 @@ bool GameScene::init()
 	// add the maze	
 	Maze* mazeLayer = Maze::create();
 	mazeLayer->addTMXTileMap("maps/maze.tmx");
-	mazeLayer->rotateMaze();
 	mazeLayer->addPhysicsEdgeBox();
 	mazeLayer->addPhysicsToTiles("maze");
-	this->addChild(mazeLayer, 2);
+	this->addChild(mazeLayer, 0);
 	
 	// player		
 	WorldManager::getInstance()->setPlayer(spPlayer(new Player())); // store shared pointer in world manager
