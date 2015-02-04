@@ -1,8 +1,6 @@
 #ifndef __GAMESCENE_SCENE_H__
 #define __GAMESCENE_SCENE_H__
 
-#define FONT_SIZE ((visibleSize.width / 1920) * 100)
-
 #include "cocos2d.h"
 #include "Maze.h"
 
