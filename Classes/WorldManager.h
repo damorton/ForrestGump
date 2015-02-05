@@ -7,6 +7,8 @@
 #include "Player.h"
 #include "Enemy.h"
  
+USING_NS_CC;
+
 class WorldManager
 {
 public:
@@ -20,11 +22,11 @@ public:
 	// getters
 	static WorldManager* getInstance(); 
 	//spPlayer getPlayer(){ return m_pPlayer; };
-	cocos2d::Sprite* getPlayer(){ return m_pPlayer; };
+	Player* getPlayer(){ return m_pPlayer; };
 	spEnemy getEnemy(){ return m_pEnemy; };
 
 	// setters
-	void setPlayer(Sprite* player){ m_pPlayer = player; };
+	void setPlayer(Player* player){ m_pPlayer = player; };
 	void setEnemy(spEnemy enemy){ m_pEnemy = enemy; };
 
 	void scaleSpriteToFullScreenSize(Sprite* sprite);
@@ -40,7 +42,7 @@ private:
 	Vec2 m_vOrigin;
 
 	//spPlayer m_pPlayer;
-	cocos2d::Sprite* m_pPlayer;
+	Player* m_pPlayer;
 	spEnemy m_pEnemy;
 	
 	

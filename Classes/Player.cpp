@@ -1,20 +1,36 @@
 #include "Player.h"
 
-bool Player::init()
-{	
 
-	if (!Sprite::init())
+
+Player* Player::create(const std::string& filename)
+{
+	Player* pSprite = new Player();
+
+	if (pSprite->initWithFile(filename))
 	{
-		return false;
+		pSprite->autorelease();
+
+		pSprite->init();
+
+		//pSprite->addEvents();
+
+		return pSprite;
 	}
 
-	//this->scheduleUpdate();
+	CC_SAFE_DELETE(pSprite);
+	return NULL;
+}
+
+bool Player::init()
+{		
 	return true;
 }
 
-void Player::update(float delta)
+void Player::jump()
 {
-	CCLOG("PLayer update");		
+	CCLOG("Player jumped");
+	auto action = JumpBy::create(2, Vec2(0, 0), 150, 1);
+	this->runAction(action);
 }
 
 void Player::cleanUp()
