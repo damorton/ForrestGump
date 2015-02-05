@@ -1,22 +1,21 @@
 #include "Player.h"
 
-Player::Player(std::string name)
-{
-	m_strName = name;
-	init();
-}
-
 bool Player::init()
 {	
-	setType(EGameOjectType::PLAYER);
-	m_fPlayerXPos = m_pSprite->getPositionX();
+	if (!Sprite::init())
+	{
+		return false;
+	}
+	m_fPlayerXPos = this->getPositionX();
+
+	this->scheduleUpdate();
 	return true;
 }
 
-void Player::update()
+void Player::update(float delta)
 {
 	CCLOG("PLayer update");	
-	m_pSprite->setPositionX(m_fPlayerXPos);
+	this->setPositionX(m_fPlayerXPos);
 }
 
 void Player::jump()
@@ -40,6 +39,9 @@ void Player::moveRight()
 	m_pSprite->runAction(action);
 }
 
+/*
+
+
 void Player::touch(const Point& location)
 {
 	auto winSize = Director::getInstance()->getWinSize();
@@ -62,6 +64,7 @@ void Player::touch(const Point& location)
 		jump();
 	}
 }
+*/
 
 void Player::cleanUp()
 {

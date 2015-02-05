@@ -19,11 +19,12 @@ public:
 	
 	// getters
 	static WorldManager* getInstance(); 
-	spPlayer getPlayer(){ return m_pPlayer; };
+	//spPlayer getPlayer(){ return m_pPlayer; };
+	Sprite* getPlayer(){ return m_pPlayer; };
 	spEnemy getEnemy(){ return m_pEnemy; };
 
 	// setters
-	void setPlayer(spPlayer player){ m_pPlayer = player; };
+	void setPlayer(Sprite* player){ m_pPlayer = player; };
 	void setEnemy(spEnemy enemy){ m_pEnemy = enemy; };
 
 	void scaleSpriteToFullScreenSize(Sprite* sprite);
@@ -38,7 +39,8 @@ private:
 	Size m_sVisibleSize;
 	Vec2 m_vOrigin;
 
-	spPlayer m_pPlayer;
+	//spPlayer m_pPlayer;
+	Sprite* m_pPlayer;
 	spEnemy m_pEnemy;
 	
 	

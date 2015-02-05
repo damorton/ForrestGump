@@ -75,10 +75,10 @@ bool CollisionManager::checkCollisons()
 			// check the game objects type and cast appropriatly
 			// use std::static_pointer_cast to cast shared pointers
 			std::shared_ptr<Enemy> tempEnemy = std::static_pointer_cast<Enemy>(m_pvGameObjects.at(i));
-			if (m_pPlayer->getSprite()->getBoundingBox().intersectsRect(tempEnemy->getSprite()->getBoundingBox()))
+			/*if (m_pPlayer->getSprite()->getBoundingBox().intersectsRect(tempEnemy->getSprite()->getBoundingBox()))
 			{
 				return true;
-			}			
+			}*/			
 		}
 
 		// can add checks for wall? bullet? coins?
