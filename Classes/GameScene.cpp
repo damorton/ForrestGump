@@ -110,37 +110,12 @@ void GameScene::update(float delta)
 }
 
 // TOUCH BEGIN
-
-/*
-
-remove start
-
-
 bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 {	
 	WorldManager::getInstance()->getPlayer()->jump();
 	return true;
 }
  
-// GET TOUCH POSITION
-inline Point locationInGLFromTouch(Touch& touch)
-{
-	auto director = Director::getInstance();
-	return director->convertToGL(touch.getLocationInView());
-}
-
-// INFORM PLAYER CLASS OF POSITION
-bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
-{
-	WorldManager::getInstance()->getPlayer()->touch(locationInGLFromTouch(*touch));
-	CCLOG("Touched: %d", locationInGLFromTouch);
-	
-	return true;
-}
-
-remove end
-*/
-
 /*
 	Pause button creates a new pause scene and pushes it over the game scene
 	
