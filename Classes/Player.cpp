@@ -8,14 +8,15 @@ Player::Player(std::string name)
 
 bool Player::init()
 {	
-	setType(EGameOjectType::PLAYER);	
+	setType(EGameOjectType::PLAYER);
+	m_fPlayerXPos = m_pSprite->getPositionX();
 	return true;
 }
 
 void Player::update()
 {
 	CCLOG("PLayer update");	
-	
+	m_pSprite->setPositionX(m_fPlayerXPos);
 }
 
 void Player::jump()

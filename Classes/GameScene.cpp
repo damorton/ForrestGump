@@ -65,7 +65,7 @@ bool GameScene::init()
 	WorldManager::getInstance()->setPlayer(spPlayer(new Player())); // store shared pointer in world manager
 	auto playerSprite = Sprite::create("sprites/Player.png"); // sprite image
 	WorldManager::getInstance()->getPlayer()->setSprite(playerSprite); // set sprite
-	playerSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	playerSprite->setPosition(Vec2(((visibleSize.width / 3)*1) + origin.x, visibleSize.height / 2 + origin.y));
 	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);		
 	playerSprite->setPhysicsBody(playerPhysicsBody);
 	playerPhysicsBody->setDynamic(true);
@@ -103,6 +103,7 @@ void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");
 	// call the player update	
+	WorldManager::getInstance()->getPlayer()->update();
 	m_cHud->updateScore();
 	
 	//CCLOG("-------------GAME LOOP END--------------");
@@ -111,13 +112,16 @@ void GameScene::update(float delta)
 // TOUCH BEGIN
 
 /*
+
+remove start
+
+
 bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 {	
 	WorldManager::getInstance()->getPlayer()->jump();
 	return true;
 }
-*/
-
+ 
 // GET TOUCH POSITION
 inline Point locationInGLFromTouch(Touch& touch)
 {
@@ -133,6 +137,10 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	
 	return true;
 }
+
+remove end
+*/
+
 /*
 	Pause button creates a new pause scene and pushes it over the game scene
 	

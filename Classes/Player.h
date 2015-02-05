@@ -9,6 +9,7 @@ class Player : public Character
 protected:
 	typedef enum { ALIVE, DEAD, BOOSTING, JUMPING } EPlayerState; // player state
 	EPlayerState m_ePlayerState; // Player state
+	float m_fPlayerXPos;
 public:
 	Player(){ this->init(); }; // constructor
 	Player(std::string name); // set player name
