@@ -11,7 +11,6 @@ class GameObject
 public:
 	typedef enum { OBJECT, WALL, PLAYER, ENEMY, BOSS } EGameOjectType;
 	GameObject(){ this->init(); };
-	virtual bool init();
 
 	~GameObject(){ this->cleanUp(); };
 	virtual void cleanUp();

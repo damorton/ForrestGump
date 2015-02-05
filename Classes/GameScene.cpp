@@ -111,12 +111,17 @@ void GameScene::update(float delta)
 	//CCLOG("-------------GAME LOOP END--------------");
 }
 
+<<<<<<< HEAD
 
+=======
+// TOUCH BEGIN
+>>>>>>> develop
 bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 {	
 	WorldManager::getInstance()->getPlayer()->jump();
 	return true;
 }
+<<<<<<< HEAD
  /*
 // GET TOUCH POSITION
 inline Point locationInGLFromTouch(Touch& touch)
@@ -137,6 +142,9 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 remove end
 */
 
+=======
+ 
+>>>>>>> develop
 /*
 	Pause button creates a new pause scene and pushes it over the game scene
 	

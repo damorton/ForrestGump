@@ -20,7 +20,7 @@ public:
 	// getters
 	static WorldManager* getInstance(); 
 	//spPlayer getPlayer(){ return m_pPlayer; };
-	Sprite* getPlayer(){ return m_pPlayer; };
+	cocos2d::Sprite* getPlayer(){ return m_pPlayer; };
 	spEnemy getEnemy(){ return m_pEnemy; };
 
 	// setters
@@ -40,7 +40,7 @@ private:
 	Vec2 m_vOrigin;
 
 	//spPlayer m_pPlayer;
-	Sprite* m_pPlayer;
+	cocos2d::Sprite* m_pPlayer;
 	spEnemy m_pEnemy;
 	
 	

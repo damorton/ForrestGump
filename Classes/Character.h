@@ -12,7 +12,7 @@ protected:
 	Sprite* m_pSprite; 
 public:
 	Character(){ this->init(); }; 
-	virtual bool init();
+	//virtual bool init();
 
 	virtual ~Character(){ this->cleanUp(); }; 
 	virtual void cleanUp();  
