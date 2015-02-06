@@ -1,65 +1,37 @@
 #include "Player.h"
 
-Player::Player(std::string name)
+Player* Player::create(const std::string& filename)
 {
-	m_strName = name;
-	init();
+	Player* pSprite = new Player();
+
+	if (pSprite->initWithFile(filename))
+	{
+		pSprite->autorelease();
+		pSprite->init();
+		//pSprite->addEvents();
+		return pSprite;
+	}
+
+	CC_SAFE_DELETE(pSprite);
+	return NULL;
 }
 
 bool Player::init()
 {	
-	setType(EGameOjectType::PLAYER);	
+	setType(PLAYER);
+	setState(RUNNING);
 	return true;
 }
 
-void Player::update()
-{
-	CCLOG("PLayer update");	
-	
-}
-
 void Player::jump()
-{	
-	CCLOG("Player jumped Angular velocity %f", m_pSprite->getPhysicsBody()->getAngularVelocity());
-	auto action = JumpBy::create(2, Vec2(50, 150), 80, 1);
-	m_pSprite->runAction(action);
-}
-
-void Player::moveLeft()
 {
-	CCLOG("Player moved left by velocity %f", m_pSprite->getPhysicsBody()->getAngularVelocity());
-	auto action = MoveBy::create(2, Vec2(-100, 0));
-	m_pSprite->runAction(action);
-}
-
-void Player::moveRight()
-{
-	CCLOG("Player jumped right by velocity %f", m_pSprite->getPhysicsBody()->getAngularVelocity());
-	auto action = MoveBy::create(2, Vec2(100, 0));
-	m_pSprite->runAction(action);
-}
-
-void Player::touch(const Point& location)
-{
-	auto winSize = Director::getInstance()->getWinSize();
-	
-	// walk
-	if (location.y < (winSize.height * 0.5f) && location.x < (winSize.width * 0.5f))
+	if (!JUMPING)
 	{
-		moveLeft();
-	}
-
-	else if (location.y < (winSize.height * 0.5f) && location.x > (winSize.width * 0.5f))
-	{
-		moveRight();
-	}
-
-	// jump
-	else
-	{
-	
-		jump();
-	}
+		setState(JUMPING);
+		auto action = JumpBy::create(2, Vec2(0, 0), 150, 1);
+		this->runAction(action);
+		CCLOG("Player jumped");
+	}	
 }
 
 void Player::cleanUp()

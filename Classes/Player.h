@@ -1,33 +1,26 @@
 #ifndef PLAYER_H_
 #define	PLAYER_H_
 
-#include "Character.h" // inherit from Character
-#include <iostream>
+#include "Character.h"
+#include "cocos2d.h"
 
-class Player : public Character
+USING_NS_CC;
+
+class Player : public Sprite, public Character
 {
-protected:
-	typedef enum { ALIVE, DEAD, BOOSTING, JUMPING } EPlayerState; // player state
-	EPlayerState m_ePlayerState; // Player state
-public:
-	Player(){ this->init(); }; // constructor
-	Player(std::string name); // set player name
-	~Player(){ this->cleanUp(); }; // deconstructor
-	virtual bool init(); // initialization
-	void jump();
-	void moveLeft();
-	void moveRight();
-	void Player::touch(const Point& location);
-	void duck(){ std::cout << "Player ducking" << std::endl; }; // duck
-	void boost(){ std::cout << "Player boosting" << std::endl; }; // boost
-	virtual void update(); // update Player
-	virtual void cleanUp(); // delete Player object
-	
-	// getters
-	int getState(){ return m_ePlayerState; };
-
-	// setters 
+public:		
+	static Player* create(const std::string& filename);
+	bool init();
+	void cleanUp();	
+	void jump();		
+	EGameOjectType getType(){ return m_eType; };
+	int getState(){ return m_ePlayerState; };	
+	void setType(EGameOjectType type){ m_eType = type; };
 	void setState(int state){ m_ePlayerState = (EPlayerState)state; };
+	CREATE_FUNC(Player);
+protected:
+	typedef enum { ALIVE, DEAD, BOOSTING, JUMPING, RUNNING } EPlayerState;
+	EPlayerState m_ePlayerState;
 };
 
 #endif

@@ -61,11 +61,11 @@ bool GameScene::init()
 	mazeLayer->addPhysicsToTiles("maze");
 	gamePlayLayer->addChild(mazeLayer, 0, "maze");
 		
-	// Player		
-	WorldManager::getInstance()->setPlayer(spPlayer(new Player())); // store shared pointer in world manager
-	auto playerSprite = Sprite::create("sprites/Player.png"); // sprite image
-	WorldManager::getInstance()->getPlayer()->setSprite(playerSprite); // set sprite
-	playerSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	// Player			
+	Player* playerSprite = Player::create("sprites/Player.png"); // sprite image
+	
+	WorldManager::getInstance()->setPlayer(playerSprite); // store shared pointer in world manager
+	playerSprite->setPosition(Vec2(((visibleSize.width / 3)*1) + origin.x, visibleSize.height / 2 + origin.y));
 	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);		
 	playerSprite->setPhysicsBody(playerPhysicsBody);
 	playerPhysicsBody->setDynamic(true);
@@ -103,36 +103,19 @@ void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");
 	// call the player update	
+	//WorldManager::getInstance()->getPlayer()->update(float delta);
 	m_cHud->updateScore();
 	
 	//CCLOG("-------------GAME LOOP END--------------");
 }
 
-// TOUCH BEGIN
 
-/*
 bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 {	
 	WorldManager::getInstance()->getPlayer()->jump();
 	return true;
 }
-*/
 
-// GET TOUCH POSITION
-inline Point locationInGLFromTouch(Touch& touch)
-{
-	auto director = Director::getInstance();
-	return director->convertToGL(touch.getLocationInView());
-}
-
-// INFORM PLAYER CLASS OF POSITION
-bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
-{
-	WorldManager::getInstance()->getPlayer()->touch(locationInGLFromTouch(*touch));
-	CCLOG("Touched: %d", locationInGLFromTouch);
-	
-	return true;
-}
 /*
 	Pause button creates a new pause scene and pushes it over the game scene
 	
