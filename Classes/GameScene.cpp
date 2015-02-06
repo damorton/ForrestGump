@@ -52,9 +52,20 @@ bool GameScene::init()
 	this->addChild(m_cHud, 1, "hudLayer");
 
 	// Background
+	Player* playerSprite = Player::create("sprites/Player.png");
+
 	auto gameBackground = Sprite::create("background/gameBackground.png"); // sprite image
+//	bk1 = CCSprite::create("background/gameBackground.png"); // sprite image
+//	bk2 = CCSprite::create("background/gameBackground2.png"); // sprite image
+
 	gameBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+//	bk1->setPosition(Vec2(visibleSize.width*0.5f, visibleSize.height*0.5f));	
+//	bk2->setPosition(Vec2(visibleSize.width + visibleSize.width*0.5f, visibleSize.height*0.5f));
+
+	
 	gamePlayLayer->addChild(gameBackground, -1); // add child
+//	gamePlayLayer->addChild(bk1, -1); // add child
+//	gamePlayLayer->addChild(bk2, -1); // add child
 	
 
 	// add floorSprite to game scene
@@ -77,8 +88,7 @@ bool GameScene::init()
 	// Player			
 	Player* playerSprite = Player::create("sprites/Player.png");		
 	playerSprite->setPosition(Vec2(((visibleSize.width / 3) * 1) + origin.x,		
-		WorldManager::getInstance()->getFloorSprite()->getPositionY() + 		
-		playerSprite->getContentSize().height / 2));
+		WorldManager::getInstance()->getFloorSprite()->getPositionY() + playerSprite->getContentSize().height / 2));
 	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 	playerSprite->setPhysicsBody(playerPhysicsBody);
 	playerPhysicsBody->setDynamic(false);
@@ -115,7 +125,17 @@ void GameScene::update(float delta)
 	CCLOG("-------------GAME LOOP START--------------");	
 	WorldManager::getInstance()->getPlayer()->update();
 	m_cHud->updateScore();
-	
+	/*
+	bk1->setPosition(ccp(bk1->getPosition().x - 1, bk1->getPosition().y));
+	bk2->setPosition(ccp(bk2->getPosition().x - 1, bk2->getPosition().y));
+
+	if (bk1->getPosition().x < -bk1->boundingBox().size.width){
+		bk1->setPosition(ccp(bk2->getPosition().x + bk2->boundingBox().size.width, bk1->getPosition().y));
+	}
+	if (bk2->getPosition().x < -bk2->boundingBox().size.width){
+		bk2->setPosition(ccp(bk1->getPosition().x + bk1->boundingBox().size.width, bk2->getPosition().y));
+	}
+	*/
 	CCLOG("-------------GAME LOOP END--------------");
 }
 
