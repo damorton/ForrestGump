@@ -52,8 +52,8 @@ bool GameScene::init()
 	// TMX map
 	auto mazeLayer = LayerGradient::create(Color4B(0,0,255,255), Color4B(0,155,255,255));
 	mazeLayer->setPosition(Vec2::ZERO); // center of game scene
-	RotateBy* rotate = RotateBy::create(30.0f, 360);
-	mazeLayer->runAction(RepeatForever::create(rotate));
+//	RotateBy* rotate = RotateBy::create(30.0f, 360);
+//	mazeLayer->runAction(RepeatForever::create(rotate));
 	auto mazeTileMap = TMXTiledMap::create("maps/maze.tmx");	
 	mazeTileMap->setPosition(Vec2(mazeLayer->getContentSize().width / 2, mazeLayer->getContentSize().height / 2)); // center of mapLayer
 	auto mazePhysicsEdge = PhysicsBody::createEdgeBox(mazeTileMap->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
@@ -84,7 +84,8 @@ bool GameScene::init()
 	auto playerSprite = Sprite::create("sprites/Player.png"); // sprite image
 	WorldManager::getInstance()->getPlayer()->setSprite(playerSprite); // set sprite
 	playerSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	auto playerPhysicsBody = PhysicsBody::createCircle(playerSprite->getContentSize().width / 2);
+	//create a box body to our hero
+	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize());
 		
 	playerSprite->setPhysicsBody(playerPhysicsBody);
 	playerPhysicsBody->setDynamic(true);

@@ -43,8 +43,8 @@ bool MainMenu::init()
 	
 
 	// position the menu buttons on screen
-	playButton->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 5) * 3));
-	highscoresButton->setPosition(Point((visibleSize.width / 4) * 3, (visibleSize.height / 5) * 2));
+	playButton->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 8) * 2));
+	highscoresButton->setPosition(Point((visibleSize.width / 4) * 3, (visibleSize.height / 5) * 4));
 	//menu_item_2->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 5) * 3));
 	//menu_item_3->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 5) * 2));
 	//menu_item_4->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 5) * 1));
