@@ -25,13 +25,10 @@ bool Player::init()
 
 void Player::jump()
 {
-	if (!getState() == JUMPING)
-	{
-		setState(JUMPING);
-		auto action = JumpBy::create(2, Vec2(0, 0), 150, 1);
-		this->runAction(action);
-		CCLOG("Player jumped");
-	}	
+	setState(JUMPING);
+	auto action = JumpBy::create(2, Vec2(0, 0), 150, 1);
+	this->runAction(action);
+	CCLOG("Player jumped");		
 }
 
 void Player::cleanUp()
