@@ -1,16 +1,16 @@
 #ifndef CHARACTER_H_
 #define CHARACTER_H_
 
-#include "GameObject.h"
-#include "cocos2d.h"
-
-USING_NS_CC;
-
-class Character : public GameObject
+class Character
 {
-
 public:
-	virtual void cleanUp();  
+	typedef enum { PLAYER, ENEMY, BOSS, ITEM } EGameOjectType;
+	virtual bool init() = 0;
+	virtual void cleanUp() = 0;
+	virtual EGameOjectType getType() = 0;
+	virtual void setType(EGameOjectType type) = 0;
+protected:
+	EGameOjectType m_eType;	
 };
 
 #endif

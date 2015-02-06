@@ -15,13 +15,19 @@ public:
 	virtual bool init();	
 	virtual void cleanUp(); 	
 	static WorldManager* getInstance(); 
-	Player* getPlayer(){ return m_pPlayer; };
-	void setPlayer(Player* player){ m_pPlayer = player; };
+
+	std::shared_ptr<Player> getPlayer(){ return m_pPlayer; };
+	std::vector<std::shared_ptr<Enemy>> getEnemies(){ return m_vpEnemies; };
+
+	void setPlayer(std::shared_ptr<Player> player){ m_pPlayer = player; };
+	void setVectorOfEnemies(std::vector<std::shared_ptr<Enemy>> vectorOfEnemies){ m_vpEnemies = vectorOfEnemies; };
 private:	
 	WorldManager(){ this->init(); };  
-	~WorldManager(){ this->cleanUp(); }; 		
-	static WorldManager* m_pInstance;	
-	Player* m_pPlayer;
+	~WorldManager(){ this->cleanUp(); }; 
+
+	static WorldManager* m_pInstance; // this
+	std::shared_ptr<Player> m_pPlayer; // player
+	std::vector<std::shared_ptr<Enemy>> m_vpEnemies; // vector of enemies
 };
 
 #endif

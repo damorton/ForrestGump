@@ -8,9 +8,9 @@ class EnemyFactory : public IEnemyFactory
 public:
 	EnemyFactory(){ this->init(); };
 	~EnemyFactory(){ this->cleanUp(); };
-	bool init();
-	spEnemy createEnemy();
+	bool init();	
 	void cleanUp();
+	spEnemy createEnemy();
 };
 #endif
 

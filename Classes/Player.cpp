@@ -1,7 +1,5 @@
 #include "Player.h"
 
-
-
 Player* Player::create(const std::string& filename)
 {
 	Player* pSprite = new Player();
@@ -9,11 +7,8 @@ Player* Player::create(const std::string& filename)
 	if (pSprite->initWithFile(filename))
 	{
 		pSprite->autorelease();
-
 		pSprite->init();
-
 		//pSprite->addEvents();
-
 		return pSprite;
 	}
 
@@ -22,15 +17,21 @@ Player* Player::create(const std::string& filename)
 }
 
 bool Player::init()
-{		
+{	
+	setType(PLAYER);
+	setState(RUNNING);
 	return true;
 }
 
 void Player::jump()
 {
-	CCLOG("Player jumped");
-	auto action = JumpBy::create(2, Vec2(0, 0), 150, 1);
-	this->runAction(action);
+	if (!JUMPING)
+	{
+		setState(JUMPING);
+		auto action = JumpBy::create(2, Vec2(0, 0), 150, 1);
+		this->runAction(action);
+		CCLOG("Player jumped");
+	}	
 }
 
 void Player::cleanUp()
