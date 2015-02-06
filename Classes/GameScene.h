@@ -45,6 +45,11 @@ private:
 
 	Layer* gamePlayLayer;
 	HUD* m_cHud;
+
+	Sprite* bk1;
+	Sprite* bk2;
+
+	float speed;
 };
 
 #endif // __GAMESCENE_SCENE_H__
