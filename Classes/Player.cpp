@@ -38,7 +38,7 @@ void Player::touch(const Point& location)
 	auto winSize = Director::getInstance()->getWinSize();
 
 	// jump
-	if (location.x < (winSize.width * 0.5f)) /*TODO edit this value*/
+	if (location.x < (winSize.width * 0.33f)) // jump if user touches behind player position
 	{
 		jump();
 	}

@@ -38,6 +38,7 @@ bool GameScene::init()
 	
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	auto winSize = Director::getInstance()->getWinSize(); // added for player spawn position
 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_action_1.wav", true);
 
@@ -68,7 +69,7 @@ bool GameScene::init()
 	Player* playerSprite = Player::create("sprites/Player.png"); // sprite image
 	
 	WorldManager::getInstance()->setPlayer(playerSprite); // store shared pointer in world manager
-	playerSprite->setPosition(Vec2(((visibleSize.width / 3)*1) + origin.x, visibleSize.height / 2 + origin.y));
+	playerSprite->setPosition(Vec2(winSize.width * 0.33f, visibleSize.height / 2 + origin.y));
 	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);		
 	playerSprite->setPhysicsBody(playerPhysicsBody);
 	playerPhysicsBody->setDynamic(true);
