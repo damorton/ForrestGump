@@ -18,9 +18,11 @@ public:
 
 	Player* getPlayer(){ return m_pPlayer; };
 	std::vector<std::shared_ptr<Enemy>> getEnemies(){ return m_vpEnemies; };
+	Sprite* getFloorSprite(){ return m_pFloorSprite; };
 
 	void setPlayer(Player* player){ m_pPlayer = player; };
 	void setVectorOfEnemies(std::vector<std::shared_ptr<Enemy>> vectorOfEnemies){ m_vpEnemies = vectorOfEnemies; };
+	void setFloorSprite(Sprite* floor){ m_pFloorSprite = floor; };
 private:	
 	WorldManager(){ this->init(); };  
 	~WorldManager(){ this->cleanUp(); }; 
@@ -28,6 +30,7 @@ private:
 	static WorldManager* m_pInstance; // this
 	Player* m_pPlayer; // player
 	std::vector<std::shared_ptr<Enemy>> m_vpEnemies; // vector of enemies
+	Sprite* m_pFloorSprite;
 };
 
 #endif
