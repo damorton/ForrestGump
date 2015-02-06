@@ -56,23 +56,35 @@ bool GameScene::init()
 	gameBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	gamePlayLayer->addChild(gameBackground, -1); // add child
 	
-	// Maze	
+
+	// add foreground to game scene
+	auto foreground = Sprite::create("foreground/floor.png");
+	foreground->setPosition(Vec2(visibleSize.width / 2 + origin.x, 50));
+
+	// create physics body for floor
+	auto floorEdgeBody = PhysicsBody::createEdgeBox(foreground->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
+
+	// give the foreground a physics body
+	foreground->setPhysicsBody(floorEdgeBody);
+	foreground->getPhysicsBody()->setDynamic(false);
+	gamePlayLayer->addChild(foreground, 0); // add at z:1 for foreground
+	
+	/*	
 	Maze* mazeLayer = Maze::create();
 	mazeLayer->addTMXTileMap("maps/maze.tmx");
 	mazeLayer->addPhysicsEdgeBox();
 	mazeLayer->addPhysicsToTiles("maze");
 	gamePlayLayer->addChild(mazeLayer, 0, "maze");
-
+	*/
 		
 	// Player			
-	Player* playerSprite = Player::create("sprites/Player.png"); // sprite image
-	
-	WorldManager::getInstance()->setPlayer(playerSprite); // store shared pointer in world manager
+	Player* playerSprite = Player::create("sprites/Player.png");	
 	playerSprite->setPosition(Vec2(((visibleSize.width / 3)*1) + origin.x, visibleSize.height / 2 + origin.y));
 	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);		
 	playerSprite->setPhysicsBody(playerPhysicsBody);
 	playerPhysicsBody->setDynamic(true);
 	gamePlayLayer->addChild(playerSprite, 0);
+	WorldManager::getInstance()->setPlayer(playerSprite);
 	
 	// camera
 	gamePlayLayer->runAction(Follow::create(playerSprite));
