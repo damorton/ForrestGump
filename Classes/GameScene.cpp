@@ -14,7 +14,7 @@ Scene* GameScene::createScene()
 	// 'scene' is an autorelease object
 	auto scene = Scene::createWithPhysics();	
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL); // draw debug lines around objects in the world	
-	
+	scene->getPhysicsWorld()->setUpdateRate(0.3f);
 	// 'layer' is an autorelease object
 	auto layer = GameScene::create();
 	layer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics
@@ -59,7 +59,7 @@ bool GameScene::init()
 
 	// add floorSprite to game scene
 	auto floorSprite = Sprite::create("foreground/floorSprite.png");
-	floorSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, 50));
+	floorSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, floorSprite->getContentSize().height / 2 + origin.y));
 	auto floorEdgeBody = PhysicsBody::createEdgeBox(floorSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
 	floorSprite->setPhysicsBody(floorEdgeBody);
 	floorSprite->getPhysicsBody()->setDynamic(false);
@@ -76,9 +76,9 @@ bool GameScene::init()
 		
 	// Player			
 	Player* playerSprite = Player::create("sprites/Player.png");		
-	playerSprite->setPosition(Vec2(
-		((visibleSize.width / 3) * 1) + origin.x,
-		((visibleSize.height / 10) * 1) + origin.y));
+	playerSprite->setPosition(Vec2(((visibleSize.width / 3) * 1) + origin.x,		
+		WorldManager::getInstance()->getFLoorSprite()->getPositionY() + 		
+		playerSprite->getContentSize().height / 2));
 	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 	playerSprite->setPhysicsBody(playerPhysicsBody);
 	playerPhysicsBody->setDynamic(false);
