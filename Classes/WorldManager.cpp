@@ -1,32 +1,25 @@
 #include "WorldManager.h"
 
-WorldManager* WorldManager::m_Instance = 0;
+WorldManager* WorldManager::m_pInstance = 0;
 
 WorldManager* WorldManager::getInstance()
 {	
-	if (m_Instance == 0)
-		m_Instance = new WorldManager();
-	return m_Instance;
+	if (m_pInstance == 0)
+	{
+		m_pInstance = new WorldManager();
+	}
+	return m_pInstance;
 }
 
-
 bool WorldManager::init()
-{	
+{		
 	return true;
 }
 
 void WorldManager::cleanUp()
 {	
-	delete m_Instance;
-	m_Instance = NULL;
-	m_pPlayer = NULL;
-	m_pEnemy = NULL;
+	delete m_pInstance;
+	delete m_pPlayer;
+	m_pInstance = NULL;
+	m_pPlayer = NULL;	
 }
-
-void WorldManager::scaleSpriteToFullScreenSize(Sprite* sprite)
-{
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-	sprite->setScaleX(visibleSize.width / sprite->getContentSize().width);
-	sprite->setScaleY(visibleSize.height / sprite->getContentSize().height);
-}
-

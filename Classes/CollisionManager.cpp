@@ -1,6 +1,5 @@
 #include <iostream>
 #include "CollisionManager.h"
-#include "GameObject.h"
 #include "Player.h"
 #include "Enemy.h"
 
@@ -34,13 +33,11 @@ bool CollisionManager::init()
 
 	@param GameObject obj
 */
-void CollisionManager::registerWithCollisionManager(std::shared_ptr<GameObject> obj)
+void CollisionManager::registerEnemyWithCollisionManager(std::shared_ptr<Enemy> obj)
 {
-#ifdef _DEBUG
 	CCLOG("CollisionManager::registerWithCollisionManager() called");
-#endif
 	// store GameOject in vector when registered
-	m_pvGameObjects.push_back(obj); 
+	m_vpEnemies.push_back(obj);
 };
 
 /* 
@@ -67,18 +64,18 @@ bool CollisionManager::checkCollisons()
 {
 	// loop through the CollisionManagers game object vector
 	// check each object and cast using its enum type
-	for (int i = 0; i < (int) m_pvGameObjects.size(); i++)
+	for (int i = 0; i < (int)m_vpEnemies.size(); i++)
 	{		
 		// enemy game object
-		if (m_pvGameObjects.at(i)->getType() == GameObject::ENEMY)
+		if (m_vpEnemies.at(i)->getType() == Character::ENEMY)
 		{
 			// check the game objects type and cast appropriatly
 			// use std::static_pointer_cast to cast shared pointers
-			std::shared_ptr<Enemy> tempEnemy = std::static_pointer_cast<Enemy>(m_pvGameObjects.at(i));
-			if (m_pPlayer->getSprite()->getBoundingBox().intersectsRect(tempEnemy->getSprite()->getBoundingBox()))
+			std::shared_ptr<Enemy> tempEnemy = std::static_pointer_cast<Enemy>(m_vpEnemies.at(i));
+			if (m_pPlayer->getBoundingBox().intersectsRect(tempEnemy->getBoundingBox()))
 			{
 				return true;
-			}			
+			}
 		}
 
 		// can add checks for wall? bullet? coins?

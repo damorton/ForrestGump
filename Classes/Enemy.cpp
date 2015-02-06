@@ -1,7 +1,24 @@
 #include "Enemy.h"
 
+Enemy* Enemy::create(const std::string& filename)
+{
+	Enemy* pSprite = new Enemy();
+
+	if (pSprite->initWithFile(filename))
+	{
+		pSprite->autorelease();
+		pSprite->init();
+		//pSprite->addEvents();
+		return pSprite;
+	}
+
+	CC_SAFE_DELETE(pSprite);
+	return NULL;
+}
+
 bool Enemy::init()
 {
+	setType(ENEMY);	
 	return true;
 }
 
@@ -25,8 +42,6 @@ void Enemy::update()
 	Enemy cleanup
 */
 void Enemy::cleanUp()
-{
-#ifdef _DEBUG
-	CCLOG("Enemy::cleanUp()");
-#endif
+{	CCLOG("Enemy::cleanUp()");
+
 }

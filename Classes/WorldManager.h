@@ -1,45 +1,33 @@
 #ifndef WORLDMANAGER_H_
 #define WORLDMANAGER_H_
 
+#define FONT_SIZE ((visibleSize.width / 1920) * 100)
+
 #include <memory>
 #include "Player.h"
 #include "Enemy.h"
  
+USING_NS_CC;
+
 class WorldManager
 {
-public:
-	// typedefs
-	typedef std::shared_ptr<Player> spPlayer;
-	typedef std::shared_ptr<Enemy> spEnemy;
-	
-	// member functions	
+public:	
 	virtual bool init();	
-	virtual void cleanUp(); 
-	
-	// getters
+	virtual void cleanUp(); 	
 	static WorldManager* getInstance(); 
-	spPlayer getPlayer(){ return m_pPlayer; };
-	spEnemy getEnemy(){ return m_pEnemy; };
 
-	// setters
-	void setPlayer(spPlayer player){ m_pPlayer = player; };
-	void setEnemy(spEnemy enemy){ m_pEnemy = enemy; };
+	Player* getPlayer(){ return m_pPlayer; };
+	std::vector<std::shared_ptr<Enemy>> getEnemies(){ return m_vpEnemies; };
 
-	void scaleSpriteToFullScreenSize(Sprite* sprite);
-
-protected:	
-	spPlayer m_pPlayer;
-	spEnemy m_pEnemy;
-
-private:
-	// private *tors and instance	
+	void setPlayer(Player* player){ m_pPlayer = player; };
+	void setVectorOfEnemies(std::vector<std::shared_ptr<Enemy>> vectorOfEnemies){ m_vpEnemies = vectorOfEnemies; };
+private:	
 	WorldManager(){ this->init(); };  
-	~WorldManager(){ this->cleanUp(); }; 	
-	
-	static WorldManager* m_Instance;	
-	
-	
-	
+	~WorldManager(){ this->cleanUp(); }; 
+
+	static WorldManager* m_pInstance; // this
+	Player* m_pPlayer; // player
+	std::vector<std::shared_ptr<Enemy>> m_vpEnemies; // vector of enemies
 };
 
 #endif

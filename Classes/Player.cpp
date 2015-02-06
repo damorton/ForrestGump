@@ -1,28 +1,34 @@
 #include "Player.h"
 
-Player::Player(std::string name)
+Player* Player::create(const std::string& filename)
 {
-	m_strName = name;
-	init();
+	Player* pSprite = new Player();
+
+	if (pSprite->initWithFile(filename))
+	{
+		pSprite->autorelease();
+		pSprite->init();
+		//pSprite->addEvents();
+		return pSprite;
+	}
+
+	CC_SAFE_DELETE(pSprite);
+	return NULL;
 }
 
 bool Player::init()
 {	
-	setType(EGameOjectType::PLAYER);	
+	setType(PLAYER);
+	setState(RUNNING);
 	return true;
 }
 
-void Player::update()
-{
-	CCLOG("PLayer update");	
-	
-}
-
 void Player::jump()
-{	
-	CCLOG("Player jumped Angular velocity %f", m_pSprite->getPhysicsBody()->getAngularVelocity());
-	auto action = JumpTo::create(2, Vec2(100, 100), 50, 1);
-	m_pSprite->runAction(action);
+{
+	setState(JUMPING);
+	auto action = JumpBy::create(2, Vec2(0, 0), 150, 1);
+	this->runAction(action);
+	CCLOG("Player jumped");		
 }
 
 void Player::cleanUp()
