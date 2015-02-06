@@ -112,15 +112,19 @@ void GameScene::update(float delta)
 	//CCLOG("-------------GAME LOOP END--------------");
 }
 
-
+/*
+	This function converts each touch the user does into a Point(x, y)
+*/
 inline Point locationInGLFromTouch(Touch& touch)
 {
 	auto director = Director::getInstance();
 	return director->convertToGL(touch.getLocationInView());
 }
 
-
-bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
+/*
+	Passing the location the user touched into the player function to check for a jump
+*/
+bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event) 
 {
 	WorldManager::getInstance()->getPlayer()->touch(locationInGLFromTouch(*touch));
 	return true;
