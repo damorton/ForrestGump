@@ -14,7 +14,7 @@ Scene* GameScene::createScene()
 	// 'scene' is an autorelease object
 	auto scene = Scene::createWithPhysics();	
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL); // draw debug lines around objects in the world	
-	
+	scene->getPhysicsWorld()->setUpdateRate(0.3f);
 	// 'layer' is an autorelease object
 	auto layer = GameScene::create();
 	layer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics
@@ -56,27 +56,35 @@ bool GameScene::init()
 	gameBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	gamePlayLayer->addChild(gameBackground, -1); // add child
 	
-	// Maze	
+
+	// add floorSprite to game scene
+	auto floorSprite = Sprite::create("foreground/floorSprite.png");
+	floorSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, floorSprite->getContentSize().height / 2 + origin.y));
+	auto floorEdgeBody = PhysicsBody::createEdgeBox(floorSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
+	floorSprite->setPhysicsBody(floorEdgeBody);
+	floorSprite->getPhysicsBody()->setDynamic(false);
+	gamePlayLayer->addChild(floorSprite, 0); // add at z:1 for floorSprite
+	WorldManager::getInstance()->setFloorSprite(floorSprite);
+
+	/*
 	Maze* mazeLayer = Maze::create();
 	mazeLayer->addTMXTileMap("maps/maze.tmx");
 	mazeLayer->addPhysicsEdgeBox();
 	mazeLayer->addPhysicsToTiles("maze");
 	gamePlayLayer->addChild(mazeLayer, 0, "maze");
-
+	*/
 		
 	// Player			
-	Player* playerSprite = Player::create("sprites/Player.png"); // sprite image
-	
-	WorldManager::getInstance()->setPlayer(playerSprite); // store shared pointer in world manager
-	playerSprite->setPosition(Vec2(((visibleSize.width / 3)*1) + origin.x, visibleSize.height / 2 + origin.y));
-	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);		
+	Player* playerSprite = Player::create("sprites/Player.png");		
+	playerSprite->setPosition(Vec2(((visibleSize.width / 3) * 1) + origin.x,		
+		WorldManager::getInstance()->getFLoorSprite()->getPositionY() + 		
+		playerSprite->getContentSize().height / 2));
+	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 	playerSprite->setPhysicsBody(playerPhysicsBody);
-	playerPhysicsBody->setDynamic(true);
+	playerPhysicsBody->setDynamic(false);
 	gamePlayLayer->addChild(playerSprite, 0);
-	
-	// camera
-	gamePlayLayer->runAction(Follow::create(playerSprite));
-
+	WorldManager::getInstance()->setPlayer(playerSprite);
+		
 	// pause button
 	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(GameScene::Pause, this));
 	menu_item_pause->setPosition(Vec2(origin.x + visibleSize.width - menu_item_pause->getContentSize().width/2,
@@ -104,12 +112,11 @@ bool GameScene::init()
 
 void GameScene::update(float delta)
 {
-	//CCLOG("-------------GAME LOOP START--------------");
-	// call the player update	
-	//WorldManager::getInstance()->getPlayer()->update(float delta);
+	CCLOG("-------------GAME LOOP START--------------");	
+	WorldManager::getInstance()->getPlayer()->update();
 	m_cHud->updateScore();
 	
-	//CCLOG("-------------GAME LOOP END--------------");
+	CCLOG("-------------GAME LOOP END--------------");
 }
 
 
