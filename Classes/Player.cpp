@@ -1,3 +1,4 @@
+#include "WorldManager.h"
 #include "Player.h"
 
 Player* Player::create(const std::string& filename)
@@ -19,16 +20,31 @@ Player* Player::create(const std::string& filename)
 bool Player::init()
 {	
 	setType(PLAYER);
-	setState(RUNNING);
+	setState(RUNNING);		
 	return true;
 }
 
 void Player::jump()
 {
-	setState(JUMPING);
-	auto action = JumpBy::create(2, Vec2(0, 0), 150, 1);
-	this->runAction(action);
-	CCLOG("Player jumped");		
+	if (m_ePlayerState == RUNNING)
+	{
+		m_ePlayerState = JUMPING;
+		auto action = JumpBy::create(1.5, Vec2(0, 0), 300, 1);		
+		this->runAction(action);
+		CCLOG("Player jumped");
+	}
+}
+
+void Player::update()
+{	
+	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFLoorSprite()->getBoundingBox()))
+	{		
+		m_ePlayerState = RUNNING;
+	}
+	else
+	{
+		m_ePlayerState = JUMPING;
+	}
 }
 
 /* Player touch function */
