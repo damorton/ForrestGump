@@ -16,8 +16,8 @@ public:
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();  
 
-	CCSprite* bk1;
-	CCSprite* bk2;
+//	CCSprite* bk1;
+//	CCSprite* bk2;
 
 
 	
