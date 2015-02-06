@@ -113,10 +113,18 @@ void GameScene::update(float delta)
 }
 
 
+inline Point locationInGLFromTouch(Touch& touch)
+{
+	auto director = Director::getInstance();
+	return director->convertToGL(touch.getLocationInView());
+}
+
+
 bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
-{	
-	WorldManager::getInstance()->getPlayer()->jump();
+{
+	WorldManager::getInstance()->getPlayer()->touch(locationInGLFromTouch(*touch));
 	return true;
+
 }
 
 /*

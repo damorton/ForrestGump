@@ -31,6 +31,20 @@ void Player::jump()
 	CCLOG("Player jumped");		
 }
 
+/* Player touch function */
+void Player::touch(const Point& location)
+{
+	// get window size to check where touches
+	auto winSize = Director::getInstance()->getWinSize();
+
+	// jump
+	if (location.x < (winSize.width * 0.5f)) /*TODO edit this value*/
+	{
+		jump();
+	}
+
+}
+
 void Player::cleanUp()
 {
 }

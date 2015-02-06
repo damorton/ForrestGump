@@ -12,7 +12,8 @@ public:
 	static Player* create(const std::string& filename);
 	bool init();
 	void cleanUp();	
-	void jump();		
+	void jump();
+	void Player::touch(const Point& location);
 
 	EGameOjectType getType(){ return m_eType; };
 	int getState(){ return m_ePlayerState; };	
