@@ -39,6 +39,8 @@ bool GameScene::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_action_1.wav", true);
+
 	CCLOG("Game scene : %f x %f", visibleSize.width, visibleSize.height);
 	
 	// game play layer
@@ -127,6 +129,9 @@ void GameScene::Pause(cocos2d::Ref *pSender)
 	CCLOG("Pause");
 	auto scene = PauseScene::createScene();
 	Director::getInstance()->pushScene(TransitionFade::create(1, scene));
+
+	// to play sound effect if button is pressed 
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("button-21.wav", false, 1.0f, 1.0f, 1.0f);
 }
 
 /*
@@ -139,6 +144,8 @@ void GameScene::EndGame(cocos2d::Ref *pSender)
 	CCLOG("End Game");
 	auto scene = EndScene::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(1, scene));
+
+
 }
 
 

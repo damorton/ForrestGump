@@ -30,6 +30,8 @@ bool MainMenu::init()
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_menu.wav", true);
 	
 	auto mainMenuBackground = Sprite::create("background/MainMenuBackground.png"); // sprite image
 	mainMenuBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
@@ -71,6 +73,13 @@ void MainMenu::Play(cocos2d::Ref *pSender)
 	CCLOG("Play");
 	auto scene = GameScene::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(1, scene));
+
+	// to play sound effect if button is pressed 
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("button-21.wav", false, 1.0f, 1.0f, 1.0f);
+
+	// delay opening of game scene to hear the button sound effects
+	std::chrono::seconds duration(1);
+	std::this_thread::sleep_for(duration); // Sleep for 1 seconds.
 }
 
 /*
@@ -84,6 +93,13 @@ void MainMenu::Highscores(cocos2d::Ref *pSender)
 	CCLOG("Highscores");
 	//auto scene = MainMenu::createScene();
 	//Director::getInstance()->replaceScene(TransitionFade::create(1, scene));
+
+	// to play sound effect if button is pressed 
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("button-21.wav", false, 1.0f, 1.0f, 1.0f);
+
+	// delay opening of game scene to hear the button sound effects
+	std::chrono::seconds duration(1);
+	std::this_thread::sleep_for(duration); // Sleep for 2 seconds.
 }
 
 
@@ -98,6 +114,13 @@ void MainMenu::Settings(cocos2d::Ref *pSender)
 	CCLOG("Settings");	
 	//auto scene = MainMenu::createScene();
 	//Director::getInstance()->replaceScene(TransitionFade::create(1, scene));
+
+	// to play sound effect if button is pressed 
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("button-21.wav", false, 1.0f, 1.0f, 1.0f);
+
+	// delay opening of game scene to hear the button sound effects
+	std::chrono::seconds duration(1);
+	std::this_thread::sleep_for(duration); // Sleep for 2 seconds.
 }
 
 
