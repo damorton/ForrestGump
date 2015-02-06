@@ -38,6 +38,7 @@ bool GameScene::init()
 	
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	auto winSize = Director::getInstance()->getWinSize(); // added for player spawn position
 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_action_1.wav", true);
 
@@ -75,6 +76,7 @@ bool GameScene::init()
 	*/
 		
 	// Player			
+
 	Player* playerSprite = Player::create("sprites/Player.png");		
 	playerSprite->setPosition(Vec2(((visibleSize.width / 3) * 1) + origin.x,		
 		WorldManager::getInstance()->getFloorSprite()->getPositionY() + 		
@@ -119,11 +121,23 @@ void GameScene::update(float delta)
 	CCLOG("-------------GAME LOOP END--------------");
 }
 
+/*
+	This function converts each touch the user does into a Point(x, y)
+*/
+inline Point locationInGLFromTouch(Touch& touch)
+{
+	auto director = Director::getInstance();
+	return director->convertToGL(touch.getLocationInView());
+}
 
-bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
-{	
-	WorldManager::getInstance()->getPlayer()->jump();
+/*
+	Passing the location the user touched into the player function to check for a jump
+*/
+bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event) 
+{
+	WorldManager::getInstance()->getPlayer()->touch(locationInGLFromTouch(*touch));
 	return true;
+
 }
 
 /*

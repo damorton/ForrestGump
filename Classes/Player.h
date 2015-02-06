@@ -12,7 +12,9 @@ public:
 	static Player* create(const std::string& filename);
 	bool init();
 	void cleanUp();	
-	void jump();	
+
+	void jump();
+	void touch(const Point& location);	
 	void update();
 
 	EGameOjectType getType(){ return m_eType; };
