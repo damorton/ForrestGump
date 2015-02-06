@@ -24,7 +24,7 @@ public:
 	void registerPlayer(std::shared_ptr<Player> player);
 
 	// check for collisions between the player and all other game objects
-	bool checkCollisons();
+	bool checkCollisons();	
 	void cleanUp(); // delete CollisionManager
 
 	// getters 

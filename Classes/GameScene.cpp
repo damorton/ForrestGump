@@ -57,19 +57,16 @@ bool GameScene::init()
 	gamePlayLayer->addChild(gameBackground, -1); // add child
 	
 
-	// add foreground to game scene
-	auto foreground = Sprite::create("foreground/floor.png");
-	foreground->setPosition(Vec2(visibleSize.width / 2 + origin.x, 50));
+	// add floorSprite to game scene
+	auto floorSprite = Sprite::create("foreground/floorSprite.png");
+	floorSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, 50));
+	auto floorEdgeBody = PhysicsBody::createEdgeBox(floorSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
+	floorSprite->setPhysicsBody(floorEdgeBody);
+	floorSprite->getPhysicsBody()->setDynamic(false);
+	gamePlayLayer->addChild(floorSprite, 0); // add at z:1 for floorSprite
+	WorldManager::getInstance()->setFloorSprite(floorSprite);
 
-	// create physics body for floor
-	auto floorEdgeBody = PhysicsBody::createEdgeBox(foreground->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
-
-	// give the foreground a physics body
-	foreground->setPhysicsBody(floorEdgeBody);
-	foreground->getPhysicsBody()->setDynamic(false);
-	gamePlayLayer->addChild(foreground, 0); // add at z:1 for foreground
-	
-	/*	
+	/*
 	Maze* mazeLayer = Maze::create();
 	mazeLayer->addTMXTileMap("maps/maze.tmx");
 	mazeLayer->addPhysicsEdgeBox();
@@ -78,11 +75,13 @@ bool GameScene::init()
 	*/
 		
 	// Player			
-	Player* playerSprite = Player::create("sprites/Player.png");	
-	playerSprite->setPosition(Vec2(((visibleSize.width / 3)*1) + origin.x, visibleSize.height / 2 + origin.y));
-	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);		
+	Player* playerSprite = Player::create("sprites/Player.png");		
+	playerSprite->setPosition(Vec2(
+		((visibleSize.width / 3) * 1) + origin.x,
+		((visibleSize.height / 10) * 1) + origin.y));
+	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 	playerSprite->setPhysicsBody(playerPhysicsBody);
-	playerPhysicsBody->setDynamic(true);
+	playerPhysicsBody->setDynamic(false);
 	gamePlayLayer->addChild(playerSprite, 0);
 	WorldManager::getInstance()->setPlayer(playerSprite);
 	
@@ -116,12 +115,11 @@ bool GameScene::init()
 
 void GameScene::update(float delta)
 {
-	//CCLOG("-------------GAME LOOP START--------------");
-	// call the player update	
-	//WorldManager::getInstance()->getPlayer()->update(float delta);
+	CCLOG("-------------GAME LOOP START--------------");	
+	WorldManager::getInstance()->getPlayer()->update();
 	m_cHud->updateScore();
 	
-	//CCLOG("-------------GAME LOOP END--------------");
+	CCLOG("-------------GAME LOOP END--------------");
 }
 
 
