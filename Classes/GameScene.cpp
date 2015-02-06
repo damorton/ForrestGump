@@ -84,10 +84,7 @@ bool GameScene::init()
 	playerPhysicsBody->setDynamic(false);
 	gamePlayLayer->addChild(playerSprite, 0);
 	WorldManager::getInstance()->setPlayer(playerSprite);
-	
-	// camera
-	gamePlayLayer->runAction(Follow::create(playerSprite));
-
+		
 	// pause button
 	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(GameScene::Pause, this));
 	menu_item_pause->setPosition(Vec2(origin.x + visibleSize.width - menu_item_pause->getContentSize().width/2,
