@@ -101,9 +101,6 @@
     <ClInclude Include="..\Classes\Definitions.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\AppMacros.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Maze.h">
       <Filter>Classes</Filter>
     </ClInclude>

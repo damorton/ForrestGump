@@ -25,7 +25,7 @@ bool Player::init()
 
 void Player::jump()
 {
-	if (!JUMPING)
+	if (!getState() == JUMPING)
 	{
 		setState(JUMPING);
 		auto action = JumpBy::create(2, Vec2(0, 0), 150, 1);

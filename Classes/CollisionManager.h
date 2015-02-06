@@ -7,8 +7,8 @@
 #include <memory>
 
 // forward declarations
-class Character;
 class Player;
+class Enemy;
 
 /*	Singleton CollisionManager */
 class CollisionManager
@@ -18,7 +18,7 @@ public:
 	static CollisionManager* getInstance(); // instance of CollsionManager
 
 	// register with the collision manager
-	void registerWithCollisionManager(std::shared_ptr<Character> obj);
+	void registerEnemyWithCollisionManager(std::shared_ptr<Enemy> obj);
 
 	// register the player object
 	void registerPlayer(std::shared_ptr<Player> player);
@@ -29,7 +29,7 @@ public:
 
 	// getters 
 	std::shared_ptr<Player> getPlayer(){ return m_pPlayer; }; // player
-	std::vector<std::shared_ptr<Character>> getGameObjectVector(){ return m_vpEnemies; }; // vector of enemies
+	std::vector<std::shared_ptr<Enemy>> getVectorOfEnemies(){ return m_vpEnemies; }; // vector of enemies
 	
 private:
 	static CollisionManager* m_Instance; 

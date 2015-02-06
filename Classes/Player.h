@@ -13,10 +13,13 @@ public:
 	bool init();
 	void cleanUp();	
 	void jump();		
+
 	EGameOjectType getType(){ return m_eType; };
 	int getState(){ return m_ePlayerState; };	
+	
 	void setType(EGameOjectType type){ m_eType = type; };
 	void setState(int state){ m_ePlayerState = (EPlayerState)state; };
+	
 	CREATE_FUNC(Player);
 protected:
 	typedef enum { ALIVE, DEAD, BOOSTING, JUMPING, RUNNING } EPlayerState;

@@ -1,6 +1,5 @@
 #include <iostream>
 #include "CollisionManager.h"
-#include "GameObject.h"
 #include "Player.h"
 #include "Enemy.h"
 
@@ -34,7 +33,7 @@ bool CollisionManager::init()
 
 	@param GameObject obj
 */
-void CollisionManager::registerWithCollisionManager(std::shared_ptr<Enemy> obj)
+void CollisionManager::registerEnemyWithCollisionManager(std::shared_ptr<Enemy> obj)
 {
 	CCLOG("CollisionManager::registerWithCollisionManager() called");
 	// store GameOject in vector when registered
