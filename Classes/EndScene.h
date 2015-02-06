@@ -1,5 +1,5 @@
-#ifndef __END_SCENE_H__
-#define __END_SCENE_H__
+#ifndef END_SCENE_H_
+#define END_SCENE_H_
 
 #include "cocos2d.h"
 

@@ -1,7 +1,18 @@
 #ifndef ENEMYFACTORY_H_
 #define	ENEMYFACTORY_H_
 
-#include "IEnemyFactory.h"
+#include <memory>
+#include "Enemy.h"
+
+typedef std::shared_ptr<Enemy> spEnemy;
+
+class IEnemyFactory
+{
+public:
+	virtual bool init() = 0;
+	virtual spEnemy createEnemy() = 0;
+	virtual void cleanUp() = 0;
+};
 
 class EnemyFactory : public IEnemyFactory
 {
