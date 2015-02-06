@@ -41,9 +41,9 @@ bool Splash::init()
 	splashBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(splashBackground);
 
-	auto backgroundSprite = Sprite::create("foreground/ForrestGump.png");
-	backgroundSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	this->addChild(backgroundSprite);
+//	auto backgroundSprite = Sprite::create("foreground/ForrestGump.png");
+//	backgroundSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+//	this->addChild(backgroundSprite);
 
 	return true;
 }

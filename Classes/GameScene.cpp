@@ -60,6 +60,7 @@ bool GameScene::init()
 	mazeLayer->addPhysicsEdgeBox();
 	mazeLayer->addPhysicsToTiles("maze");
 	gamePlayLayer->addChild(mazeLayer, 0, "maze");
+
 		
 	// Player			
 	Player* playerSprite = Player::create("sprites/Player.png"); // sprite image
