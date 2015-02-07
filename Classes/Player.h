@@ -14,7 +14,7 @@ public:
 	void cleanUp();	
 
 	void jump();
-	void Player::touch(const Point& location);	
+	void touch(const Point& location);	
 	void update();
 
 	EGameOjectType getType(){ return m_eType; };

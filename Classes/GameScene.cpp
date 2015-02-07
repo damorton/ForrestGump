@@ -87,7 +87,9 @@ bool GameScene::init()
 		
 	// Player			
 	Player* playerSprite = Player::create("sprites/Player.png");		
-	playerSprite->setPosition(Vec2(((visibleSize.width / 3) * 1) + origin.x, WorldManager::getInstance()->getFloorSprite()->getPositionY() + playerSprite->getContentSize().height / 2));
+	playerSprite->setPosition(Vec2(((visibleSize.width / 3) * 1) + origin.x,		
+		WorldManager::getInstance()->getFloorSprite()->getPositionY() + 		
+		playerSprite->getContentSize().height / 2));
 	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 	playerSprite->setPhysicsBody(playerPhysicsBody);
 	playerPhysicsBody->setDynamic(false);

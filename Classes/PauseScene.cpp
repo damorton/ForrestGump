@@ -31,9 +31,16 @@ bool PauseScene::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Point origin = Director::getInstance()->getVisibleOrigin();
     
-    auto menu_item_1 = MenuItemFont::create("Resume Game (pop)", CC_CALLBACK_1(PauseScene::Resume, this));
-    auto menu_item_2 = MenuItemFont::create("Exit to Main Menu (pop/replaceScene)", CC_CALLBACK_1(PauseScene::MainMenu, this));
+	auto pauseMenuBackground = Sprite::create("background/pauseMenuBackground.png"); // sprite image
+	pauseMenuBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	this->addChild(pauseMenuBackground, -50); // add child
+
+    auto menu_item_1 = MenuItemFont::create("Resume Game", CC_CALLBACK_1(PauseScene::Resume, this));
+    auto menu_item_2 = MenuItemFont::create("Exit to Main Menu", CC_CALLBACK_1(PauseScene::MainMenu, this));
     
+	menu_item_1->setColor(ccc3(0, 0, 0));
+	menu_item_2->setColor(ccc3(0, 0, 0));
+
     menu_item_1->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 3) * 2));
     menu_item_2->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 3) * 1));
     
