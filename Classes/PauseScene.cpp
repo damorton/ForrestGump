@@ -31,13 +31,22 @@ bool PauseScene::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Point origin = Director::getInstance()->getVisibleOrigin();
     
-    auto menu_item_1 = MenuItemFont::create("Resume Game (pop)", CC_CALLBACK_1(PauseScene::Resume, this));
-    auto menu_item_2 = MenuItemFont::create("Exit to Main Menu (pop/replaceScene)", CC_CALLBACK_1(PauseScene::MainMenu, this));
+	auto pauseMenuBackground = Sprite::create("background/pauseMenuBackground.png"); // sprite image
+	pauseMenuBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	this->addChild(pauseMenuBackground, -50); // add child
+	
+	// create the Pause menu items
+	auto resumeButton = MenuItemImage::create("buttons/resume.png", "buttons/resume_clicked.png", CC_CALLBACK_1(PauseScene::Resume, this));
+	auto mainMenuButton = MenuItemImage::create("buttons/menu.png", "buttons/menu_clicked.png", CC_CALLBACK_1(PauseScene::MainMenu, this));
+	auto exitButton = MenuItemImage::create("buttons/exit.png", "buttons/exit_clicked.png", CC_CALLBACK_1(PauseScene::Exit, this));
     
-    menu_item_1->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 3) * 2));
-    menu_item_2->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 3) * 1));
-    
-    auto* menu = Menu::create(menu_item_1, menu_item_2, NULL);
+	// position the menu buttons on screen
+	resumeButton->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 3) + 150));
+	mainMenuButton->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 3)));
+	exitButton->setPosition(Point(visibleSize.width - 50, (visibleSize.height / 3)-100));
+	
+	// create menu and add menu items
+	auto* menu = Menu::create(resumeButton, mainMenuButton, exitButton, NULL);
 	menu->setPosition(Vec2::ZERO);
     this->addChild(menu);
     
@@ -68,6 +77,14 @@ void PauseScene::MainMenu(cocos2d::Ref *pSender)
     auto scene = MainMenu::createScene();    
 	Director::getInstance()->replaceScene(TransitionFlipX::create(1, scene));
 }
+
+
+void PauseScene::Exit(cocos2d::Ref *pSender)
+{
+	//exit game
+	Director::sharedDirector()->end();
+}
+
 
 void PauseScene::menuCloseCallback(Ref* pSender)
 {

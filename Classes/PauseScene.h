@@ -22,6 +22,7 @@ public:
 
 	void Resume(Ref *pSender);
 	void MainMenu(Ref *pSender);
+	void Exit(Ref *pSender);
 
 };
 
