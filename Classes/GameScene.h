@@ -15,6 +15,11 @@ public:
 
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();  
+
+//	CCSprite* bk1;
+//	CCSprite* bk2;
+
+
 	
 	// update the game scene
 	void update(float) override;
@@ -40,6 +45,11 @@ private:
 
 	Layer* gamePlayLayer;
 	HUD* m_cHud;
+
+	Sprite* bk1;
+	Sprite* bk2;
+
+	float speed;
 };
 
 #endif // __GAMESCENE_SCENE_H__
