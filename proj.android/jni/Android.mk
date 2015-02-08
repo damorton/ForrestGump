@@ -19,8 +19,8 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 				   ../../Classes/EndScene.cpp \
 				   ../../Classes/Enemy.cpp \
 				   ../../Classes/EnemyFactory.cpp \
-				   ../../Classes/GameObject.cpp \
 				   ../../Classes/GameScene.cpp \
+				   ../../Classes/HUD.cpp \
 				   ../../Classes/PauseScene.cpp \
 				   ../../Classes/Player.cpp \
                    ../../Classes/WorldManager.cpp
