@@ -144,7 +144,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\GameScene.cpp" />
     <ClCompile Include="..\Classes\HUD.cpp" />
     <ClCompile Include="..\Classes\MainMenuScene.cpp" />
-    <ClCompile Include="..\Classes\Maze.cpp" />
     <ClCompile Include="..\Classes\PauseScene.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\SplashScene.cpp" />
@@ -162,7 +161,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\GameScene.h" />
     <ClInclude Include="..\Classes\HUD.h" />
     <ClInclude Include="..\Classes\MainMenuScene.h" />
-    <ClInclude Include="..\Classes\Maze.h" />
     <ClInclude Include="..\Classes\PauseScene.h" />
     <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\SplashScene.h" />

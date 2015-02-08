@@ -45,9 +45,6 @@
     <ClCompile Include="..\Classes\SplashScene.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Maze.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\HUD.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
@@ -99,9 +96,6 @@
       <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Definitions.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Maze.h">
       <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\HUD.h">
