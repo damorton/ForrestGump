@@ -130,6 +130,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
 	return true;
 }
 
+// create a segment manager
 void GameScene::spawnSegment(const std::string& layername)
 {
 	auto mazeLayer = Maze::create();
