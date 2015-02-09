@@ -29,28 +29,27 @@ bool Splash::init()
 	{
 		return false;
 	}
-
-	WorldManager::getInstance()->init();
-
+	
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-	this->scheduleOnce(schedule_selector(Splash::goToMainMenuScene), DISPLY_TIME_SPLASH_SCENCE);
-
+	
 	auto splashBackground = Sprite::create("background/Splash.png");
 	splashBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(splashBackground);
 
-//	auto backgroundSprite = Sprite::create("foreground/ForrestGump.png");
-//	backgroundSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-//	this->addChild(backgroundSprite);
+	WorldManager::getInstance()->setSplashScene(this);
 
+	this->scheduleOnce(schedule_selector(Splash::goToMainMenuScene), DISPLY_TIME_SPLASH_SCENCE);	
 	return true;
 }
 
 void Splash::goToMainMenuScene(float dt)
 {
 	auto scene = MainMenu::createScene();
-
 	Director::getInstance()->replaceScene( TransitionFade::create(TRANSITION_TIME, scene));
+}
+
+void cleanup()
+{
+
 }

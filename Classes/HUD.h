@@ -22,7 +22,7 @@ public:
 
 private:
 	int m_iScore;
-	LabelTTF* m_lScore;
+	Label* m_lScore;
 	
 };
 
