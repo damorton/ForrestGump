@@ -1,6 +1,9 @@
 #ifndef DEFINITIONS_H__
 #define DEFINITIONS_H__
 
+#define RIGHT_SIDE_OF_SCREEN (Director::getInstance()->getVisibleSize().width)
+#define SEGMENT_MOVEMENT_SPEED 0.005f
+
 // scenes
 #define DISPLY_TIME_SPLASH_SCENCE 2
 #define TRANSITION_TIME 0.5

@@ -74,14 +74,17 @@ bool GameScene::init()
 	gamePlayLayer->addChild(floorSprite, 0); // add at z:1 for floorSprite
 	WorldManager::getInstance()->setFloorSprite(floorSprite);
 
-	/*
-	Maze* mazeLayer = Maze::create();
+	
+	mazeLayer = Maze::create();
+	mazeLayer->setPosition(Vec2(RIGHT_SIDE_OF_SCREEN, origin.y));
 	mazeLayer->addTMXTileMap("maps/maze.tmx");
-	mazeLayer->addPhysicsEdgeBox();
-	mazeLayer->addPhysicsToTiles("maze");
-	gamePlayLayer->addChild(mazeLayer, 0, "maze");
-	*/
-		
+	mazeLayer->addPhysicsToTiles("maze");	
+	gamePlayLayer->addChild(mazeLayer, 1, "maze");
+	auto segmentAction = MoveBy::create(SEGMENT_MOVEMENT_SPEED * visibleSize.width, Point(-visibleSize.width * 2, 0));
+	auto removeSegment = CallFuncN::create(CC_CALLBACK_1(Maze::outOfScreen, this));	
+	auto seq = Sequence::create(segmentAction, removeSegment, nullptr);
+	mazeLayer->runAction(seq);		
+
 	// Player			
 	Player* playerSprite = Player::create("sprites/Player.png");		
 	playerSprite->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, FLOOR_SPRITE_TOP);

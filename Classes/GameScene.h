@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "HUD.h"
+#include "Maze.h"
 
 USING_NS_CC;
 
@@ -57,6 +58,7 @@ private:
 	// layers	
 	Layer* gamePlayLayer;
 	HUD* m_cHud;
+	Maze* mazeLayer;
 
 	// sprites
 	Sprite* backgroundA;
