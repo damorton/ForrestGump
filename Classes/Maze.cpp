@@ -21,7 +21,7 @@ bool Maze::init()
 bool Maze::addTMXTileMap(const std::string& filename)
 {
 	m_MazeTileMap = TMXTiledMap::create(filename);	
-	this->addChild(m_MazeTileMap, 0, "tilemap");
+	this->addChild(m_MazeTileMap, 0);
 	return true;
 }
 
@@ -56,7 +56,7 @@ bool Maze::addPhysicsToTiles(const std::string& filename)
 				tileSprite->getPhysicsBody()->setCategoryBitmask(0x01);
 				tileSprite->getPhysicsBody()->setCollisionBitmask(0x02);
 				tileSprite->getPhysicsBody()->setContactTestBitmask(true);
-				tileSprite->setPosition(Vec2((tileSprite->getPosition().x + tileSprite->getContentSize().width / 2), (tileSprite->getPosition().y + tileSprite->getContentSize().height / 2)));				
+				tileSprite->setPosition(Vec2((tileSprite->getPosition().x + tileSprite->getContentSize().width / 2), (tileSprite->getPosition().y + tileSprite->getContentSize().height / 2)));		
 			}
 		}
 	}

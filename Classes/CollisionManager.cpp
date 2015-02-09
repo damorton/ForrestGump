@@ -23,10 +23,12 @@ void CollisionManager::registerEnemyWithCollisionManager(std::shared_ptr<Enemy> 
 	m_vpEnemies.push_back(obj);
 }
 
-void CollisionManager::registerSegment(cocos2d::TMXLayer* layer)
+/*
+void CollisionManager::registerSegment(cocos2d::TMXLayer* segment)
 {
-	m_pMazeLayer = layer;	
+	m_pSegment = segment;
 }
+*/
 
 bool CollisionManager::checkCollisons()
 {	
@@ -43,28 +45,9 @@ bool CollisionManager::checkCollisons()
 		}		
 	}
 	*/
-	// can add checks for wall? bullet? coins?
 
-	if (m_pMazeLayer != NULL)
-	{
-		// tiles in tilemap layer "maze"
-		for (int i = 0; i < m_pMazeLayer->getLayerSize().height; i++)
-		{
-			for (int j = 0; j < m_pMazeLayer->getLayerSize().width; j++)
-			{
-				auto tileSprite = m_pMazeLayer->tileAt(Vec2(i, j));
-				if (tileSprite)
-				{					
-					if (tileSprite->getBoundingBox().intersectsRect(m_pPlayer->getBoundingBox()))
-					{
-						tileSprite->setVisible(false);
-						return true;
-						CCLOG("collision");
-					}
-				}
-			}
-		}
-	}
+	// can add checks for wall? bullet? coins?	
+	
 	return false;
 }
 

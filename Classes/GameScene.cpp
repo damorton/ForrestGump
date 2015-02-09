@@ -74,19 +74,13 @@ bool GameScene::init()
 	floorSprite->getPhysicsBody()->setDynamic(false);
 	gamePlayLayer->addChild(floorSprite, 0); // add at z:1 for floorSprite
 	WorldManager::getInstance()->setFloorSprite(floorSprite);
-
 	
-	mazeLayer = Maze::create();	
-	mazeLayer->addTMXTileMap("maps/maze.tmx");
-	mazeLayer->addPhysicsToTiles("maze");	
-	gamePlayLayer->addChild(mazeLayer, 0, "maze");	
-	CollisionManager::getInstance()->registerSegment(mazeLayer->getTileMap()->getLayer("maze"));	
-
 	// Player			
 	Player* playerSprite = Player::create("sprites/Player.png");		
 	playerSprite->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, FLOOR_SPRITE_TOP);
 	
 	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);		
+	
 	playerPhysicsBody->setDynamic(false);
 	playerPhysicsBody->setCategoryBitmask(0x02);
 	playerPhysicsBody->setCollisionBitmask(0x01);
@@ -97,6 +91,9 @@ bool GameScene::init()
 	WorldManager::getInstance()->setPlayer(playerSprite);
 	CollisionManager::getInstance()->registerPlayer(playerSprite);
 		
+	spawnSegmentTimer = 0;
+	GameScene::spawnSegment("maze01");
+
 	// pause button
 	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(GameScene::Pause, this));
 	menu_item_pause->setPosition(Vec2(origin.x + visibleSize.width - menu_item_pause->getContentSize().width/2,
@@ -129,19 +126,28 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
 {
 	CCLOG("onContactBegin -------> ");	
 	contact.getShapeA()->getBody()->getNode()->setVisible(false);
+	contact.getShapeB()->getBody()->getNode()->setVisible(false);		
 	return true;
 }
 
-
-bool GameScene::removeSegment()
-{	
-	mazeLayer->removeFromParentAndCleanup(true);
-	return true;
+void GameScene::spawnSegment(const std::string& layername)
+{
+	auto mazeLayer = Maze::create();
+	mazeLayer->addTMXTileMap("maps/maze.tmx");
+	mazeLayer->addPhysicsToTiles(layername);
+	gamePlayLayer->addChild(mazeLayer, 1, "segment");
 }
 
 void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	
+	spawnSegmentTimer++;
+	if (spawnSegmentTimer > 500)
+	{
+		CCLOG("Spawn segment");
+		GameScene::spawnSegment("maze02");
+		spawnSegmentTimer = 0;
+	}
 
 	// update the player
 	WorldManager::getInstance()->getPlayer()->update();
@@ -181,13 +187,11 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	return true;
 }
 
-
-
 void GameScene::Pause(cocos2d::Ref *pSender)
 {
 	CCLOG("Pause");
-	auto scene = PauseScene::createScene();
-	Director::getInstance()->pushScene(TransitionFade::create(1, scene));
+	auto scene = PauseScene::createScene();	
+	Director::getInstance()->pushScene(scene);
 
 	// to play sound effect if button is pressed 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("button-21.wav", false, 1.0f, 1.0f, 1.0f);

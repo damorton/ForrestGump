@@ -12,6 +12,7 @@ public:
 		Initialize the maze layer
 	*/
 	virtual bool init();
+	virtual ~Maze(){};
 
 	/*
 		Add a TMX tilemap to the layer
@@ -59,7 +60,7 @@ public:
 		Initialize the parent node
 	*/
 	CREATE_FUNC(Maze);
-
+	
 private:
 	TMXTiledMap* m_MazeTileMap;	
 };
