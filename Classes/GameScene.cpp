@@ -104,15 +104,13 @@ bool GameScene::init()
 	// touch controls
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->setSwallowTouches(true);
-	listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
-	
+	listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);	
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+			
+	speed = 5.0f;
 
 	// call the schedule update in order to run this layers update function
 	this->scheduleUpdate();
-		
-	speed = 5.0f;
-
 	return true;
 }
 

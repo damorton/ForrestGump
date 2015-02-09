@@ -51,15 +51,10 @@ void Player::update()
 /* Player touch function */
 void Player::touch(const Point& location)
 {
-	// get window size to check where touches
-	auto winSize = Director::getInstance()->getWinSize();
-
-	// jump
-	if (location.x < PLAYER_POSITION_IN_WINDOW) // jump if user touches behind player position
+	if (location.x < PLAYER_POSITION_IN_WINDOW) 
 	{
-		jump();
+		this->jump();
 	}
-
 }
 
 void Player::cleanUp()
