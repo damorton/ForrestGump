@@ -15,6 +15,12 @@ public:
 	void cleanUp();	
 
 	void jump();
+
+	/* 
+		Player touch function
+
+		@param Point location of the touch position
+	*/
 	void touch(const Point& location);	
 	void update();
 
@@ -27,7 +33,8 @@ public:
 	CREATE_FUNC(Player);
 protected:
 	typedef enum { ALIVE, DEAD, BOOSTING, JUMPING, RUNNING } EPlayerState;
-	EPlayerState m_ePlayerState;
+	EPlayerState	m_ePlayerState;
+	
 };
 
 #endif
