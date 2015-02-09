@@ -9,6 +9,11 @@ USING_NS_CC;
 class GameScene : public cocos2d::Layer
 {
 public:
+
+	//Update my background scrolling
+	void scrollBackground();
+
+
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
 
@@ -61,6 +66,10 @@ private:
 	// sprites
 	Sprite* backgroundA;
 	Sprite* backgroundB;
+	Sprite* backgroundC;
+	Sprite* backgroundD;
+	Sprite* backgroundE;
+	Sprite* backgroundF;
 
 	// variables
 	float speed;
