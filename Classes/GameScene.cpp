@@ -119,6 +119,7 @@ bool GameScene::init()
 void GameScene::update(float delta)
 {
 	CCLOG("-------------GAME LOOP START--------------");	
+
 	WorldManager::getInstance()->getPlayer()->update();
 	m_cHud->updateScore();
 	
@@ -130,10 +131,15 @@ void GameScene::update(float delta)
 	}
 	if (backgroundB->getPosition().x < -backgroundB->getContentSize().width / 2){
 		backgroundB->setPosition(Vec2(backgroundA->getPosition().x + backgroundA->getContentSize().width, backgroundB->getPosition().y));
-	}
-		
+	}		
 	
 	CCLOG("-------------GAME LOOP END--------------");
+}
+
+bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event) 
+{
+	WorldManager::getInstance()->getPlayer()->touch(locationInGLFromTouch(*touch));
+	return true;
 }
 
 /*
@@ -145,21 +151,6 @@ inline Point locationInGLFromTouch(Touch& touch)
 	return director->convertToGL(touch.getLocationInView());
 }
 
-/*
-	Passing the location the user touched into the player function to check for a jump
-*/
-bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event) 
-{
-	WorldManager::getInstance()->getPlayer()->touch(locationInGLFromTouch(*touch));
-	return true;
-
-}
-
-/*
-	Pause button creates a new pause scene and pushes it over the game scene
-	
-	@param cocos2d::Ref *pSender pointer used by the engine
-*/
 void GameScene::Pause(cocos2d::Ref *pSender)
 {
 	CCLOG("Pause");
@@ -170,20 +161,12 @@ void GameScene::Pause(cocos2d::Ref *pSender)
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("button-21.wav", false, 1.0f, 1.0f, 1.0f);
 }
 
-/*
-	EndGame button creates a new game game scene and replaces the game scene
-	
-	@param cocos2d::Ref *pSender pointer used by the engine
-*/
 void GameScene::EndGame(cocos2d::Ref *pSender)
 {
 	CCLOG("End Game");
 	auto scene = EndScene::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(1, scene));
-
-
 }
-
 
 void GameScene::menuCloseCallback(Ref* pSender)
 {
