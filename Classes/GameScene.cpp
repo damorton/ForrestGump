@@ -198,13 +198,3 @@ void GameScene::menuCloseCallback(Ref* pSender)
 	exit(0);
 #endif
 }
-
-void GameScene::cleanup()
-{			
-	delete m_cHud;	
-	m_pSceneWorld = NULL;
-	gamePlayLayer = NULL;
-	m_cHud = NULL;
-	backgroundA = NULL;
-	backgroundB = NULL;
-}

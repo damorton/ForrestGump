@@ -14,7 +14,6 @@ public:
 
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();  
-	virtual void cleanup();
 
 	// update the game scene
 	void update(float delta);
@@ -37,7 +36,7 @@ private:
 	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
 	PhysicsWorld* m_pSceneWorld;
 
-	// layers
+	// layers	
 	Layer* gamePlayLayer;
 	HUD* m_cHud;
 
