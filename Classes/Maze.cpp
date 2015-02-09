@@ -1,5 +1,6 @@
 #include "Maze.h"
 #include "Definitions.h"
+#include "WorldManager.h"
 
 bool Maze::init()
 {	
@@ -7,7 +8,13 @@ bool Maze::init()
 	{
 		return false;
 	}	
-	
+	this->setPosition(Vec2(VISIBLE_SIZE_WIDTH, Director::getInstance()->getVisibleOrigin().y));
+	auto segmentBehaviour = Sequence::create(
+		MoveBy::create(SEGMENT_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-VISIBLE_SIZE_WIDTH * 2, 0)),
+		RemoveSelf::create(),
+		nullptr);
+	this->runAction(segmentBehaviour);
+
 	return true;
 }
 
@@ -42,17 +49,13 @@ bool Maze::addPhysicsToTiles(const std::string& filename)
 		{
 			auto tileSprite = mazeLayer->tileAt(Vec2(i, j));
 			if (tileSprite)
-			{
+			{				
 				tileSprite->setPhysicsBody(PhysicsBody::createBox(Size(tileSprite->getContentSize().width, tileSprite->getContentSize().height)));
-				tileSprite->getPhysicsBody()->setDynamic(false);
-				tileSprite->setPosition(Vec2((tileSprite->getPosition().x + tileSprite->getContentSize().width / 2), (tileSprite->getPosition().y + tileSprite->getContentSize().height / 2)));
+				tileSprite->getPhysicsBody()->setDynamic(true);
+				tileSprite->getPhysicsBody()->setGravityEnable(false);
+				tileSprite->setPosition(Vec2((tileSprite->getPosition().x + tileSprite->getContentSize().width / 2), (tileSprite->getPosition().y + tileSprite->getContentSize().height / 2)));				
 			}
 		}
 	}
 	return true;
-}
-
-void Maze::outOfScreen()
-{
-	this->removeFromParentAndCleanup(true);
 }

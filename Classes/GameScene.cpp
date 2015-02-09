@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "Definitions.h"
 #include "WorldManager.h"
+#include "CollisionManager.h"
 #include "MainMenuScene.h"
 #include "PauseScene.h"
 #include "EndScene.h"
@@ -75,15 +76,11 @@ bool GameScene::init()
 	WorldManager::getInstance()->setFloorSprite(floorSprite);
 
 	
-	mazeLayer = Maze::create();
-	mazeLayer->setPosition(Vec2(RIGHT_SIDE_OF_SCREEN, origin.y));
+	mazeLayer = Maze::create();	
 	mazeLayer->addTMXTileMap("maps/maze.tmx");
 	mazeLayer->addPhysicsToTiles("maze");	
-	gamePlayLayer->addChild(mazeLayer, 1, "maze");
-	auto segmentAction = MoveBy::create(SEGMENT_MOVEMENT_SPEED * visibleSize.width, Point(-visibleSize.width * 2, 0));
-	auto removeSegment = CallFuncN::create(CC_CALLBACK_1(Maze::outOfScreen, this));	
-	auto seq = Sequence::create(segmentAction, removeSegment, nullptr);
-	mazeLayer->runAction(seq);		
+	gamePlayLayer->addChild(mazeLayer, 1, "maze");	
+	CollisionManager::getInstance()->registerSegment(mazeLayer);	
 
 	// Player			
 	Player* playerSprite = Player::create("sprites/Player.png");		
@@ -93,6 +90,7 @@ bool GameScene::init()
 	playerPhysicsBody->setDynamic(false);
 	gamePlayLayer->addChild(playerSprite, 0);
 	WorldManager::getInstance()->setPlayer(playerSprite);
+	CollisionManager::getInstance()->registerPlayer(playerSprite);
 		
 	// pause button
 	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(GameScene::Pause, this));
@@ -117,11 +115,24 @@ bool GameScene::init()
 	return true;
 }
 
+bool GameScene::removeSegment()
+{	
+	mazeLayer->removeFromParentAndCleanup(true);
+	return true;
+}
+
 void GameScene::update(float delta)
 {
 	CCLOG("-------------GAME LOOP START--------------");	
 
+	// update the player
 	WorldManager::getInstance()->getPlayer()->update();
+	
+	// update enemies
+
+	// check for collisions
+	CollisionManager::getInstance()->checkCollisons();
+
 	m_cHud->updateScore();
 	
 	backgroundA->setPosition(Vec2(backgroundA->getPosition().x - speed, backgroundA->getPosition().y));

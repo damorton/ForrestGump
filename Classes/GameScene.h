@@ -51,6 +51,8 @@ public:
 	//void onTouchMoved(cocos2d::Touch *touch, cocos2d::Event * event);
 	//void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event * event);	
 
+	bool removeSegment();
+
 private:
 	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
 	PhysicsWorld* m_pSceneWorld;

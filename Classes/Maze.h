@@ -54,13 +54,11 @@ public:
 		@return TMXTiledMap* m_MazeTileMap
 	*/
 	TMXTiledMap* getTileMap(){ return m_MazeTileMap; };
-
+	
 	/*
 		Initialize the parent node
 	*/
 	CREATE_FUNC(Maze);
-
-	void outOfScreen();
 
 private:
 	TMXTiledMap* m_MazeTileMap;	

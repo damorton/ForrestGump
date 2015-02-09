@@ -3,32 +3,53 @@
 #define	COLLISION_H_
 
 // includes 
+#include "cocos2d.h"
+#include "Maze.h"
+#include "Player.h"
 #include <vector>
 #include <memory>
 
 // forward declarations
-class Player;
 class Enemy;
 
 /*	Singleton CollisionManager */
 class CollisionManager
 {
 public:
-	virtual bool init(); // initialization
-	static CollisionManager* getInstance(); // instance of CollsionManager
+	virtual bool init();
+	static CollisionManager* getInstance();
 
-	// register with the collision manager
+	/*
+		Register with the collision manager
+
+		@param GameObject obj
+		*/
 	void registerEnemyWithCollisionManager(std::shared_ptr<Enemy> obj);
 
-	// register the player object
-	void registerPlayer(std::shared_ptr<Player> player);
+	/*
+		Register the player object
 
-	// check for collisions between the player and all other game objects
-	bool checkCollisons();	
+		@param Sprite* player
+		*/
+	void registerPlayer(Player* player){ m_pPlayer = player; };
+
+	/*
+		TMX tile map layers
+	*/
+	void registerSegment(Maze* segment){ m_pSegmentLayer = segment; };
+	
+	/*
+		Collision detection, check player against all other
+		registered game objects
+
+		@return bool true if collision, false if not
+	*/
+	bool checkCollisons();
+
 	void cleanUp(); // delete CollisionManager
 
 	// getters 
-	std::shared_ptr<Player> getPlayer(){ return m_pPlayer; }; // player
+	Player* getPlayer(){ return m_pPlayer; }; // player
 	std::vector<std::shared_ptr<Enemy>> getVectorOfEnemies(){ return m_vpEnemies; }; // vector of enemies
 	
 private:
@@ -36,7 +57,8 @@ private:
 	CollisionManager(){ this->init(); }; // constructor
 	~CollisionManager(){ this->cleanUp(); }; // deconstructor
 	
-	std::shared_ptr<Player> m_pPlayer; // player 
+	Player* m_pPlayer; // player 
+	Maze* m_pSegmentLayer;
 	std::vector<std::shared_ptr<Enemy>> m_vpEnemies; // vector of GameObject pointers	
 };
 
