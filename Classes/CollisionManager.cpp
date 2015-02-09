@@ -21,11 +21,16 @@ bool CollisionManager::init()
 void CollisionManager::registerEnemyWithCollisionManager(std::shared_ptr<Enemy> obj)
 {	
 	m_vpEnemies.push_back(obj);
-};
+}
+
+void CollisionManager::registerSegment(cocos2d::TMXLayer* layer)
+{
+	m_pMazeLayer = layer;	
+}
 
 bool CollisionManager::checkCollisons()
 {	
-	// enemies
+	/*
 	for (int i = 0; i < (int)m_vpEnemies.size(); i++)
 	{		
 		if (m_vpEnemies.at(i)->getType() == Character::ENEMY)
@@ -37,32 +42,29 @@ bool CollisionManager::checkCollisons()
 			}
 		}		
 	}
-
+	*/
 	// can add checks for wall? bullet? coins?
 
-	// tiles in tilemap
-	auto mazeLayer = m_pSegmentLayer->getTileMap()->getLayer("maze");
-	Size layerSize = mazeLayer->getLayerSize();
-	for (int i = 0; i < layerSize.height; i++)
+	if (m_pMazeLayer != NULL)
 	{
-		for (int j = 0; j < layerSize.width; j++)
+		// tiles in tilemap layer "maze"
+		for (int i = 0; i < m_pMazeLayer->getLayerSize().height; i++)
 		{
-			auto tileSprite = mazeLayer->tileAt(Vec2(i, j));
-			if (tileSprite)
+			for (int j = 0; j < m_pMazeLayer->getLayerSize().width; j++)
 			{
-				tileSprite->setPhysicsBody(PhysicsBody::createBox(Size(tileSprite->getContentSize().width, tileSprite->getContentSize().height)));
-				tileSprite->getPhysicsBody()->setDynamic(true);
-				tileSprite->getPhysicsBody()->setGravityEnable(false);
-				tileSprite->setPosition(Vec2((tileSprite->getPosition().x + tileSprite->getContentSize().width / 2), (tileSprite->getPosition().y + tileSprite->getContentSize().height / 2)));
-				if (tileSprite->getBoundingBox().intersectsRect(m_pPlayer->getBoundingBox()))
-				{
-					tileSprite->setVisible(false);
-					return true;
-					CCLOG("collision");
+				auto tileSprite = m_pMazeLayer->tileAt(Vec2(i, j));
+				if (tileSprite)
+				{					
+					if (tileSprite->getBoundingBox().intersectsRect(m_pPlayer->getBoundingBox()))
+					{
+						tileSprite->setVisible(false);
+						return true;
+						CCLOG("collision");
+					}
 				}
 			}
 		}
-	}	
+	}
 	return false;
 }
 

@@ -16,7 +16,7 @@ Scene* GameScene::createScene()
 	// 'scene' is an autorelease object
 	auto scene = Scene::createWithPhysics();	
 	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL); // draw debug lines around objects in the world	
-	scene->getPhysicsWorld()->setUpdateRate(0.3f);
+	
 	// 'layer' is an autorelease object
 	auto layer = GameScene::create();
 	layer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics
@@ -79,15 +79,20 @@ bool GameScene::init()
 	mazeLayer = Maze::create();	
 	mazeLayer->addTMXTileMap("maps/maze.tmx");
 	mazeLayer->addPhysicsToTiles("maze");	
-	gamePlayLayer->addChild(mazeLayer, 1, "maze");	
-	CollisionManager::getInstance()->registerSegment(mazeLayer);	
+	gamePlayLayer->addChild(mazeLayer, 0, "maze");	
+	CollisionManager::getInstance()->registerSegment(mazeLayer->getTileMap()->getLayer("maze"));	
 
 	// Player			
 	Player* playerSprite = Player::create("sprites/Player.png");		
 	playerSprite->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, FLOOR_SPRITE_TOP);
-	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-	playerSprite->setPhysicsBody(playerPhysicsBody);
+	
+	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);		
 	playerPhysicsBody->setDynamic(false);
+	playerPhysicsBody->setCategoryBitmask(0x02);
+	playerPhysicsBody->setCollisionBitmask(0x01);
+	playerPhysicsBody->setContactTestBitmask(true);
+	playerSprite->setPhysicsBody(playerPhysicsBody);
+
 	gamePlayLayer->addChild(playerSprite, 0);
 	WorldManager::getInstance()->setPlayer(playerSprite);
 	CollisionManager::getInstance()->registerPlayer(playerSprite);
@@ -110,10 +115,23 @@ bool GameScene::init()
 			
 	speed = 5.0f;
 
+	auto contactListener = EventListenerPhysicsContact::create();
+	contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
+	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
+		
+
 	// call the schedule update in order to run this layers update function
 	this->scheduleUpdate();
 	return true;
 }
+
+bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
+{
+	CCLOG("onContactBegin -------> ");	
+	contact.getShapeA()->getBody()->getNode()->setVisible(false);
+	return true;
+}
+
 
 bool GameScene::removeSegment()
 {	
@@ -123,7 +141,7 @@ bool GameScene::removeSegment()
 
 void GameScene::update(float delta)
 {
-	CCLOG("-------------GAME LOOP START--------------");	
+	//CCLOG("-------------GAME LOOP START--------------");	
 
 	// update the player
 	WorldManager::getInstance()->getPlayer()->update();
@@ -131,7 +149,7 @@ void GameScene::update(float delta)
 	// update enemies
 
 	// check for collisions
-	CollisionManager::getInstance()->checkCollisons();
+	//CollisionManager::getInstance()->checkCollisons();
 
 	m_cHud->updateScore();
 	
@@ -145,7 +163,7 @@ void GameScene::update(float delta)
 		backgroundB->setPosition(Vec2(backgroundA->getPosition().x + backgroundA->getContentSize().width, backgroundB->getPosition().y));
 	}		
 	
-	CCLOG("-------------GAME LOOP END--------------");
+	//CCLOG("-------------GAME LOOP END--------------");
 }
 
 /*

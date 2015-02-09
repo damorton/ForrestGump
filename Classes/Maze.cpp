@@ -53,6 +53,9 @@ bool Maze::addPhysicsToTiles(const std::string& filename)
 				tileSprite->setPhysicsBody(PhysicsBody::createBox(Size(tileSprite->getContentSize().width, tileSprite->getContentSize().height)));
 				tileSprite->getPhysicsBody()->setDynamic(true);
 				tileSprite->getPhysicsBody()->setGravityEnable(false);
+				tileSprite->getPhysicsBody()->setCategoryBitmask(0x01);
+				tileSprite->getPhysicsBody()->setCollisionBitmask(0x02);
+				tileSprite->getPhysicsBody()->setContactTestBitmask(true);
 				tileSprite->setPosition(Vec2((tileSprite->getPosition().x + tileSprite->getContentSize().width / 2), (tileSprite->getPosition().y + tileSprite->getContentSize().height / 2)));				
 			}
 		}

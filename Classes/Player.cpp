@@ -21,7 +21,8 @@ Player* Player::create(const std::string& filename)
 bool Player::init()
 {	
 	setType(PLAYER);
-	setState(RUNNING);		
+	setState(RUNNING);	
+	
 	return true;
 }
 
