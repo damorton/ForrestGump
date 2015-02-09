@@ -43,8 +43,8 @@ private:
 	Layer* gamePlayLayer;
 	HUD* m_cHud;
 
-	Sprite* bk1;
-	Sprite* bk2;
+	Sprite* backgroundA;
+	Sprite* backgroundB;
 
 	float speed;
 };

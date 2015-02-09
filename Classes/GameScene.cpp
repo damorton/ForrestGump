@@ -52,20 +52,14 @@ bool GameScene::init()
 	m_cHud = HUD::create();
 	this->addChild(m_cHud, 1, "hudLayer");
 
-	// Background
-
-	auto gameBackground = Sprite::create("background/gameBackground.png"); // sprite image
-	bk1 = CCSprite::create("background/gameBackground.png"); // sprite image
-	bk2 = CCSprite::create("background/gameBackground2.png"); // sprite image
-
-	gameBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	bk1->setPosition(Vec2(visibleSize.width*0.5f, visibleSize.height*0.5f));	
-	bk2->setPosition(Vec2(visibleSize.width + visibleSize.width*0.5f, visibleSize.height*0.5f));
-
 	
-	gamePlayLayer->addChild(gameBackground, -1); // add child
-	gamePlayLayer->addChild(bk1, -1); // add child
-	gamePlayLayer->addChild(bk2, -1); // add child
+	// Background
+	backgroundA = CCSprite::create("background/gameBackground.png"); 
+	backgroundB = CCSprite::create("background/gameBackground2.png"); 
+	backgroundA->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	backgroundB->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));	
+	gamePlayLayer->addChild(backgroundA, -1); // add child
+	gamePlayLayer->addChild(backgroundB, -1); // add child
 	
 
 	// add floorSprite to game scene
