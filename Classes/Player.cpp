@@ -1,3 +1,4 @@
+#include "Definitions.h"
 #include "WorldManager.h"
 #include "Player.h"
 
@@ -29,7 +30,7 @@ void Player::jump()
 	if (m_ePlayerState == RUNNING)
 	{
 		m_ePlayerState = JUMPING;
-		auto action = JumpBy::create(1.5, Vec2(0, 0), 300, 1);		
+		auto action = JumpBy::create(JUMP_SPEED, Vec2(0, 0), JUMP_HEIGHT, NO_OF_JUMPS);
 		this->runAction(action);
 		CCLOG("Player jumped");
 	}
@@ -54,7 +55,7 @@ void Player::touch(const Point& location)
 	auto winSize = Director::getInstance()->getWinSize();
 
 	// jump
-	if (location.x < (winSize.width * 0.33f)) // jump if user touches behind player position
+	if (location.x < PLAYER_POSITION_IN_WINDOW) // jump if user touches behind player position
 	{
 		jump();
 	}

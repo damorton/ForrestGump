@@ -1,11 +1,13 @@
 #ifndef WORLDMANAGER_H_
 #define WORLDMANAGER_H_
 
-#include <memory>
+#include "cocos2d.h"
+#include "SplashScene.h"
 #include "Player.h"
 #include "Enemy.h"
- 
-USING_NS_CC;
+#include <memory>
+
+
 
 class WorldManager
 {
@@ -13,22 +15,23 @@ public:
 	virtual bool init();	
 	virtual void cleanUp(); 	
 	static WorldManager* getInstance(); 
-
+	Splash* getSplashScene(){ return m_cSplashScene; };
 	Player* getPlayer(){ return m_pPlayer; };
 	std::vector<std::shared_ptr<Enemy>> getEnemies(){ return m_vpEnemies; };
-	Sprite* getFloorSprite(){ return m_pFloorSprite; };
-
+	cocos2d::Sprite* getFloorSprite(){ return m_pFloorSprite; };	
+	void setSplashScene(Splash* splash){ m_cSplashScene = splash; };
 	void setPlayer(Player* player){ m_pPlayer = player; };
 	void setVectorOfEnemies(std::vector<std::shared_ptr<Enemy>> vectorOfEnemies){ m_vpEnemies = vectorOfEnemies; };
-	void setFloorSprite(Sprite* floor){ m_pFloorSprite = floor; };
+	void setFloorSprite(cocos2d::Sprite* floor){ m_pFloorSprite = floor; };
+protected:	
+	Splash* m_cSplashScene;	
+	Player* m_pPlayer;
+	std::vector<std::shared_ptr<Enemy>> m_vpEnemies;
+	cocos2d::Sprite* m_pFloorSprite;
 private:	
 	WorldManager(){ this->init(); };  
 	~WorldManager(){ this->cleanUp(); }; 
-
-	static WorldManager* m_pInstance; // this
-	Player* m_pPlayer; // player
-	std::vector<std::shared_ptr<Enemy>> m_vpEnemies; // vector of enemies
-	Sprite* m_pFloorSprite;
+	static WorldManager* m_pInstance;
 };
 
 #endif

@@ -27,7 +27,7 @@ bool HUD::init()
 	m_lScore = Label::createWithTTF(std::to_string(m_iScore), "fonts/Marker Felt.ttf", FONT_SIZE, Size(scoreTag->getContentSize().width, FONT_SIZE), TextHAlignment::LEFT, TextVAlignment::TOP);
 	m_lScore->enableShadow();	
 	m_lScore->enableGlow(Color4B::RED);
-	m_lScore->setPosition(Vec2(scoreTag->getContentSize().width + m_lScore->getContentSize().width / 2, scoreTag->getPositionY()));
+	m_lScore->setPosition(Vec2(PADDING + scoreTag->getContentSize().width + m_lScore->getContentSize().width / 2, scoreTag->getPositionY()));
 	this->addChild(m_lScore, 0);
 
 	// Timer?

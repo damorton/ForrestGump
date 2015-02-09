@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#include "Definitions.h"
 #include "WorldManager.h"
 #include "MainMenuScene.h"
 #include "PauseScene.h"
@@ -41,7 +42,7 @@ bool GameScene::init()
 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_action_1.wav", true);
 
-	CCLOG("Game scene : %f x %f", visibleSize.width, visibleSize.height);
+	//CCLOG("Game scene : %f x %f", visibleSize.width, visibleSize.height);
 	
 	// game play layer
 	gamePlayLayer = Layer::create();
@@ -52,14 +53,17 @@ bool GameScene::init()
 	this->addChild(m_cHud, 1, "hudLayer");
 
 	
-	// Background
+	// background 3
 	backgroundA = CCSprite::create("background/gameBackground.png"); 
 	backgroundB = CCSprite::create("background/gameBackground2.png"); 
 	backgroundA->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
 	backgroundB->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));	
-	gamePlayLayer->addChild(backgroundA, -1); // add child
-	gamePlayLayer->addChild(backgroundB, -1); // add child
-	
+	gamePlayLayer->addChild(backgroundA, -3); // add child
+	gamePlayLayer->addChild(backgroundB, -3); // add child
+
+	// background 2
+
+	// background 1	
 
 	// add floorSprite to game scene
 	auto floorSprite = Sprite::create("foreground/floorSprite.png");
@@ -80,9 +84,7 @@ bool GameScene::init()
 		
 	// Player			
 	Player* playerSprite = Player::create("sprites/Player.png");		
-	playerSprite->setPosition(Vec2(((visibleSize.width / 3) * 1) + origin.x,		
-		WorldManager::getInstance()->getFloorSprite()->getPositionY() + 		
-		playerSprite->getContentSize().height / 1.20));
+	playerSprite->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, FLOOR_SPRITE_TOP);
 	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 	playerSprite->setPhysicsBody(playerPhysicsBody);
 	playerPhysicsBody->setDynamic(false);
@@ -195,4 +197,14 @@ void GameScene::menuCloseCallback(Ref* pSender)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	exit(0);
 #endif
+}
+
+void GameScene::cleanup()
+{			
+	delete m_cHud;	
+	m_pSceneWorld = NULL;
+	gamePlayLayer = NULL;
+	m_cHud = NULL;
+	backgroundA = NULL;
+	backgroundB = NULL;
 }

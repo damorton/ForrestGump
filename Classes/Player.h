@@ -27,7 +27,8 @@ public:
 	CREATE_FUNC(Player);
 protected:
 	typedef enum { ALIVE, DEAD, BOOSTING, JUMPING, RUNNING } EPlayerState;
-	EPlayerState m_ePlayerState;
+	EPlayerState	m_ePlayerState;
+	
 };
 
 #endif
