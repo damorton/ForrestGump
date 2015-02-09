@@ -35,7 +35,7 @@ public:
 		@param cocos2d::Ref *pSender pointer used by the engine
 	*/
 	void Pause(Ref *pSender);
-
+	void ScrollBackground();
 	/*
 		EndGame button creates a new game game scene and replaces the game scene
 

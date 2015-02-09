@@ -61,6 +61,7 @@ bool GameScene::init()
 	gamePlayLayer->addChild(backgroundA, 1); // add child
 	gamePlayLayer->addChild(backgroundB, 1); // add child
 
+
 	// background 2 - Mountains
 	backgroundC = CCSprite::create("background/backgroundSecond.png");
 	backgroundD = CCSprite::create("background/backgroundSecond2.png");
@@ -68,6 +69,7 @@ bool GameScene::init()
 	backgroundD->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));
 	gamePlayLayer->addChild(backgroundC, -1); // add child
 	gamePlayLayer->addChild(backgroundD, -1); // add child
+
 
 	// background 3	- Clounds, Sun and Far Mountains
 	backgroundE = CCSprite::create("background/backgroundThird.png");
@@ -134,6 +136,7 @@ void GameScene::update(float delta)
 	m_cHud->updateScore();
 	
 	scrollBackground();
+
 	
 	CCLOG("-------------GAME LOOP END--------------");
 }
@@ -153,6 +156,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	return true;
 }
 
+
 void GameScene::scrollBackground()
 {
 	backgroundA->setPosition(Vec2(backgroundA->getPosition().x - speed, backgroundA->getPosition().y));
@@ -164,7 +168,6 @@ void GameScene::scrollBackground()
 	if (backgroundB->getPosition().x < -backgroundB->getContentSize().width / 2){
 		backgroundB->setPosition(Vec2(backgroundA->getPosition().x + backgroundA->getContentSize().width, backgroundB->getPosition().y));
 	}
-
 
 	backgroundC->setPosition(Vec2(backgroundC->getPosition().x - (speed / 3), backgroundC->getPosition().y));
 	backgroundD->setPosition(Vec2(backgroundD->getPosition().x - (speed / 3), backgroundD->getPosition().y));
