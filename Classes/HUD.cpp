@@ -17,7 +17,7 @@ bool HUD::init()
 	// Score
 	auto scoreTag = Label::createWithTTF("Score ", "fonts/Marker Felt.ttf", FONT_SIZE);
 	scoreTag->enableShadow();
-	m_lScore->enableGlow(Color4B::RED);
+	scoreTag->enableGlow(Color4B::RED);
 	scoreTag->setPosition(Vec2(PADDING + origin.x + scoreTag->getContentSize().width / 2, origin.y + visibleSize.height - PADDING - scoreTag->getContentSize().height / 2));
 	this->addChild(scoreTag);
 	
