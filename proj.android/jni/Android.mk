@@ -14,7 +14,6 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
 				   ../../Classes/SplashScene.cpp \
 				   ../../Classes/MainMenuScene.cpp \
-				   ../../Classes/Character.cpp \
 				   ../../Classes/CollisionManager.cpp \
 				   ../../Classes/EndScene.cpp \
 				   ../../Classes/Enemy.cpp \

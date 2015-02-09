@@ -13,7 +13,7 @@ Scene* GameScene::createScene()
 {
 	// 'scene' is an autorelease object
 	auto scene = Scene::createWithPhysics();	
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL); // draw debug lines around objects in the world	
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL); // draw debug lines around objects in the world	
 	scene->getPhysicsWorld()->setUpdateRate(0.3f);
 	// 'layer' is an autorelease object
 	auto layer = GameScene::create();
@@ -89,7 +89,7 @@ bool GameScene::init()
 	Player* playerSprite = Player::create("sprites/Player.png");		
 	playerSprite->setPosition(Vec2(((visibleSize.width / 3) * 1) + origin.x,		
 		WorldManager::getInstance()->getFloorSprite()->getPositionY() + 		
-		playerSprite->getContentSize().height / 2));
+		playerSprite->getContentSize().height / 1.20));
 	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 	playerSprite->setPhysicsBody(playerPhysicsBody);
 	playerPhysicsBody->setDynamic(false);
@@ -116,7 +116,7 @@ bool GameScene::init()
 	// call the schedule update in order to run this layers update function
 	this->scheduleUpdate();
 		
-	speed = 1.0f;
+	speed = 5.0f;
 
 	return true;
 }
@@ -127,18 +127,24 @@ void GameScene::update(float delta)
 	WorldManager::getInstance()->getPlayer()->update();
 	m_cHud->updateScore();
 	
-	speed = speed * 1.005f;
-	if (speed > 30.0f) speed = 30.0f;
+	bk1->setPosition(Vec2(bk1->getPosition().x - speed, bk1->getPosition().y));
+	bk2->setPosition(Vec2(bk2->getPosition().x - speed, bk2->getPosition().y));
 
-	bk1->setPosition(ccp(bk1->getPosition().x - speed, bk1->getPosition().y));
-	bk2->setPosition(ccp(bk2->getPosition().x - speed, bk2->getPosition().y));
+	if (bk1->getPosition().x < -bk1->getContentSize().width / 2){
+		bk1->setPosition(Vec2(bk2->getPosition().x + bk2->getContentSize().width, bk1->getPosition().y));
+	}
+	if (bk2->getPosition().x < -bk2->getContentSize().width / 2){
+		bk2->setPosition(Vec2(bk1->getPosition().x + bk1->getContentSize().width, bk2->getPosition().y));
+	}
 
+	/*
 	if (bk1->getPosition().x < -bk1->boundingBox().size.width){
-		bk1->setPosition(ccp(bk2->getPosition().x + bk2->boundingBox().size.width, bk1->getPosition().y));
+		bk1->setPosition(Vec2(bk2->getPosition().x + bk2->boundingBox().size.width, bk1->getPosition().y));
 	}
 	if (bk2->getPosition().x < -bk2->boundingBox().size.width){
-		bk2->setPosition(ccp(bk1->getPosition().x + bk1->boundingBox().size.width, bk2->getPosition().y));
+		bk2->setPosition(Vec2(bk1->getPosition().x + bk1->boundingBox().size.width, bk2->getPosition().y));
 	}
+	*/
 	
 	CCLOG("-------------GAME LOOP END--------------");
 }
