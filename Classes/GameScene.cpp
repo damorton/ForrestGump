@@ -38,7 +38,6 @@ bool GameScene::init()
 	
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-	auto winSize = Director::getInstance()->getWinSize(); // added for player spawn position
 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_action_1.wav", true);
 
@@ -121,24 +120,16 @@ void GameScene::update(float delta)
 	WorldManager::getInstance()->getPlayer()->update();
 	m_cHud->updateScore();
 	
-	bk1->setPosition(Vec2(bk1->getPosition().x - speed, bk1->getPosition().y));
-	bk2->setPosition(Vec2(bk2->getPosition().x - speed, bk2->getPosition().y));
+	backgroundA->setPosition(Vec2(backgroundA->getPosition().x - speed, backgroundA->getPosition().y));
+	backgroundB->setPosition(Vec2(backgroundB->getPosition().x - speed, backgroundB->getPosition().y));
 
-	if (bk1->getPosition().x < -bk1->getContentSize().width / 2){
-		bk1->setPosition(Vec2(bk2->getPosition().x + bk2->getContentSize().width, bk1->getPosition().y));
+	if (backgroundA->getPosition().x < -backgroundA->getContentSize().width / 2){
+		backgroundA->setPosition(Vec2(backgroundB->getPosition().x + backgroundB->getContentSize().width, backgroundA->getPosition().y));
 	}
-	if (bk2->getPosition().x < -bk2->getContentSize().width / 2){
-		bk2->setPosition(Vec2(bk1->getPosition().x + bk1->getContentSize().width, bk2->getPosition().y));
+	if (backgroundB->getPosition().x < -backgroundB->getContentSize().width / 2){
+		backgroundB->setPosition(Vec2(backgroundA->getPosition().x + backgroundA->getContentSize().width, backgroundB->getPosition().y));
 	}
-
-	/*
-	if (bk1->getPosition().x < -bk1->boundingBox().size.width){
-		bk1->setPosition(Vec2(bk2->getPosition().x + bk2->boundingBox().size.width, bk1->getPosition().y));
-	}
-	if (bk2->getPosition().x < -bk2->boundingBox().size.width){
-		bk2->setPosition(Vec2(bk1->getPosition().x + bk1->boundingBox().size.width, bk2->getPosition().y));
-	}
-	*/
+		
 	
 	CCLOG("-------------GAME LOOP END--------------");
 }

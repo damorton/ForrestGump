@@ -1,8 +1,6 @@
 #ifndef WORLDMANAGER_H_
 #define WORLDMANAGER_H_
 
-#define FONT_SIZE ((visibleSize.width / 1920) * 100)
-
 #include <memory>
 #include "Player.h"
 #include "Enemy.h"

@@ -1,5 +1,6 @@
 #include "HUD.h"
 #include "WorldManager.h"
+#include "Definitions.h"
 
 bool HUD::init()
 {	
@@ -14,11 +15,17 @@ bool HUD::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	// Score
-	m_iScore = 0;
+	auto scoreTag = Label::createWithTTF("Score ", "fonts/Marker Felt.ttf", FONT_SIZE);
+	scoreTag->setPosition(Vec2(PADDING + origin.x + scoreTag->getContentSize().width / 2, origin.y + visibleSize.height - PADDING - scoreTag->getContentSize().height / 2));
+	this->addChild(scoreTag);
 	
-	// Score label	
-	m_lScore = LabelTTF::create(std::to_string(m_iScore), "Segoe UI", FONT_SIZE);
-	m_lScore->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height - m_lScore->getContentSize().height));
+	m_iScore = 0;
+
+	// Score label		
+	m_lScore = Label::createWithTTF(std::to_string(m_iScore), "fonts/Marker Felt.ttf", FONT_SIZE, Size(scoreTag->getContentSize().width, FONT_SIZE), TextHAlignment::LEFT, TextVAlignment::TOP);
+	m_lScore->enableShadow();	
+	m_lScore->enableGlow(Color4B::RED);
+	m_lScore->setPosition(Vec2(scoreTag->getContentSize().width + m_lScore->getContentSize().width / 2, scoreTag->getPositionY()));
 	this->addChild(m_lScore, 0);
 
 	// Timer?
@@ -28,6 +35,6 @@ bool HUD::init()
 
 void HUD::updateScore()
 {
-	m_iScore++; // update the score
+	m_iScore++;
 	m_lScore->setString(std::to_string(m_iScore));
 }
