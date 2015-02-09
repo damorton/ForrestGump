@@ -48,7 +48,6 @@ void Player::update()
 	}
 }
 
-/* Player touch function */
 void Player::touch(const Point& location)
 {
 	if (location.x < PLAYER_POSITION_IN_WINDOW) 

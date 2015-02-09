@@ -15,6 +15,12 @@ public:
 	void cleanUp();	
 
 	void jump();
+
+	/* 
+		Player touch function
+
+		@param Point location of the touch position
+	*/
 	void touch(const Point& location);	
 	void update();
 
