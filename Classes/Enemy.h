@@ -10,6 +10,7 @@ class Enemy : public Sprite, public Character
 {
 public:		
 	static Enemy* create(const std::string& filename);
+	virtual ~Enemy(){};
 	bool init(); // initialize the enemy		
 	void cleanUp(); // house keeping 
 	void runAI(); // run Enemy AI

@@ -10,6 +10,7 @@ class Player : public Sprite, public Character
 {
 public:		
 	static Player* create(const std::string& filename);
+	virtual ~Player(){};
 	bool init();
 	void cleanUp();	
 

@@ -2,7 +2,6 @@
 #define __GAMESCENE_SCENE_H__
 
 #include "cocos2d.h"
-#include "Maze.h"
 #include "HUD.h"
 
 USING_NS_CC;
@@ -18,11 +17,9 @@ public:
 
 //	CCSprite* bk1;
 //	CCSprite* bk2;
-
-
-	
+			
 	// update the game scene
-	void update(float) override;
+	void update(float delta);
     
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
