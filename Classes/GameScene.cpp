@@ -54,30 +54,30 @@ bool GameScene::init()
 
 	
 	// background 1 - Clouds and Floor moving
-	backgroundA = CCSprite::create("background/backgroundFirst.png"); 
-	backgroundB = CCSprite::create("background/backgroundFirst2.png"); 
-	backgroundA->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-	backgroundB->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));	
-	gamePlayLayer->addChild(backgroundA, 1); // add child
-	gamePlayLayer->addChild(backgroundB, 1); // add child
+	m_bckFirst = CCSprite::create("background/backgroundFirst.png"); 
+	m_bckFirst1 = CCSprite::create("background/backgroundFirst2.png"); 
+	m_bckFirst->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	m_bckFirst1->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));	
+	gamePlayLayer->addChild(m_bckFirst, 1); // add child
+	gamePlayLayer->addChild(m_bckFirst1, 1); // add child
 
 
 	// background 2 - Mountains
-	backgroundC = CCSprite::create("background/backgroundSecond.png");
-	backgroundD = CCSprite::create("background/backgroundSecond2.png");
-	backgroundC->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-	backgroundD->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));
-	gamePlayLayer->addChild(backgroundC, -1); // add child
-	gamePlayLayer->addChild(backgroundD, -1); // add child
+	m_bckSecond = CCSprite::create("background/backgroundSecond.png");
+	m_bckSecond1 = CCSprite::create("background/backgroundSecond2.png");
+	m_bckSecond->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	m_bckSecond1->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));
+	gamePlayLayer->addChild(m_bckSecond, -1); // add child
+	gamePlayLayer->addChild(m_bckSecond1, -1); // add child
 
 
 	// background 3	- Clounds, Sun and Far Mountains
-	backgroundE = CCSprite::create("background/backgroundThird.png");
-	backgroundF = CCSprite::create("background/backgroundThird2.png");
-	backgroundE->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-	backgroundF->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));
-	gamePlayLayer->addChild(backgroundE, -2); // add child
-	gamePlayLayer->addChild(backgroundF, -2); // add child
+	m_bckThird = CCSprite::create("background/backgroundThird.png");
+	m_bckThird1 = CCSprite::create("background/backgroundThird2.png");
+	m_bckThird->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	m_bckThird1->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));
+	gamePlayLayer->addChild(m_bckThird, -2); // add child
+	gamePlayLayer->addChild(m_bckThird1, -2); // add child
 
 	// add floorSprite to game scene
 	auto floorSprite = Sprite::create("foreground/floorSprite.png");
@@ -121,7 +121,7 @@ bool GameScene::init()
 	listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);	
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 			
-	speed = 5.0f;
+	m_fSpeed = 5.0f;
 
 	// call the schedule update in order to run this layers update function
 	this->scheduleUpdate();
@@ -134,9 +134,10 @@ void GameScene::update(float delta)
 
 	WorldManager::getInstance()->getPlayer()->update();
 	m_cHud->updateScore();
-	
-	scrollBackground();
 
+	m_Parallax->scrollBackground(m_bckFirst, m_bckFirst1, m_fSpeed);
+	m_Parallax->scrollBackground(m_bckSecond, m_bckSecond1, m_fSpeed);
+	m_Parallax->scrollBackground(m_bckThird, m_bckThird1, m_fSpeed);	
 	
 	CCLOG("-------------GAME LOOP END--------------");
 }
@@ -156,40 +157,6 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	return true;
 }
 
-
-void GameScene::scrollBackground()
-{
-	backgroundA->setPosition(Vec2(backgroundA->getPosition().x - speed, backgroundA->getPosition().y));
-	backgroundB->setPosition(Vec2(backgroundB->getPosition().x - speed, backgroundB->getPosition().y));
-
-	if (backgroundA->getPosition().x < -backgroundA->getContentSize().width / 2){
-		backgroundA->setPosition(Vec2(backgroundB->getPosition().x + backgroundB->getContentSize().width, backgroundA->getPosition().y));
-	}
-	if (backgroundB->getPosition().x < -backgroundB->getContentSize().width / 2){
-		backgroundB->setPosition(Vec2(backgroundA->getPosition().x + backgroundA->getContentSize().width, backgroundB->getPosition().y));
-	}
-
-	backgroundC->setPosition(Vec2(backgroundC->getPosition().x - (speed / 3), backgroundC->getPosition().y));
-	backgroundD->setPosition(Vec2(backgroundD->getPosition().x - (speed / 3), backgroundD->getPosition().y));
-
-	if (backgroundC->getPosition().x < -backgroundC->getContentSize().width / 2){
-		backgroundC->setPosition(Vec2(backgroundD->getPosition().x + backgroundD->getContentSize().width, backgroundC->getPosition().y));
-	}
-	if (backgroundD->getPosition().x < -backgroundD->getContentSize().width / 2){
-		backgroundD->setPosition(Vec2(backgroundC->getPosition().x + backgroundC->getContentSize().width, backgroundD->getPosition().y));
-	}
-
-
-	backgroundE->setPosition(Vec2(backgroundE->getPosition().x - ((speed / 5) - 0.8), backgroundE->getPosition().y));
-	backgroundF->setPosition(Vec2(backgroundF->getPosition().x - ((speed / 5) - 0.8), backgroundF->getPosition().y));
-
-	if (backgroundE->getPosition().x < -backgroundE->getContentSize().width / 2){
-		backgroundE->setPosition(Vec2(backgroundF->getPosition().x + backgroundF->getContentSize().width, backgroundE->getPosition().y));
-	}
-	if (backgroundF->getPosition().x < -backgroundF->getContentSize().width / 2){
-		backgroundF->setPosition(Vec2(backgroundE->getPosition().x + backgroundE->getContentSize().width, backgroundF->getPosition().y));
-	}
-}
 
 void GameScene::Pause(cocos2d::Ref *pSender)
 {

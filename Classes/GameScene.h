@@ -3,17 +3,13 @@
 
 #include "cocos2d.h"
 #include "HUD.h"
+#include "Parallax.h"
 
 USING_NS_CC;
 
 class GameScene : public cocos2d::Layer
 {
 public:
-
-	//Update my background scrolling
-	void scrollBackground();
-
-
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
 
@@ -35,7 +31,7 @@ public:
 		@param cocos2d::Ref *pSender pointer used by the engine
 	*/
 	void Pause(Ref *pSender);
-	void ScrollBackground();
+
 	/*
 		EndGame button creates a new game game scene and replaces the game scene
 
@@ -54,6 +50,7 @@ public:
 	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event * event);
 	//void onTouchMoved(cocos2d::Touch *touch, cocos2d::Event * event);
 	//void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event * event);	
+	
 
 private:
 	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
@@ -62,17 +59,18 @@ private:
 	// layers	
 	Layer* gamePlayLayer;
 	HUD* m_cHud;
+	Parallax* m_Parallax;
 
 	// sprites
-	Sprite* backgroundA;
-	Sprite* backgroundB;
-	Sprite* backgroundC;
-	Sprite* backgroundD;
-	Sprite* backgroundE;
-	Sprite* backgroundF;
+	Sprite* m_bckFirst;
+	Sprite* m_bckFirst1;
+	Sprite* m_bckSecond;
+	Sprite* m_bckSecond1;
+	Sprite* m_bckThird;
+	Sprite* m_bckThird1;
 
 	// variables
-	float speed;
+	float m_fSpeed;
 };
 
 #endif // __GAMESCENE_SCENE_H__
