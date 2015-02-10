@@ -31,6 +31,18 @@ bool MainMenu::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+	// particle testing 
+	CCParticleSystem *emitter = CCParticleSystemQuad::create("Flower.plist");
+	emitter->setPosition(Point((visibleSize.width / 4) * 3, (visibleSize.height / 5) * 4));
+	emitter->setDuration(0.20);
+	this->addChild(emitter);
+
+	// particle testing 
+	CCParticleSystem *emitter2 = CCParticleSystemQuad::create("Flower.plist");
+	emitter2->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 8) * 2));
+	emitter2->setDuration(0.20);
+	this->addChild(emitter2);
+
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_menu.wav", true);
 	
 	auto mainMenuBackground = Sprite::create("background/MainMenuBackground.png"); // sprite image
@@ -43,7 +55,6 @@ bool MainMenu::init()
 	auto settingsButton = MenuItemImage::create("settings2.png", "settings2.png",CC_CALLBACK_1(MainMenu::Settings, this)); // push the high scores scene	
 	//auto settingsButton = MenuItemFont::create("Settings", CC_CALLBACK_1(MainMenu::Settings, this)); // push the settings scene	
 	
-
 	// position the menu buttons on screen
 	playButton->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 8) * 2));
 	highscoresButton->setPosition(Point((visibleSize.width / 4) * 3, (visibleSize.height / 5) * 4));
@@ -97,6 +108,7 @@ void MainMenu::Highscores(cocos2d::Ref *pSender)
 
 	// to play sound effect if button is pressed 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("button-21.wav", false, 1.0f, 1.0f, 1.0f);
+
 
 	// delay opening of game scene to hear the button sound effects
 	std::chrono::seconds duration(1);
