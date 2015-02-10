@@ -55,7 +55,7 @@ bool GameScene::init()
 	
 	// background 1 - Clouds and Floor moving
 	m_bckFirst = CCSprite::create("background/backgroundFirst.png"); 
-	m_bckFirst1 = CCSprite::create("background/backgroundFirst2.png"); 
+	m_bckFirst1 = CCSprite::create("background/backgroundFirst.png"); 
 	m_bckFirst->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
 	m_bckFirst1->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));	
 	gamePlayLayer->addChild(m_bckFirst, 1); // add child
@@ -64,7 +64,7 @@ bool GameScene::init()
 
 	// background 2 - Mountains
 	m_bckSecond = CCSprite::create("background/backgroundSecond.png");
-	m_bckSecond1 = CCSprite::create("background/backgroundSecond2.png");
+	m_bckSecond1 = CCSprite::create("background/backgroundSecond.png");
 	m_bckSecond->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
 	m_bckSecond1->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));
 	gamePlayLayer->addChild(m_bckSecond, -1); // add child
@@ -73,7 +73,7 @@ bool GameScene::init()
 
 	// background 3	- Clounds, Sun and Far Mountains
 	m_bckThird = CCSprite::create("background/backgroundThird.png");
-	m_bckThird1 = CCSprite::create("background/backgroundThird2.png");
+	m_bckThird1 = CCSprite::create("background/backgroundThird.png");
 	m_bckThird->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
 	m_bckThird1->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));
 	gamePlayLayer->addChild(m_bckThird, -2); // add child
