@@ -40,7 +40,7 @@ public:
 
 		@param const std::string& filename of the layer
 	*/
-	bool addPhysicsToTiles(const std::string& filename);
+	bool addPhysicsToTiles(const std::string& layername);
 	
 	/*
 		Set TMX tilemap for the maze
@@ -56,6 +56,8 @@ public:
 	*/
 	TMXTiledMap* getTileMap(){ return m_MazeTileMap; };
 	
+	Maze* spawnSegment();
+		
 	/*
 		Initialize the parent node
 	*/
@@ -63,6 +65,7 @@ public:
 	
 private:
 	TMXTiledMap* m_MazeTileMap;	
+	TMXLayer* m_pTileMapLayer;
 };
 
 #endif

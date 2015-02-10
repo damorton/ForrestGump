@@ -52,7 +52,7 @@ public:
 	//void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event * event);	
 
 	bool onContactBegin(cocos2d::PhysicsContact& contact);
-	void spawnSegment(const std::string& layername);
+	
 private:
 	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
 	PhysicsWorld* m_pSceneWorld;
@@ -68,6 +68,8 @@ private:
 	// variables
 	float speed;
 	int spawnSegmentTimer;
+
+	Maze* m_pSegment;
 };
 
 #endif // __GAMESCENE_SCENE_H__

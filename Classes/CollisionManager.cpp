@@ -30,7 +30,7 @@ void CollisionManager::registerSegment(cocos2d::TMXLayer* segment)
 }
 */
 
-bool CollisionManager::checkCollisons()
+bool CollisionManager::checkCollisions()
 {	
 	/*
 	for (int i = 0; i < (int)m_vpEnemies.size(); i++)
@@ -47,6 +47,15 @@ bool CollisionManager::checkCollisons()
 	*/
 
 	// can add checks for wall? bullet? coins?	
+	for (int i = 0; i < (int)m_vpSegmentTiles.size(); i++)
+	{		
+		if (m_pPlayer->getBoundingBox().intersectsRect(m_vpSegmentTiles.at(i)->getBoundingBox()))
+		{
+			m_vpSegmentTiles.at(i)->setVisible(false);
+			return true;
+		}
+		
+	}
 	
 	return false;
 }
