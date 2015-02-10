@@ -136,8 +136,8 @@ void GameScene::update(float delta)
 	m_cHud->updateScore();
 
 	m_Parallax->scrollBackground(m_bckFirst, m_bckFirst1, m_fSpeed);
-	m_Parallax->scrollBackground(m_bckSecond, m_bckSecond1, m_fSpeed);
-	m_Parallax->scrollBackground(m_bckThird, m_bckThird1, m_fSpeed);	
+	m_Parallax->scrollBackground(m_bckSecond, m_bckSecond1, (m_fSpeed / 2));
+	m_Parallax->scrollBackground(m_bckThird, m_bckThird1, ((m_fSpeed / 5) - 0.8));	
 	
 	CCLOG("-------------GAME LOOP END--------------");
 }
