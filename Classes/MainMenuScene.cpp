@@ -32,16 +32,16 @@ bool MainMenu::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	// particle testing 
-	CCParticleSystem *emitter = CCParticleSystemQuad::create("Flower.plist");
-	emitter->setPosition(Point((visibleSize.width / 4) * 3, (visibleSize.height / 5) * 4));
-	emitter->setDuration(0.20);
-	this->addChild(emitter);
+	CCParticleSystem *ccEmitter = CCParticleSystemQuad::create("Flower.plist");
+	ccEmitter->setPosition(Point((visibleSize.width / 4) * 3, (visibleSize.height / 5) * 4));
+	ccEmitter->setDuration(0.20);
+	this->addChild(ccEmitter);
 
 	// particle testing 
-	CCParticleSystem *emitter2 = CCParticleSystemQuad::create("Flower.plist");
-	emitter2->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 8) * 2));
-	emitter2->setDuration(0.20);
-	this->addChild(emitter2);
+	CCParticleSystem *ccEmitter2 = CCParticleSystemQuad::create("Flower.plist");
+	ccEmitter2->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 8) * 2));
+	ccEmitter2->setDuration(0.20);
+	this->addChild(ccEmitter2);
 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_menu.wav", true);
 	
