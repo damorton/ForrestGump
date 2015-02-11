@@ -18,45 +18,33 @@ bool CollisionManager::init()
 	return true;
 }
 
-void CollisionManager::registerEnemyWithCollisionManager(std::shared_ptr<Enemy> obj)
-{	
-	m_vpEnemies.push_back(obj);
-}
-
-/*
-void CollisionManager::registerSegment(cocos2d::TMXLayer* segment)
-{
-	m_pSegment = segment;
-}
-*/
-
 bool CollisionManager::checkCollisions()
 {	
-	/*
-	for (int i = 0; i < (int)m_vpEnemies.size(); i++)
-	{		
-		
-		if (m_pPlayer->getBoundingBox().intersectsRect(m_vpEnemies.at(i)->getBoundingBox()))
-		{
-			return true;
-		}
-				
-	}
-	*/
-
-	if (m_vpSegmentTiles.size() > 0)
+	if (m_pSegment->isSpawned())
 	{
-		for (int i = 0; i < (int)m_vpSegmentTiles.size(); i++)
+		Size layerSize = m_pSegment->getSegmentLayer()->getLayerSize();
+		for (int i = 0; i < layerSize.height; i++)
 		{
-			if (m_pPlayer->getBoundingBox().intersectsRect(m_vpSegmentTiles.at(i)->getBoundingBox()))
+			for (int j = 0; j < layerSize.width; j++)
 			{
-				m_vpSegmentTiles.at(i)->setVisible(false);
-				return true;
+				auto tileSprite = m_pSegment->getSegmentLayer()->tileAt(Vec2(i, j));
+				if (tileSprite)
+				{
+					if (m_pPlayer->getBoundingBox().intersectsRect(tileSprite->getBoundingBox()))
+					{					
+						
+						tileSprite->removeFromParent();
+						CCLOG("Collision with tile");
+					}					
+				}
 			}
-
 		}
 	}	
-	return false;
+	else
+	{
+		CCLOG("No segment has been spawned");
+	}
+	return true;
 }
 
 void CollisionManager::cleanUp()

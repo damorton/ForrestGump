@@ -54,10 +54,13 @@ public:
 
 		@return TMXTiledMap* m_MazeTileMap
 	*/
-	TMXTiledMap* getTileMap(){ return m_MazeTileMap; };
-	
-	Maze* spawnSegment();
-		
+	TMXTiledMap* getSegmentTileMap(){ return m_MazeTileMap; };
+
+	TMXLayer* getSegmentLayer(){ return m_pTileMapLayer; };
+
+	bool isSpawned(){ return m_bIsSpawned; };
+	void removeSegment();
+
 	/*
 		Initialize the parent node
 	*/
@@ -66,6 +69,7 @@ public:
 private:
 	TMXTiledMap* m_MazeTileMap;	
 	TMXLayer* m_pTileMapLayer;
+	bool m_bIsSpawned;
 };
 
 #endif

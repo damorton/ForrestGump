@@ -8,22 +8,33 @@ bool Maze::init()
 	if (!Layer::init())
 	{
 		return false;
-	}		
+	}
+	
+	this->addTMXTileMap("maps/CoinSegmentA.tmx");
+	this->addPhysicsToTiles("segment");
 	this->setPosition(Vec2(VISIBLE_SIZE_WIDTH, Director::getInstance()->getVisibleOrigin().y));
+	auto removeSegment = CallFunc::create(this, callfunc_selector(Maze::removeSegment));
 	auto segmentBehaviour = Sequence::create(
 		MoveBy::create(SEGMENT_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-VISIBLE_SIZE_WIDTH * 2, 0)),
-		RemoveSelf::create(),
-		nullptr);
+		removeSegment,
+		RemoveSelf::create(),			
+		NULL);	
 	this->runAction(segmentBehaviour);
-
+	m_bIsSpawned = true;
+	CollisionManager::getInstance()->registerSegment(this);
 	return true;
+}
+
+void Maze::removeSegment()
+{ 
+	this->removeFromParentAndCleanup(true);
+	m_bIsSpawned = false; 	
 }
 
 bool Maze::addTMXTileMap(const std::string& filename)
 {
 	m_MazeTileMap = TMXTiledMap::create(filename);	
-	this->addChild(m_MazeTileMap, 0);
-	this->addPhysicsToTiles("segment");
+	this->addChild(m_MazeTileMap);	
 	return true;
 }
 
@@ -53,21 +64,14 @@ bool Maze::addPhysicsToTiles(const std::string& layername)
 			if (tileSprite)
 			{				
 				tileSprite->setPhysicsBody(PhysicsBody::createBox(Size(tileSprite->getContentSize().width, tileSprite->getContentSize().height)));
-				tileSprite->getPhysicsBody()->setDynamic(true);
-				tileSprite->getPhysicsBody()->setGravityEnable(false);
-				tileSprite->getPhysicsBody()->setCategoryBitmask(0x01);
-				tileSprite->getPhysicsBody()->setCollisionBitmask(0x02);
-				tileSprite->getPhysicsBody()->setContactTestBitmask(true);
-				tileSprite->setPosition(Vec2((tileSprite->getPosition().x + tileSprite->getContentSize().width / 2), (tileSprite->getPosition().y + tileSprite->getContentSize().height / 2)));		
-				CollisionManager::getInstance()->registerSegmentTile(tileSprite);
+				tileSprite->getPhysicsBody()->setDynamic(false);
+				//tileSprite->getPhysicsBody()->setGravityEnable(false);
+				//tileSprite->getPhysicsBody()->setCategoryBitmask(0x01);
+				//tileSprite->getPhysicsBody()->setCollisionBitmask(0x02);
+				//tileSprite->getPhysicsBody()->setContactTestBitmask(true);
+				tileSprite->setPosition(Vec2((tileSprite->getPosition().x + tileSprite->getContentSize().width / 2), (tileSprite->getPosition().y + tileSprite->getContentSize().height / 2)));						
 			}
 		}
 	}
 	return true;
-}
-
-
-Maze* Maze::spawnSegment()
-{
-	 return this;
 }

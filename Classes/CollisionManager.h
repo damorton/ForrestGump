@@ -18,18 +18,16 @@ public:
 	virtual bool init();
 	static CollisionManager* getInstance();			
 	bool checkCollisions();
-	void cleanUp(); 	
+	void cleanUp(); 
+
 	Player* getPlayer(){ return m_pPlayer; };
-	std::vector<std::shared_ptr<Enemy>> getVectorOfEnemies(){ return m_vpEnemies; }; 
-	
-	void registerEnemyWithCollisionManager(std::shared_ptr<Enemy> obj);
+	Maze* getSegment(){ return m_pSegment; };
+		
 	void registerPlayer(Player* player){ m_pPlayer = player; };
-	void registerSegmentTile(cocos2d::Sprite* segmentTile){ m_vpSegmentTiles.push_back(segmentTile); };
+	void registerSegment(Maze* segment){ m_pSegment = segment; };
 protected:
-	Player* m_pPlayer; 
-	//cocos2d::TMXLayer* m_pSegment;
-	std::vector<std::shared_ptr<Enemy>> m_vpEnemies; 
-	std::vector<cocos2d::Sprite*> m_vpSegmentTiles;
+	Player* m_pPlayer; 	
+	Maze* m_pSegment;
 private:
 	static CollisionManager* m_Instance;
 	CollisionManager(){ this->init(); }; // constructor

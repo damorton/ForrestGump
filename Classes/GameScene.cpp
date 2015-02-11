@@ -94,10 +94,9 @@ bool GameScene::init()
 	
 	spawnSegmentTimer = 0;
 
-	// segment spawns
-	m_pSegment = Maze::create();
-	m_pSegment->addTMXTileMap("maps/CoinSegmentA.tmx");
-	gamePlayLayer->addChild(m_pSegment->spawnSegment());
+	// segment spawns	
+	m_pSegment = Maze::create();		
+	gamePlayLayer->addChild(m_pSegment);
 
 	// pause button
 	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(GameScene::Pause, this));
@@ -116,42 +115,31 @@ bool GameScene::init()
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 			
 	speed = 5.0f;
-
-	auto contactListener = EventListenerPhysicsContact::create();
-	contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
-	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
-		
-
+			
 	// call the schedule update in order to run this layers update function
 	this->scheduleUpdate();
-	return true;
-}
-
-bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
-{
-	CCLOG("onContactBegin -------> ");			
 	return true;
 }
 
 void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	
-	spawnSegmentTimer++;
-	if (spawnSegmentTimer > 500)
-	{
-		CCLOG("Spawn segment");
-		gamePlayLayer->addChild(m_pSegment->spawnSegment());
-		spawnSegmentTimer = 0;
-	}
 
 	// update the player
 	WorldManager::getInstance()->getPlayer()->update();
-	
-	// update enemies
-
 	// check for collisions
 	CollisionManager::getInstance()->checkCollisions();
 
+	
+	spawnSegmentTimer++;
+	if (spawnSegmentTimer > 100)
+	{			
+		CCLOG("Spawn segment");
+		m_pSegment = Maze::create();
+		gamePlayLayer->addChild(m_pSegment);
+		spawnSegmentTimer = 0;
+	}
+	
 	m_cHud->updateScore();
 	
 	backgroundA->setPosition(Vec2(backgroundA->getPosition().x - speed, backgroundA->getPosition().y));
