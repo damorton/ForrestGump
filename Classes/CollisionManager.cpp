@@ -35,28 +35,27 @@ bool CollisionManager::checkCollisions()
 	/*
 	for (int i = 0; i < (int)m_vpEnemies.size(); i++)
 	{		
-		if (m_vpEnemies.at(i)->getType() == Character::ENEMY)
-		{			
-			std::shared_ptr<Enemy> tempEnemy = std::static_pointer_cast<Enemy>(m_vpEnemies.at(i));
-			if (m_pPlayer->getBoundingBox().intersectsRect(tempEnemy->getBoundingBox()))
-			{
-				return true;
-			}
-		}		
+		
+		if (m_pPlayer->getBoundingBox().intersectsRect(m_vpEnemies.at(i)->getBoundingBox()))
+		{
+			return true;
+		}
+				
 	}
 	*/
 
-	// can add checks for wall? bullet? coins?	
-	for (int i = 0; i < (int)m_vpSegmentTiles.size(); i++)
-	{		
-		if (m_pPlayer->getBoundingBox().intersectsRect(m_vpSegmentTiles.at(i)->getBoundingBox()))
+	if (m_vpSegmentTiles.size() > 0)
+	{
+		for (int i = 0; i < (int)m_vpSegmentTiles.size(); i++)
 		{
-			m_vpSegmentTiles.at(i)->setVisible(false);
-			return true;
+			if (m_pPlayer->getBoundingBox().intersectsRect(m_vpSegmentTiles.at(i)->getBoundingBox()))
+			{
+				m_vpSegmentTiles.at(i)->setVisible(false);
+				return true;
+			}
+
 		}
-		
-	}
-	
+	}	
 	return false;
 }
 

@@ -91,8 +91,10 @@ bool GameScene::init()
 	WorldManager::getInstance()->setPlayer(playerSprite);
 	CollisionManager::getInstance()->registerPlayer(playerSprite);
 		
-	// segment spawns
+	
 	spawnSegmentTimer = 0;
+
+	// segment spawns
 	m_pSegment = Maze::create();
 	m_pSegment->addTMXTileMap("maps/CoinSegmentA.tmx");
 	gamePlayLayer->addChild(m_pSegment->spawnSegment());
