@@ -15,7 +15,7 @@ Scene* GameScene::createScene()
 {
 	// 'scene' is an autorelease object
 	auto scene = Scene::createWithPhysics();	
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL); // draw debug lines around objects in the world	
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL); // draw debug lines around objects in the world	
 	
 	// 'layer' is an autorelease object
 	auto layer = GameScene::create();
@@ -79,24 +79,22 @@ bool GameScene::init()
 	Player* playerSprite = Player::create("sprites/Player.png");		
 	playerSprite->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, FLOOR_SPRITE_TOP);
 	
-	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);		
+	//auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);		
 	
-	playerPhysicsBody->setDynamic(false);
-	playerPhysicsBody->setCategoryBitmask(0x02);
-	playerPhysicsBody->setCollisionBitmask(0x01);
-	playerPhysicsBody->setContactTestBitmask(true);
-	playerSprite->setPhysicsBody(playerPhysicsBody);
-
-	gamePlayLayer->addChild(playerSprite, 0);
+	//playerPhysicsBody->setDynamic(false);	
+	//playerSprite->setPhysicsBody(playerPhysicsBody);
+	gamePlayLayer->addChild(playerSprite);
 	WorldManager::getInstance()->setPlayer(playerSprite);
 	CollisionManager::getInstance()->registerPlayer(playerSprite);
 		
-	
 	spawnSegmentTimer = 0;
 
 	// segment spawns	
 	m_pSegment = Maze::create();		
-	gamePlayLayer->addChild(m_pSegment);
+	gamePlayLayer->addChild(m_pSegment->spawnSegment());
+	
+	//TMXTiledMap* map = TMXTiledMap::create("maps/CoinSegmentA.tmx");	
+	//gamePlayLayer->addChild(map);
 
 	// pause button
 	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(GameScene::Pause, this));
@@ -135,8 +133,9 @@ void GameScene::update(float delta)
 	if (spawnSegmentTimer > 100)
 	{			
 		CCLOG("Spawn segment");
-		m_pSegment = Maze::create();
-		gamePlayLayer->addChild(m_pSegment);
+		//m_pSegment = Maze::create();
+		//gamePlayLayer->addChild(m_pSegment);
+		gamePlayLayer->addChild(m_pSegment->getSegmentTileMap());
 		spawnSegmentTimer = 0;
 	}
 	

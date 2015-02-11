@@ -57,7 +57,7 @@ public:
 	TMXTiledMap* getSegmentTileMap(){ return m_MazeTileMap; };
 
 	TMXLayer* getSegmentLayer(){ return m_pTileMapLayer; };
-
+	TMXTiledMap* spawnSegment();
 	bool isSpawned(){ return m_bIsSpawned; };
 	void removeSegment();
 

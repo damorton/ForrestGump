@@ -31,8 +31,7 @@ bool CollisionManager::checkCollisions()
 				if (tileSprite)
 				{
 					if (m_pPlayer->getBoundingBox().intersectsRect(tileSprite->getBoundingBox()))
-					{					
-						
+					{	
 						tileSprite->removeFromParent();
 						CCLOG("Collision with tile");
 					}					
