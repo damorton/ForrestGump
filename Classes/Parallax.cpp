@@ -1,21 +1,21 @@
 #include "Parallax.h"
+#include "Definitions.h"
 
 USING_NS_CC;
 
-Parallax* Parallax::m_spInstance = 0;
-
-Parallax* Parallax::getInstance()
-{
-	if (m_spInstance == 0)
-	{
-		m_spInstance = new Parallax();	
-	}
-
-	return m_spInstance;
-}
-
 bool Parallax::init()
 {
+	if (!Layer::init())
+	{
+		return false;
+	}
+	this->setPosition(Vec2(VISIBLE_SIZE_WIDTH, Director::getInstance()->getVisibleOrigin().y));
+	auto segmentBehaviour = Sequence::create(
+		MoveBy::create(SEGMENT_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-VISIBLE_SIZE_WIDTH * 2, 0)),
+		RemoveSelf::create(),
+		nullptr);
+	this->runAction(segmentBehaviour);
+
 	return true;
 }
 
@@ -56,6 +56,7 @@ Parallax* Parallax::create2()
 	
 	return true;
 }
+*/
 
 void Parallax::updateBackground()
 {
@@ -64,7 +65,7 @@ void Parallax::updateBackground()
 	scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, (m_fSpeed / 2));
 	scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, ((m_fSpeed / 5) - 0.8));
 }
-*/
+
 void Parallax::scrollBackground(Sprite* bck1, Sprite* bck2, float speed)
 {
 	bck1->setPosition(Vec2(bck1->getPosition().x - speed, bck1->getPosition().y));

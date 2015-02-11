@@ -2,10 +2,11 @@
 #define __PARALLAX_H__
 
 #include "cocos2d.h"
+#include "Definitions.h"
 
 USING_NS_CC;
 
-class Parallax
+class Parallax : public cocos2d::Layer
 {
 	public:		
 		/*
@@ -15,11 +16,14 @@ class Parallax
 		
 		static Parallax* getInstance();	
 
+		/*
+		Add a background to the parallax layer
+		*/
+		bool addBackground(const std::string& filename);
+
 		// Update my background scrolling
 		void scrollBackground(Sprite* bck1, Sprite* bck2, float speed);
 
-
-		/*
 		// Call the scroll function passing the background images
 		void updateBackground();
 
@@ -33,11 +37,10 @@ class Parallax
 
 		// variables
 		float m_fSpeed;
-		*/
-		//GameScene* gs;
+		
 
 private:
-	static Parallax* m_spInstance;
+	Parallax* m_pParallax;
 	// layers	
 	
 };
