@@ -1,9 +1,9 @@
-#include "Maze.h"
+#include "SegmentManager.h"
 #include "Definitions.h"
 #include "WorldManager.h"
 #include "CollisionManager.h"
 
-bool Maze::init()
+bool SegmentManager::init()
 {	
 	if (!Layer::init())
 	{
@@ -17,54 +17,54 @@ bool Maze::init()
 	return true;
 }
 
-TMXTiledMap* Maze::spawnSegment()
+TMXTiledMap* SegmentManager::spawnSegment()
 {
-	auto map = TMXTiledMap::create("maps/CoinSegmentA.tmx");
-	map->setPosition(Vec2(VISIBLE_SIZE_WIDTH, Director::getInstance()->getVisibleOrigin().y));
-	//auto layer = map->getLayer("segment");
-	auto removeSegment = CallFunc::create(this, callfunc_selector(Maze::removeSegment));
+	auto m_SegmentManagerTileMap = TMXTiledMap::create("maps/CoinSegmentA.tmx");
+	m_pTileMapLayer = m_SegmentManagerTileMap->getLayer("segment");
+	m_SegmentManagerTileMap->setPosition(Vec2(VISIBLE_SIZE_WIDTH, Director::getInstance()->getVisibleOrigin().y));
+	auto removeSegment = CallFunc::create(this, callfunc_selector(SegmentManager::removeSegment));
 	auto segmentBehaviour = Sequence::create(
 		MoveBy::create(SEGMENT_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-VISIBLE_SIZE_WIDTH * 2, 0)),
 		removeSegment,
 		RemoveSelf::create(),
 		NULL);
 	//this->runAction(segmentBehaviour);
-	map->runAction(segmentBehaviour);
+	m_SegmentManagerTileMap->runAction(segmentBehaviour);
 	m_bIsSpawned = true;
 	CollisionManager::getInstance()->registerSegment(this);
-	return map;
+	return m_SegmentManagerTileMap;
 }
 
 
-void Maze::removeSegment()
+void SegmentManager::removeSegment()
 { 
-	m_MazeTileMap->removeFromParentAndCleanup(true);
+	m_SegmentManagerTileMap->removeFromParentAndCleanup(true);
 	m_bIsSpawned = false; 	
 }
 
-bool Maze::addTMXTileMap(const std::string& filename)
+bool SegmentManager::addTMXTileMap(const std::string& filename)
 {
-	m_MazeTileMap = TMXTiledMap::create(filename);	
+	m_SegmentManagerTileMap = TMXTiledMap::create(filename);	
 	return true;
 }
 
-bool Maze::rotateMaze(float duration, float angle)
+bool SegmentManager::rotateSegmentManager(float duration, float angle)
 {	
 	auto rotate = RotateBy::create(duration, angle);
-	this->runAction(RepeatForever::create(rotate));
+	m_SegmentManagerTileMap->runAction(RepeatForever::create(rotate));
 	return true;
 }
 
-bool Maze::addPhysicsEdgeBox()
+bool SegmentManager::addPhysicsEdgeBox()
 {
-	auto mazeEdge = PhysicsBody::createEdgeBox(m_MazeTileMap->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
-	m_MazeTileMap->setPhysicsBody(mazeEdge);
+	auto SegmentManagerEdge = PhysicsBody::createEdgeBox(m_SegmentManagerTileMap->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
+	m_SegmentManagerTileMap->setPhysicsBody(SegmentManagerEdge);
 	return true;
 }
 
-bool Maze::addPhysicsToTiles(const std::string& layername)
+bool SegmentManager::addPhysicsToTiles(const std::string& layername)
 {
-	m_pTileMapLayer = m_MazeTileMap->getLayer(layername);
+	m_pTileMapLayer = m_SegmentManagerTileMap->getLayer(layername);
 	Size layerSize = m_pTileMapLayer->getLayerSize();
 	for (int i = 0; i < layerSize.height; i++)
 	{

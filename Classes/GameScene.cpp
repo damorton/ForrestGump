@@ -135,7 +135,7 @@ void GameScene::update(float delta)
 		CCLOG("Spawn segment");
 		//m_pSegment = Maze::create();
 		//gamePlayLayer->addChild(m_pSegment);
-		gamePlayLayer->addChild(m_pSegment->getSegmentTileMap());
+		//gamePlayLayer->addChild(m_pSegment->spawnSegment());
 		spawnSegmentTimer = 0;
 	}
 	
