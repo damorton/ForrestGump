@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 
-	USING_NS_CC;
+USING_NS_CC;
 
 class Parallax
 {
@@ -12,14 +12,34 @@ class Parallax
 		Initialize the Parallax class
 		*/
 		virtual bool init();
-
-		static Parallax* getInstance();
+		
+		static Parallax* getInstance();	
 
 		// Update my background scrolling
 		void scrollBackground(Sprite* bck1, Sprite* bck2, float speed);
 
+
+		/*
+		// Call the scroll function passing the background images
+		void updateBackground();
+
+		// sprites
+		Sprite* m_pSpriteBackgroundFirst;
+		Sprite* m_pSpriteBackgroundFirst1;
+		Sprite* m_pSpriteBackgroundSecond;
+		Sprite* m_pSpriteBackgroundSecond1;
+		Sprite* m_pSpriteBackgroundThird;
+		Sprite* m_pSpriteBackgroundThird1;
+
+		// variables
+		float m_fSpeed;
+		*/
+		//GameScene* gs;
+
 private:
-	static Parallax* m_pInstance;
+	static Parallax* m_spInstance;
+	// layers	
+	
 };
 
 #endif // __PARALLAX_H__

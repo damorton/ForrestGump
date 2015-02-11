@@ -16,6 +16,7 @@ Scene* GameScene::createScene()
 	auto scene = Scene::createWithPhysics();	
 	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL); // draw debug lines around objects in the world	
 	scene->getPhysicsWorld()->setUpdateRate(0.3f);
+
 	// 'layer' is an autorelease object
 	auto layer = GameScene::create();
 	layer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics
@@ -36,7 +37,7 @@ bool GameScene::init()
 	{
 		return false;
 	}
-	
+
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
@@ -50,34 +51,39 @@ bool GameScene::init()
 
 	// HUD layer
 	m_cHud = HUD::create();
-	this->addChild(m_cHud, 1, "hudLayer");
+	this->addChild(m_cHud, 1, "hudLayer");	
+
+//	gamePlayLayer->addChild(m_Parallax->getInstance()->m_pSpriteBackgroundFirst, 1);
+//	gamePlayLayer->addChild(Parallax::getInstance()->m_pSpriteBackgroundFirst1, 1);
 
 	
 	// background 1 - Clouds and Floor moving
-	m_bckFirst = CCSprite::create("background/backgroundFirst.png"); 
-	m_bckFirst1 = CCSprite::create("background/backgroundFirst.png"); 
-	m_bckFirst->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-	m_bckFirst1->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));	
-	gamePlayLayer->addChild(m_bckFirst, 1); // add child
-	gamePlayLayer->addChild(m_bckFirst1, 1); // add child
+	m_pSpriteBackgroundFirst = CCSprite::create("background/backgroundFirst.png"); 
+	m_pSpriteBackgroundFirst1 = CCSprite::create("background/backgroundFirst.png"); 
+	m_pSpriteBackgroundFirst->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	m_pSpriteBackgroundFirst1->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));	
+	gamePlayLayer->addChild(m_pSpriteBackgroundFirst, 1); // add child
+	gamePlayLayer->addChild(m_pSpriteBackgroundFirst1, 1); // add child
 
 
 	// background 2 - Mountains
-	m_bckSecond = CCSprite::create("background/backgroundSecond.png");
-	m_bckSecond1 = CCSprite::create("background/backgroundSecond.png");
-	m_bckSecond->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-	m_bckSecond1->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));
-	gamePlayLayer->addChild(m_bckSecond, -1); // add child
-	gamePlayLayer->addChild(m_bckSecond1, -1); // add child
+	m_pSpriteBackgroundSecond = CCSprite::create("background/backgroundSecond.png");
+	m_pSpriteBackgroundSecond1 = CCSprite::create("background/backgroundSecond.png");
+	m_pSpriteBackgroundSecond->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	m_pSpriteBackgroundSecond1->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));
+	gamePlayLayer->addChild(m_pSpriteBackgroundSecond, -1); // add child
+	gamePlayLayer->addChild(m_pSpriteBackgroundSecond1, -1); // add child
 
 
 	// background 3	- Clounds, Sun and Far Mountains
-	m_bckThird = CCSprite::create("background/backgroundThird.png");
-	m_bckThird1 = CCSprite::create("background/backgroundThird.png");
-	m_bckThird->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-	m_bckThird1->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));
-	gamePlayLayer->addChild(m_bckThird, -2); // add child
-	gamePlayLayer->addChild(m_bckThird1, -2); // add child
+	m_pSpriteBackgroundThird = CCSprite::create("background/backgroundThird.png");
+	m_pSpriteBackgroundThird1 = CCSprite::create("background/backgroundThird.png");
+	m_pSpriteBackgroundThird->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	m_pSpriteBackgroundThird1->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));
+	gamePlayLayer->addChild(m_pSpriteBackgroundThird, -2); // add child
+	gamePlayLayer->addChild(m_pSpriteBackgroundThird1, -2); // add child
+	
+
 
 	// add floorSprite to game scene
 	auto floorSprite = Sprite::create("foreground/floorSprite.png");
@@ -97,13 +103,14 @@ bool GameScene::init()
 	*/
 		
 	// Player			
-	Player* playerSprite = Player::create("sprites/Player.png");		
+	playerSprite = Player::create("sprites/Player.png");		
 	playerSprite->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, FLOOR_SPRITE_TOP);
 	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 	playerSprite->setPhysicsBody(playerPhysicsBody);
 	playerPhysicsBody->setDynamic(false);
 	gamePlayLayer->addChild(playerSprite, 0);
 	WorldManager::getInstance()->setPlayer(playerSprite);
+	
 		
 	// pause button
 	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(GameScene::Pause, this));
@@ -133,11 +140,21 @@ void GameScene::update(float delta)
 	CCLOG("-------------GAME LOOP START--------------");	
 
 	WorldManager::getInstance()->getPlayer()->update();
-	m_cHud->updateScore();
+	m_cHud->updateScore();	
+	/*
+	Parallax::getInstance()->scrollBackground(m_pSpriteBackgroundFirst, m_pSpriteBackgroundFirst1, m_fSpeed);
+	Parallax::getInstance()->scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, (m_fSpeed / 2));
+	Parallax::getInstance()->scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, ((m_fSpeed / 5) - 0.8));
+	*/
+	
 
-	m_Parallax->scrollBackground(m_bckFirst, m_bckFirst1, m_fSpeed);
-	m_Parallax->scrollBackground(m_bckSecond, m_bckSecond1, (m_fSpeed / 2));
-	m_Parallax->scrollBackground(m_bckThird, m_bckThird1, ((m_fSpeed / 5) - 0.8));	
+	//running animation
+	playerSprite->runAction(AnimationMoves::getAnimationWithFrames(1, 2));
+
+
+	m_pParallax->scrollBackground(m_pSpriteBackgroundFirst, m_pSpriteBackgroundFirst1, m_fSpeed);
+	m_pParallax->scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, (m_fSpeed / 2));
+	m_pParallax->scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, ((m_fSpeed / 5) - 0.8));	
 	
 	CCLOG("-------------GAME LOOP END--------------");
 }

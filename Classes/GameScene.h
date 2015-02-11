@@ -4,6 +4,8 @@
 #include "cocos2d.h"
 #include "HUD.h"
 #include "Parallax.h"
+#include "AnimationMoves.h"
+#include "Player.h"
 
 USING_NS_CC;
 
@@ -55,19 +57,21 @@ public:
 private:
 	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
 	PhysicsWorld* m_pSceneWorld;
-
+	
 	// layers	
 	Layer* gamePlayLayer;
 	HUD* m_cHud;
-	Parallax* m_Parallax;
+	Player* playerSprite;
+	Parallax* m_pParallax;
+
 
 	// sprites
-	Sprite* m_bckFirst;
-	Sprite* m_bckFirst1;
-	Sprite* m_bckSecond;
-	Sprite* m_bckSecond1;
-	Sprite* m_bckThird;
-	Sprite* m_bckThird1;
+	Sprite* m_pSpriteBackgroundFirst;
+	Sprite* m_pSpriteBackgroundFirst1;
+	Sprite* m_pSpriteBackgroundSecond;
+	Sprite* m_pSpriteBackgroundSecond1;
+	Sprite* m_pSpriteBackgroundThird;
+	Sprite* m_pSpriteBackgroundThird1;
 
 	// variables
 	float m_fSpeed;
