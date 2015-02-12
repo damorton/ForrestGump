@@ -19,7 +19,7 @@ class Parallax : public cocos2d::Layer
 		/*
 		Add a background to the parallax layer
 		*/
-		bool addBackground(const std::string& filename);
+		void addBackground(const std::string& filename1, const std::string& filename2, const std::string& filename3);
 
 		// Update my background scrolling
 		void scrollBackground(Sprite* bck1, Sprite* bck2, float speed);
@@ -28,8 +28,8 @@ class Parallax : public cocos2d::Layer
 		void updateBackground();
 
 		// sprites
-		Sprite* m_pSpriteBackgroundFirst;
-		Sprite* m_pSpriteBackgroundFirst1;
+		CCSprite* m_pSpriteBackgroundFirst;
+		CCSprite* m_pSpriteBackgroundFirst1;
 		Sprite* m_pSpriteBackgroundSecond;
 		Sprite* m_pSpriteBackgroundSecond1;
 		Sprite* m_pSpriteBackgroundThird;
@@ -37,11 +37,17 @@ class Parallax : public cocos2d::Layer
 
 		// variables
 		float m_fSpeed;
+
+		/*
+		Initialize the parent node
+
+		//Call the super class theen I can create my .create() from the super class of Layer
+		*/
+		CREATE_FUNC(Parallax);
 		
 
 private:
 	Parallax* m_pParallax;
-	// layers	
 	
 };
 

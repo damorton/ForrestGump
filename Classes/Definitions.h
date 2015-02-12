@@ -1,6 +1,10 @@
 #ifndef DEFINITIONS_H__
 #define DEFINITIONS_H__
 
+#define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
+#define VISIBLE_SIZE_HEIGHT (Director::getInstance()->getVisibleSize().height)
+#define SEGMENT_MOVEMENT_SPEED 0.007f
+
 // scenes
 #define DISPLY_TIME_SPLASH_SCENCE 2
 #define TRANSITION_TIME 0.5

@@ -64,6 +64,7 @@ private:
 	Player* playerSprite;
 	Parallax* m_pParallax;
 
+	/*
 
 	// sprites
 	Sprite* m_pSpriteBackgroundFirst;
@@ -72,6 +73,7 @@ private:
 	Sprite* m_pSpriteBackgroundSecond1;
 	Sprite* m_pSpriteBackgroundThird;
 	Sprite* m_pSpriteBackgroundThird1;
+	*/
 
 	// variables
 	float m_fSpeed;

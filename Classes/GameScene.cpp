@@ -53,37 +53,18 @@ bool GameScene::init()
 	m_cHud = HUD::create();
 	this->addChild(m_cHud, 1, "hudLayer");	
 
-//	gamePlayLayer->addChild(m_Parallax->getInstance()->m_pSpriteBackgroundFirst, 1);
-//	gamePlayLayer->addChild(Parallax::getInstance()->m_pSpriteBackgroundFirst1, 1);
+	//Background
+	m_pParallax = Parallax::create();
+	m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png");	
 
-	
-	// background 1 - Clouds and Floor moving
-	m_pSpriteBackgroundFirst = CCSprite::create("background/backgroundFirst.png"); 
-	m_pSpriteBackgroundFirst1 = CCSprite::create("background/backgroundFirst.png"); 
-	m_pSpriteBackgroundFirst->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-	m_pSpriteBackgroundFirst1->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));	
-	gamePlayLayer->addChild(m_pSpriteBackgroundFirst, 1); // add child
-	gamePlayLayer->addChild(m_pSpriteBackgroundFirst1, 1); // add child
+	gamePlayLayer->addChild(m_pParallax->m_pSpriteBackgroundFirst, 1); // add child
+	gamePlayLayer->addChild(m_pParallax->m_pSpriteBackgroundFirst1, 1); // add child
 
+	gamePlayLayer->addChild(m_pParallax->m_pSpriteBackgroundSecond, -1); // add child
+	gamePlayLayer->addChild(m_pParallax->m_pSpriteBackgroundSecond1, -1); // add child
 
-	// background 2 - Mountains
-	m_pSpriteBackgroundSecond = CCSprite::create("background/backgroundSecond.png");
-	m_pSpriteBackgroundSecond1 = CCSprite::create("background/backgroundSecond.png");
-	m_pSpriteBackgroundSecond->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-	m_pSpriteBackgroundSecond1->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));
-	gamePlayLayer->addChild(m_pSpriteBackgroundSecond, -1); // add child
-	gamePlayLayer->addChild(m_pSpriteBackgroundSecond1, -1); // add child
-
-
-	// background 3	- Clounds, Sun and Far Mountains
-	m_pSpriteBackgroundThird = CCSprite::create("background/backgroundThird.png");
-	m_pSpriteBackgroundThird1 = CCSprite::create("background/backgroundThird.png");
-	m_pSpriteBackgroundThird->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-	m_pSpriteBackgroundThird1->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));
-	gamePlayLayer->addChild(m_pSpriteBackgroundThird, -2); // add child
-	gamePlayLayer->addChild(m_pSpriteBackgroundThird1, -2); // add child
-	
-
+	gamePlayLayer->addChild(m_pParallax->m_pSpriteBackgroundThird, -2); // add child
+	gamePlayLayer->addChild(m_pParallax->m_pSpriteBackgroundThird1, -2); // add child
 
 	// add floorSprite to game scene
 	auto floorSprite = Sprite::create("foreground/floorSprite.png");
@@ -93,14 +74,6 @@ bool GameScene::init()
 	floorSprite->getPhysicsBody()->setDynamic(false);
 	gamePlayLayer->addChild(floorSprite, 0); // add at z:1 for floorSprite
 	WorldManager::getInstance()->setFloorSprite(floorSprite);
-
-	/*
-	Maze* mazeLayer = Maze::create();
-	mazeLayer->addTMXTileMap("maps/maze.tmx");
-	mazeLayer->addPhysicsEdgeBox();
-	mazeLayer->addPhysicsToTiles("maze");
-	gamePlayLayer->addChild(mazeLayer, 0, "maze");
-	*/
 		
 	// Player			
 	playerSprite = Player::create("sprites/Player.png");		
@@ -151,10 +124,15 @@ void GameScene::update(float delta)
 	//running animation
 	playerSprite->runAction(AnimationMoves::getAnimationWithFrames(1, 2));
 
+	CCLOG("Parallax");
+//	gamePlayLayer->addChild(m_pParallax->spawnSegment());
+	//NOT WORKING THIS FUNCTION updateBackground() , uncomment and run, it is like Parallax.cpp dont find the images, something like it
+//	m_pParallax->updateBackground();
 
-	m_pParallax->scrollBackground(m_pSpriteBackgroundFirst, m_pSpriteBackgroundFirst1, m_fSpeed);
-	m_pParallax->scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, (m_fSpeed / 2));
-	m_pParallax->scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, ((m_fSpeed / 5) - 0.8));	
+//	m_pParallax->scrollBackground(m_pParallax->m_pSpriteBackgroundFirst, m_pParallax->m_pSpriteBackgroundFirst1, m_fSpeed);
+//	m_pParallax->scrollBackground(m_pSpriteBackgroundFirst, m_pSpriteBackgroundFirst1, m_fSpeed);
+//	m_pParallax->scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, (m_fSpeed / 2));
+//	m_pParallax->scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, ((m_fSpeed / 5) - 0.8));	
 	
 	CCLOG("-------------GAME LOOP END--------------");
 }
