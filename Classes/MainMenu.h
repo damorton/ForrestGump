@@ -8,8 +8,8 @@ class MainMenu : public cocos2d::Layer
 public:
     static cocos2d::Scene* createScene();
     virtual bool init();    
-
 	static void mainMenu();
+
 	void playGame(Ref *pSender);
 	void leaderboard(Ref *pSender);
 	void settings(Ref *pSender);		

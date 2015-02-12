@@ -18,15 +18,15 @@ Scene* GameScene::createScene()
 	GameScene* gameLayer = GameScene::create();
 	gameLayer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics
 	scene->addChild(gameLayer, 0, TAG_GAME_LAYER);
-	
-	HUD* hudLayer = HUD::create();
-	scene->addChild(hudLayer, 1, TAG_HUD);
-	
-	Pause* pause = Pause::create();
-	scene->addChild(pause, 1, TAG_PAUSE);
+		
+	//HUD* hudLayer = HUD::create();
+	//scene->addChild(hudLayer, 1, TAG_HUD);
 
-	GameOver* gameOver = GameOver::create();
-	scene->addChild(gameOver, 1, TAG_GAMEOVER);
+	//Pause* pause = Pause::create();
+	//scene->addChild(pause, 1, TAG_PAUSE);
+
+	//GameOver* gameOver = GameOver::create();
+	//scene->addChild(gameOver, 1, TAG_GAMEOVER);
 
 	return scene;
 }
@@ -51,7 +51,10 @@ void GameScene::initializeGame()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_action_1.wav", true);
-		
+	
+	m_HudLayer = HUD::create();
+	this->addChild(m_HudLayer, 1, TAG_HUD);
+
 	// background 3
 	backgroundA = CCSprite::create("background/gameBackground.png");
 	backgroundB = CCSprite::create("background/gameBackground2.png");
@@ -89,7 +92,18 @@ void GameScene::initializeGame()
 	//m_pSegmentManager = SegmentManager::create();
 	//this->addChild(m_pSegmentManager);
 	//m_pSegmentManager->spawnSegment();
-		
+
+
+	// pause button
+	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(GameScene::pause, this));
+	menu_item_pause->setPosition(Vec2(origin.x + visibleSize.width - menu_item_pause->getContentSize().width / 2,
+		origin.y + visibleSize.height - menu_item_pause->getContentSize().height / 2));
+
+	// create menu, add menu items and add to the game scene
+	auto* menu = Menu::create(menu_item_pause, NULL);
+	menu->setPosition(Point(0, 0));
+	m_HudLayer->addChild(menu);
+
 	// touch controls
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->setSwallowTouches(true);
@@ -151,4 +165,11 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 {
 	WorldManager::getInstance()->getPlayer()->touch(locationInGLFromTouch(*touch));
 	return true;
+}
+
+void GameScene::pause(cocos2d::Ref *pSender)
+{
+	Director::getInstance()->pushScene(TransitionFade::create(1, Pause::createScene()));
+	// to playGame sound effect if button is pressed 
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("button-21.wav", false, 1.0f, 1.0f, 1.0f);	
 }

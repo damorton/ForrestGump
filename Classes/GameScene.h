@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "SegmentManager.h"
+#include "HUD.h"
 
 USING_NS_CC;
 
@@ -16,7 +17,8 @@ public:
 	void update(float delta);	
 	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event * event);	
 	bool onContactBegin(cocos2d::PhysicsContact& contact);
-	CREATE_FUNC(GameScene);	
+	void pause(cocos2d::Ref *pSender);
+	CREATE_FUNC(GameScene);
 private:
 	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
 	PhysicsWorld* m_pSceneWorld;	
@@ -24,6 +26,7 @@ private:
 	Sprite* backgroundB;
 	int spawnSegmentTimer;
 	SegmentManager* m_pSegmentManager;
+	HUD* m_HudLayer;
 };
 
 #endif // __GAMESCENE_SCENE_H__

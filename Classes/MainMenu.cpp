@@ -48,17 +48,17 @@ bool MainMenu::init()
 	this->addChild(mainMenuBackground, -50); // add child
 
 	// create the main menu items
-	auto playButton = MenuItemImage::create("buttons/PlayNormal.png", "buttons/PlaySelected.png", CC_CALLBACK_1(MainMenu::play, this));
-	auto highscoresButton = MenuItemImage::create("buttons/TrophyNormal.png", "buttons/TrophySelected.png", CC_CALLBACK_1(MainMenu::highscores, this));
-	auto settingsButton = MenuItemImage::create("settings2.png", "settings2.png",CC_CALLBACK_1(MainMenu::settings, this)); // push the high scores scene	
+	auto playButton = MenuItemImage::create("buttons/PlayNormal.png", "buttons/PlaySelected.png", CC_CALLBACK_1(MainMenu::playGame, this));
+	auto highscoresButton = MenuItemImage::create("buttons/TrophyNormal.png", "buttons/TrophySelected.png", CC_CALLBACK_1(MainMenu::leaderboard, this));
+	
 	
 	// position the menu buttons on screen
 	playButton->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 8) * 2));
 	highscoresButton->setPosition(Point((visibleSize.width / 4) * 3, (visibleSize.height / 5) * 4));
-	settingsButton->setPosition(Point(visibleSize.width / 4, (visibleSize.height / 5) * 2));
+	
 
 	// create menu and add menu items
-	auto* menu = Menu::create(playButton, highscoresButton, settingsButton, NULL);
+	auto* menu = Menu::create(playButton, highscoresButton, NULL);
 
 	// position the main menu
 	menu->setPosition(Vec2::ZERO);
