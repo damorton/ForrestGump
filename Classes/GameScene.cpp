@@ -55,11 +55,12 @@ bool GameScene::init()
 
 	//Background
 	m_pParallax = Parallax::create();
-	gamePlayLayer->addChild(m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png"));
+	m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png");
 	CCLOG("Images loaded successful");	
 
-	//ISSO FUNCIONA!!!!!!!!!!!!!!!!!!!
-	//m_pParallax->bla();
+	//It works, but as I said, the Layer comes from Parallax without the plans, they are background, 
+	//without the clouds and floor foreground effects!!!!!!!!!!!!!!!!!!!
+	gamePlayLayer->addChild(m_pParallax->loadBackground());
 	
 
 	// add floorSprite to game scene

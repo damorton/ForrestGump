@@ -16,7 +16,7 @@ bool Parallax::init()
 
 
 
-Layer* Parallax::addBackground(const std::string& filename1, const std::string& filename2, const std::string& filename3)
+bool Parallax::addBackground(const std::string& filename1, const std::string& filename2, const std::string& filename3)
 {
 	m_pParallaxLayer = Parallax::create();
 
@@ -27,19 +27,6 @@ Layer* Parallax::addBackground(const std::string& filename1, const std::string& 
 	m_pSpriteBackgroundFirst1->setPosition(Vec2(VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
 	m_pParallaxLayer->addChild(m_pSpriteBackgroundFirst, 1);
 	m_pParallaxLayer->addChild(m_pSpriteBackgroundFirst1, 1);
-	/*
-	m_fSpeed = 5.0f;
-
-	m_pSpriteBackgroundFirst->setPosition(Vec2(m_pSpriteBackgroundFirst->getPosition().x - m_fSpeed, m_pSpriteBackgroundFirst->getPosition().y));
-	m_pSpriteBackgroundFirst1->setPosition(Vec2(m_pSpriteBackgroundFirst1->getPosition().x - m_fSpeed, m_pSpriteBackgroundFirst1->getPosition().y));
-
-	if (m_pSpriteBackgroundFirst->getPosition().x < -m_pSpriteBackgroundFirst->getContentSize().width / 2){
-		m_pSpriteBackgroundFirst->setPosition(Vec2(m_pSpriteBackgroundFirst1->getPosition().x + m_pSpriteBackgroundFirst1->getContentSize().width, m_pSpriteBackgroundFirst->getPosition().y));
-	}
-	if (m_pSpriteBackgroundFirst1->getPosition().x < -m_pSpriteBackgroundFirst1->getContentSize().width / 2){
-		m_pSpriteBackgroundFirst1->setPosition(Vec2(m_pSpriteBackgroundFirst->getPosition().x + m_pSpriteBackgroundFirst->getContentSize().width, m_pSpriteBackgroundFirst1->getPosition().y));
-	}
-	*/
 	
 	// background 2 - Mountains
 	m_pSpriteBackgroundSecond = CCSprite::create(filename2);
@@ -56,7 +43,13 @@ Layer* Parallax::addBackground(const std::string& filename1, const std::string& 
 	m_pSpriteBackgroundThird1->setPosition(Vec2(VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
 	m_pParallaxLayer->addChild(m_pSpriteBackgroundThird, -2); // add child
 	m_pParallaxLayer->addChild(m_pSpriteBackgroundThird1, -2); // add child
+	
+	return true;
+	
+}
 
+Layer* Parallax::loadBackground()
+{
 	return m_pParallaxLayer;
 }
 

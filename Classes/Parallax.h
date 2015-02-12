@@ -43,7 +43,9 @@ class Parallax : public cocos2d::Layer
 		/*
 		Add a background to the parallax layer
 		*/
-		Layer* addBackground(const std::string& filename1, const std::string& filename2, const std::string& filename3);
+		bool addBackground(const std::string& filename1, const std::string& filename2, const std::string& filename3);
+
+		Layer* loadBackground();
 		
 
 private:
