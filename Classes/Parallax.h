@@ -22,7 +22,7 @@ class Parallax : public cocos2d::Layer
 		void addBackground(const std::string& filename1, const std::string& filename2, const std::string& filename3);
 
 		// Update my background scrolling
-		void scrollBackground(Sprite* bck1, Sprite* bck2, float speed);
+		void scrollBackground(CCSprite* bck1, CCSprite* bck2, float speed);
 
 		// Call the scroll function passing the background images
 		void updateBackground();
@@ -30,10 +30,10 @@ class Parallax : public cocos2d::Layer
 		// sprites
 		CCSprite* m_pSpriteBackgroundFirst;
 		CCSprite* m_pSpriteBackgroundFirst1;
-		Sprite* m_pSpriteBackgroundSecond;
-		Sprite* m_pSpriteBackgroundSecond1;
-		Sprite* m_pSpriteBackgroundThird;
-		Sprite* m_pSpriteBackgroundThird1;
+		CCSprite* m_pSpriteBackgroundSecond;
+		CCSprite* m_pSpriteBackgroundSecond1;
+		CCSprite* m_pSpriteBackgroundThird;
+		CCSprite* m_pSpriteBackgroundThird1;
 
 		// variables
 		float m_fSpeed;
