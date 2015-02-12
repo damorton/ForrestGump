@@ -68,7 +68,7 @@ void Pause::resume(cocos2d::Ref *pSender)
 	
 	@param cocos2d::Ref *pSender pointer used by the engine
 */
-void Pause::rainMenu(cocos2d::Ref *pSender)
+void Pause::mainMenu(cocos2d::Ref *pSender)
 {
 	// pop screen & replace game scene
 	Director::getInstance()->popScene();
