@@ -55,11 +55,11 @@ bool GameScene::init()
 
 	//Background
 	m_pParallax = Parallax::create();
-	m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png");
+	gamePlayLayer->addChild(m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png"));
 	CCLOG("Images loaded successful");	
 
 	//ISSO FUNCIONA!!!!!!!!!!!!!!!!!!!
-	m_pParallax->bla();
+	//m_pParallax->bla();
 	
 
 	// add floorSprite to game scene

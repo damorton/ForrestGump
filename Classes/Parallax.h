@@ -16,11 +16,6 @@ class Parallax : public cocos2d::Layer
 		
 		static Parallax* getInstance();	
 
-		/*
-		Add a background to the parallax layer
-		*/
-		bool addBackground(const std::string& filename1, const std::string& filename2, const std::string& filename3);
-
 		// Update my background scrolling
 		void scrollBackground(CCSprite* bck1, CCSprite* bck2, float speed);
 
@@ -44,7 +39,11 @@ class Parallax : public cocos2d::Layer
 		//Call the super class theen I can create my .create() from the super class of Layer
 		*/
 		CREATE_FUNC(Parallax);
-		Layer* bla();
+
+		/*
+		Add a background to the parallax layer
+		*/
+		Layer* addBackground(const std::string& filename1, const std::string& filename2, const std::string& filename3);
 		
 
 private:

@@ -16,7 +16,7 @@ bool Parallax::init()
 
 
 
-bool Parallax::addBackground(const std::string& filename1, const std::string& filename2, const std::string& filename3)
+Layer* Parallax::addBackground(const std::string& filename1, const std::string& filename2, const std::string& filename3)
 {
 	m_pParallaxLayer = Parallax::create();
 
@@ -57,11 +57,6 @@ bool Parallax::addBackground(const std::string& filename1, const std::string& fi
 	m_pParallaxLayer->addChild(m_pSpriteBackgroundThird, -2); // add child
 	m_pParallaxLayer->addChild(m_pSpriteBackgroundThird1, -2); // add child
 
-	return true;
-}
-
-Layer* Parallax::bla()
-{
 	return m_pParallaxLayer;
 }
 
