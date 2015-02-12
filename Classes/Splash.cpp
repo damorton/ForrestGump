@@ -1,5 +1,5 @@
-#include "SplashScene.h"
-#include "MainMenuScene.h"
+#include "Splash.h"
+#include "MainMenu.h"
 #include "Definitions.h"
 #include "WorldManager.h"
 
@@ -35,9 +35,7 @@ bool Splash::init()
 	
 	auto splashBackground = Sprite::create("background/Splash.png");
 	splashBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	this->addChild(splashBackground);
-
-	WorldManager::getInstance()->setSplashScene(this);
+	this->addChild(splashBackground);	
 
 	this->scheduleOnce(schedule_selector(Splash::goToMainMenuScene), DISPLY_TIME_SPLASH_SCENCE);	
 	return true;
@@ -46,7 +44,7 @@ bool Splash::init()
 void Splash::goToMainMenuScene(float dt)
 {
 	auto scene = MainMenu::createScene();
-	Director::getInstance()->replaceScene( TransitionFade::create(TRANSITION_TIME, scene));
+	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
 void cleanup()

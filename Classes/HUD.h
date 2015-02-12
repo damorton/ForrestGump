@@ -8,18 +8,9 @@ USING_NS_CC;
 class HUD : public cocos2d::Layer
 {
 public:		
-	/*
-		Initialize the HUD layer
-	*/
-	virtual bool init();
-		
-	void updateScore();
-	
-	/*
-		Initialize the parent node
-	*/
+	virtual bool init();		
+	void updateScore();	
 	CREATE_FUNC(HUD);
-
 private:
 	int m_iScore;
 	Label* m_lScore;
