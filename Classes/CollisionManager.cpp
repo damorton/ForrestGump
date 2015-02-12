@@ -20,14 +20,14 @@ bool CollisionManager::init()
 
 bool CollisionManager::checkCollisions()
 {	
-	if (m_pSegment->isSpawned())
+	if (m_pSegmentManager->isSpawned())
 	{
-		Size layerSize = m_pSegment->getSegmentLayer()->getLayerSize();
+		Size layerSize = m_pSegment->getLayerSize();
 		for (int i = 0; i < layerSize.height; i++)
 		{
 			for (int j = 0; j < layerSize.width; j++)
 			{
-				auto tileSprite = m_pSegment->getSegmentLayer()->tileAt(Vec2(i, j));
+				auto tileSprite = m_pSegment->tileAt(Vec2(i, j));
 				if (tileSprite)
 				{
 					if (m_pPlayer->getBoundingBox().intersectsRect(tileSprite->getBoundingBox()))

@@ -51,7 +51,7 @@
     <ClCompile Include="..\Classes\MainMenuScene.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Maze.cpp">
+    <ClCompile Include="..\Classes\SegmentManager.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -101,7 +101,7 @@
     <ClInclude Include="..\Classes\HUD.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Maze.h">
+    <ClInclude Include="..\Classes\SegmentManager.h">
       <Filter>Classes</Filter>
     </ClInclude>
   </ItemGroup>

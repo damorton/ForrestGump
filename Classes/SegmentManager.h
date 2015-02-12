@@ -41,24 +41,11 @@ public:
 		@param const std::string& filename of the layer
 	*/
 	bool addPhysicsToTiles(const std::string& layername);
-	
-	/*
-		Set TMX tilemap for the maze
-
-		@param TMXTiledMap* tilemap 
-	*/
-	bool setTileMap(TMXTiledMap* tilemap){ m_pTileMap = tilemap; };
-
-	/*
-		Get the TMX tilemap for the maze
-
-		@return TMXTiledMap* m_MazeTileMap
-	*/
-	TMXTiledMap* getSegmentTileMap(){ return m_pTileMap; };
-
-	TMXLayer* getSegmentLayer(){ return m_pTileMapLayer; };
-	TMXTiledMap* spawnSegment();
-	bool isSpawned(){ return m_bIsSpawned; };
+		
+	bool setTileMap(TMXTiledMap* tilemap){ m_pTileMap = tilemap; };		
+	TMXLayer* getSegmentLayer(){ return m_pSegment; };
+	void spawnSegment();
+	bool isSpawned(){ return m_bIsSpawned; };	
 	void removeSegment();
 
 	/*
@@ -68,7 +55,7 @@ public:
 	
 private:
 	TMXTiledMap* m_pTileMap;
-	TMXLayer* m_pTileMapLayer;
+	TMXLayer* m_pSegment;
 	bool m_bIsSpawned;
 };
 

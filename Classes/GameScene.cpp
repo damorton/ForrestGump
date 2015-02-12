@@ -90,12 +90,10 @@ bool GameScene::init()
 	spawnSegmentTimer = 0;
 
 	// segment spawns	
-	m_pSegment = Maze::create();		
-	gamePlayLayer->addChild(m_pSegment->spawnSegment());
+	m_pSegmentManager = SegmentManager::create();
+	gamePlayLayer->addChild(m_pSegmentManager);
+	m_pSegmentManager->spawnSegment();
 	
-	//TMXTiledMap* map = TMXTiledMap::create("maps/CoinSegmentA.tmx");	
-	//gamePlayLayer->addChild(map);
-
 	// pause button
 	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(GameScene::Pause, this));
 	menu_item_pause->setPosition(Vec2(origin.x + visibleSize.width - menu_item_pause->getContentSize().width/2,
@@ -123,23 +121,16 @@ void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	
 
-	// update the player
 	WorldManager::getInstance()->getPlayer()->update();
-	// check for collisions
 	CollisionManager::getInstance()->checkCollisions();
+	m_cHud->updateScore();
 
-	
 	spawnSegmentTimer++;
 	if (spawnSegmentTimer > 100)
 	{			
-		CCLOG("Spawn segment");
-		//m_pSegment = Maze::create();
-		//gamePlayLayer->addChild(m_pSegment);
-		//gamePlayLayer->addChild(m_pSegment->spawnSegment());
 		spawnSegmentTimer = 0;
 	}
 	
-	m_cHud->updateScore();
 	
 	backgroundA->setPosition(Vec2(backgroundA->getPosition().x - speed, backgroundA->getPosition().y));
 	backgroundB->setPosition(Vec2(backgroundB->getPosition().x - speed, backgroundB->getPosition().y));

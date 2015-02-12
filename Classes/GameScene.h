@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 #include "HUD.h"
-#include "Maze.h"
+#include "SegmentManager.h"
 
 USING_NS_CC;
 
@@ -67,7 +67,7 @@ private:
 	float speed;
 	int spawnSegmentTimer;
 
-	Maze* m_pSegment;
+	SegmentManager* m_pSegmentManager;
 };
 
 #endif // __GAMESCENE_SCENE_H__
