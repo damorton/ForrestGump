@@ -1,15 +1,15 @@
-#include "EndScene.h"
-#include "MainMenuScene.h"
+#include "GameOver.h"
+#include "MainMenu.h"
 
 USING_NS_CC;
 
-Scene* EndScene::createScene()
+Scene* GameOver::createScene()
 {
     // 'scene' is an autorelease object
     auto scene = Scene::create();
     
     // 'layer' is an autorelease object
-    auto layer = EndScene::create();
+    auto layer = GameOver::create();
 
     // add layer as a child to scene
     scene->addChild(layer);
@@ -19,7 +19,7 @@ Scene* EndScene::createScene()
 }
 
 // on "init" you need to initialize your instance
-bool EndScene::init()
+bool GameOver::init()
 {
     //////////////////////////////
     // 1. super init first
@@ -31,7 +31,7 @@ bool EndScene::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Point origin = Director::getInstance()->getVisibleOrigin();
     
-    auto menu_item_1 = MenuItemFont::create("Main Menu (replace)", CC_CALLBACK_1(EndScene::MainMenu, this));
+    auto menu_item_1 = MenuItemFont::create("Main Menu (replace)", CC_CALLBACK_1(GameOver::MainMenu, this));
         
     menu_item_1->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 3) * 2));
     
@@ -43,7 +43,7 @@ bool EndScene::init()
 }
 
 // go back to previous scene
-void EndScene::MainMenu(cocos2d::Ref *pSender)
+void GameOver::MainMenu(cocos2d::Ref *pSender)
 {
 	// create the main menu scene
 	auto scene = MainMenu::createScene();
@@ -53,7 +53,7 @@ void EndScene::MainMenu(cocos2d::Ref *pSender)
 }
 
 
-void EndScene::menuCloseCallback(Ref* pSender)
+void GameOver::menuCloseCallback(Ref* pSender)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
 	MessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");

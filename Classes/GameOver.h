@@ -1,12 +1,11 @@
-#ifndef __SPLASH_SCENE_H__
-#define __SPLASH_SCENE_H__
+#ifndef GAMEOVER_H_
+#define GAMEOVER_H_
 
 #include "cocos2d.h"
 
-class Splash : public cocos2d::Layer
+class GameOver : public cocos2d::Layer
 {
-public:	
-
+public:
 	// there's no 'id' in cpp, so we recommend returning the class instance pointer
 	static cocos2d::Scene* createScene();
 
@@ -17,12 +16,10 @@ public:
 	void menuCloseCallback(cocos2d::Ref* pSender);
 
 	// implement the "static create()" method manually
-	CREATE_FUNC(Splash);
+	CREATE_FUNC(GameOver);
 
-private:
+	void MainMenu(Ref *pSender);
 
-	void goToMainMenuScene(float dt);
 };
 
-#endif // __Splash_SCENE_H__
-
+#endif // __END_SCENE_H__

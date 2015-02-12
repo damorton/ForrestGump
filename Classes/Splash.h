@@ -1,11 +1,12 @@
-#ifndef __PAUSE_SCENE_H__
-#define __PAUSE_SCENE_H__
+#ifndef SPLASH_H
+#define SPLASH_H
 
 #include "cocos2d.h"
 
-class PauseScene : public cocos2d::Layer
+class Splash : public cocos2d::Layer
 {
-public:
+public:	
+
 	// there's no 'id' in cpp, so we recommend returning the class instance pointer
 	static cocos2d::Scene* createScene();
 
@@ -16,14 +17,12 @@ public:
 	void menuCloseCallback(cocos2d::Ref* pSender);
 
 	// implement the "static create()" method manually
-	CREATE_FUNC(PauseScene);
+	CREATE_FUNC(Splash);
 
-	cocos2d::Sprite *mySprite;
+private:
 
-	void Resume(Ref *pSender);
-	void MainMenu(Ref *pSender);
-	void Exit(Ref *pSender);
-
+	void goToMainMenuScene(float dt);
 };
 
-#endif // __PAUSE_SCENE_H__
+#endif // __Splash_SCENE_H__
+

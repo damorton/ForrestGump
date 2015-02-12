@@ -11,6 +11,26 @@ WorldManager* WorldManager::getInstance()
 	return m_pInstance;
 }
 
+GameScene* WorldManager::gameLayer()
+{
+	return (GameScene*)WorldManager::layerWithTag(TAG_GAME_LAYER);
+}
+
+HUD* WorldManager::hudLayer()
+{
+	return (HUD*)WorldManager::layerWithTag(TAG_HUD);
+}
+
+Layer* WorldManager::layerWithTag(int tag)
+{
+	Scene* scene = Director::sharedDirector()->getRunningScene();
+	if (scene->getTag() == TAG_GAME_SCENE) {
+		Layer* layer = (Layer*)scene->getChildByTag(tag);
+		return layer;
+	}
+	return NULL;
+}
+
 bool WorldManager::init()
 {		
 	return true;

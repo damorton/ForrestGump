@@ -1,14 +1,11 @@
-#ignore folders in the cocos2d project folder
-cocos2d/cocos/2d/Debug.win32/
-cocos2d/cocos/audio/proj.win32/Debug.win32/
-cocos2d/cocos/platform/android/java/bin/
-cocos2d/cocos/platform/android/java/gen/
-cocos2d/external/chipmunk/proj.win32/Debug.win32/
-
-#proj.win32
+#Cocos2dx gitignore
+cocos2d/*
+proj.android/*
+proj.ios_mac/*
 proj.win32/Debug.win32/
 proj.win32/*.sdf
 proj.win32/*.opensdf
+<<<<<<< HEAD
 proj.android/assets/
 proj.android/obj/
 proj.android/libs/
@@ -18,3 +15,10 @@ proj.android/gen/
 proj.wp8-xaml/
 
 Resources/Thumbs.db
+=======
+proj.linux/*
+proj.wp8-xaml/*
+*.json
+*.txt
+*.db
+>>>>>>> 5f3bb66d3e966e3d2d018519fd80aebccce47345

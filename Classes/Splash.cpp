@@ -1,5 +1,5 @@
-#include "SplashScene.h"
-#include "MainMenuScene.h"
+#include "Splash.h"
+#include "MainMenu.h"
 #include "Definitions.h"
 #include "WorldManager.h"
 
@@ -46,7 +46,7 @@ bool Splash::init()
 void Splash::goToMainMenuScene(float dt)
 {
 	auto scene = MainMenu::createScene();
-	Director::getInstance()->replaceScene( TransitionFade::create(TRANSITION_TIME, scene));
+	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
 void cleanup()
