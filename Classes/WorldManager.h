@@ -2,12 +2,16 @@
 #define WORLDMANAGER_H_
 
 #include "cocos2d.h"
+#include "Definitions.h"
+
 #include "SplashScene.h"
+#include "GameScene.h"
+#include "HUD.h"
+
 #include "Player.h"
 #include "Enemy.h"
+
 #include <memory>
-
-
 
 class WorldManager
 {
@@ -15,6 +19,10 @@ public:
 	virtual bool init();	
 	virtual void cleanUp(); 	
 	static WorldManager* getInstance(); 
+	static HUD* hudLayer();
+	static GameScene* gameLayer();
+	static CCLayer* layerWithTag(int tag);
+
 	Splash* getSplashScene(){ return m_cSplashScene; };
 	Player* getPlayer(){ return m_pPlayer; };
 	std::vector<std::shared_ptr<Enemy>> getEnemies(){ return m_vpEnemies; };
