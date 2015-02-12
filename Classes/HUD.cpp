@@ -32,7 +32,7 @@ bool HUD::init()
 	this->addChild(m_lScore, 0);
 
 	// pause button
-	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(GameScene::Pause, this));
+	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(HUD::pause, this));
 	menu_item_pause->setPosition(Vec2(origin.x + visibleSize.width - menu_item_pause->getContentSize().width / 2,
 		origin.y + visibleSize.height - menu_item_pause->getContentSize().height / 2));
 
@@ -50,4 +50,14 @@ void HUD::updateScore()
 {
 	m_iScore++;
 	m_lScore->setString(std::to_string(m_iScore));	
+}
+
+void HUD::pause()
+{
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("button-21.wav", false, 1.0f, 1.0f, 1.0f);	
+}
+
+void HUD::onExit()
+{
+	CCLayer::onExit();
 }

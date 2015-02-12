@@ -4,7 +4,7 @@
 #include "cocos2d.h"
 #include "Definitions.h"
 
-#include "SplashScene.h"
+#include "Splash.h"
 #include "GameScene.h"
 #include "HUD.h"
 
@@ -19,9 +19,9 @@ public:
 	virtual bool init();	
 	virtual void cleanUp(); 	
 	static WorldManager* getInstance(); 
-	static HUD* hudLayer();
-	static GameScene* gameLayer();
 	static CCLayer* layerWithTag(int tag);
+	static HUD* hudLayer();
+	static GameScene* gameLayer();	
 
 	Splash* getSplashScene(){ return m_cSplashScene; };
 	Player* getPlayer(){ return m_pPlayer; };

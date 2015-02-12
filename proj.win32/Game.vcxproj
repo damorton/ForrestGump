@@ -137,16 +137,16 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\CollisionManager.cpp" />
-    <ClCompile Include="..\Classes\EndScene.cpp" />
+    <ClCompile Include="..\Classes\GameOver.cpp" />
     <ClCompile Include="..\Classes\Enemy.cpp" />
     <ClCompile Include="..\Classes\EnemyFactory.cpp" />
     <ClCompile Include="..\Classes\GameScene.cpp" />
     <ClCompile Include="..\Classes\HUD.cpp" />
-    <ClCompile Include="..\Classes\MainMenuScene.cpp" />
+    <ClCompile Include="..\Classes\MainMenu.cpp" />
     <ClCompile Include="..\Classes\Maze.cpp" />
-    <ClCompile Include="..\Classes\PauseScene.cpp" />
+    <ClCompile Include="..\Classes\Pause.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
-    <ClCompile Include="..\Classes\SplashScene.cpp" />
+    <ClCompile Include="..\Classes\Splash.cpp" />
     <ClCompile Include="..\Classes\WorldManager.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -155,16 +155,16 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Character.h" />
     <ClInclude Include="..\Classes\CollisionManager.h" />
     <ClInclude Include="..\Classes\Definitions.h" />
-    <ClInclude Include="..\Classes\EndScene.h" />
+    <ClInclude Include="..\Classes\GameOver.h" />
     <ClInclude Include="..\Classes\Enemy.h" />
     <ClInclude Include="..\Classes\EnemyFactory.h" />
     <ClInclude Include="..\Classes\GameScene.h" />
     <ClInclude Include="..\Classes\HUD.h" />
-    <ClInclude Include="..\Classes\MainMenuScene.h" />
+    <ClInclude Include="..\Classes\MainMenu.h" />
     <ClInclude Include="..\Classes\Maze.h" />
-    <ClInclude Include="..\Classes\PauseScene.h" />
+    <ClInclude Include="..\Classes\Pause.h" />
     <ClInclude Include="..\Classes\Player.h" />
-    <ClInclude Include="..\Classes\SplashScene.h" />
+    <ClInclude Include="..\Classes\Splash.h" />
     <ClInclude Include="..\Classes\WorldManager.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>

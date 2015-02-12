@@ -2,9 +2,9 @@
 #include "Definitions.h"
 #include "WorldManager.h"
 #include "CollisionManager.h"
-#include "MainMenuScene.h"
-#include "PauseScene.h"
-#include "EndScene.h"
+#include "MainMenu.h"
+#include "Pause.h"
+#include "GameOver.h"
 #include "Player.h"
 
 USING_NS_CC;
@@ -17,12 +17,19 @@ Scene* GameScene::createScene()
 	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL); // draw debug lines around objects in the world		
 	scene->setTag(TAG_GAME_SCENE);
 
-	auto gameLayer = GameScene::create();
+	GameScene* gameLayer = GameScene::create();
 	gameLayer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics
 	scene->addChild(gameLayer, 0, TAG_GAME_LAYER);
 	
-	auto hudLayer = HUD::create();
+	HUD* hudLayer = HUD::create();
 	scene->addChild(hudLayer, 1, TAG_HUD);
+	
+	Pause* pause = Pause::create();
+	scene->addChild(pause, 1, TAG_PAUSE);
+
+	GameOver* gameOver = GameOver::create();
+	scene->addChild(gameOver, 1, TAG_GAMEOVER);
+
 	return scene;
 }
 
@@ -46,9 +53,7 @@ void GameScene::initializeGame()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_action_1.wav", true);
-	
-	
-	
+		
 	// background 3
 	backgroundA = CCSprite::create("background/gameBackground.png");
 	backgroundB = CCSprite::create("background/gameBackground2.png");
@@ -97,15 +102,11 @@ void GameScene::initializeGame()
 	listener->setSwallowTouches(true);
 	listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-
-	speed = 5.0f;
-
+	
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
-
-
-	// call the schedule update in order to run this layers update function
+	
 	this->scheduleUpdate();
 }
 
@@ -164,35 +165,4 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 {
 	WorldManager::getInstance()->getPlayer()->touch(locationInGLFromTouch(*touch));
 	return true;
-}
-
-void GameScene::Pause(cocos2d::Ref *pSender)
-{
-	CCLOG("Pause");
-	auto scene = PauseScene::createScene();	
-	Director::getInstance()->pushScene(scene);
-
-	// to play sound effect if button is pressed 
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("button-21.wav", false, 1.0f, 1.0f, 1.0f);
-}
-
-void GameScene::EndGame(cocos2d::Ref *pSender)
-{
-	CCLOG("End Game");
-	auto scene = EndScene::createScene();
-	Director::getInstance()->replaceScene(TransitionFade::create(1, scene));
-}
-
-void GameScene::menuCloseCallback(Ref* pSender)
-{
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
-	MessageBox("You pressed the close button. Windows Store Apps do not implement a close button.", "Alert");
-	return;
-#endif
-
-	WorldManager::getInstance()->cleanUp(); // close world manager
-	Director::getInstance()->end(); // close director 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	exit(0);
-#endif
 }
