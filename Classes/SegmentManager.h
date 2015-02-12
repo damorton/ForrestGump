@@ -44,7 +44,7 @@ public:
 		
 	bool setTileMap(TMXTiledMap* tilemap){ m_pTileMap = tilemap; };		
 	TMXLayer* getSegmentLayer(){ return m_pSegment; };
-	void spawnSegment();
+	void spawnSegment(); // FIX SPAWN SEGMENT
 	bool isSpawned(){ return m_bIsSpawned; };	
 	void removeSegment();
 
