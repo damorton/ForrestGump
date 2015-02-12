@@ -1,27 +1,27 @@
-
 #ifndef ENEMYFACTORY_H_
 #define	ENEMYFACTORY_H_
 
-#include <iostream>
-#include "IEnemyFactory.h"
+#include <memory>
+#include "Enemy.h"
 
-/*
-	EnemyFactory used to create enemies inherits from the 
-	Interface Enemy Factory
-*/
-class EnemyFactory : public IEnemyFactory
+typedef std::shared_ptr<Enemy> spEnemy;
+
+class IEnemyFactory
 {
-public:	
-	EnemyFactory(){ this->init(); }; // constructor
-	~EnemyFactory(){ this->cleanUp(); }; // deconstructor
-	virtual bool init(); // initialization	
-	virtual std::shared_ptr<Enemy> createEnemy(); // create enemy
-	virtual std::shared_ptr<Boss> createBoss(); // create Boss
-	virtual void cleanUp(); // delete EnemyFactory	
-
-private:
-	enum EEnemyType { ENEMY, BOSS }; // types of enemies	
+public:
+	virtual bool init() = 0;
+	virtual spEnemy createEnemy() = 0;
+	virtual void cleanUp() = 0;
 };
 
+class EnemyFactory : public IEnemyFactory
+{
+public:
+	EnemyFactory(){ this->init(); };
+	~EnemyFactory(){ this->cleanUp(); };
+	bool init();	
+	void cleanUp();
+	spEnemy createEnemy();
+};
 #endif
 

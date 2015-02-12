@@ -2,32 +2,31 @@
 #define __GAMESCENE_SCENE_H__
 
 #include "cocos2d.h"
+#include "SegmentManager.h"
+#include "HUD.h"
 
-class GameManager;
+USING_NS_CC;
 
 class GameScene : public cocos2d::Layer
 {
-public:
-    // there's no 'id' in cpp, so we recommend returning the class instance pointer
-    static cocos2d::Scene* createScene();
-
-    // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
+public:    
+    static cocos2d::Scene* createScene();   
     virtual bool init();  
-	
-	// update the game scene
-	void update(float) override;
-    
-    // a selector callback
-    void menuCloseCallback(cocos2d::Ref* pSender);
-    
-    // implement the "static create()" method manually
-    CREATE_FUNC(GameScene);
-
-	cocos2d::Sprite *mySprite;
-
-	void Pause(Ref *pSender);
-	void EndGame(Ref *pSender);
-	
+	void initializeGame();
+	void onEnterTransitionDidFinish();
+	void update(float delta);	
+	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event * event);	
+	bool onContactBegin(cocos2d::PhysicsContact& contact);
+	void pause(cocos2d::Ref *pSender);
+	CREATE_FUNC(GameScene);
+private:
+	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
+	PhysicsWorld* m_pSceneWorld;	
+	Sprite* backgroundA;
+	Sprite* backgroundB;
+	int spawnSegmentTimer;
+	SegmentManager* m_pSegmentManager;
+	HUD* m_HudLayer;
 };
 
 #endif // __GAMESCENE_SCENE_H__

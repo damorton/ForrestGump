@@ -1,70 +1,61 @@
-/*
-3rd Year Project and Group dynamics assignment.
-
-Forrest Gump
-
-Copyright (c)	2014, 2015	David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
-
-*/
-
-// includes
-#include <iostream>
+#include "Definitions.h"
+#include "WorldManager.h"
 #include "Player.h"
-#include "cocos2d\cocos\math\Vec2.h"
 
-/*
-	Initialize the player
-
-	@return bool true if initialized, false if not
-*/
-bool Player::init()
+Player* Player::create(const std::string& filename)
 {
-#ifdef _DEBUG
-	CCLOG("Player::init() called");
-#endif	
-	Player::playerPosition = cocos2d::Vec2(visibleSize.width / 4 + origin.x, visibleSize.height / 3 + origin.y);
-	setType(EGameOjectType::PLAYER);
-	setName("Player One - Forrest");
+	Player* pSprite = new Player();
+
+	if (pSprite->initWithFile(filename))
+	{
+		pSprite->autorelease();
+		pSprite->init();
+		//pSprite->addEvents();
+		return pSprite;
+	}
+
+	CC_SAFE_DELETE(pSprite);
+	return NULL;
+}
+
+bool Player::init()
+{	
+	setType(PLAYER);
+	setState(RUNNING);		
 	return true;
 }
 
-/*
-	get player sprite information
-
-	@return cocos2d::Sprite* the player sprite information
-*/
-cocos2d::Sprite* Player::getSprite()
-{	
-	return m_pCharacterSprite;
-}
-
-/*
-	set player sprite information
-*/
-void Player::setSprite(char* pathToFile)
+void Player::jump()
 {
-	m_pCharacterSprite = cocos2d::Sprite::create(pathToFile);
+	if (m_ePlayerState == RUNNING)
+	{
+		m_ePlayerState = JUMPING;
+		auto action = JumpBy::create(JUMP_SPEED, Vec2(0, 0), JUMP_HEIGHT, NO_OF_JUMPS);
+		this->runAction(action);
+		CCLOG("Player jumped");
+	}
 }
 
-/*
-	Update the player
-*/
 void Player::update()
-{
-	CCLOG("Updating Player");
-	
-	// update the sprite position
-	Player::m_pCharacterSprite->setPosition(Player::playerPosition);
-	
-	this->m_fPositionX++;
+{	
+	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
+	{		
+		m_ePlayerState = RUNNING;		
+	}
+	else
+	{
+		m_ePlayerState = JUMPING;		
+	}		
+}
 
-	// set the players bounding box to its Sprite Bounding box
-	Player::setBoundingBox(m_pCharacterSprite->getBoundingBox());
+void Player::touch(const Point& location)
+{
+	if (location.x < PLAYER_POSITION_IN_WINDOW) 
+	{
+		this->jump();
+	}
 }
 
 void Player::cleanUp()
 {
-#ifdef _DEBUG
-	CCLOG("Player::cleanUp()");
-#endif	
 }

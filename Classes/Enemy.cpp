@@ -1,43 +1,25 @@
-
-//includes
 #include "Enemy.h"
-#include <iostream>
 
-/*
-	Initialization
+Enemy* Enemy::create(const std::string& filename)
+{
+	Enemy* pSprite = new Enemy();
 
-	@return bool true if initialized succesfully
-*/
+	if (pSprite->initWithFile(filename))
+	{
+		pSprite->autorelease();
+		pSprite->init();
+		//pSprite->addEvents();
+		return pSprite;
+	}
+
+	CC_SAFE_DELETE(pSprite);
+	return NULL;
+}
+
 bool Enemy::init()
 {
-#ifdef _DEBUG
-	CCLOG("Enemy::init() called");
-#endif
-	// initialize Enemy
-	// set game object type	
-	setType(EGameOjectType::ENEMY);
-	setName("Enemy");
+	setType(ENEMY);	
 	return true;
-}
-
-/*
-	get enemy sprite information
-
-	@return cocos2d::Sprite* enemy sprite information
-*/
-cocos2d::Sprite* Enemy::getSprite()
-{
-	return m_pCharacterSprite;
-}
-
-/*
-	set the enemy sptire information
-
-	@param path to file
-*/
-void Enemy::setSprite(char* pathToFile)
-{
-	m_pCharacterSprite = cocos2d::Sprite::create(pathToFile);
 }
 
 /*
@@ -60,8 +42,6 @@ void Enemy::update()
 	Enemy cleanup
 */
 void Enemy::cleanUp()
-{
-#ifdef _DEBUG
-	CCLOG("Enemy::cleanUp()");
-#endif
+{	CCLOG("Enemy::cleanUp()");
+
 }

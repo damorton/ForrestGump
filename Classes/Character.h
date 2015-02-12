@@ -1,25 +1,17 @@
-
 #ifndef CHARACTER_H_
 #define CHARACTER_H_
 
-// includes
-#include "GameObject.h"
-#include "cocos2d\cocos\2d\CCSprite.h"
-
-class Character : public GameObject
+class Character
 {
 public:
-	Character(){ this->init(); }; // constructor
-	~Character(){ this->cleanUp(); }; // deconstructor	
-	
-	virtual bool init(); // initialization
-	virtual void cleanUp(); // delete Character 
-
-	virtual cocos2d::Sprite* getSprite() = 0; // return sprite info
-	virtual void setSprite(char* pathToFile) = 0; // set sprite info
-
+	typedef enum { PLAYER, ENEMY, BOSS, ITEM } EGameOjectType;
+	virtual ~Character(){};
+	virtual bool init() = 0;
+	virtual void cleanUp() = 0;
+	virtual EGameOjectType getType() = 0;
+	virtual void setType(EGameOjectType type) = 0;
 protected:
-	cocos2d::Sprite* m_pCharacterSprite; // cocos Sprite
+	EGameOjectType m_eType;	
 };
 
 #endif

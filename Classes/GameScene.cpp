@@ -1,132 +1,175 @@
 #include "GameScene.h"
-#include "MainMenuScene.h"
-#include "EndScene.h"
-#include "PauseScene.h"
+#include "Definitions.h"
 #include "WorldManager.h"
-#include "GameManager.h"
+#include "CollisionManager.h"
+#include "MainMenu.h"
+#include "Pause.h"
+#include "GameOver.h"
 #include "Player.h"
 
 USING_NS_CC;
 
-// game manager
-GameManager* m_cGameManager;
-
 Scene* GameScene::createScene()
-{
-	// 'scene' is an autorelease object
-	auto scene = Scene::create();
+{	
+	auto scene = Scene::createWithPhysics();	
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL); // draw debug lines around objects in the world		
+	scene->setTag(TAG_GAME_SCENE);
 
-	// 'layer' is an autorelease object
-	auto layer = GameScene::create();
+	GameScene* gameLayer = GameScene::create();
+	gameLayer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics
+	scene->addChild(gameLayer, 0, TAG_GAME_LAYER);
+		
+	//HUD* hudLayer = HUD::create();
+	//scene->addChild(hudLayer, 1, TAG_HUD);
 
-	// add layer as a child to scene
-	scene->addChild(layer);
+	//Pause* pause = Pause::create();
+	//scene->addChild(pause, 1, TAG_PAUSE);
 
-	// create the GameManager
-	m_cGameManager = new GameManager();
+	//GameOver* gameOver = GameOver::create();
+	//scene->addChild(gameOver, 1, TAG_GAMEOVER);
 
-	// return the scene
 	return scene;
 }
 
-// on "init" you need to initialize your instance
+void GameScene::onEnterTransitionDidFinish()
+{
+	this->initializeGame();
+}
+
 bool GameScene::init()
 {
-	//////////////////////////////
-	// 1. super init first
 	if (!Layer::init())
 	{
 		return false;
-	}
-
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-	// add a label shows "Hello World"
-	// create and initialize a label    
-	auto label = LabelTTF::create("Game Scene", "Helvetica", 18);
-	label->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height - label->getContentSize().height));
-	this->addChild(label, 1);
-
-	// add foreground to game scene
-	auto mySprite = Sprite::create("foreground.png");
-	mySprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	this->addChild(mySprite, 0);
-
-	// player
-	WorldManager::getInstance()->getPlayer()->setSprite("Player.png");
-	auto playerSprite = WorldManager::getInstance()->getPlayer()->getSprite();
-	playerSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	this->addChild(playerSprite, 0);
-
-	// pause button
-	auto menu_item_pause = MenuItemImage::create("pause11.png", "pause36.png", CC_CALLBACK_1(GameScene::Pause, this));
-	menu_item_pause->setPosition(Point(visibleSize.width - 50, visibleSize.height - 50));
-
-	// end game button
-	auto menu_item_endScene = MenuItemImage::create("cancel20.png", "cancel20.png", CC_CALLBACK_1(GameScene::EndGame, this));
-	menu_item_endScene->setPosition(Point(visibleSize.width - 50, 50));
-
-	// create menu, add menu items and add to the game scene
-	auto *menu = Menu::create(menu_item_pause, menu_item_endScene, NULL);
-	menu->setPosition(Point(0, 0));
-	this->addChild(menu);
-
-	// call the schedule update in order to run this layers update function
-	this->scheduleUpdate();
+	}	
 	return true;
 }
 
-/*
-The hello world upate function is calling the game managers
-update function 60 times per second or whatever the fps is set
-to. This is the game loop implementation because if a seperate loop was added to the
-game managers update function the application would be caught in an infinite loop.
+void GameScene::initializeGame()
+{	
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-@param delta time
-*/
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_action_1.wav", true);
+	
+	m_HudLayer = HUD::create();
+	this->addChild(m_HudLayer, 1, TAG_HUD);
+
+	// background 3
+	backgroundA = CCSprite::create("background/gameBackground.png");
+	backgroundB = CCSprite::create("background/gameBackground2.png");
+	backgroundA->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	backgroundB->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));
+	this->addChild(backgroundA, -3); // add child
+	this->addChild(backgroundB, -3); // add child
+
+	// background 2
+
+	// background 1	
+
+	// add floorSprite to game scene
+	auto floorSprite = Sprite::create("foreground/floorSprite.png");
+	floorSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, floorSprite->getContentSize().height / 2 + origin.y));
+	auto floorEdgeBody = PhysicsBody::createEdgeBox(floorSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
+	floorSprite->setPhysicsBody(floorEdgeBody);
+	floorSprite->getPhysicsBody()->setDynamic(false);
+	this->addChild(floorSprite); 
+
+	WorldManager::getInstance()->setFloorSprite(floorSprite);
+
+	// Player			
+	Player* playerSprite = Player::create("sprites/Player.png");
+	playerSprite->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, FLOOR_SPRITE_TOP);	
+	//auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);	
+	//playerPhysicsBody->setDynamic(false);	
+	//playerSprite->setPhysicsBody(playerPhysicsBody);
+	this->addChild(playerSprite);
+	WorldManager::getInstance()->setPlayer(playerSprite);
+	CollisionManager::getInstance()->registerPlayer(playerSprite);
+		
+	// segment spawns	
+	spawnSegmentTimer = 0;
+	//m_pSegmentManager = SegmentManager::create();
+	//this->addChild(m_pSegmentManager);
+	//m_pSegmentManager->spawnSegment();
+
+
+	// pause button
+	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(GameScene::pause, this));
+	menu_item_pause->setPosition(Vec2(origin.x + visibleSize.width - menu_item_pause->getContentSize().width / 2,
+		origin.y + visibleSize.height - menu_item_pause->getContentSize().height / 2));
+
+	// create menu, add menu items and add to the game scene
+	auto* menu = Menu::create(menu_item_pause, NULL);
+	menu->setPosition(Point(0, 0));
+	m_HudLayer->addChild(menu);
+
+	// touch controls
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->setSwallowTouches(true);
+	listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+	
+	auto contactListener = EventListenerPhysicsContact::create();
+	contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
+	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
+	
+	this->scheduleUpdate();
+}
+
+bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
+{
+	CCLOG("onContactBegin -------> ");			
+	return true;
+}
+
 void GameScene::update(float delta)
 {
-	// call the game manager update function
-	m_cGameManager->update();
-}
+	//CCLOG("-------------GAME LOOP START--------------");	
+	spawnSegmentTimer++;
+	if (spawnSegmentTimer > 500)
+	{
+		CCLOG("Spawn segment");
+		//this->addChild(m_pSegment->spawnSegment());
+		spawnSegmentTimer = 0;
+	}
 
+	WorldManager::getInstance()->getPlayer()->update();
+	//CollisionManager::getInstance()->checkCollisions();
+
+	WorldManager::getInstance()->hudLayer()->updateScore();
+	
+	backgroundA->setPosition(Vec2(backgroundA->getPosition().x - 10, backgroundA->getPosition().y));
+	backgroundB->setPosition(Vec2(backgroundB->getPosition().x - 10, backgroundB->getPosition().y));
+
+	if (backgroundA->getPosition().x < -backgroundA->getContentSize().width / 2){
+		backgroundA->setPosition(Vec2(backgroundB->getPosition().x + backgroundB->getContentSize().width, backgroundA->getPosition().y));
+	}
+	if (backgroundB->getPosition().x < -backgroundB->getContentSize().width / 2){
+		backgroundB->setPosition(Vec2(backgroundA->getPosition().x + backgroundA->getContentSize().width, backgroundB->getPosition().y));
+	}		
+	
+	//CCLOG("-------------GAME LOOP END--------------");
+}
 
 /*
-Pause button creates a new pause scene and pushes it over the game scene
-
-@param cocos2d::Ref *pSender pointer used by the engine
+	This function converts each touch the user does into a Point(x, y)
 */
-void GameScene::Pause(cocos2d::Ref *pSender)
+inline Point locationInGLFromTouch(Touch& touch)
 {
-	CCLOG("Pause");
-	auto scene = PauseScene::createScene();
-	Director::getInstance()->pushScene(TransitionFade::create(1, scene));
+	auto director = Director::getInstance();
+	return director->convertToGL(touch.getLocationInView());
 }
 
-/*
-EndGame button creates a new game game scene and replaces the game scene
-
-@param cocos2d::Ref *pSender pointer used by the engine
-*/
-void GameScene::EndGame(cocos2d::Ref *pSender)
+bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event) 
 {
-	CCLOG("End Game");
-	auto scene = EndScene::createScene();
-	Director::getInstance()->replaceScene(TransitionFade::create(1, scene));
+	WorldManager::getInstance()->getPlayer()->touch(locationInGLFromTouch(*touch));
+	return true;
 }
 
-
-void GameScene::menuCloseCallback(Ref* pSender)
+void GameScene::pause(cocos2d::Ref *pSender)
 {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
-	MessageBox("You pressed the close button. Windows Store Apps do not implement a close button.", "Alert");
-	return;
-#endif
-
-	Director::getInstance()->end();
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	exit(0);
-#endif
+	Director::getInstance()->pushScene(TransitionFade::create(1, Pause::createScene()));
+	// to playGame sound effect if button is pressed 
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("button-21.wav", false, 1.0f, 1.0f, 1.0f);	
 }
