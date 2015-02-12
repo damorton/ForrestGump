@@ -21,8 +21,7 @@ Player* Player::create(const std::string& filename)
 bool Player::init()
 {	
 	setType(PLAYER);
-	setState(RUNNING);	
-	
+	setState(RUNNING);		
 	return true;
 }
 
@@ -46,7 +45,7 @@ void Player::update()
 	else
 	{
 		m_ePlayerState = JUMPING;		
-	}
+	}		
 }
 
 void Player::touch(const Point& location)

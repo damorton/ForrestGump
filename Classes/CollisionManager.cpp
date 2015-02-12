@@ -18,46 +18,32 @@ bool CollisionManager::init()
 	return true;
 }
 
-void CollisionManager::registerEnemyWithCollisionManager(std::shared_ptr<Enemy> obj)
-{	
-	m_vpEnemies.push_back(obj);
-}
-
-/*
-void CollisionManager::registerSegment(cocos2d::TMXLayer* segment)
-{
-	m_pSegment = segment;
-}
-*/
-
 bool CollisionManager::checkCollisions()
 {	
-	/*
-	for (int i = 0; i < (int)m_vpEnemies.size(); i++)
-	{		
-		if (m_vpEnemies.at(i)->getType() == Character::ENEMY)
-		{			
-			std::shared_ptr<Enemy> tempEnemy = std::static_pointer_cast<Enemy>(m_vpEnemies.at(i));
-			if (m_pPlayer->getBoundingBox().intersectsRect(tempEnemy->getBoundingBox()))
-			{
-				return true;
-			}
-		}		
-	}
-	*/
-
-	// can add checks for wall? bullet? coins?	
-	for (int i = 0; i < (int)m_vpSegmentTiles.size(); i++)
-	{		
-		if (m_pPlayer->getBoundingBox().intersectsRect(m_vpSegmentTiles.at(i)->getBoundingBox()))
+	if (m_pSegmentManager->isSpawned())
+	{
+		Size layerSize = m_pSegment->getLayerSize();
+		for (int i = 0; i < layerSize.height; i++)
 		{
-			m_vpSegmentTiles.at(i)->setVisible(false);
-			return true;
+			for (int j = 0; j < layerSize.width; j++)
+			{
+				auto tileSprite = m_pSegment->tileAt(Vec2(i, j));
+				if (tileSprite)
+				{
+					if (m_pPlayer->getBoundingBox().intersectsRect(tileSprite->getBoundingBox()))
+					{	
+						tileSprite->removeFromParent();
+						CCLOG("Collision with tile");
+					}					
+				}
+			}
 		}
-		
+	}	
+	else
+	{
+		CCLOG("No segment has been spawned");
 	}
-	
-	return false;
+	return true;
 }
 
 void CollisionManager::cleanUp()

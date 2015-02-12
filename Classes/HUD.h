@@ -10,7 +10,7 @@ class HUD : public cocos2d::Layer
 public:		
 	virtual bool init();		
 	void updateScore();	
-	void pause();
+	void pause(cocos2d::Ref *pSender);
 	void onExit();
 	CREATE_FUNC(HUD);
 private:

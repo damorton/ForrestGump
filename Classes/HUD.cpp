@@ -1,7 +1,8 @@
 #include "HUD.h"
 #include "WorldManager.h"
 #include "Definitions.h"
-#include "GameScene.h"
+
+#include "Pause.h"
 
 bool HUD::init()
 {	
@@ -52,9 +53,15 @@ void HUD::updateScore()
 	m_lScore->setString(std::to_string(m_iScore));	
 }
 
-void HUD::pause()
+void HUD::pause(cocos2d::Ref *pSender)
 {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("button-21.wav", false, 1.0f, 1.0f, 1.0f);	
+	Director::getInstance()->replaceScene(TransitionFade::create(1, Pause::createScene()));
+	// to playGame sound effect if button is pressed 
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("button-21.wav", false, 1.0f, 1.0f, 1.0f);
+
+	// delay opening of game scene to hear the button sound effects
+	std::chrono::seconds duration(1);
+	std::this_thread::sleep_for(duration); // Sleep for 1 seconds.
 }
 
 void HUD::onExit()

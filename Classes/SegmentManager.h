@@ -1,18 +1,18 @@
-#ifndef MAZE_H_
-#define	MAZE_H_
+#ifndef SEGMENT_MANAGER_
+#define	SEGMENT_MANAGER_
 
 #include "cocos2d.h"
 
 USING_NS_CC;
 
-class Maze : public cocos2d::Layer
+class SegmentManager : public cocos2d::Layer
 {
 public:		
 	/*
-		Initialize the maze layer
+		Initialize the SegmentManager layer
 	*/
 	virtual bool init();
-	virtual ~Maze(){};
+	virtual ~SegmentManager(){};
 
 	/*
 		Add a TMX tilemap to the layer
@@ -20,12 +20,12 @@ public:
 	bool addTMXTileMap(const std::string& filename);
 
 	/*
-		Rotate the maze layer
+		Rotate the SegmentManager layer
 
 		@param float speed of the rotation (default 30.0f)
 		@param float angle to rotate the layer by (default 360)
 	*/	
-	bool rotateMaze(float duration = 30.0f, float angle = 360);
+	bool rotateSegment(float duration = 30.0f, float angle = 360);
 
 	/*
 		Add physic edge box to the edge of the tilemap
@@ -41,31 +41,22 @@ public:
 		@param const std::string& filename of the layer
 	*/
 	bool addPhysicsToTiles(const std::string& layername);
-	
-	/*
-		Set TMX tilemap for the maze
-
-		@param TMXTiledMap* tilemap 
-	*/
-	bool setTileMap(TMXTiledMap* tilemap){ m_MazeTileMap = tilemap; };
-
-	/*
-		Get the TMX tilemap for the maze
-
-		@return TMXTiledMap* m_MazeTileMap
-	*/
-	TMXTiledMap* getTileMap(){ return m_MazeTileMap; };
-	
-	Maze* spawnSegment();
 		
+	bool setTileMap(TMXTiledMap* tilemap){ m_pTileMap = tilemap; };		
+	TMXLayer* getSegmentLayer(){ return m_pSegment; };
+	void spawnSegment();
+	bool isSpawned(){ return m_bIsSpawned; };	
+	void removeSegment();
+
 	/*
 		Initialize the parent node
 	*/
-	CREATE_FUNC(Maze);
+	CREATE_FUNC(SegmentManager);
 	
 private:
-	TMXTiledMap* m_MazeTileMap;	
-	TMXLayer* m_pTileMapLayer;
+	TMXTiledMap* m_pTileMap;
+	TMXLayer* m_pSegment;
+	bool m_bIsSpawned;
 };
 
 #endif

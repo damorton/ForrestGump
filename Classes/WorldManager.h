@@ -19,11 +19,10 @@ public:
 	virtual bool init();	
 	virtual void cleanUp(); 	
 	static WorldManager* getInstance(); 
-	static CCLayer* layerWithTag(int tag);
+	static Layer* layerWithTag(int tag);
 	static HUD* hudLayer();
 	static GameScene* gameLayer();	
 
-	Splash* getSplashScene(){ return m_cSplashScene; };
 	Player* getPlayer(){ return m_pPlayer; };
 	std::vector<std::shared_ptr<Enemy>> getEnemies(){ return m_vpEnemies; };
 	cocos2d::Sprite* getFloorSprite(){ return m_pFloorSprite; };	

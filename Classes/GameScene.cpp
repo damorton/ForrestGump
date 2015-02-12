@@ -9,8 +9,6 @@
 
 USING_NS_CC;
 
-typedef std::shared_ptr<Player> spPlayer;
-
 Scene* GameScene::createScene()
 {	
 	auto scene = Scene::createWithPhysics();	
@@ -72,31 +70,26 @@ void GameScene::initializeGame()
 	auto floorEdgeBody = PhysicsBody::createEdgeBox(floorSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
 	floorSprite->setPhysicsBody(floorEdgeBody);
 	floorSprite->getPhysicsBody()->setDynamic(false);
-	this->addChild(floorSprite, 0); // add at z:1 for floorSprite
+	this->addChild(floorSprite); 
+
 	WorldManager::getInstance()->setFloorSprite(floorSprite);
 
 	// Player			
 	Player* playerSprite = Player::create("sprites/Player.png");
-	playerSprite->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, FLOOR_SPRITE_TOP);
-
-	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-
-	playerPhysicsBody->setDynamic(false);
-	playerPhysicsBody->setCategoryBitmask(0x02);
-	playerPhysicsBody->setCollisionBitmask(0x01);
-	playerPhysicsBody->setContactTestBitmask(true);
-	playerSprite->setPhysicsBody(playerPhysicsBody);
-
-	this->addChild(playerSprite, 0);
+	playerSprite->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, FLOOR_SPRITE_TOP);	
+	//auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);	
+	//playerPhysicsBody->setDynamic(false);	
+	//playerSprite->setPhysicsBody(playerPhysicsBody);
+	this->addChild(playerSprite);
 	WorldManager::getInstance()->setPlayer(playerSprite);
 	CollisionManager::getInstance()->registerPlayer(playerSprite);
-
-	// segment spawns
+		
+	// segment spawns	
 	spawnSegmentTimer = 0;
-	m_pSegment = Maze::create();
-	m_pSegment->addTMXTileMap("maps/CoinSegmentA.tmx");
-	this->addChild(m_pSegment->spawnSegment());
-	
+	//m_pSegmentManager = SegmentManager::create();
+	//this->addChild(m_pSegmentManager);
+	//m_pSegmentManager->spawnSegment();
+		
 	// touch controls
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->setSwallowTouches(true);
@@ -109,8 +102,6 @@ void GameScene::initializeGame()
 	
 	this->scheduleUpdate();
 }
-
-
 
 bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
 {
@@ -125,22 +116,17 @@ void GameScene::update(float delta)
 	if (spawnSegmentTimer > 500)
 	{
 		CCLOG("Spawn segment");
-		this->addChild(m_pSegment->spawnSegment());
+		//this->addChild(m_pSegment->spawnSegment());
 		spawnSegmentTimer = 0;
 	}
 
-	// update the player
 	WorldManager::getInstance()->getPlayer()->update();
-	
-	// update enemies
-
-	// check for collisions
 	CollisionManager::getInstance()->checkCollisions();
 
 	WorldManager::getInstance()->hudLayer()->updateScore();
 	
-	backgroundA->setPosition(Vec2(backgroundA->getPosition().x - speed, backgroundA->getPosition().y));
-	backgroundB->setPosition(Vec2(backgroundB->getPosition().x - speed, backgroundB->getPosition().y));
+	backgroundA->setPosition(Vec2(backgroundA->getPosition().x - 10, backgroundA->getPosition().y));
+	backgroundB->setPosition(Vec2(backgroundB->getPosition().x - 10, backgroundB->getPosition().y));
 
 	if (backgroundA->getPosition().x < -backgroundA->getContentSize().width / 2){
 		backgroundA->setPosition(Vec2(backgroundB->getPosition().x + backgroundB->getContentSize().width, backgroundA->getPosition().y));

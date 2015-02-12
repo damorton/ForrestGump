@@ -2,6 +2,7 @@
 #define __GAMESCENE_SCENE_H__
 
 #include "cocos2d.h"
+#include "SegmentManager.h"
 
 USING_NS_CC;
 
@@ -22,7 +23,7 @@ private:
 	Sprite* backgroundA;
 	Sprite* backgroundB;
 	int spawnSegmentTimer;
-	Maze* m_pSegment;
+	SegmentManager* m_pSegmentManager;
 };
 
 #endif // __GAMESCENE_SCENE_H__

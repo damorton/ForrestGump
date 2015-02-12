@@ -1,7 +1,6 @@
 #ifndef DEFINITIONS_H__
 #define DEFINITIONS_H__
 
-//tags of machine state
 typedef enum {
 	TAG_GAME_LAYER,
 	TAG_HUD,

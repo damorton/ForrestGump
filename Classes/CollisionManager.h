@@ -4,7 +4,7 @@
 
 // includes 
 #include "cocos2d.h"
-#include "Maze.h"
+#include "SegmentManager.h"
 #include "Player.h"
 #include <vector>
 #include <memory>
@@ -18,18 +18,19 @@ public:
 	virtual bool init();
 	static CollisionManager* getInstance();			
 	bool checkCollisions();
-	void cleanUp(); 	
+	void cleanUp(); 
+
 	Player* getPlayer(){ return m_pPlayer; };
-	std::vector<std::shared_ptr<Enemy>> getVectorOfEnemies(){ return m_vpEnemies; }; 
+	TMXLayer* getSegment(){ return m_pSegment; };
+	SegmentManager* getSegmentManager(){ return m_pSegmentManager; };
 	
-	void registerEnemyWithCollisionManager(std::shared_ptr<Enemy> obj);
 	void registerPlayer(Player* player){ m_pPlayer = player; };
-	void registerSegmentTile(cocos2d::Sprite* segmentTile){ m_vpSegmentTiles.push_back(segmentTile); };
+	void registerSegment(TMXLayer* segment){ m_pSegment = segment; };
+	void registerSegment(SegmentManager* segmentManager){ m_pSegmentManager = segmentManager; };
 protected:
-	Player* m_pPlayer; 
-	//cocos2d::TMXLayer* m_pSegment;
-	std::vector<std::shared_ptr<Enemy>> m_vpEnemies; 
-	std::vector<cocos2d::Sprite*> m_vpSegmentTiles;
+	Player* m_pPlayer; 	
+	TMXLayer* m_pSegment;
+	SegmentManager* m_pSegmentManager;
 private:
 	static CollisionManager* m_Instance;
 	CollisionManager(){ this->init(); }; // constructor
