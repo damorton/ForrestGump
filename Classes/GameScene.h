@@ -62,6 +62,7 @@ private:
 	Layer* gamePlayLayer;
 	HUD* m_cHud;
 	Player* playerSprite;
+
 	Parallax* m_pParallax;
 
 	/*
