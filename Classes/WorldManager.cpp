@@ -38,8 +38,7 @@ bool WorldManager::init()
 
 void WorldManager::cleanUp()
 {	
-	delete m_pInstance;
-		
+	delete m_pInstance;		
 	m_pInstance = NULL;
 	m_pFloorSprite = NULL;
 	m_pPlayer = NULL;	

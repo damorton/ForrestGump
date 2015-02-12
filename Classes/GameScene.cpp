@@ -4,7 +4,6 @@
 #include "CollisionManager.h"
 #include "MainMenu.h"
 #include "Pause.h"
-#include "GameOver.h"
 #include "Player.h"
 
 USING_NS_CC;
@@ -23,10 +22,7 @@ Scene* GameScene::createScene()
 	//scene->addChild(hudLayer, 1, TAG_HUD);
 
 	//Pause* pause = Pause::create();
-	//scene->addChild(pause, 1, TAG_PAUSE);
-
-	//GameOver* gameOver = GameOver::create();
-	//scene->addChild(gameOver, 1, TAG_GAMEOVER);
+	//scene->addChild(pause, 1, TAG_PAUSE);	
 
 	return scene;
 }
