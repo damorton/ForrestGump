@@ -1,11 +1,11 @@
-#ignore folders in the cocos2d project folder
-cocos2d/cocos/2d/Debug.win32/
-cocos2d/cocos/audio/proj.win32/Debug.win32/
-cocos2d/external/chipmunk/proj.win32/Debug.win32/
-
-#proj.win32
-proj.win32/Debug.win32/
-proj.win32/*.sdf
-proj.win32/*.opensdf
-
-Resources/Thumbs.db
+#Cocos2dx gitignore
+cocos2d/*
+proj.android/*
+proj.ios_mac/*
+proj.win32/*
+proj.linux/*
+proj.win32/*
+proj.wp8-xaml/*
+*.json
+*.txt
+*.db
