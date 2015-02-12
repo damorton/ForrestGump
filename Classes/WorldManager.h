@@ -26,12 +26,10 @@ public:
 	Player* getPlayer(){ return m_pPlayer; };
 	std::vector<std::shared_ptr<Enemy>> getEnemies(){ return m_vpEnemies; };
 	cocos2d::Sprite* getFloorSprite(){ return m_pFloorSprite; };	
-	void setSplashScene(Splash* splash){ m_cSplashScene = splash; };
 	void setPlayer(Player* player){ m_pPlayer = player; };
 	void setVectorOfEnemies(std::vector<std::shared_ptr<Enemy>> vectorOfEnemies){ m_vpEnemies = vectorOfEnemies; };
 	void setFloorSprite(cocos2d::Sprite* floor){ m_pFloorSprite = floor; };
 protected:	
-	Splash* m_cSplashScene;	
 	Player* m_pPlayer;
 	std::vector<std::shared_ptr<Enemy>> m_vpEnemies;
 	cocos2d::Sprite* m_pFloorSprite;

@@ -13,7 +13,6 @@ public:
     static cocos2d::Scene* createScene();   
     virtual bool init();  
 	void initializeGame();
-	void onEnterTransitionDidFinish();
 	void update(float delta);	
 	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event * event);	
 	bool onContactBegin(cocos2d::PhysicsContact& contact);

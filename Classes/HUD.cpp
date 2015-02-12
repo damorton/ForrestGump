@@ -2,8 +2,6 @@
 #include "WorldManager.h"
 #include "Definitions.h"
 
-#include "Pause.h"
-
 bool HUD::init()
 {	
 	if (!Layer::init())
@@ -41,9 +39,4 @@ void HUD::updateScore()
 {
 	m_iScore++;
 	m_lScore->setString(std::to_string(m_iScore));	
-}
-
-void HUD::onExit()
-{
-	CCLayer::onExit();
 }

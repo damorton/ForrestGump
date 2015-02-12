@@ -31,17 +31,13 @@ Scene* GameScene::createScene()
 	return scene;
 }
 
-void GameScene::onEnterTransitionDidFinish()
-{
-	this->initializeGame();
-}
-
 bool GameScene::init()
 {
 	if (!Layer::init())
 	{
 		return false;
 	}	
+	this->initializeGame();
 	return true;
 }
 
@@ -137,7 +133,7 @@ void GameScene::update(float delta)
 	WorldManager::getInstance()->getPlayer()->update();
 	//CollisionManager::getInstance()->checkCollisions();
 
-	WorldManager::getInstance()->hudLayer()->updateScore();
+	m_HudLayer->updateScore();
 	
 	backgroundA->setPosition(Vec2(backgroundA->getPosition().x - 10, backgroundA->getPosition().y));
 	backgroundB->setPosition(Vec2(backgroundB->getPosition().x - 10, backgroundB->getPosition().y));
@@ -169,7 +165,10 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 
 void GameScene::pause(cocos2d::Ref *pSender)
 {
-	Director::getInstance()->pushScene(TransitionFade::create(1, Pause::createScene()));
-	// to playGame sound effect if button is pressed 
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("button-21.wav", false, 1.0f, 1.0f, 1.0f);	
+	CCLOG("Pause");
+	auto scene = Pause::createScene();
+	Director::getInstance()->pushScene(TransitionFade::create(1, scene));
+
+	// to play sound effect if button is pressed 
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("button-21.wav", false, 1.0f, 1.0f, 1.0f);
 }
