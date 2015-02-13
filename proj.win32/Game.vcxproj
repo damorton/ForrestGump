@@ -147,6 +147,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Pause.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\SegmentManager.cpp" />
+    <ClCompile Include="..\Classes\SpawnManager.cpp" />
     <ClCompile Include="..\Classes\Splash.cpp" />
     <ClCompile Include="..\Classes\WorldManager.cpp" />
     <ClCompile Include="main.cpp" />
@@ -166,6 +167,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Pause.h" />
     <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\SegmentManager.h" />
+    <ClInclude Include="..\Classes\SpawnManager.h" />
     <ClInclude Include="..\Classes\Splash.h" />
     <ClInclude Include="..\Classes\WorldManager.h" />
     <ClInclude Include="main.h" />

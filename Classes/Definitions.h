@@ -35,4 +35,12 @@ typedef enum {
 // floor
 #define FLOOR_SPRITE_TOP (WorldManager::getInstance()->getFloorSprite()->getPositionY() + playerSprite->getContentSize().height / 1.20))
 
+// enemy spawns
+#define ENEMY_SPAWN_FREQ 0.002
+#define	ENEMY_GAP 20
+#define	UPPER_SCRENE_ENEMY_THRESHOLD 0.75
+#define	LOWER_SCRENE_ENEMY_THRESHOLD 0.25
+#define ENEMY_MOVEMENT_SPEED 0.005
+#define SCROLL_SPEED 0.005
+
 #endif // DEFINITIONS_H__
