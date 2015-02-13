@@ -190,7 +190,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 // calling this function to spawn enemies
 void GameScene::spawnEnemy(float dt)
 {
-	enemey1.spawnEnemy(this);
+	m_enemey.spawnEnemy(this);
 }
 
 

@@ -94,10 +94,10 @@ void Enemy::spawnEnemy(Layer *layer){
 	layer->addChild(m_floatingEnemy, 1);
 
 	// setting velocity of enemies to give illusion of runner
-	auto groundEnemyAction = MoveBy::create(ENEMY_MOVEMENT_SPEED * visbleSize.width, Point(-visbleSize.width *1.5, 0));
-	auto floatingEnemyAction = MoveTo::create(ENEMY_MOVEMENT_SPEED * visbleSize.width, Point(WorldManager::getInstance()->getPlayer()->getPositionX(), WorldManager::getInstance()->getPlayer()->getPositionY()));
+	auto m_groundEnemyAction = MoveBy::create(ENEMY_MOVEMENT_SPEED * visbleSize.width, Point(-visbleSize.width *1.5, 0));
+	auto m_floatingEnemyAction = MoveTo::create(ENEMY_MOVEMENT_SPEED * visbleSize.width, Point(WorldManager::getInstance()->getPlayer()->getPositionX(), WorldManager::getInstance()->getPlayer()->getPositionY()));
 
-	m_groundEnemy->runAction(groundEnemyAction);
-	m_floatingEnemy->runAction(floatingEnemyAction);
+	m_groundEnemy->runAction(m_groundEnemyAction);
+	m_floatingEnemy->runAction(m_floatingEnemyAction);
 
 }

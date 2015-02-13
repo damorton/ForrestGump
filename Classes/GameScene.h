@@ -35,7 +35,7 @@ private:
 	Parallax* m_pParallax;
 	Layer* gamePlayLayer;
 	SpawnManager* m_pSpawnManager;
-	Enemy enemey1;
+	Enemy m_enemey;
 
 	/*
 
