@@ -47,6 +47,7 @@ public:
 	void spawnSegment(); // FIX SPAWN SEGMENT
 	bool isSpawned(){ return m_bIsSpawned; };	
 	void removeSegment();
+	void update();
 
 	/*
 		Initialize the parent node
@@ -57,6 +58,7 @@ private:
 	TMXTiledMap* m_pTileMap;
 	TMXLayer* m_pSegment;
 	bool m_bIsSpawned;
+	int m_iSpawnSegmentTimer;
 };
 
 #endif

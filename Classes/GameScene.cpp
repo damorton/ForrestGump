@@ -79,12 +79,9 @@ void GameScene::initializeGame()
 	WorldManager::getInstance()->setPlayer(playerSprite);
 	CollisionManager::getInstance()->registerPlayer(playerSprite);
 		
-	// segment spawns	
-	spawnSegmentTimer = 0;
-	//m_pSegmentManager = SegmentManager::create();
-	//this->addChild(m_pSegmentManager);
-	//m_pSegmentManager->spawnSegment();
-
+	// segment spawns		
+	m_pSegmentManager = SegmentManager::create();
+	this->addChild(m_pSegmentManager);
 
 	// pause button
 	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(GameScene::pause, this));
@@ -118,13 +115,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
 void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	
-	spawnSegmentTimer++;
-	if (spawnSegmentTimer > 500)
-	{
-		CCLOG("Spawn segment");
-		//this->addChild(m_pSegment->spawnSegment());
-		spawnSegmentTimer = 0;
-	}
+	
 
 	WorldManager::getInstance()->getPlayer()->update();
 	//CollisionManager::getInstance()->checkCollisions();

@@ -8,15 +8,19 @@ bool SegmentManager::init()
 	if (!Layer::init())
 	{
 		return false;
-	}		
-	m_pTileMap = TMXTiledMap::create("maps/CoinSegmentA.tmx");
+	}			
 	m_pTileMap->setPosition(Vec2(VISIBLE_SIZE_WIDTH, Director::getInstance()->getVisibleOrigin().y));
 	m_bIsSpawned = false;
+	m_iSpawnSegmentTimer = 0;
 	return true;
 }
 
 void SegmentManager::spawnSegment()
 {
+	// create a random number
+	// based on number choose a tilemap
+	m_pTileMap = TMXTiledMap::create("maps/CoinSegmentA.tmx");
+	// spawn the tilemap and move it on the layer	
 	m_pSegment = m_pTileMap->getLayer("segment");	
 	auto removeSegment = CallFunc::create(this, callfunc_selector(SegmentManager::removeSegment));	
 	auto segmentBehaviour = Sequence::create(
@@ -26,7 +30,8 @@ void SegmentManager::spawnSegment()
 		NULL);
 	m_pSegment->runAction(segmentBehaviour);
 	m_bIsSpawned = true;	
-	CollisionManager::getInstance()->registerSegment(m_pSegment);	
+	CollisionManager::getInstance()->registerSegment(m_pSegment);
+	this->addChild(m_pSegment, 0, TAG_SEGMENT);
 }
 
 void SegmentManager::removeSegment()
@@ -36,7 +41,7 @@ void SegmentManager::removeSegment()
 }
 
 bool SegmentManager::addTMXTileMap(const std::string& filename)
-{
+{	
 	m_pTileMap = TMXTiledMap::create(filename);	
 	return true;
 }
@@ -74,4 +79,15 @@ bool SegmentManager::addPhysicsToTiles(const std::string& layername)
 		}
 	}
 	return true;
+}
+
+void SegmentManager::update()
+{
+	m_iSpawnSegmentTimer++;
+	if (m_iSpawnSegmentTimer > 500)
+	{
+		CCLOG("Spawn segment");
+		this->spawnSegment();
+		m_iSpawnSegmentTimer = 0;
+	}
 }
