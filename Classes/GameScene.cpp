@@ -18,8 +18,8 @@ Scene* GameScene::createScene()
 	gameLayer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics
 	scene->addChild(gameLayer, 0, TAG_GAME_LAYER);
 	
-	SegmentManager* segmentManager = SegmentManager::create();
-	scene->addChild(segmentManager, 0, TAG_SEGMENT_MANAGER);
+	//SegmentManager* segmentManager = SegmentManager::create();
+	//scene->addChild(segmentManager, 0, TAG_SEGMENT_MANAGER);
 
 	HUD* hudLayer = HUD::create();
 	scene->addChild(hudLayer, 1, TAG_HUD);
@@ -108,7 +108,7 @@ void GameScene::update(float delta)
 	
 	// update
 	WorldManager::getInstance()->getPlayer()->update();
-	//WorldManager::getInstance()->hudLayer()->updateLayer();
+	WorldManager::getInstance()->hudLayer()->update();
 	//WorldManager::getInstance()->segmentManagerLayer()->update();
 
 	//CollisionManager::getInstance()->checkCollisions();

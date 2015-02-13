@@ -31,7 +31,7 @@ bool HUD::init()
 	this->addChild(m_lScore, 0);
 		
 	// Menu 
-	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(HUD::pause, this));
+	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(HUD::pauseGame, this));
 	menu_item_pause->setPosition(Vec2(origin.x + visibleSize.width - menu_item_pause->getContentSize().width / 2,
 		origin.y + visibleSize.height - menu_item_pause->getContentSize().height / 2));
 		
@@ -48,12 +48,12 @@ void HUD::addScore()
 	m_lScore->setString(std::to_string(m_iScore));	
 }
 
-void HUD::updateLayer()
+void HUD::update()
 {
 	this->addScore();
 }
 
-void HUD::pause(cocos2d::Ref *pSender)
+void HUD::pauseGame(cocos2d::Ref *pSender)
 {
 	this->getParent()->pause();
 }
