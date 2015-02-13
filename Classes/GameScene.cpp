@@ -17,13 +17,16 @@ Scene* GameScene::createScene()
 	GameScene* gameLayer = GameScene::create();
 	gameLayer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics
 	scene->addChild(gameLayer, 0, TAG_GAME_LAYER);
-		
+	
+	//SegmentManager* segmentManager = SegmentManager::create();
+	//scene->addChild(segmentManager, 0, TAG_SEGMENT_MANAGER);
+
 	//HUD* hudLayer = HUD::create();
 	//scene->addChild(hudLayer, 1, TAG_HUD);
-
+		
 	//Pause* pause = Pause::create();
 	//scene->addChild(pause, 1, TAG_PAUSE);	
-
+	
 	return scene;
 }
 
@@ -47,15 +50,21 @@ bool GameScene::initializeGame()
 
 	// game play layer
 	gamePlayLayer = Layer::create();
-	this->addChild(gamePlayLayer, 0, "gamePlayLayer");
+	this->addChild(gamePlayLayer, 0, TAG_GAME_LAYER);
 
 	// HUD layer
 	m_HudLayer = HUD::create();
-	this->addChild(m_HudLayer, 1, "hudLayer");
+	gamePlayLayer->addChild(m_HudLayer, 1, TAG_HUD);
 
+	// segment spawns	
+	spawnSegmentTimer = 0;
+	m_pSegmentManager = SegmentManager::create();
+	gamePlayLayer->addChild(m_pSegmentManager, 0, TAG_SEGMENT_MANAGER);
+	
 	//Background
 	m_pParallax = Parallax::create();
-	gamePlayLayer->addChild(m_pParallax, 0, "parallax");
+	gamePlayLayer->addChild(m_pParallax, -1, "parallax");
+
 	//WorldManager::getInstance()->gameLayer()->addChild(m_pParallax, 0, "parallax");	
 	if(m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png"))
 		CCLOG("Images loaded successful");	
@@ -66,13 +75,14 @@ bool GameScene::initializeGame()
 	//without the clouds and floor foreground effects!!!!!!!!!!!!!!!!!!!
 	//gamePlayLayer->addChild(m_pParallax->loadBackground());
 
-	// add floorSprite to game scene
+	// CHANGE FLOOR SPRITE TO RECT FOR THE PLAYER POSITION
 	auto floorSprite = Sprite::create("foreground/floorSprite.png");
 	floorSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, floorSprite->getContentSize().height / 2 + origin.y));
 	auto floorEdgeBody = PhysicsBody::createEdgeBox(floorSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
 	floorSprite->setPhysicsBody(floorEdgeBody);
 	floorSprite->getPhysicsBody()->setDynamic(false);
-	gamePlayLayer->addChild(floorSprite, -1); // add at z:1 for floorSprite
+
+	gamePlayLayer->addChild(floorSprite, -2); // add at z:1 for floorSprite
 	//WorldManager::getInstance()->gameLayer()->addChild(floorSprite, -1); // add at z:1 for floorSprite
 	WorldManager::getInstance()->setFloorSprite(floorSprite);
 		
@@ -86,28 +96,13 @@ bool GameScene::initializeGame()
 	//WorldManager::getInstance()->gameLayer()->addChild(playerSprite, 0);
 	WorldManager::getInstance()->setPlayer(playerSprite);
 
+	CollisionManager::getInstance()->registerPlayer(playerSprite);
+
 	// creating spawn manager
 	m_pSpawnManager = SpawnManager::create();
 	// adding spawn manager to the game scene
 	gamePlayLayer->addChild(m_pSpawnManager, 0);
 		
-	// segment spawns	
-	spawnSegmentTimer = 0;
-	//m_pSegmentManager = SegmentManager::create();
-	//this->addChild(m_pSegmentManager);
-	//m_pSegmentManager->spawnSegment();
-
-
-	// pause button
-	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(GameScene::pause, this));
-	menu_item_pause->setPosition(Vec2(origin.x + visibleSize.width - menu_item_pause->getContentSize().width / 2,
-		origin.y + visibleSize.height - menu_item_pause->getContentSize().height / 2));
-
-	// create menu, add menu items and add to the game scene
-	auto* menu = Menu::create(menu_item_pause, NULL);
-	menu->setPosition(Point(0, 0));
-	m_HudLayer->addChild(menu);
-
 	// touch controls
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->setSwallowTouches(true);
@@ -133,28 +128,16 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
 void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	
-	spawnSegmentTimer++;
-	if (spawnSegmentTimer > 500)
-	{
-		CCLOG("Spawn segment");
-		//this->addChild(m_pSegment->spawnSegment());
-		spawnSegmentTimer = 0;
-	}
-
-	WorldManager::getInstance()->getPlayer()->update();
-	m_HudLayer->updateScore();
-	//WorldManager::getInstance()->hudLayer()->updateScore();
-	/*
-	Parallax::getInstance()->scrollBackground(m_pSpriteBackgroundFirst, m_pSpriteBackgroundFirst1, m_fSpeed);
-	Parallax::getInstance()->scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, (m_fSpeed / 2));
-	Parallax::getInstance()->scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, ((m_fSpeed / 5) - 0.8));
-	*/
-
-	//running animation
 	
+	// update
+	WorldManager::getInstance()->getPlayer()->update();
+	m_pSegmentManager->update();
+	m_HudLayer->update();
+
+	//running animation	
 	this->runAction(AnimationMoves::getAnimationWithFrames(1, 2));
 
-	CCLOG("Parallax");
+	//CCLOG("Parallax");
 	//FOCUS ON HERE
 	//NOT WORKING THIS FUNCTION updateBackground() , uncomment and run, it is like Parallax.cpp dont find the images, something like it
 	m_pParallax->updateBackground();
@@ -194,7 +177,7 @@ void GameScene::spawnEnemy(float dt)
 }
 
 
-void GameScene::pause(cocos2d::Ref *pSender)
+void GameScene::pause()
 {
 	CCLOG("Pause");
 	auto scene = Pause::createScene();

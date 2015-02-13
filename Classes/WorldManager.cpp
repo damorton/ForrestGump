@@ -21,9 +21,14 @@ HUD* WorldManager::hudLayer()
 	return (HUD*)WorldManager::layerWithTag(TAG_HUD);
 }
 
+SegmentManager* WorldManager::segmentManagerLayer()
+{
+	return (SegmentManager*)WorldManager::layerWithTag(TAG_SEGMENT_MANAGER);
+}
+
 Layer* WorldManager::layerWithTag(int tag)
 {
-	Scene* scene = Director::sharedDirector()->getRunningScene();
+	Scene* scene = Director::getInstance()->getRunningScene();
 	if (scene->getTag() == TAG_GAME_SCENE) {
 		Layer* layer = (Layer*)scene->getChildByTag(tag);
 		return layer;

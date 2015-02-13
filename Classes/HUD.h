@@ -9,12 +9,13 @@ class HUD : public cocos2d::Layer
 {
 public:		
 	virtual bool init();		
-	void updateScore();	
+	void addScore();
+	void update();
+	void pauseGame(cocos2d::Ref *pSender);
 	CREATE_FUNC(HUD);
 private:
 	int m_iScore;
-	Label* m_lScore;
-	
+	Label* m_lScore;	
 };
 
 #endif
