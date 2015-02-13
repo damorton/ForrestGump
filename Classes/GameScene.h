@@ -16,7 +16,7 @@ public:
 	void update(float delta);	
 	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event * event);	
 	bool onContactBegin(cocos2d::PhysicsContact& contact);
-	void pause(cocos2d::Ref *pSender);
+	void pause();
 	void onEnter();
 	CREATE_FUNC(GameScene);
 private:

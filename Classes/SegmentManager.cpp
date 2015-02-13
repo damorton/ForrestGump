@@ -9,9 +9,9 @@ bool SegmentManager::init()
 	{
 		return false;
 	}			
-	
 	m_bIsSpawned = false;
 	m_iSpawnSegmentTimer = 0;
+	CCLOG("Segment Manager initialized");
 	return true;
 }
 

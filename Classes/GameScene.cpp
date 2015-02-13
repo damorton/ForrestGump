@@ -17,10 +17,13 @@ Scene* GameScene::createScene()
 	GameScene* gameLayer = GameScene::create();
 	gameLayer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics
 	scene->addChild(gameLayer, 0, TAG_GAME_LAYER);
-		
+	
+	SegmentManager* segmentManager = SegmentManager::create();
+	scene->addChild(segmentManager, 0, TAG_SEGMENT_MANAGER);
+
 	HUD* hudLayer = HUD::create();
 	scene->addChild(hudLayer, 1, TAG_HUD);
-
+		
 	//Pause* pause = Pause::create();
 	//scene->addChild(pause, 1, TAG_PAUSE);	
 	
@@ -48,18 +51,7 @@ void GameScene::initializeGame()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_action_1.wav", true);
-	
-	//m_HudLayer = HUD::create();
-	//this->addChild(m_HudLayer, 1, TAG_HUD);
-	
-	// segment spawns	
-	m_pSegmentManager = SegmentManager::create();
-	this->addChild(m_pSegmentManager, 1, TAG_SEGMENT_MANAGER);
-
-	//SegmentManager* segmentManager = SegmentManager::create();
-	//this->addChild(segmentManager, 1, TAG_SEGMENT_MANAGER);
-
-
+		
 	// background 3
 	backgroundA = CCSprite::create("background/gameBackground.png");
 	backgroundB = CCSprite::create("background/gameBackground2.png");
@@ -79,7 +71,6 @@ void GameScene::initializeGame()
 	floorSprite->setPhysicsBody(floorEdgeBody);
 	floorSprite->getPhysicsBody()->setDynamic(false);
 	this->addChild(floorSprite); 
-
 	WorldManager::getInstance()->setFloorSprite(floorSprite);
 
 	// Player			
@@ -92,18 +83,6 @@ void GameScene::initializeGame()
 	WorldManager::getInstance()->setPlayer(playerSprite);
 	CollisionManager::getInstance()->registerPlayer(playerSprite);
 	
-	// pause button
-	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(GameScene::pause, this));
-	menu_item_pause->setPosition(Vec2(origin.x + visibleSize.width - menu_item_pause->getContentSize().width / 2,
-		origin.y + visibleSize.height - menu_item_pause->getContentSize().height / 2));
-
-	// create menu, add menu items and add to the game scene
-	auto* hudButtonsMenu = Menu::create(menu_item_pause, NULL);
-	hudButtonsMenu->setPosition(Point(0, 0));
-	//m_HudLayer->addChild(menu);
-	auto hudlayer = WorldManager::getInstance()->hudLayer();
-	hudlayer->addChild(hudButtonsMenu, 0, TAG_HUD_MENU);
-
 	// touch controls
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->setSwallowTouches(true);
@@ -125,13 +104,12 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
 
 void GameScene::update(float delta)
 {
-	//CCLOG("-------------GAME LOOP START--------------");	
+	CCLOG("-------------GAME LOOP START--------------");	
 	
 	// update
 	WorldManager::getInstance()->getPlayer()->update();
-	WorldManager::getInstance()->hudLayer()->updateScore();
-
-	//m_HudLayer->updateScore();
+	//WorldManager::getInstance()->hudLayer()->updateLayer();
+	//WorldManager::getInstance()->segmentManagerLayer()->update();
 
 	//CollisionManager::getInstance()->checkCollisions();
 		
@@ -145,7 +123,7 @@ void GameScene::update(float delta)
 		backgroundB->setPosition(Vec2(backgroundA->getPosition().x + backgroundA->getContentSize().width, backgroundB->getPosition().y));
 	}		
 	
-	//CCLOG("-------------GAME LOOP END--------------");
+	CCLOG("-------------GAME LOOP END--------------");
 }
 
 /*
@@ -163,7 +141,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	return true;
 }
 
-void GameScene::pause(cocos2d::Ref *pSender)
+void GameScene::pause()
 {
 	CCLOG("Pause");
 	auto scene = Pause::createScene();
