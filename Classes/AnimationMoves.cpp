@@ -24,10 +24,11 @@ CCAnimate* AnimationMoves::getAnimationWithFrames(int from, int to)
 //void AnimationMoves::getAnimationWithFrames(int from, int to)
 {	
 	CCAnimation* anim = CCAnimation::create();
+		
 
 	for (int i = from; i <= to; i++) {
 		CCString *str = CCString::createWithFormat("sprites/Playerwalk%02d.png", i);
-		anim->addSpriteFrameWithFileName(str->getCString());
+		anim->addSpriteFrameWithFile(str->getCString());
 	}
 	//-1 become our loop repeat forever
 	anim->setLoops(-1);

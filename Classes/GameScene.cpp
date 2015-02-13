@@ -73,6 +73,9 @@ bool GameScene::initializeGame()
 	playerPhysicsBody->setDynamic(false);
 	gamePlayLayer->addChild(playerSprite, 0);
 	WorldManager::getInstance()->setPlayer(playerSprite);
+
+	//PLYER
+	playerSprite->runAction(CCRepeatForever::create(m_pAnimation->getAnimationWithFrames(1, 2)));
 		
 	// Segment spawns	
 	spawnSegmentTimer = 0;
@@ -163,7 +166,7 @@ void GameScene::update(float delta)
 	}
 	*/
 	
-	playerSprite->runAction(m_pAnimation->getAnimationWithFrames(1, 2));
+//	playerSprite->runAction(m_pAnimation->getAnimationWithFrames(1, 2));
 	//playerSprite->runAction(RepeatForever::create(AnimationMoves::getAnimationWithFrames(1, 2)));// (AnimationMoves::getAnimationWithFrames(1, 2));
 	//playerSprite->runAction(RepeatForever::create(animate));
 
