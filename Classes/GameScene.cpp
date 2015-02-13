@@ -33,8 +33,13 @@ bool GameScene::init()
 	{
 		return false;
 	}	
-	this->initializeGame();
+	
 	return true;
+}
+
+void GameScene::onEnter()
+{
+	this->initializeGame();
 }
 
 void GameScene::initializeGame()
@@ -96,7 +101,8 @@ void GameScene::initializeGame()
 	auto* hudButtonsMenu = Menu::create(menu_item_pause, NULL);
 	hudButtonsMenu->setPosition(Point(0, 0));
 	//m_HudLayer->addChild(menu);
-	WorldManager::getInstance()->hudLayer()->addChild(hudButtonsMenu, 0, TAG_HUD_MENU);
+	auto hudlayer = WorldManager::getInstance()->hudLayer();
+	hudlayer->addChild(hudButtonsMenu, 0, TAG_HUD_MENU);
 
 	// touch controls
 	auto listener = EventListenerTouchOneByOne::create();

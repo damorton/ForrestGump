@@ -9,7 +9,7 @@ typedef enum {
 	TAG_GAMEOVER,
 	TAG_SEGMENT,
 	TAG_SEGMENT_MANAGER,
-	HUD_BUTTONS_MENU,
+	TAG_HUD_MENU,
 } tags;
 
 #define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
