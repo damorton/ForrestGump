@@ -29,6 +29,8 @@ void Player::jump()
 {
 	if (m_ePlayerState == RUNNING)
 	{
+		this->stopAllActions();
+
 		m_ePlayerState = JUMPING;
 		auto action = JumpBy::create(JUMP_SPEED, Vec2(0, 0), JUMP_HEIGHT, NO_OF_JUMPS);
 		this->runAction(action);
