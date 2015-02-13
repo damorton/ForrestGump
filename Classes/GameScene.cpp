@@ -24,6 +24,10 @@ Scene* GameScene::createScene()
 	//Pause* pause = Pause::create();
 	//scene->addChild(pause, 1, TAG_PAUSE);	
 
+	// segment spawns		
+	SegmentManager* segmentManager = SegmentManager::create();
+	scene->addChild(segmentManager, 1, TAG_SEGMENT_MANAGER);
+
 	return scene;
 }
 
@@ -78,11 +82,7 @@ void GameScene::initializeGame()
 	this->addChild(playerSprite);
 	WorldManager::getInstance()->setPlayer(playerSprite);
 	CollisionManager::getInstance()->registerPlayer(playerSprite);
-		
-	// segment spawns		
-	m_pSegmentManager = SegmentManager::create();
-	this->addChild(m_pSegmentManager);
-
+	
 	// pause button
 	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(GameScene::pause, this));
 	menu_item_pause->setPosition(Vec2(origin.x + visibleSize.width - menu_item_pause->getContentSize().width / 2,

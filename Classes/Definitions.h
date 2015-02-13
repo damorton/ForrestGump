@@ -8,6 +8,7 @@ typedef enum {
 	TAG_PAUSE,
 	TAG_GAMEOVER,
 	TAG_SEGMENT,
+	TAG_SEGMENT_MANAGER,
 } tags;
 
 #define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
