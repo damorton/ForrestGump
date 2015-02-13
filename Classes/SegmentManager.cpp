@@ -9,7 +9,7 @@ bool SegmentManager::init()
 	{
 		return false;
 	}			
-	m_pTileMap->setPosition(Vec2(VISIBLE_SIZE_WIDTH, Director::getInstance()->getVisibleOrigin().y));
+	
 	m_bIsSpawned = false;
 	m_iSpawnSegmentTimer = 0;
 	return true;
@@ -20,6 +20,9 @@ void SegmentManager::spawnSegment()
 	// create a random number
 	// based on number choose a tilemap
 	m_pTileMap = TMXTiledMap::create("maps/CoinSegmentA.tmx");
+	//this->addChild(m_pTileMap);
+
+	m_pTileMap->setPosition(Vec2(VISIBLE_SIZE_WIDTH, Director::getInstance()->getVisibleOrigin().y));
 	// spawn the tilemap and move it on the layer	
 	m_pSegment = m_pTileMap->getLayer("segment");	
 	auto removeSegment = CallFunc::create(this, callfunc_selector(SegmentManager::removeSegment));	

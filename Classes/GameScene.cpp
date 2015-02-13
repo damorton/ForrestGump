@@ -18,16 +18,12 @@ Scene* GameScene::createScene()
 	gameLayer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics
 	scene->addChild(gameLayer, 0, TAG_GAME_LAYER);
 		
-	//HUD* hudLayer = HUD::create();
-	//scene->addChild(hudLayer, 1, TAG_HUD);
+	HUD* hudLayer = HUD::create();
+	scene->addChild(hudLayer, 1, TAG_HUD);
 
 	//Pause* pause = Pause::create();
 	//scene->addChild(pause, 1, TAG_PAUSE);	
-
-	// segment spawns		
-	SegmentManager* segmentManager = SegmentManager::create();
-	scene->addChild(segmentManager, 1, TAG_SEGMENT_MANAGER);
-
+	
 	return scene;
 }
 
@@ -48,8 +44,16 @@ void GameScene::initializeGame()
 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_action_1.wav", true);
 	
-	m_HudLayer = HUD::create();
-	this->addChild(m_HudLayer, 1, TAG_HUD);
+	//m_HudLayer = HUD::create();
+	//this->addChild(m_HudLayer, 1, TAG_HUD);
+	
+	// segment spawns	
+	m_pSegmentManager = SegmentManager::create();
+	this->addChild(m_pSegmentManager, 1, TAG_SEGMENT_MANAGER);
+
+	//SegmentManager* segmentManager = SegmentManager::create();
+	//this->addChild(segmentManager, 1, TAG_SEGMENT_MANAGER);
+
 
 	// background 3
 	backgroundA = CCSprite::create("background/gameBackground.png");
@@ -89,9 +93,10 @@ void GameScene::initializeGame()
 		origin.y + visibleSize.height - menu_item_pause->getContentSize().height / 2));
 
 	// create menu, add menu items and add to the game scene
-	auto* menu = Menu::create(menu_item_pause, NULL);
-	menu->setPosition(Point(0, 0));
-	m_HudLayer->addChild(menu);
+	auto* hudButtonsMenu = Menu::create(menu_item_pause, NULL);
+	hudButtonsMenu->setPosition(Point(0, 0));
+	//m_HudLayer->addChild(menu);
+	WorldManager::getInstance()->hudLayer()->addChild(hudButtonsMenu, 0, TAG_HUD_MENU);
 
 	// touch controls
 	auto listener = EventListenerTouchOneByOne::create();
@@ -116,12 +121,14 @@ void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	
 	
-
+	// update
 	WorldManager::getInstance()->getPlayer()->update();
-	//CollisionManager::getInstance()->checkCollisions();
+	WorldManager::getInstance()->hudLayer()->updateScore();
 
-	m_HudLayer->updateScore();
-	
+	//m_HudLayer->updateScore();
+
+	//CollisionManager::getInstance()->checkCollisions();
+		
 	backgroundA->setPosition(Vec2(backgroundA->getPosition().x - 10, backgroundA->getPosition().y));
 	backgroundB->setPosition(Vec2(backgroundB->getPosition().x - 10, backgroundB->getPosition().y));
 
