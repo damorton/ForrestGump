@@ -14,8 +14,8 @@ class Parallax : public cocos2d::Layer
 		*/
 		virtual bool init();
 		
-		static Parallax* getInstance();	
-
+//		static Parallax* getInstance();	
+		
 		// Update my background scrolling
 		void scrollBackground(CCSprite* bck1, CCSprite* bck2, float speed);
 
@@ -51,6 +51,8 @@ class Parallax : public cocos2d::Layer
 private:
 	Layer* m_pParallaxLayer;
 	Parallax* m_pParallaxcl;
+	
+//	static Parallax* m_spInstance;
 };
 
 #endif // __PARALLAX_H__

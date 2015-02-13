@@ -55,12 +55,12 @@ bool GameScene::init()
 
 	//Background
 	m_pParallax = Parallax::create();
-	m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png");
-	CCLOG("Images loaded successful");	
-
+	if(m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png"))
+		CCLOG("Images loaded successful");	
+	//gamePlayLayer->addChild(m_pParallax->getInstance()->m_pSpriteBackgroundFirst, 1);
 	//It works, but as I said, the Layer comes from Parallax without the plans, they are background, 
 	//without the clouds and floor foreground effects!!!!!!!!!!!!!!!!!!!
-	gamePlayLayer->addChild(m_pParallax->loadBackground());
+	//gamePlayLayer->addChild(m_pParallax->loadBackground());
 	
 
 	// add floorSprite to game scene
@@ -119,7 +119,8 @@ void GameScene::update(float delta)
 	
 
 	//running animation
-	playerSprite->runAction(AnimationMoves::getAnimationWithFrames(1, 2));
+	
+	this->runAction(AnimationMoves::getAnimationWithFrames(1, 2));
 
 	CCLOG("Parallax");
 	//NOT WORKING THIS FUNCTION updateBackground() , uncomment and run, it is like Parallax.cpp dont find the images, something like it
@@ -127,7 +128,7 @@ void GameScene::update(float delta)
 	
 	//IMAGES ARE NOT BEING SEEN BY PARALLAX, THEY ARE LOADED, IAM USING m_Parallax BUT IT DOESNT WORK
 	//m_pParallax->scrollBackground(m_pParallax->m_pSpriteBackgroundFirst, m_pParallax->m_pSpriteBackgroundFirst1, m_fSpeed);
-
+	
 	
 //	m_pParallax->scrollBackground(m_pSpriteBackgroundFirst, m_pSpriteBackgroundFirst1, m_fSpeed);
 //	m_pParallax->scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, (m_fSpeed / 2));
