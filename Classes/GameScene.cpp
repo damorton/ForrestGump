@@ -11,19 +11,12 @@ USING_NS_CC;
 Scene* GameScene::createScene()
 {	
 	auto scene = Scene::createWithPhysics();	
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL); // draw debug lines around objects in the world		
 	scene->setTag(TAG_GAME_SCENE);
 
 	GameScene* gameLayer = GameScene::create();
 	gameLayer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics
 	scene->addChild(gameLayer, 0, TAG_GAME_LAYER);
-		
-	//HUD* hudLayer = HUD::create();
-	//scene->addChild(hudLayer, 1, TAG_HUD);
-
-	//Pause* pause = Pause::create();
-	//scene->addChild(pause, 1, TAG_PAUSE);	
-
+	
 	return scene;
 }
 
@@ -45,7 +38,11 @@ bool GameScene::initializeGame()
 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_action_1.wav", true);
 
-	// game play layer
+	//Animation
+	m_pAnimation = AnimationMoves::create();
+	//gamePlayLayer->addChild(m_pAnimation);
+
+	// Game play layer
 	gamePlayLayer = Layer::create();
 	this->addChild(gamePlayLayer, 0, "gamePlayLayer");
 
@@ -53,18 +50,11 @@ bool GameScene::initializeGame()
 	m_HudLayer = HUD::create();
 	this->addChild(m_HudLayer, 1, "hudLayer");
 
-	//Background
+	//Background layer
 	m_pParallax = Parallax::create();
-	gamePlayLayer->addChild(m_pParallax, 0, "parallax");
-	//WorldManager::getInstance()->gameLayer()->addChild(m_pParallax, 0, "parallax");	
+	gamePlayLayer->addChild(m_pParallax, 0, "parallax");	
 	if(m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png"))
-		CCLOG("Images loaded successful");	
-	//gamePlayLayer->addChild(m_pParallax->m_pSpriteBackgroundFirst, 1);
-	//gamePlayLayer->addChild(m_pParallax->m_pSpriteBackgroundSecond, -1);
-	//gamePlayLayer->addChild(m_pParallax->m_pSpriteBackgroundThird, -2);
-	//It works, but as I said, the Layer comes from Parallax without the plans, they are background, 
-	//without the clouds and floor foreground effects!!!!!!!!!!!!!!!!!!!
-	//gamePlayLayer->addChild(m_pParallax->loadBackground());
+		CCLOG("Images loaded successful");		
 
 	// add floorSprite to game scene
 	auto floorSprite = Sprite::create("foreground/floorSprite.png");
@@ -72,21 +62,19 @@ bool GameScene::initializeGame()
 	auto floorEdgeBody = PhysicsBody::createEdgeBox(floorSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
 	floorSprite->setPhysicsBody(floorEdgeBody);
 	floorSprite->getPhysicsBody()->setDynamic(false);
-	gamePlayLayer->addChild(floorSprite, -1); // add at z:1 for floorSprite
-	//WorldManager::getInstance()->gameLayer()->addChild(floorSprite, -1); // add at z:1 for floorSprite
+	gamePlayLayer->addChild(floorSprite, -1); // add at z:1 for floorSprite	
 	WorldManager::getInstance()->setFloorSprite(floorSprite);
 		
 	// Player			
-	Player* playerSprite = Player::create("sprites/Player.png");		
+	playerSprite = Player::create("sprites/Player.png");		
 	playerSprite->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, FLOOR_SPRITE_TOP);
 	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 	playerSprite->setPhysicsBody(playerPhysicsBody);
 	playerPhysicsBody->setDynamic(false);
 	gamePlayLayer->addChild(playerSprite, 0);
-	//WorldManager::getInstance()->gameLayer()->addChild(playerSprite, 0);
 	WorldManager::getInstance()->setPlayer(playerSprite);
 		
-	// segment spawns	
+	// Segment spawns	
 	spawnSegmentTimer = 0;
 	//m_pSegmentManager = SegmentManager::create();
 	//this->addChild(m_pSegmentManager);
@@ -124,7 +112,8 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
 
 void GameScene::update(float delta)
 {
-	//CCLOG("-------------GAME LOOP START--------------");	
+	CCLOG("-------------GAME LOOP START--------------");	
+
 	spawnSegmentTimer++;
 	if (spawnSegmentTimer > 500)
 	{
@@ -135,31 +124,55 @@ void GameScene::update(float delta)
 
 	WorldManager::getInstance()->getPlayer()->update();
 	m_HudLayer->updateScore();
-	//WorldManager::getInstance()->hudLayer()->updateScore();
-	/*
-	Parallax::getInstance()->scrollBackground(m_pSpriteBackgroundFirst, m_pSpriteBackgroundFirst1, m_fSpeed);
-	Parallax::getInstance()->scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, (m_fSpeed / 2));
-	Parallax::getInstance()->scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, ((m_fSpeed / 5) - 0.8));
-	*/
 
-	//running animation
+	//ANIMATION TESTS
+
+	//running animation	
+	//moving my hero
+	/*
+	SpriteBatchNode* spritebatch = SpriteBatchNode::create("sprites/player2.png");
+	SpriteFrameCache* cache = SpriteFrameCache::getInstance();
+	cache->addSpriteFramesWithFile("sprites/player2.plist");
 	
-	this->runAction(AnimationMoves::getAnimationWithFrames(1, 2));
+	CCAnimation* anim = CCAnimation::create();
+
+	for (int i = 1; i <= 2; i++) {
+		String *str = String::createWithFormat("sprites/Playerwalk%02d.png", i);
+		anim->addSpriteFrameWithFileName(str->getCString());
+	}
+	anim->setLoops(-1);
+	Animate *animate = Animate::create(anim);
+	playerSprite->runAction(animate);
+	*/
+	
+	/* MOVING FOLLOWING HERO DIRECTION
+	if ((actualPos.x <= location.x) && (actualPos.y <= location.y)) {
+
+		playerSprite->runAction(Utils::getAnimationWithFrames(9, 16));
+	}
+	else if ((actualPos.x >= location.x) && (actualPos.y >= location.y)) {
+		hero->runAction(Utils::getAnimationWithFrames(1, 8));
+	}
+	else if ((actualPos.x <= location.x) && (actualPos.y >= location.y)) {
+		hero->runAction(Utils::getAnimationWithFrames(1, 4));
+		hero->runAction(Utils::getAnimationWithFrames(9, 12));
+	}
+	else{
+		hero->runAction(Utils::getAnimationWithFrames(13, 16));
+		hero->runAction(Utils::getAnimationWithFrames(5, 8));
+	}
+	*/
+	
+	playerSprite->runAction(m_pAnimation->getAnimationWithFrames(1, 2));
+	//playerSprite->runAction(RepeatForever::create(AnimationMoves::getAnimationWithFrames(1, 2)));// (AnimationMoves::getAnimationWithFrames(1, 2));
+	//playerSprite->runAction(RepeatForever::create(animate));
+
+	//FIM ANIMATION TESTS
 
 	CCLOG("Parallax");
-	//FOCUS ON HERE
-	//NOT WORKING THIS FUNCTION updateBackground() , uncomment and run, it is like Parallax.cpp dont find the images, something like it
 	m_pParallax->updateBackground();
 	
-	//IMAGES ARE NOT BEING SEEN BY PARALLAX, THEY ARE LOADED, IAM USING m_Parallax BUT IT DOESNT WORK
-	//m_pParallax->scrollBackground(m_pParallax->m_pSpriteBackgroundFirst, m_pParallax->m_pSpriteBackgroundFirst1, m_fSpeed);
-		
-	
-//	m_pParallax->scrollBackground(m_pSpriteBackgroundFirst, m_pSpriteBackgroundFirst1, m_fSpeed);
-//	m_pParallax->scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, (m_fSpeed / 2));
-//	m_pParallax->scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, ((m_fSpeed / 5) - 0.8));	
-	
-	//CCLOG("-------------GAME LOOP END--------------");
+	CCLOG("-------------GAME LOOP END--------------");
 }
 
 /*

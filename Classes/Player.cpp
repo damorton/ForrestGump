@@ -32,7 +32,6 @@ void Player::jump()
 		m_ePlayerState = JUMPING;
 		auto action = JumpBy::create(JUMP_SPEED, Vec2(0, 0), JUMP_HEIGHT, NO_OF_JUMPS);
 		this->runAction(action);
-		this->runAction(AnimationMoves::getAnimationWithFrames(1, 2));
 		CCLOG("Player jumped");
 	}
 }

@@ -24,24 +24,15 @@ public:
 private:
 	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
 	PhysicsWorld* m_pSceneWorld;	
-	Sprite* backgroundA;
-	Sprite* backgroundB;
+	
 	int spawnSegmentTimer;
 	SegmentManager* m_pSegmentManager;
 	HUD* m_HudLayer;
 	Parallax* m_pParallax;
 	Layer* gamePlayLayer;
+	Player* playerSprite;
 
-	/*
-
-	// sprites
-	Sprite* m_pSpriteBackgroundFirst;
-	Sprite* m_pSpriteBackgroundFirst1;
-	Sprite* m_pSpriteBackgroundSecond;
-	Sprite* m_pSpriteBackgroundSecond1;
-	Sprite* m_pSpriteBackgroundThird;
-	Sprite* m_pSpriteBackgroundThird1;
-	*/
+	AnimationMoves* m_pAnimation;
 
 	// variables
 	float m_fSpeed;

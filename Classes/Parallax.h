@@ -9,20 +9,11 @@ USING_NS_CC;
 class Parallax : public cocos2d::Layer
 {
 	public:		
-		/*
-		Initialize the Parallax class
-		*/
-		virtual bool init();
-		
-//		static Parallax* getInstance();	
-		
-		// Update my background scrolling
-		void scrollBackground(CCSprite* bck1, CCSprite* bck2, float speed);
 
-		// Call the scroll function passing the background images
-		void updateBackground();
+		//Variables
+		float m_fSpeed;
 
-		// sprites
+		//Sprites
 		CCSprite* m_pSpriteBackgroundFirst;
 		CCSprite* m_pSpriteBackgroundFirst1;
 		CCSprite* m_pSpriteBackgroundSecond;
@@ -30,29 +21,22 @@ class Parallax : public cocos2d::Layer
 		CCSprite* m_pSpriteBackgroundThird;
 		CCSprite* m_pSpriteBackgroundThird1;
 
-		// variables
-		float m_fSpeed;
-
-		/*
-		Initialize the parent node
-
+		//Initialize the parent node
 		//Call the super class theen I can create my .create() from the super class of Layer
-		*/
 		CREATE_FUNC(Parallax);
 
-		/*
-		Add a background to the parallax layer
-		*/
+		//Initialize the Parallax class		
+		virtual bool init();
+
+		//Add a background to the parallax layer		
 		bool addBackground(const std::string& filename1, const std::string& filename2, const std::string& filename3);
-
-		Layer* loadBackground();
 		
+		// Call the scroll function passing the background images
+		void updateBackground();
 
-private:
-	Layer* m_pParallaxLayer;
-	Parallax* m_pParallaxcl;
-	
-//	static Parallax* m_spInstance;
+		// Update my background scrolling
+		void scrollBackground(CCSprite* bck1, CCSprite* bck2, float speed);		
+
 };
 
 #endif // __PARALLAX_H__

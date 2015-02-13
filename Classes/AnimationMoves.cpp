@@ -20,16 +20,18 @@ bool AnimationMoves::init()
 }
 
 //it creates an animation that runs at 24 frames per second
-cocos2d::CCAnimate* AnimationMoves::getAnimationWithFrames(int from, int to)
-{
+CCAnimate* AnimationMoves::getAnimationWithFrames(int from, int to)
+//void AnimationMoves::getAnimationWithFrames(int from, int to)
+{	
 	CCAnimation* anim = CCAnimation::create();
 
 	for (int i = from; i <= to; i++) {
 		CCString *str = CCString::createWithFormat("sprites/Playerwalk%02d.png", i);
 		anim->addSpriteFrameWithFileName(str->getCString());
 	}
+	//-1 become our loop repeat forever
 	anim->setLoops(-1);
 	CCAnimate *animate = CCAnimate::create(anim);
-//	animate->setDuration(50.0f);
+	//this->runAction(RepeatForever::create(animate));
 	return animate;
 }
