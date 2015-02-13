@@ -37,6 +37,7 @@ bool HUD::init()
 		
 	auto* hudButtonsMenu = Menu::create(menu_item_pause, NULL);
 	hudButtonsMenu->setPosition(Point(0, 0));
+	this->addChild(hudButtonsMenu);
 
 	CCLOG("HUD initialized");
 	return true;
@@ -55,5 +56,5 @@ void HUD::update()
 
 void HUD::pauseGame(cocos2d::Ref *pSender)
 {
-	this->getParent()->pause();
+	WorldManager::getInstance()->gameLayer()->pause();
 }

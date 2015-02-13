@@ -3,6 +3,7 @@
 
 #include "Character.h"
 #include "cocos2d.h"
+#include "AnimationMoves.h"
 
 USING_NS_CC;
 

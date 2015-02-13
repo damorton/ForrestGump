@@ -42,22 +42,32 @@ bool GameScene::init()
 
 bool GameScene::initializeGame()
 {	
+
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_action_1.wav", true);
-		
-	// background 3
-	backgroundA = CCSprite::create("background/gameBackground.png");
-	backgroundB = CCSprite::create("background/gameBackground2.png");
-	backgroundA->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-	backgroundB->setPosition(Vec2(visibleSize.width + visibleSize.width / 2, visibleSize.height / 2));
-	this->addChild(backgroundA, -3); // add child
-	this->addChild(backgroundB, -3); // add child
 
-	// background 2
+	// game play layer
+	gamePlayLayer = Layer::create();
+	this->addChild(gamePlayLayer, 0, "gamePlayLayer");
 
-	// background 1	
+	// HUD layer
+	m_HudLayer = HUD::create();
+	this->addChild(m_HudLayer, 1, "hudLayer");
+
+	//Background
+	m_pParallax = Parallax::create();
+	gamePlayLayer->addChild(m_pParallax, 0, "parallax");
+	//WorldManager::getInstance()->gameLayer()->addChild(m_pParallax, 0, "parallax");	
+	if(m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png"))
+		CCLOG("Images loaded successful");	
+	//gamePlayLayer->addChild(m_pParallax->m_pSpriteBackgroundFirst, 1);
+	//gamePlayLayer->addChild(m_pParallax->m_pSpriteBackgroundSecond, -1);
+	//gamePlayLayer->addChild(m_pParallax->m_pSpriteBackgroundThird, -2);
+	//It works, but as I said, the Layer comes from Parallax without the plans, they are background, 
+	//without the clouds and floor foreground effects!!!!!!!!!!!!!!!!!!!
+	//gamePlayLayer->addChild(m_pParallax->loadBackground());
 
 	// add floorSprite to game scene
 	auto floorSprite = Sprite::create("foreground/floorSprite.png");
@@ -65,29 +75,37 @@ bool GameScene::initializeGame()
 	auto floorEdgeBody = PhysicsBody::createEdgeBox(floorSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
 	floorSprite->setPhysicsBody(floorEdgeBody);
 	floorSprite->getPhysicsBody()->setDynamic(false);
-	this->addChild(floorSprite); 
-	WorldManager::getInstance()->setFloorSprite(floorSprite);
 
+	gamePlayLayer->addChild(floorSprite, -1); // add at z:1 for floorSprite
+	//WorldManager::getInstance()->gameLayer()->addChild(floorSprite, -1); // add at z:1 for floorSprite
+	WorldManager::getInstance()->setFloorSprite(floorSprite);
+		
 	// Player			
-	Player* playerSprite = Player::create("sprites/Player.png");
-	playerSprite->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, FLOOR_SPRITE_TOP);	
-	//auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);	
-	//playerPhysicsBody->setDynamic(false);	
-	//playerSprite->setPhysicsBody(playerPhysicsBody);
-	this->addChild(playerSprite);
+	Player* playerSprite = Player::create("sprites/Player.png");		
+	playerSprite->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, FLOOR_SPRITE_TOP);
+	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+	playerSprite->setPhysicsBody(playerPhysicsBody);
+	playerPhysicsBody->setDynamic(false);
+	gamePlayLayer->addChild(playerSprite, 0);
+	//WorldManager::getInstance()->gameLayer()->addChild(playerSprite, 0);
 	WorldManager::getInstance()->setPlayer(playerSprite);
 	CollisionManager::getInstance()->registerPlayer(playerSprite);
-	
+		
+	// segment spawns	
+	spawnSegmentTimer = 0;
+	//m_pSegmentManager = SegmentManager::create();
+	//this->addChild(m_pSegmentManager);
+	//m_pSegmentManager->spawnSegment();
+		
 	// touch controls
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->setSwallowTouches(true);
 	listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-	
-	auto contactListener = EventListenerPhysicsContact::create();
-	contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
-	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
-	
+			
+	m_fSpeed = 5.0f;
+
+	// call the schedule update in order to run this layers update function
 	this->scheduleUpdate();
 	return true;
 }
@@ -104,20 +122,30 @@ void GameScene::update(float delta)
 	
 	// update
 	WorldManager::getInstance()->getPlayer()->update();
-	WorldManager::getInstance()->hudLayer()->update();
-	//WorldManager::getInstance()->segmentManagerLayer()->update();
+	m_HudLayer->update();
+	//WorldManager::getInstance()->hudLayer()->updateScore();
+	/*
+	Parallax::getInstance()->scrollBackground(m_pSpriteBackgroundFirst, m_pSpriteBackgroundFirst1, m_fSpeed);
+	Parallax::getInstance()->scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, (m_fSpeed / 2));
+	Parallax::getInstance()->scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, ((m_fSpeed / 5) - 0.8));
+	*/
 
-	//CollisionManager::getInstance()->checkCollisions();
+	//running animation
+	
+	this->runAction(AnimationMoves::getAnimationWithFrames(1, 2));
+
+	CCLOG("Parallax");
+	//FOCUS ON HERE
+	//NOT WORKING THIS FUNCTION updateBackground() , uncomment and run, it is like Parallax.cpp dont find the images, something like it
+	m_pParallax->updateBackground();
+	
+	//IMAGES ARE NOT BEING SEEN BY PARALLAX, THEY ARE LOADED, IAM USING m_Parallax BUT IT DOESNT WORK
+	//m_pParallax->scrollBackground(m_pParallax->m_pSpriteBackgroundFirst, m_pParallax->m_pSpriteBackgroundFirst1, m_fSpeed);
 		
-	backgroundA->setPosition(Vec2(backgroundA->getPosition().x - 10, backgroundA->getPosition().y));
-	backgroundB->setPosition(Vec2(backgroundB->getPosition().x - 10, backgroundB->getPosition().y));
-
-	if (backgroundA->getPosition().x < -backgroundA->getContentSize().width / 2){
-		backgroundA->setPosition(Vec2(backgroundB->getPosition().x + backgroundB->getContentSize().width, backgroundA->getPosition().y));
-	}
-	if (backgroundB->getPosition().x < -backgroundB->getContentSize().width / 2){
-		backgroundB->setPosition(Vec2(backgroundA->getPosition().x + backgroundA->getContentSize().width, backgroundB->getPosition().y));
-	}		
+	
+//	m_pParallax->scrollBackground(m_pSpriteBackgroundFirst, m_pSpriteBackgroundFirst1, m_fSpeed);
+//	m_pParallax->scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, (m_fSpeed / 2));
+//	m_pParallax->scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, ((m_fSpeed / 5) - 0.8));	
 	
 	CCLOG("-------------GAME LOOP END--------------");
 }
@@ -136,6 +164,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	WorldManager::getInstance()->getPlayer()->touch(locationInGLFromTouch(*touch));
 	return true;
 }
+
 
 void GameScene::pause()
 {
