@@ -75,14 +75,14 @@ bool GameScene::initializeGame()
 	//without the clouds and floor foreground effects!!!!!!!!!!!!!!!!!!!
 	//gamePlayLayer->addChild(m_pParallax->loadBackground());
 
-	// add floorSprite to game scene
+	// CHANGE FLOOR SPRITE TO RECT FOR THE PLAYER POSITION
 	auto floorSprite = Sprite::create("foreground/floorSprite.png");
 	floorSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, floorSprite->getContentSize().height / 2 + origin.y));
 	auto floorEdgeBody = PhysicsBody::createEdgeBox(floorSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
 	floorSprite->setPhysicsBody(floorEdgeBody);
 	floorSprite->getPhysicsBody()->setDynamic(false);
 
-	gamePlayLayer->addChild(floorSprite, -1); // add at z:1 for floorSprite
+	gamePlayLayer->addChild(floorSprite, -2); // add at z:1 for floorSprite
 	//WorldManager::getInstance()->gameLayer()->addChild(floorSprite, -1); // add at z:1 for floorSprite
 	WorldManager::getInstance()->setFloorSprite(floorSprite);
 		

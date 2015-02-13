@@ -52,7 +52,7 @@ public:
 	TMXLayer* getSegmentLayer(){ return m_Segment.layer; };
 	bool spawnSegment(); 
 	bool isSpawned(){ return m_bIsSpawned; };	
-	void removeSegment();
+	void deleteTilemap(Node* sender, void* data);
 	void update();
 	void initSegment();
 

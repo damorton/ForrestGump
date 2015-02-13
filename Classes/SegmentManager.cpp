@@ -11,7 +11,7 @@ bool SegmentManager::init()
 	}			
 	m_bIsSpawned = false;
 	m_iSpawnSegmentTimer = 0;
-	
+	m_pTileMap = NULL;
 	CCLOG("Segment Manager initialized");
 	return true;
 }
@@ -25,23 +25,33 @@ bool SegmentManager::spawnSegment()
 	m_pTileMap = TMXTiledMap::create("maps/CoinSegmentA.tmx");
 	m_pTileMap->setPosition(SEGMENT_START_POS);
 	this->addChild(m_pTileMap);
-	m_pSegment = m_pTileMap->getLayer("segment");	
-	auto removeSegment = CallFunc::create(this, callfunc_selector(SegmentManager::removeSegment));
+
+	m_pSegment = m_pTileMap->getLayer("segment");
+	
+	auto removeSegment = CCCallFuncND::create(
+		this,
+		callfuncND_selector(SegmentManager::deleteTilemap),
+		(void*)m_pTileMap);
 	auto segmentBehaviour = Sequence::create(
-		MoveBy::create(SEGMENT_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-VISIBLE_SIZE_WIDTH * 2, 0)),
-		removeSegment,
+		MoveBy::create(SEGMENT_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-VISIBLE_SIZE_WIDTH * 2, 0)),		
 		RemoveSelf::create(),
+		deleteTilemap,
 		NULL);
+	
 	m_pSegment->runAction(segmentBehaviour);
 	m_bIsSpawned = true;
 	return true;
 }
 
-void SegmentManager::removeSegment()
-{ 	
-	CCLOG("Segment deleted");	
+void SegmentManager::deleteTilemap(Node* sender, void* tilemap)
+{ 		
+	if (tilemap != NULL)
+	{
+		TMXTiledMap* tMap = static_cast<TMXTiledMap*>(tilemap);
+		tMap->removeFromParentAndCleanup(true);
+		CCLOG("Segment deleted");
+	}
 	m_bIsSpawned = false;
-	spawnSegment();
 }
 
 bool SegmentManager::addTMXTileMap(const std::string& filename)
@@ -90,7 +100,7 @@ void SegmentManager::update()
 	m_iSpawnSegmentTimer++;
 	if (m_iSpawnSegmentTimer > 100)
 	{
-		CCLOG("Spawn segment");
+		CCLOG("Spawn segment");		
 		this->spawnSegment();
 		m_iSpawnSegmentTimer = 0;
 	}
