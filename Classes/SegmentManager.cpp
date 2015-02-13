@@ -95,7 +95,7 @@ bool SegmentManager::addPhysicsToTiles(const std::string& layername)
 void SegmentManager::update()
 {	
 	m_iSpawnSegmentTimer++;
-	if (m_iSpawnSegmentTimer > 100)
+	if (m_iSpawnSegmentTimer > SEGMENT_SPAWN_TIME)
 	{
 		CCLOG("Spawn segment");		
 		this->spawnSegment();
