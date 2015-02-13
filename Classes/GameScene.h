@@ -7,6 +7,8 @@
 #include "Parallax.h"
 #include "AnimationMoves.h"
 #include "Player.h"
+#include "SpawnManager.h"
+#include "Enemy.h"
 
 USING_NS_CC;
 
@@ -20,6 +22,7 @@ public:
 	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event * event);	
 	bool onContactBegin(cocos2d::PhysicsContact& contact);
 	void pause(cocos2d::Ref *pSender);
+	void spawnEnemy(float dt);
 	CREATE_FUNC(GameScene);
 private:
 	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
@@ -31,6 +34,8 @@ private:
 	HUD* m_HudLayer;
 	Parallax* m_pParallax;
 	Layer* gamePlayLayer;
+	SpawnManager* m_pSpawnManager;
+	Enemy m_enemey;
 
 	/*
 

@@ -1,4 +1,8 @@
 #include "Enemy.h"
+#include "WorldManager.h"
+#include "Definitions.h"
+
+USING_NS_CC;
 
 Enemy* Enemy::create(const std::string& filename)
 {
@@ -43,5 +47,57 @@ void Enemy::update()
 */
 void Enemy::cleanUp()
 {	CCLOG("Enemy::cleanUp()");
+
+}
+
+/*
+Function to spawn enemies
+*/
+void Enemy::spawnEnemy(Layer *layer){
+
+	// using singleton to get info for our obstacle spawns
+	auto visbleSize = Director::getInstance()->getVisibleSize();
+	auto origin = Director::getInstance()->getVisibleOrigin();
+
+	// creating obstacles
+	auto m_groundEnemy = Enemy::create("sprites/Enemy2.png");
+	auto m_floatingEnemy = Enemy::create("sprites/Enemy.png");
+
+	// creating physics body around obstacles
+	auto m_groundEnemyBody = PhysicsBody::createBox(m_groundEnemy->getContentSize());
+	auto m_floatingEnemyBody = PhysicsBody::createBox(m_floatingEnemy->getContentSize());
+
+	auto m_groundEnemyY = (CCRANDOM_0_1() * visbleSize.height) + 150;
+	auto m_floatingEnemyY = (CCRANDOM_0_1() * visbleSize.height);
+
+	// dynamic bodies are not affected by gravity
+	// we should totally experiment with this!
+	m_groundEnemyBody->setDynamic(false);
+	m_groundEnemyBody->setGravityEnable(false);
+	m_groundEnemyBody->setDynamic(true);
+
+	m_floatingEnemyBody->setGravityEnable(false);
+	m_floatingEnemyBody->setDynamic(true);
+
+
+
+	// setting physics bodies for enemies
+	m_groundEnemy->setPhysicsBody(m_groundEnemyBody);
+	m_floatingEnemy->setPhysicsBody(m_floatingEnemyBody);
+
+	// setting positions of enemies
+	m_groundEnemy->setPosition(Point(visbleSize.width + origin.x, WorldManager::getInstance()->getFloorSprite()->getPositionY() + m_groundEnemy->getContentSize().height * 2)); // setting postion to be above floor
+	m_floatingEnemy->setPosition(Point(visbleSize.width + origin.x, m_floatingEnemyY));
+
+	// adding obstacles to the scene
+	layer->addChild(m_groundEnemy, 1);
+	layer->addChild(m_floatingEnemy, 1);
+
+	// setting velocity of enemies to give illusion of runner
+	auto m_groundEnemyAction = MoveBy::create(ENEMY_MOVEMENT_SPEED * visbleSize.width, Point(-visbleSize.width *1.5, 0));
+	auto m_floatingEnemyAction = MoveTo::create(ENEMY_MOVEMENT_SPEED * visbleSize.width, Point(WorldManager::getInstance()->getPlayer()->getPositionX(), WorldManager::getInstance()->getPlayer()->getPositionY()));
+
+	m_groundEnemy->runAction(m_groundEnemyAction);
+	m_floatingEnemy->runAction(m_floatingEnemyAction);
 
 }
