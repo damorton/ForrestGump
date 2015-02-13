@@ -28,14 +28,11 @@ bool SegmentManager::spawnSegment()
 
 	m_pSegment = m_pTileMap->getLayer("segment");
 	
-	auto removeSegment = CCCallFuncND::create(
-		this,
-		callfuncND_selector(SegmentManager::deleteTilemap),
-		(void*)m_pTileMap);
+	auto removeSegment = CCCallFuncND::create(this,	callfuncND_selector(SegmentManager::deleteTilemap),	(void*)m_pTileMap);
 	auto segmentBehaviour = Sequence::create(
 		MoveBy::create(SEGMENT_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-VISIBLE_SIZE_WIDTH * 2, 0)),		
 		RemoveSelf::create(),
-		deleteTilemap,
+		removeSegment,
 		NULL);
 	
 	m_pSegment->runAction(segmentBehaviour);
