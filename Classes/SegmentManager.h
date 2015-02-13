@@ -5,6 +5,12 @@
 
 USING_NS_CC;
 
+struct Segment{
+	TMXLayer* layer = NULL;
+	bool isInit = false;
+	bool isSpawned = false;
+};
+
 class SegmentManager : public cocos2d::Layer
 {
 public:		
@@ -43,20 +49,22 @@ public:
 	bool addPhysicsToTiles(const std::string& layername);
 		
 	bool setTileMap(TMXTiledMap* tilemap){ m_pTileMap = tilemap; };		
-	TMXLayer* getSegmentLayer(){ return m_pSegment; };
-	void spawnSegment(); 
+	TMXLayer* getSegmentLayer(){ return m_Segment.layer; };
+	bool spawnSegment(); 
 	bool isSpawned(){ return m_bIsSpawned; };	
 	void removeSegment();
 	void update();
+	void initSegment();
 
 	/*
 		Initialize the parent node
 	*/
 	CREATE_FUNC(SegmentManager);
-	
+
 private:
 	TMXTiledMap* m_pTileMap;
 	TMXLayer* m_pSegment;
+	Segment m_Segment;
 	bool m_bIsSpawned;
 	int m_iSpawnSegmentTimer;
 };

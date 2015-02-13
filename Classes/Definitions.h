@@ -17,7 +17,7 @@ typedef enum {
 } tags;
 
 #define SEGMENT_MOVEMENT_SPEED 0.007f
-
+#define SEGMENT_START_POS (Vec2(VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, 0))
 // scenes
 #define DISPLY_TIME_SPLASH_SCENCE 2
 #define TRANSITION_TIME 0.5

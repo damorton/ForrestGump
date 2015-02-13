@@ -21,8 +21,8 @@ Scene* GameScene::createScene()
 	//SegmentManager* segmentManager = SegmentManager::create();
 	//scene->addChild(segmentManager, 0, TAG_SEGMENT_MANAGER);
 
-	HUD* hudLayer = HUD::create();
-	scene->addChild(hudLayer, 1, TAG_HUD);
+	//HUD* hudLayer = HUD::create();
+	//scene->addChild(hudLayer, 1, TAG_HUD);
 		
 	//Pause* pause = Pause::create();
 	//scene->addChild(pause, 1, TAG_PAUSE);	
@@ -50,15 +50,21 @@ bool GameScene::initializeGame()
 
 	// game play layer
 	gamePlayLayer = Layer::create();
-	this->addChild(gamePlayLayer, 0, "gamePlayLayer");
+	this->addChild(gamePlayLayer, 0, TAG_GAME_LAYER);
 
 	// HUD layer
 	m_HudLayer = HUD::create();
-	this->addChild(m_HudLayer, 1, "hudLayer");
+	gamePlayLayer->addChild(m_HudLayer, 1, TAG_HUD);
 
+	// segment spawns	
+	spawnSegmentTimer = 0;
+	m_pSegmentManager = SegmentManager::create();
+	gamePlayLayer->addChild(m_pSegmentManager, 0, TAG_SEGMENT_MANAGER);
+	
 	//Background
 	m_pParallax = Parallax::create();
-	gamePlayLayer->addChild(m_pParallax, 0, "parallax");
+	gamePlayLayer->addChild(m_pParallax, -1, "parallax");
+
 	//WorldManager::getInstance()->gameLayer()->addChild(m_pParallax, 0, "parallax");	
 	if(m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png"))
 		CCLOG("Images loaded successful");	
@@ -90,13 +96,7 @@ bool GameScene::initializeGame()
 	//WorldManager::getInstance()->gameLayer()->addChild(playerSprite, 0);
 	WorldManager::getInstance()->setPlayer(playerSprite);
 	CollisionManager::getInstance()->registerPlayer(playerSprite);
-		
-	// segment spawns	
-	spawnSegmentTimer = 0;
-	//m_pSegmentManager = SegmentManager::create();
-	//this->addChild(m_pSegmentManager);
-	//m_pSegmentManager->spawnSegment();
-		
+			
 	// touch controls
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->setSwallowTouches(true);
@@ -118,23 +118,17 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
 
 void GameScene::update(float delta)
 {
-	CCLOG("-------------GAME LOOP START--------------");	
+	//CCLOG("-------------GAME LOOP START--------------");	
 	
 	// update
 	WorldManager::getInstance()->getPlayer()->update();
+	m_pSegmentManager->update();
 	m_HudLayer->update();
-	//WorldManager::getInstance()->hudLayer()->updateScore();
-	/*
-	Parallax::getInstance()->scrollBackground(m_pSpriteBackgroundFirst, m_pSpriteBackgroundFirst1, m_fSpeed);
-	Parallax::getInstance()->scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, (m_fSpeed / 2));
-	Parallax::getInstance()->scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, ((m_fSpeed / 5) - 0.8));
-	*/
 
-	//running animation
-	
+	//running animation	
 	this->runAction(AnimationMoves::getAnimationWithFrames(1, 2));
 
-	CCLOG("Parallax");
+	//CCLOG("Parallax");
 	//FOCUS ON HERE
 	//NOT WORKING THIS FUNCTION updateBackground() , uncomment and run, it is like Parallax.cpp dont find the images, something like it
 	m_pParallax->updateBackground();
@@ -147,7 +141,7 @@ void GameScene::update(float delta)
 //	m_pParallax->scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, (m_fSpeed / 2));
 //	m_pParallax->scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, ((m_fSpeed / 5) - 0.8));	
 	
-	CCLOG("-------------GAME LOOP END--------------");
+	//CCLOG("-------------GAME LOOP END--------------");
 }
 
 /*
