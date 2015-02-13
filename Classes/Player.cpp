@@ -30,6 +30,7 @@ void Player::jump()
 	if (m_ePlayerState == RUNNING)
 	{
 		m_ePlayerState = JUMPING;
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("jump3.wav", false, 1.0f, 1.0f, 1.0f);
 		auto action = JumpBy::create(JUMP_SPEED, Vec2(0, 0), JUMP_HEIGHT, NO_OF_JUMPS);
 		this->runAction(action);
 		this->runAction(AnimationMoves::getAnimationWithFrames(1, 2));
@@ -41,7 +42,8 @@ void Player::update()
 {	
 	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
 	{		
-		m_ePlayerState = RUNNING;		
+		m_ePlayerState = RUNNING;	
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("thud.wav", false, 1.0f, 1.0f, 1.0f);
 	}
 	else
 	{
