@@ -1,5 +1,5 @@
-#ifndef __SPLASH_SCENE_H__
-#define __SPLASH_SCENE_H__
+#ifndef SPLASH_H
+#define SPLASH_H
 
 #include "cocos2d.h"
 

@@ -38,5 +38,5 @@ bool HUD::init()
 void HUD::updateScore()
 {
 	m_iScore++;
-	m_lScore->setString(std::to_string(m_iScore));
+	m_lScore->setString(std::to_string(m_iScore));	
 }

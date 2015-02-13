@@ -1,8 +1,18 @@
 #ifndef DEFINITIONS_H__
 #define DEFINITIONS_H__
 
+
 #define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
 #define VISIBLE_SIZE_HEIGHT (Director::getInstance()->getVisibleSize().height)
+
+typedef enum {
+	TAG_GAME_LAYER,
+	TAG_HUD,
+	TAG_GAME_SCENE,
+	TAG_PAUSE,
+	TAG_GAMEOVER,
+} tags;
+
 #define SEGMENT_MOVEMENT_SPEED 0.007f
 
 // scenes

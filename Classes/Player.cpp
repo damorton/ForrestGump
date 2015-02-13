@@ -41,12 +41,12 @@ void Player::update()
 {	
 	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
 	{		
-		m_ePlayerState = RUNNING;
+		m_ePlayerState = RUNNING;		
 	}
 	else
 	{
-		m_ePlayerState = JUMPING;
-	}
+		m_ePlayerState = JUMPING;		
+	}		
 }
 
 void Player::touch(const Point& location)
