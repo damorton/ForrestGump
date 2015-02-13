@@ -36,16 +36,11 @@ bool GameScene::init()
 	{
 		return false;
 	}	
-	
+	this->initializeGame();
 	return true;
 }
 
-void GameScene::onEnter()
-{
-	this->initializeGame();
-}
-
-void GameScene::initializeGame()
+bool GameScene::initializeGame()
 {	
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -94,6 +89,7 @@ void GameScene::initializeGame()
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 	
 	this->scheduleUpdate();
+	return true;
 }
 
 bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)

@@ -12,12 +12,11 @@ class GameScene : public cocos2d::Layer
 public:    
     static cocos2d::Scene* createScene();   
     virtual bool init();  
-	void initializeGame();
+	bool initializeGame();
 	void update(float delta);	
 	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event * event);	
 	bool onContactBegin(cocos2d::PhysicsContact& contact);
 	void pause();
-	void onEnter();
 	CREATE_FUNC(GameScene);
 private:
 	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
