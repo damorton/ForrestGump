@@ -85,6 +85,11 @@ bool GameScene::initializeGame()
 	gamePlayLayer->addChild(playerSprite, 0);
 	//WorldManager::getInstance()->gameLayer()->addChild(playerSprite, 0);
 	WorldManager::getInstance()->setPlayer(playerSprite);
+
+	// creating spawn manager
+	m_pSpawnManager = SpawnManager::create();
+	// adding spawn manager to the game scene
+	gamePlayLayer->addChild(m_pSpawnManager, 0);
 		
 	// segment spawns	
 	spawnSegmentTimer = 0;
@@ -110,6 +115,9 @@ bool GameScene::initializeGame()
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 			
 	m_fSpeed = 5.0f;
+
+	// creating a schedule to control enemey spawns in delta time
+	this->schedule(schedule_selector(GameScene::spawnEnemy), ENEMY_SPAWN_FREQ * visibleSize.width);
 
 	// call the schedule update in order to run this layers update function
 	this->scheduleUpdate();
@@ -158,6 +166,8 @@ void GameScene::update(float delta)
 //	m_pParallax->scrollBackground(m_pSpriteBackgroundFirst, m_pSpriteBackgroundFirst1, m_fSpeed);
 //	m_pParallax->scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, (m_fSpeed / 2));
 //	m_pParallax->scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, ((m_fSpeed / 5) - 0.8));	
+
+	m_pSpawnManager->update();
 	
 	//CCLOG("-------------GAME LOOP END--------------");
 }
@@ -175,6 +185,12 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 {
 	WorldManager::getInstance()->getPlayer()->touch(locationInGLFromTouch(*touch));
 	return true;
+}
+
+// calling this function to spawn enemies
+void GameScene::spawnEnemy(float dt)
+{
+	enemey1.spawnEnemy(this);
 }
 
 

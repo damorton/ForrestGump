@@ -15,6 +15,7 @@ public:
 	void cleanUp(); // house keeping 
 	void runAI(); // run Enemy AI
 	void update(); // update the Enemy
+	void spawnEnemy(Layer *layer); // spawns enemies on our specified layer
 	EGameOjectType getType(){ return m_eType; };	
 	void setType(EGameOjectType type){ m_eType = type; };	
 	CREATE_FUNC(Enemy);
