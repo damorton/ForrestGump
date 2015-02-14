@@ -37,9 +37,8 @@ bool GameScene::initializeGame()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_action_1.wav", true);
-
-	//Animation
-	m_pAnimation = AnimationMoves::create();
+	
+	//m_pAnimation = AnimationMoves::create();
 	//gamePlayLayer->addChild(m_pAnimation);
 
 	// Game play layer
@@ -75,7 +74,7 @@ bool GameScene::initializeGame()
 	WorldManager::getInstance()->setPlayer(playerSprite);
 
 	//PLYER
-	playerSprite->runAction(CCRepeatForever::create(m_pAnimation->getAnimationWithFrames(1, 2)));
+//	playerSprite->runAction(CCRepeatForever::create(m_pAnimation->getAnimationWithFrames(1, 2)));
 		
 	// Segment spawns	
 	spawnSegmentTimer = 0;
@@ -128,7 +127,34 @@ void GameScene::update(float delta)
 	WorldManager::getInstance()->getPlayer()->update();
 	m_HudLayer->updateScore();
 
+	CCLOG("Parallax");
+	m_pParallax->updateBackground();
+
 	//ANIMATION TESTS
+	/*
+	AnimationCache *animationCache = AnimationCache::getInstance();
+	animationCache->addAnimationsWithFile("walk.plist");
+	Animation* animation = animationCache->animationByName("Animation");
+	*/
+	CCLOG("Animation");
+	auto frames = new Vector<SpriteFrame *>();
+	Size size = Size(100, 128);
+	for (int x = 1; x <= 4; ++x) {
+		String *str = String::createWithFormat("sprites/walk%02d.png", x);
+		auto rect = Rect(0, 0, 100, 128);
+		auto frame = SpriteFrame::create(str->getCString(), rect);
+		frames->pushBack(frame);
+	}
+
+	auto animation = Animation::createWithSpriteFrames(*frames);
+	animation->setLoops(-1); // loop forever
+	animation->setDelayPerUnit(0.1);
+
+	auto animate = Animate::create(animation);
+
+	//auto zombie = Sprite::create();
+	playerSprite->runAction(animate);
+	playerSprite->setContentSize(size);
 
 	//running animation	
 	//moving my hero
@@ -172,8 +198,7 @@ void GameScene::update(float delta)
 
 	//FIM ANIMATION TESTS
 
-	CCLOG("Parallax");
-	m_pParallax->updateBackground();
+	
 	
 	CCLOG("-------------GAME LOOP END--------------");
 }

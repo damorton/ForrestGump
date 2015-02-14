@@ -20,19 +20,19 @@ bool AnimationMoves::init()
 }
 
 //it creates an animation that runs at 24 frames per second
-CCAnimate* AnimationMoves::getAnimationWithFrames(int from, int to)
+Animate* AnimationMoves::getAnimationWithFrames(int from, int to)
 //void AnimationMoves::getAnimationWithFrames(int from, int to)
 {	
-	CCAnimation* anim = CCAnimation::create();
+	Animation* anim = Animation::create();
 		
 
 	for (int i = from; i <= to; i++) {
-		CCString *str = CCString::createWithFormat("sprites/Playerwalk%02d.png", i);
+		String *str = String::createWithFormat("sprites/walk%02d.png", i);
 		anim->addSpriteFrameWithFile(str->getCString());
 	}
 	//-1 become our loop repeat forever
 	anim->setLoops(-1);
-	CCAnimate *animate = CCAnimate::create(anim);
+	Animate *animate = Animate::create(anim);
 	//this->runAction(RepeatForever::create(animate));
 	return animate;
 }
