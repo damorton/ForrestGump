@@ -43,11 +43,12 @@ void Player::update()
 	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
 	{		
 		m_ePlayerState = RUNNING;	
-		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("thud.wav", false, 1.0f, 1.0f, 1.0f);
+		
 	}
 	else
 	{
-		m_ePlayerState = JUMPING;		
+		m_ePlayerState = JUMPING;	
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("trashdropping.wav", false, 1.0f, 1.0f, 1.0f);
 	}		
 }
 
