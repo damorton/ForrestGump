@@ -32,6 +32,12 @@ public:
 	void setState(int state){ m_ePlayerState = (EPlayerState)state; };
 	
 	CREATE_FUNC(Player);
+
+
+	//ANIMATION
+	void getAnimationWithFrames();
+	Animate* animate;
+
 protected:
 	typedef enum { ALIVE, DEAD, BOOSTING, JUMPING, RUNNING } EPlayerState;
 	EPlayerState	m_ePlayerState;

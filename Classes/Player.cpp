@@ -43,14 +43,18 @@ void Player::jump()
 
 void Player::update()
 {	
+	
 	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
-	{		
-		m_ePlayerState = RUNNING;		
-
+	{				
+		m_ePlayerState = RUNNING;				
 	}
 	else
 	{
-		m_ePlayerState = JUMPING;		
+
+		m_ePlayerState = JUMPING;	
+		getAnimationWithFrames();
+		this->runAction(RepeatForever::create(animate));
+
 	}		
 }
 
@@ -64,4 +68,29 @@ void Player::touch(const Point& location)
 
 void Player::cleanUp()
 {
+}
+
+void Player::getAnimationWithFrames(){
+	//ANIMATION
+	Vector<SpriteFrame*> animFrames(4);
+	char str[100] = { 0 };
+	int i = 1;
+	while (i <= 2)
+	{
+		sprintf(str, "sprites/walk%02d.png", i);
+		auto frame = SpriteFrame::create(str, Rect(0, 0, 100, 128)); //we assume that the sprites' dimentions are 40*40 rectangles.
+		i++;
+		animFrames.pushBack(frame);
+		sprintf(str, "sprites/walk%02d.png", i);
+		auto frame1 = SpriteFrame::create(str, Rect(0, 0, 100, 128)); //we assume that the sprites' dimentions are 40*40 rectangles.
+		i++;
+		animFrames.pushBack(frame1);
+		i++;
+	}
+
+	auto animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
+	animate = Animate::create(animation);
+
+
+	//END ANIMATION
 }
