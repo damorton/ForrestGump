@@ -27,6 +27,7 @@ bool GameScene::init()
 		return false;
 	}	
 	this->initializeGame();
+
 	return true;
 }
 
@@ -38,8 +39,30 @@ bool GameScene::initializeGame()
 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_action_1.wav", true);
 	
-	//m_pAnimation = AnimationMoves::create();
-	//gamePlayLayer->addChild(m_pAnimation);
+	//ANIMATION
+	Vector<SpriteFrame*> animFrames(4);
+	char str[100] = { 0 };
+	int i = 1;
+	while (i <= 2)
+	{
+		sprintf(str, "sprites/walk%02d.png", i);
+		auto frame = SpriteFrame::create(str, Rect(0, 0, 100, 128)); //we assume that the sprites' dimentions are 40*40 rectangles.
+		i++;
+		animFrames.pushBack(frame);
+		sprintf(str, "sprites/walk%02d.png", i);
+		auto frame1 = SpriteFrame::create(str, Rect(0, 0, 100, 128)); //we assume that the sprites' dimentions are 40*40 rectangles.
+		i++;
+		animFrames.pushBack(frame1);
+		i++;
+	}
+
+	auto animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
+	animate = Animate::create(animation);
+	
+
+	//END ANIMATION
+
+	
 
 	// Game play layer
 	gamePlayLayer = Layer::create();
@@ -72,10 +95,11 @@ bool GameScene::initializeGame()
 	playerPhysicsBody->setDynamic(false);
 	gamePlayLayer->addChild(playerSprite, 0);
 	WorldManager::getInstance()->setPlayer(playerSprite);
-
-	//PLYER
-//	playerSprite->runAction(CCRepeatForever::create(m_pAnimation->getAnimationWithFrames(1, 2)));
 		
+
+	playerSprite->runAction(RepeatForever::create(animate));
+	
+
 	// Segment spawns	
 	spawnSegmentTimer = 0;
 	//m_pSegmentManager = SegmentManager::create();
@@ -131,31 +155,32 @@ void GameScene::update(float delta)
 	m_pParallax->updateBackground();
 
 	//ANIMATION TESTS
-	/*
-	AnimationCache *animationCache = AnimationCache::getInstance();
-	animationCache->addAnimationsWithFile("walk.plist");
-	Animation* animation = animationCache->animationByName("Animation");
-	*/
+	
+	//AnimationCache *animationCache = AnimationCache::getInstance();
+	//animationCache->addAnimationsWithFile("walk.plist");
+	//Animation* animation = animationCache->animationByName("Animation");
+	
+	
+	//SOURCE: http://www.cocos2d-x.org/wiki/Sprite_Sheet_Animation
 	CCLOG("Animation");
-	auto frames = new Vector<SpriteFrame *>();
-	Size size = Size(100, 128);
-	for (int x = 1; x <= 4; ++x) {
-		String *str = String::createWithFormat("sprites/walk%02d.png", x);
-		auto rect = Rect(0, 0, 100, 128);
-		auto frame = SpriteFrame::create(str->getCString(), rect);
-		frames->pushBack(frame);
+	
+	/*****************************************************
+	Vector<SpriteFrame*> animFrames(15);
+
+	char str[100] = { 0 };
+
+
+
+	for (int i = 1; i < 4; i++)
+	{
+		sprintf(str, "sprites/walk%02d.png", i);
+		SpriteFrame* frame = cache->getSpriteFrameByName(str);
+		animFrames.pushBack(frame);
 	}
 
-	auto animation = Animation::createWithSpriteFrames(*frames);
-	animation->setLoops(-1); // loop forever
-	animation->setDelayPerUnit(0.1);
-
-	auto animate = Animate::create(animation);
-
-	//auto zombie = Sprite::create();
-	playerSprite->runAction(animate);
-	playerSprite->setContentSize(size);
-
+	Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.3f);
+	playerSprite->runAction(RepeatForever::create(Animate::create(animation)));
+	**************************************************************/
 	//running animation	
 	//moving my hero
 	/*
@@ -215,6 +240,9 @@ inline Point locationInGLFromTouch(Touch& touch)
 bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event) 
 {
 	WorldManager::getInstance()->getPlayer()->touch(locationInGLFromTouch(*touch));
+	//playerSprite->stopAllActions();
+	//playerSprite->runAction(AnimationMoves::getAnimationWithFrames(1, 4));
+	//hero->runAction(Utils::getAnimationWithFrames(9, 16));
 	return true;
 }
 

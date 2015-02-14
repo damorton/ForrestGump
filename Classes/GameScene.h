@@ -21,6 +21,13 @@ public:
 	bool onContactBegin(cocos2d::PhysicsContact& contact);
 	void pause(cocos2d::Ref *pSender);
 	CREATE_FUNC(GameScene);
+
+	//ANIMATION
+	SpriteFrameCache* cache;
+	SpriteBatchNode* spritebatch;
+
+	Animate* animate;
+
 private:
 	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
 	PhysicsWorld* m_pSceneWorld;	

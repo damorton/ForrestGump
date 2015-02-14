@@ -66,6 +66,10 @@ bool MainMenu::init()
 	// add the menu to the scene
 	this->addChild(menu);
 
+	// loading .plist file
+	//CCString* file = CCString::create("sprites/walk.plist");
+	//CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(file->getCString());
+
     return true;
 }
 

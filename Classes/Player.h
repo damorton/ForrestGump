@@ -35,8 +35,7 @@ public:
 protected:
 	typedef enum { ALIVE, DEAD, BOOSTING, JUMPING, RUNNING } EPlayerState;
 	EPlayerState	m_ePlayerState;
-	
-	AnimationMoves* am;
+
 };
 
 #endif
