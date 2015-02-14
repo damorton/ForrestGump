@@ -1,5 +1,6 @@
 #include "Definitions.h"
 #include "WorldManager.h"
+#include "AnimationMoves.h"
 #include "Player.h"
 
 Player* Player::create(const std::string& filename)
@@ -33,6 +34,8 @@ void Player::jump()
 
 		m_ePlayerState = JUMPING;
 		auto action = JumpBy::create(JUMP_SPEED, Vec2(0, 0), JUMP_HEIGHT, NO_OF_JUMPS);
+		//auto action2 = Animate::create(AnimationMoves::getAnimationWithFrames(1, 4));
+		//auto action3 = Sequence::create(action, action2);
 		this->runAction(action);
 		CCLOG("Player jumped");
 	}
