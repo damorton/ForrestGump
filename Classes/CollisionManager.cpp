@@ -20,28 +20,27 @@ bool CollisionManager::init()
 
 bool CollisionManager::checkCollisions()
 {	
-	if (m_pSegmentManager->isSpawned())
+	if (!m_vpSegmentLayers.empty())
 	{
-		Size layerSize = m_pSegment->getLayerSize();
-		for (int i = 0; i < layerSize.height; i++)
+		for (std::vector<TMXLayer*>::size_type currentLayer = 0; currentLayer < m_vpSegmentLayers.size(); currentLayer++)
 		{
-			for (int j = 0; j < layerSize.width; j++)
+			Size layerSize = m_vpSegmentLayers[currentLayer]->getLayerSize();
+			for (int i = 0; i < layerSize.height; i++)
 			{
-				auto tileSprite = m_pSegment->tileAt(Vec2(i, j));
-				if (tileSprite)
+				for (int j = 0; j < layerSize.width; j++)
 				{
-					if (m_pPlayer->getBoundingBox().intersectsRect(tileSprite->getBoundingBox()))
-					{	
-						tileSprite->removeFromParent();
-						CCLOG("Collision with tile");
-					}					
+					auto tileSprite = m_vpSegmentLayers[currentLayer]->tileAt(Vec2(i, j));
+					if (tileSprite)
+					{
+						if (m_pPlayer->getBoundingBox().intersectsRect(tileSprite->getBoundingBox()))
+						{
+							tileSprite->setVisible(false);
+							CCLOG("Collision with tile");
+						}
+					}
 				}
 			}
 		}
-	}	
-	else
-	{
-		CCLOG("No segment has been spawned");
 	}
 	return true;
 }

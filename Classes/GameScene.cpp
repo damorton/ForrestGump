@@ -152,6 +152,8 @@ void GameScene::update(float delta)
 
 	m_pSpawnManager->update();
 	
+	CollisionManager::getInstance()->checkCollisions();
+
 	//CCLOG("-------------GAME LOOP END--------------");
 }
 

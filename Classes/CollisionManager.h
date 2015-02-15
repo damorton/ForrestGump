@@ -21,15 +21,14 @@ public:
 	void cleanUp(); 
 
 	Player* getPlayer(){ return m_pPlayer; };
-	TMXLayer* getSegment(){ return m_pSegment; };
 	SegmentManager* getSegmentManager(){ return m_pSegmentManager; };
 	
 	void registerPlayer(Player* player){ m_pPlayer = player; };
-	void registerSegment(TMXLayer* segment){ m_pSegment = segment; };
+	void registerSegment(TMXLayer* segment){ m_vpSegmentLayers.push_back(segment); };
 	void registerSegment(SegmentManager* segmentManager){ m_pSegmentManager = segmentManager; };
 protected:
 	Player* m_pPlayer; 	
-	TMXLayer* m_pSegment;
+	std::vector<TMXLayer*> m_vpSegmentLayers;
 	SegmentManager* m_pSegmentManager;
 private:
 	static CollisionManager* m_Instance;
