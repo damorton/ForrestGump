@@ -16,7 +16,7 @@ typedef enum {
 } tags;
 
 // segments
-#define SEGMENT_MOVEMENT_SPEED 0.007f
+#define SEGMENT_MOVEMENT_SPEED 0.005f
 #define SEGMENT_START_POS (Vec2(VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, 0))
 #define SEGMENT_SPAWN_TIME 50
 #define VISIBLE_ORIGIN_X (Director::getInstance()->getVisibleOrigin().x)

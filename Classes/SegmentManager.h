@@ -28,7 +28,7 @@ public:
 		
 	bool isSpawned(){ return m_bIsSpawned; };
 	void update();
-
+	
 	void addSpriteBehaviour(Sprite* tileSprite);
 	
 	CREATE_FUNC(SegmentManager);

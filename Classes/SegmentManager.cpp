@@ -12,7 +12,6 @@ bool SegmentManager::init()
 	m_iSpawnSegmentTimer = 0;
 	m_pTileMap = NULL;
 	m_pTileMap = TMXTiledMap::create("maps/CoinSegmentA.tmx");
-	m_pTileMap->setPosition(SEGMENT_START_POS);
 	this->addChild(m_pTileMap);	
 	m_pCoinLayer = m_pTileMap->getLayer("segment");		
 	CollisionManager::getInstance()->addLayer(m_pCoinLayer);
@@ -22,9 +21,27 @@ bool SegmentManager::init()
 }
 
 bool SegmentManager::spawnSprites()
-{
-	//this->addPhysicsToTiles(m_pCoinLayer);
+{		
 	this->addTileBehaviour(m_pCoinLayer);	
+	//this->addPhysicsToTiles(m_pCoinLayer);
+	return true;
+}
+
+bool SegmentManager::addTileBehaviour(TMXLayer* layer)
+{
+	Size layerSize = layer->getLayerSize();
+	for (int i = 0; i < layerSize.height; i++)
+	{
+		for (int j = 0; j < layerSize.width; j++)
+		{
+			auto tileSprite = layer->tileAt(Vec2(i, j));
+			if (tileSprite)
+			{
+				tileSprite->setPosition(Vec2(tileSprite->getPositionX() + VISIBLE_SIZE_WIDTH * 1, tileSprite->getPositionY()));
+				this->addSpriteBehaviour(tileSprite);
+			}
+		}
+	}
 	return true;
 }
 
@@ -34,11 +51,31 @@ void SegmentManager::addSpriteBehaviour(Sprite* tileSprite)
 	{
 		auto reset = CCCallFuncND::create(this, callfuncND_selector(SegmentManager::resetSprite), (void*)tileSprite);
 		auto tileSpriteBehaviour = Sequence::create(
-			MoveBy::create(SEGMENT_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-VISIBLE_SIZE_WIDTH * 3, 0)),
+			MoveBy::create(SEGMENT_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-(VISIBLE_SIZE_WIDTH * 2), 0)),
 			reset,
 			NULL);
 		tileSprite->runAction(tileSpriteBehaviour);
 	}
+}
+
+bool SegmentManager::addPhysicsToTiles(TMXLayer* layer)
+{
+	Size layerSize = layer->getLayerSize();
+	for (int i = 0; i < layerSize.height; i++)
+	{
+		for (int j = 0; j < layerSize.width; j++)
+		{
+			auto tileSprite = layer->tileAt(Vec2(i, j));
+			if (tileSprite)
+			{
+				tileSprite->setPhysicsBody(PhysicsBody::createBox(Size(tileSprite->getContentSize().width, tileSprite->getContentSize().height)));
+				tileSprite->getPhysicsBody()->setDynamic(true);
+				tileSprite->getPhysicsBody()->setGravityEnable(false);
+				tileSprite->setPosition(Vec2((tileSprite->getPosition().x + tileSprite->getContentSize().width / 2), (tileSprite->getPosition().y + tileSprite->getContentSize().height / 2)));
+			}
+		}
+	}
+	return true;
 }
 
 void SegmentManager::resetSprite(Node* sender, void* tileSprite)
@@ -47,7 +84,7 @@ void SegmentManager::resetSprite(Node* sender, void* tileSprite)
 	{
 		Sprite* tile = static_cast<Sprite*>(tileSprite);
 		tile->stopAllActions();				
-		tile->setPosition(Vec2(tile->getPositionX() + (VISIBLE_SIZE_WIDTH * 3), tile->getPositionY()));
+		tile->setPosition(Vec2(tile->getPositionX() + (VISIBLE_SIZE_WIDTH * 2), tile->getPositionY()));
 		tile->setVisible(true);
 		this->addSpriteBehaviour(tile);
 		CCLOG("Tile reset");
@@ -116,43 +153,6 @@ bool SegmentManager::addPhysicsEdgeBox()
 {
 	auto SegmentManagerEdge = PhysicsBody::createEdgeBox(m_pTileMap->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
 	m_pTileMap->setPhysicsBody(SegmentManagerEdge);
-	return true;
-}
-
-bool SegmentManager::addTileBehaviour(TMXLayer* layer)
-{	
-	Size layerSize = layer->getLayerSize();
-	for (int i = 0; i < layerSize.height; i++)
-	{
-		for (int j = 0; j < layerSize.width; j++)
-		{
-			auto tileSprite = layer->tileAt(Vec2(i, j));
-			if (tileSprite)
-			{			
-				this->addSpriteBehaviour(tileSprite);
-			}
-		}
-	}
-	return true;
-}
-
-bool SegmentManager::addPhysicsToTiles(TMXLayer* layer)
-{
-	Size layerSize = layer->getLayerSize();
-	for (int i = 0; i < layerSize.height; i++)
-	{
-		for (int j = 0; j < layerSize.width; j++)
-		{
-			auto tileSprite = layer->tileAt(Vec2(i, j));
-			if (tileSprite)
-			{		
-				tileSprite->setPhysicsBody(PhysicsBody::createBox(Size(tileSprite->getContentSize().width, tileSprite->getContentSize().height)));
-				tileSprite->getPhysicsBody()->setDynamic(true);
-				tileSprite->getPhysicsBody()->setGravityEnable(false);				
-				tileSprite->setPosition(Vec2((tileSprite->getPosition().x + tileSprite->getContentSize().width / 2), (tileSprite->getPosition().y + tileSprite->getContentSize().height / 2)));						
-			}
-		}
-	}
 	return true;
 }
 
