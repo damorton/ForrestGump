@@ -9,22 +9,61 @@ bool SegmentManager::init()
 	{
 		return false;
 	}			
-	m_bIsSpawned = false;
 	m_iSpawnSegmentTimer = 0;
 	m_pTileMap = NULL;
-	CCLOG("Segment Manager initialized");
+	m_pTileMap = TMXTiledMap::create("maps/CoinSegmentA.tmx");
+	m_pTileMap->setPosition(SEGMENT_START_POS);
+	this->addChild(m_pTileMap);	
+	m_pCoinLayer = m_pTileMap->getLayer("segment");		
+	CollisionManager::getInstance()->addLayer(m_pCoinLayer);
+	this->spawnSprites();	
+	CCLOG("Segment Manager initialized");	
 	return true;
+}
+
+bool SegmentManager::spawnSprites()
+{
+	//this->addPhysicsToTiles(m_pCoinLayer);
+	this->addTileBehaviour(m_pCoinLayer);	
+	return true;
+}
+
+void SegmentManager::addSpriteBehaviour(Sprite* tileSprite)
+{
+	if (tileSprite != NULL)
+	{
+		auto reset = CCCallFuncND::create(this, callfuncND_selector(SegmentManager::resetSprite), (void*)tileSprite);
+		auto tileSpriteBehaviour = Sequence::create(
+			MoveBy::create(SEGMENT_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-VISIBLE_SIZE_WIDTH * 3, 0)),
+			reset,
+			NULL);
+		tileSprite->runAction(tileSpriteBehaviour);
+	}
+}
+
+void SegmentManager::resetSprite(Node* sender, void* tileSprite)
+{
+	if (tileSprite != NULL)
+	{
+		Sprite* tile = static_cast<Sprite*>(tileSprite);
+		tile->stopAllActions();				
+		tile->setPosition(Vec2(tile->getPositionX() + (VISIBLE_SIZE_WIDTH * 3), tile->getPositionY()));
+		tile->setVisible(true);
+		this->addSpriteBehaviour(tile);
+		CCLOG("Tile reset");
+	}	
 }
 
 bool SegmentManager::spawnSegment()
 {	
+	/*
 	m_pTileMap = TMXTiledMap::create("maps/CoinSegmentA.tmx");
 	m_pTileMap->setPosition(SEGMENT_START_POS);
-	this->addChild(m_pTileMap);	
-	
+	this->addChild(m_pTileMap);
+
 	TMXLayer* segment = m_pTileMap->getLayer("segment");
 	this->addPhysicsToTiles(segment);
-	this->addTileBehaviour(segment);
+	this->addTileBehaviour(segment);	
 	auto removeSegment = CCCallFuncND::create(this,	callfuncND_selector(SegmentManager::deleteTilemap),	(void*)m_pTileMap);
 	auto removeLayer = CCCallFuncND::create(this, callfuncND_selector(SegmentManager::removeLayer), (void*)segment);
 	auto segmentBehaviour = Sequence::create(
@@ -33,9 +72,10 @@ bool SegmentManager::spawnSegment()
 		removeLayer,
 		removeSegment,
 		NULL);	
-	segment->runAction(segmentBehaviour);	
+	segment->runAction(segmentBehaviour);		
 	CollisionManager::getInstance()->addLayer(segment);
 	m_bIsSpawned = true;
+	*/
 	return true;
 }
 
@@ -88,9 +128,8 @@ bool SegmentManager::addTileBehaviour(TMXLayer* layer)
 		{
 			auto tileSprite = layer->tileAt(Vec2(i, j));
 			if (tileSprite)
-			{
-				auto action = MoveBy::create(SEGMENT_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-VISIBLE_SIZE_WIDTH * 3, 0));				
-				tileSprite->runAction(action);
+			{			
+				this->addSpriteBehaviour(tileSprite);
 			}
 		}
 	}
@@ -123,8 +162,9 @@ void SegmentManager::update()
 	m_iSpawnSegmentTimer++;
 	if (m_iSpawnSegmentTimer > SEGMENT_SPAWN_TIME)
 	{
-		CCLOG("Spawn segment");		
-		this->spawnSegment();
+		//CCLOG("Spawn segment");		
+		//this->spawnSegment();
+		
 		m_iSpawnSegmentTimer = 0;
 	}
 }
