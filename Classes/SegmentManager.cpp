@@ -21,13 +21,14 @@ bool SegmentManager::spawnSegment()
 	m_pTileMap = TMXTiledMap::create("maps/CoinSegmentA.tmx");
 	m_pTileMap->setPosition(SEGMENT_START_POS);
 	this->addChild(m_pTileMap);	
-
 	auto segment = m_pTileMap->getLayer("segment");
 	this->addPhysicsToTiles(segment);
 	auto removeSegment = CCCallFuncND::create(this,	callfuncND_selector(SegmentManager::deleteTilemap),	(void*)m_pTileMap);
+	auto removeLayerFromCollisionManager = CCCallFuncND::create(this, callfuncND_selector(SegmentManager::removeFromCollisionManager), (void*)segment);
 	auto segmentBehaviour = Sequence::create(
 		MoveBy::create(SEGMENT_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-VISIBLE_SIZE_WIDTH * 2, 0)),		
 		RemoveSelf::create(),
+		removeLayerFromCollisionManager,
 		removeSegment,
 		NULL);
 	
@@ -46,6 +47,18 @@ void SegmentManager::deleteTilemap(Node* sender, void* tilemap)
 		CCLOG("Segment deleted");
 	}
 	m_bIsSpawned = false;
+}
+
+void SegmentManager::removeFromCollisionManager(Node* sender, void* layer)
+{
+	if (layer != NULL)
+	{
+		if (CollisionManager::getInstance()->getTMXLayerVector().front() != NULL)		
+		{
+			CollisionManager::getInstance()->getTMXLayerVector().pop_front();
+		}		
+		CCLOG("Layer deleted from the front of the layer queue in collision manager");
+	}
 }
 
 bool SegmentManager::addTMXTileMap(const std::string& filename)

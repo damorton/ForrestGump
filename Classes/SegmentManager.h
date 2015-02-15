@@ -18,6 +18,7 @@ public:
 	bool spawnSegment(); 
 	bool isSpawned(){ return m_bIsSpawned; };	
 	void deleteTilemap(Node* sender, void* data);
+	void removeFromCollisionManager(Node* sender, void* tilemap);
 	void update();
 	CREATE_FUNC(SegmentManager);
 private:

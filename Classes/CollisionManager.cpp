@@ -22,20 +22,23 @@ bool CollisionManager::checkCollisions()
 {	
 	if (!m_vpSegmentLayers.empty())
 	{
-		for (std::vector<TMXLayer*>::size_type currentLayer = 0; currentLayer < m_vpSegmentLayers.size(); currentLayer++)
+		for (std::deque<TMXLayer*>::size_type it = 0; it < m_vpSegmentLayers.size(); ++it)
 		{
-			Size layerSize = m_vpSegmentLayers[currentLayer]->getLayerSize();
-			for (int i = 0; i < layerSize.height; i++)
+			if (m_vpSegmentLayers.at(it) != NULL)
 			{
-				for (int j = 0; j < layerSize.width; j++)
+				Size layerSize = m_vpSegmentLayers.at(it)->getLayerSize();
+				for (int i = 0; i < layerSize.height; i++)
 				{
-					auto tileSprite = m_vpSegmentLayers[currentLayer]->tileAt(Vec2(i, j));
-					if (tileSprite)
+					for (int j = 0; j < layerSize.width; j++)
 					{
-						if (m_pPlayer->getBoundingBox().intersectsRect(tileSprite->getBoundingBox()))
+						auto tileSprite = m_vpSegmentLayers.at(it)->tileAt(Vec2(i, j));
+						if (tileSprite)
 						{
-							tileSprite->setVisible(false);
-							CCLOG("Collision with tile");
+							if (m_pPlayer->getBoundingBox().intersectsRect(tileSprite->getBoundingBox()))
+							{
+								tileSprite->setVisible(false);
+								CCLOG("Collision with tile");
+							}
 						}
 					}
 				}
