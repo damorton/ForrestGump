@@ -14,6 +14,7 @@ public:
 	bool rotateSegment(float duration = 30.0f, float angle = 360);
 	bool addPhysicsEdgeBox();
 	bool addPhysicsToTiles(TMXLayer* layer);
+	bool addTileBehaviour(TMXLayer* layer);
 	bool setTileMap(TMXTiledMap* tilemap){ m_pTileMap = tilemap; };		
 	
 	bool spawnSegment(); 

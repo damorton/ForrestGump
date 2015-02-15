@@ -22,13 +22,13 @@ bool SegmentManager::spawnSegment()
 	m_pTileMap->setPosition(SEGMENT_START_POS);
 	this->addChild(m_pTileMap);	
 	
-	auto segment = m_pTileMap->getLayer("segment");
-	//this->addPhysicsToTiles(segment);
-	
+	TMXLayer* segment = m_pTileMap->getLayer("segment");
+	this->addPhysicsToTiles(segment);
+	this->addTileBehaviour(segment);
 	auto removeSegment = CCCallFuncND::create(this,	callfuncND_selector(SegmentManager::deleteTilemap),	(void*)m_pTileMap);
 	auto removeLayer = CCCallFuncND::create(this, callfuncND_selector(SegmentManager::removeLayer), (void*)segment);
 	auto segmentBehaviour = Sequence::create(
-		MoveBy::create(SEGMENT_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-VISIBLE_SIZE_WIDTH * 2, 0)),		
+		MoveBy::create(SEGMENT_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-VISIBLE_SIZE_WIDTH * 3, 0)),
 		RemoveSelf::create(),
 		removeLayer,
 		removeSegment,
@@ -54,7 +54,7 @@ void SegmentManager::removeLayer(Node* sender, void* layer)
 {
 	if (!CollisionManager::getInstance()->getLayers().empty())
 	{
-		CollisionManager::getInstance()->getLayers().pop_front();
+		CollisionManager::getInstance()->removeLayer();
 	}
 }
 
@@ -76,6 +76,24 @@ bool SegmentManager::addPhysicsEdgeBox()
 {
 	auto SegmentManagerEdge = PhysicsBody::createEdgeBox(m_pTileMap->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
 	m_pTileMap->setPhysicsBody(SegmentManagerEdge);
+	return true;
+}
+
+bool SegmentManager::addTileBehaviour(TMXLayer* layer)
+{	
+	Size layerSize = layer->getLayerSize();
+	for (int i = 0; i < layerSize.height; i++)
+	{
+		for (int j = 0; j < layerSize.width; j++)
+		{
+			auto tileSprite = layer->tileAt(Vec2(i, j));
+			if (tileSprite)
+			{
+				auto action = MoveBy::create(SEGMENT_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-VISIBLE_SIZE_WIDTH * 3, 0));				
+				tileSprite->runAction(action);
+			}
+		}
+	}
 	return true;
 }
 

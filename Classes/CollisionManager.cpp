@@ -24,24 +24,22 @@ bool CollisionManager::checkCollisionsWithLayers()
 	{
 		for (std::deque<TMXLayer*>::size_type it = 0; it < m_vpLayers.size(); ++it)
 		{
-			if (m_vpLayers.at(it) != NULL)
+			Size layerSize = m_vpLayers.at(it)->getLayerSize();
+			for (int i = 0; i < layerSize.height; i++)
 			{
-				Size layerSize = m_vpLayers.at(it)->getLayerSize();
-				for (int i = 0; i < layerSize.height; i++)
+				for (int j = 0; j < layerSize.width; j++)
 				{
-					for (int j = 0; j < layerSize.width; j++)
-					{
-						auto tileSprite = m_vpLayers.at(it)->tileAt(Vec2(i, j));
-						if (tileSprite)
+					auto tileSprite = m_vpLayers.at(it)->tileAt(Vec2(i, j));
+					if (tileSprite)
+					{						
+						if (m_pPlayer->getBoundingBox().intersectsRect(tileSprite->getBoundingBox()))
 						{
-							if (m_pPlayer->getBoundingBox().intersectsRect(tileSprite->getBoundingBox()))
-							{
-								tileSprite->setVisible(false);
-							}
+							tileSprite->setVisible(false);
 						}
 					}
 				}
 			}
+			
 		}
 	}	
 	return true; 

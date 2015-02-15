@@ -79,7 +79,6 @@ bool GameScene::initializeGame()
 	floorSprite->getPhysicsBody()->setDynamic(false);
 	gamePlayLayer->addChild(floorSprite, -2); // add at z:1 for floorSprite	
 	WorldManager::getInstance()->setFloorSprite(floorSprite);
-	//CollisionManager::getInstance()->setFloorSprite(floorSprite);
 		
 	// Player			
 	Player* playerSprite = Player::create("sprites/Player.png");		
@@ -88,13 +87,11 @@ bool GameScene::initializeGame()
 	playerSprite->setPhysicsBody(playerPhysicsBody);
 	playerPhysicsBody->setDynamic(false);
 	gamePlayLayer->addChild(playerSprite, 0);
-	//WorldManager::getInstance()->gameLayer()->addChild(playerSprite, 0);
 	WorldManager::getInstance()->setPlayer(playerSprite);
 	CollisionManager::getInstance()->setPlayer(playerSprite);
 
-	// creating spawn manager
+	// Spawn manager
 	m_pSpawnManager = SpawnManager::create();
-	// adding spawn manager to the game scene
 	gamePlayLayer->addChild(m_pSpawnManager, 0);
 		
 	// touch controls
@@ -128,6 +125,7 @@ void GameScene::update(float delta)
 	CollisionManager::getInstance()->checkCollisionsWithLayers();
 	m_HudLayer->update();
 	m_pParallax->updateBackground();
+	m_pSpawnManager->update();
 		
 	//CCLOG("-------------GAME LOOP END--------------");
 }

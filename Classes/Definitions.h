@@ -1,7 +1,6 @@
 #ifndef DEFINITIONS_H__
 #define DEFINITIONS_H__
 
-
 #define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
 #define VISIBLE_SIZE_HEIGHT (Director::getInstance()->getVisibleSize().height)
 
@@ -19,7 +18,8 @@ typedef enum {
 // segments
 #define SEGMENT_MOVEMENT_SPEED 0.007f
 #define SEGMENT_START_POS (Vec2(VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, 0))
-#define SEGMENT_SPAWN_TIME 150
+#define SEGMENT_SPAWN_TIME 50
+#define VISIBLE_ORIGIN_X (Director::getInstance()->getVisibleOrigin().x)
 
 // scenes
 #define DISPLY_TIME_SPLASH_SCENCE 2
