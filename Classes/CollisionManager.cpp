@@ -18,36 +18,33 @@ bool CollisionManager::init()
 	return true;
 }
 
-bool CollisionManager::checkCollisions()
+bool CollisionManager::checkCollisionsWithLayers()
 {	
-	if (!m_vpSegmentLayers.empty())
+	if (!m_vpLayers.empty())
 	{
-		CCLOG("Number of layers in deque: %d", m_vpSegmentLayers.size());
-		for (std::deque<TMXLayer*>::size_type it = 0; it < m_vpSegmentLayers.size(); ++it)
+		for (std::deque<TMXLayer*>::size_type it = 0; it < m_vpLayers.size(); ++it)
 		{
-			if (m_vpSegmentLayers.at(it) != NULL)
+			if (m_vpLayers.at(it) != NULL)
 			{
-				CCLOG("Checking collisions with tiles on layer: %d", m_vpSegmentLayers.at(it));
-				Size layerSize = m_vpSegmentLayers.at(it)->getLayerSize();
+				Size layerSize = m_vpLayers.at(it)->getLayerSize();
 				for (int i = 0; i < layerSize.height; i++)
 				{
 					for (int j = 0; j < layerSize.width; j++)
-					{						
-						auto tileSprite = m_vpSegmentLayers.at(it)->tileAt(Vec2(i, j));
+					{
+						auto tileSprite = m_vpLayers.at(it)->tileAt(Vec2(i, j));
 						if (tileSprite)
 						{
 							if (m_pPlayer->getBoundingBox().intersectsRect(tileSprite->getBoundingBox()))
 							{
 								tileSprite->setVisible(false);
-								
 							}
 						}
 					}
 				}
 			}
 		}
-	}
-	return true;
+	}	
+	return true; 
 }
 
 void CollisionManager::cleanUp()

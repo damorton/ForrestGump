@@ -23,19 +23,18 @@ bool SegmentManager::spawnSegment()
 	this->addChild(m_pTileMap);	
 	
 	auto segment = m_pTileMap->getLayer("segment");
-	this->addPhysicsToTiles(segment);
+	//this->addPhysicsToTiles(segment);
 	
 	auto removeSegment = CCCallFuncND::create(this,	callfuncND_selector(SegmentManager::deleteTilemap),	(void*)m_pTileMap);
-	auto removeLayerFromCollisionManager = CCCallFuncND::create(this, callfuncND_selector(SegmentManager::removeFromCollisionManager), (void*)segment);
+	auto removeLayer = CCCallFuncND::create(this, callfuncND_selector(SegmentManager::removeLayer), (void*)segment);
 	auto segmentBehaviour = Sequence::create(
 		MoveBy::create(SEGMENT_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-VISIBLE_SIZE_WIDTH * 2, 0)),		
 		RemoveSelf::create(),
-		removeLayerFromCollisionManager,
+		removeLayer,
 		removeSegment,
-		NULL);
-	
-	segment->runAction(segmentBehaviour);
-	CollisionManager::getInstance()->registerSegment(segment);
+		NULL);	
+	segment->runAction(segmentBehaviour);	
+	CollisionManager::getInstance()->addLayer(segment);
 	m_bIsSpawned = true;
 	return true;
 }
@@ -51,20 +50,12 @@ void SegmentManager::deleteTilemap(Node* sender, void* tilemap)
 	m_bIsSpawned = false;
 }
 
-void SegmentManager::removeFromCollisionManager(Node* sender, void* layer)
-{	
-	CCLOG("Number of layers in collision manager before removal: %d", CollisionManager::getInstance()->getTMXLayerVector().size());
-	if (layer != NULL)
+void SegmentManager::removeLayer(Node* sender, void* layer)
+{
+	if (!CollisionManager::getInstance()->getLayers().empty())
 	{
-		TMXLayer* segmentLayer = static_cast<TMXLayer*>(layer);
-		CCLOG("Removing layer %s from collision manager", segmentLayer->getLayerName());
-		if (CollisionManager::getInstance()->getTMXLayerVector().front() != NULL)		
-		{
-			CollisionManager::getInstance()->getTMXLayerVector().pop_front();
-			CCLOG("Layer deleted from the front of the layer queue in collision manager");
-		}				
+		CollisionManager::getInstance()->getLayers().pop_front();
 	}
-	CCLOG("Number of layers in collision manager after removal: %d", CollisionManager::getInstance()->getTMXLayerVector().size());
 }
 
 bool SegmentManager::addTMXTileMap(const std::string& filename)
@@ -110,6 +101,7 @@ bool SegmentManager::addPhysicsToTiles(TMXLayer* layer)
 
 void SegmentManager::update()
 {	
+	// spawn a new segment (TMXTileMap)
 	m_iSpawnSegmentTimer++;
 	if (m_iSpawnSegmentTimer > SEGMENT_SPAWN_TIME)
 	{

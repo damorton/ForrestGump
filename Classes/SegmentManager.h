@@ -15,16 +15,18 @@ public:
 	bool addPhysicsEdgeBox();
 	bool addPhysicsToTiles(TMXLayer* layer);
 	bool setTileMap(TMXTiledMap* tilemap){ m_pTileMap = tilemap; };		
+	
 	bool spawnSegment(); 
 	bool isSpawned(){ return m_bIsSpawned; };	
-	void deleteTilemap(Node* sender, void* data);
-	void removeFromCollisionManager(Node* sender, void* tilemap);
+	void deleteTilemap(Node* sender, void* tilemap);
+	void removeLayer(Node* sender, void* layer);
 	void update();
+	
 	CREATE_FUNC(SegmentManager);
 private:
 	TMXTiledMap* m_pTileMap;
 	bool m_bIsSpawned;
-	int m_iSpawnSegmentTimer;
+	int m_iSpawnSegmentTimer;	
 };
 
 #endif

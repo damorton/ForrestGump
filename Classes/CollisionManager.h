@@ -16,21 +16,18 @@ class CollisionManager
 {
 public:
 	virtual bool init();
-	static CollisionManager* getInstance();			
-	bool checkCollisions();
-	void cleanUp(); 
+	static CollisionManager* getInstance();	
+	void addLayer(TMXLayer* layer){ m_vpLayers.push_back(layer); };
+	bool checkCollisionsWithLayers();
+	void cleanUp();
 
 	Player* getPlayer(){ return m_pPlayer; };
-	SegmentManager* getSegmentManager(){ return m_pSegmentManager; };
-	std::deque<TMXLayer*> getTMXLayerVector(){ return m_vpSegmentLayers; };
-	
-	void registerPlayer(Player* player){ m_pPlayer = player; };
-	void registerSegment(TMXLayer* segment){ m_vpSegmentLayers.push_back(segment); };
-	void registerSegmentManager(SegmentManager* segmentManager){ m_pSegmentManager = segmentManager; };
+	std::deque<TMXLayer*> getLayers(){ return m_vpLayers; };
+	void setPlayer(Player* player){ m_pPlayer = player; };	
+	void setLayers(std::deque<TMXLayer*> layers){ m_vpLayers = layers; };
 protected:
-	Player* m_pPlayer; 	
-	std::deque<TMXLayer*> m_vpSegmentLayers;
-	SegmentManager* m_pSegmentManager;
+	Player* m_pPlayer; 		
+	std::deque<TMXLayer*> m_vpLayers;
 private:
 	static CollisionManager* m_Instance;
 	CollisionManager(){ this->init(); }; // constructor

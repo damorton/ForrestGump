@@ -66,14 +66,10 @@ bool GameScene::initializeGame()
 	gamePlayLayer->addChild(m_pParallax, -1, "parallax");
 
 	//WorldManager::getInstance()->gameLayer()->addChild(m_pParallax, 0, "parallax");	
-	if(m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png"))
-		CCLOG("Images loaded successful");	
-	//gamePlayLayer->addChild(m_pParallax->m_pSpriteBackgroundFirst, 1);
-	//gamePlayLayer->addChild(m_pParallax->m_pSpriteBackgroundSecond, -1);
-	//gamePlayLayer->addChild(m_pParallax->m_pSpriteBackgroundThird, -2);
-	//It works, but as I said, the Layer comes from Parallax without the plans, they are background, 
-	//without the clouds and floor foreground effects!!!!!!!!!!!!!!!!!!!
-	//gamePlayLayer->addChild(m_pParallax->loadBackground());
+	if (m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png"))
+	{
+		CCLOG("Images loaded successful");
+	}	
 
 	// CHANGE FLOOR SPRITE TO RECT FOR THE PLAYER POSITION
 	auto floorSprite = Sprite::create("foreground/floorSprite.png");
@@ -81,10 +77,9 @@ bool GameScene::initializeGame()
 	auto floorEdgeBody = PhysicsBody::createEdgeBox(floorSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
 	floorSprite->setPhysicsBody(floorEdgeBody);
 	floorSprite->getPhysicsBody()->setDynamic(false);
-
-	gamePlayLayer->addChild(floorSprite, -2); // add at z:1 for floorSprite
-	//WorldManager::getInstance()->gameLayer()->addChild(floorSprite, -1); // add at z:1 for floorSprite
+	gamePlayLayer->addChild(floorSprite, -2); // add at z:1 for floorSprite	
 	WorldManager::getInstance()->setFloorSprite(floorSprite);
+	//CollisionManager::getInstance()->setFloorSprite(floorSprite);
 		
 	// Player			
 	Player* playerSprite = Player::create("sprites/Player.png");		
@@ -95,8 +90,7 @@ bool GameScene::initializeGame()
 	gamePlayLayer->addChild(playerSprite, 0);
 	//WorldManager::getInstance()->gameLayer()->addChild(playerSprite, 0);
 	WorldManager::getInstance()->setPlayer(playerSprite);
-
-	CollisionManager::getInstance()->registerPlayer(playerSprite);
+	CollisionManager::getInstance()->setPlayer(playerSprite);
 
 	// creating spawn manager
 	m_pSpawnManager = SpawnManager::create();
@@ -129,31 +123,12 @@ void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	
 	
-	// update
 	WorldManager::getInstance()->getPlayer()->update();
 	m_pSegmentManager->update();
+	CollisionManager::getInstance()->checkCollisionsWithLayers();
 	m_HudLayer->update();
-
-	//running animation	
-	this->runAction(AnimationMoves::getAnimationWithFrames(1, 2));
-
-	//CCLOG("Parallax");
-	//FOCUS ON HERE
-	//NOT WORKING THIS FUNCTION updateBackground() , uncomment and run, it is like Parallax.cpp dont find the images, something like it
 	m_pParallax->updateBackground();
-	
-	//IMAGES ARE NOT BEING SEEN BY PARALLAX, THEY ARE LOADED, IAM USING m_Parallax BUT IT DOESNT WORK
-	//m_pParallax->scrollBackground(m_pParallax->m_pSpriteBackgroundFirst, m_pParallax->m_pSpriteBackgroundFirst1, m_fSpeed);
 		
-	
-//	m_pParallax->scrollBackground(m_pSpriteBackgroundFirst, m_pSpriteBackgroundFirst1, m_fSpeed);
-//	m_pParallax->scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, (m_fSpeed / 2));
-//	m_pParallax->scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, ((m_fSpeed / 5) - 0.8));	
-
-	m_pSpawnManager->update();
-	
-	CollisionManager::getInstance()->checkCollisions();
-
 	//CCLOG("-------------GAME LOOP END--------------");
 }
 
