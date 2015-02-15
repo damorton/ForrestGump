@@ -35,6 +35,7 @@ public:
 private:
 	TMXTiledMap* m_pTileMap;
 	TMXLayer* m_pCoinLayer;
+	TMXLayer* m_pItemLayer;
 
 	bool m_bIsSpawned;
 	int m_iSpawnSegmentTimer;	

@@ -14,7 +14,11 @@ bool SegmentManager::init()
 	m_pTileMap = TMXTiledMap::create("maps/CoinSegmentA.tmx");
 	this->addChild(m_pTileMap);	
 	m_pCoinLayer = m_pTileMap->getLayer("segment");		
+	m_pItemLayer = m_pTileMap->getLayer("items");
+
 	CollisionManager::getInstance()->addLayer(m_pCoinLayer);
+	CollisionManager::getInstance()->addLayer(m_pItemLayer);
+
 	this->spawnSprites();	
 	CCLOG("Segment Manager initialized");	
 	return true;
@@ -23,6 +27,7 @@ bool SegmentManager::init()
 bool SegmentManager::spawnSprites()
 {		
 	this->addTileBehaviour(m_pCoinLayer);	
+	this->addTileBehaviour(m_pItemLayer);
 	//this->addPhysicsToTiles(m_pCoinLayer);
 	return true;
 }
@@ -137,8 +142,7 @@ void SegmentManager::removeLayer(Node* sender, void* layer)
 
 bool SegmentManager::addTMXTileMap(const std::string& filename)
 {	
-	m_pTileMap = TMXTiledMap::create(filename);	
-	
+	m_pTileMap = TMXTiledMap::create(filename);		
 	return true;
 }
 
