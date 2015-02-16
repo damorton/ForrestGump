@@ -77,8 +77,9 @@ bool GameScene::initializeGame()
 	WorldManager::getInstance()->setFloorSprite(floorSprite);
 		
 	// Player			
-	Player* playerSprite = Player::create("sprites/Player.png");		
-	playerSprite->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, FLOOR_SPRITE_TOP);
+	Player* playerSprite = Player::create("sprites/Player.png");
+	playerSprite->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, (WorldManager::getInstance()->getFloorSprite()->getContentSize().height + playerSprite->getContentSize().height / 2) - 5));
+
 	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 	playerSprite->setPhysicsBody(playerPhysicsBody);
 	playerPhysicsBody->setDynamic(false);
@@ -106,7 +107,6 @@ bool GameScene::initializeGame()
 
 bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
 {
-	CCLOG("onContactBegin -------> ");			
 	return true;
 }
 
@@ -150,9 +150,7 @@ void GameScene::pause()
 	CCLOG("Pause");
 	auto scene = Pause::createScene();
 	Director::getInstance()->pushScene(TransitionFade::create(1, scene));
-
-	// to play sound effect if button is pressed 
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("button-21.wav", false, 1.0f, 1.0f, 1.0f);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
 }
 
 void GameScene::cleanup()

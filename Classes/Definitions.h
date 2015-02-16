@@ -30,10 +30,7 @@ typedef enum {
 #define PLAYER_POSITION_IN_WINDOW ((Director::getInstance()->getVisibleSize().width / 3) * 1)
 #define JUMP_SPEED 0.75F
 #define NO_OF_JUMPS 1
-#define JUMP_HEIGHT (Director::getInstance()->getVisibleSize().height / 2)
-
-// floor
-#define FLOOR_SPRITE_TOP (WorldManager::getInstance()->getFloorSprite()->getPositionY() + playerSprite->getContentSize().height / 1.20))
+#define JUMP_HEIGHT (Director::getInstance()->getVisibleSize().height * .75)
 
 // enemy spawns
 #define ENEMY_SPAWN_FREQ 0.002
