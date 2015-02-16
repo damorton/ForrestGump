@@ -43,7 +43,7 @@ typedef enum {
 #define	LOWER_SCRENE_ENEMY_THRESHOLD 0.25
 #define ENEMY_MOVEMENT_SPEED 0.008f
 
-#define LABEL_FONT "fonts/Drift___.ttf"
-#define VALUE_FONT "fonts/LittleLordFontleroyNF.ttf"
+#define LABEL_FONT "fonts/go3v2.ttf"
+#define VALUE_FONT "fonts/Roboto-Light.ttf"
 
 #endif // DEFINITIONS_H__

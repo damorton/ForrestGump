@@ -17,23 +17,28 @@ bool HUD::init()
 	// Score
 	auto distanceLabel = Label::createWithTTF("Distance ", LABEL_FONT, 32);
 	this->addChild(distanceLabel);
-	distanceLabel->setPosition(Vec2(PADDING + origin.x + distanceLabel->getContentSize().width / 2, origin.y + visibleSize.height - PADDING - distanceLabel->getContentSize().height / 2));
+	distanceLabel->setPosition(Vec2(PADDING + origin.x + distanceLabel->getContentSize().width / 2, origin.y + visibleSize.height - PADDING * 2 - distanceLabel->getContentSize().height / 2));
+	distanceLabel->setColor(Color3B(0, 0, 0)); // black
 	m_nDistance = 0;
 	// Score label		
 	m_pDistanceValueLabel = Label::createWithTTF(std::to_string(m_nDistance), VALUE_FONT, 32);
 	this->addChild(m_pDistanceValueLabel);
-	m_pDistanceValueLabel->setPosition(Vec2(PADDING + distanceLabel->getContentSize().width + PADDING, distanceLabel->getPositionY()));
+	m_pDistanceValueLabel->setPosition(Vec2(PADDING * 5 + distanceLabel->getContentSize().width, distanceLabel->getPositionY()));
+	m_pDistanceValueLabel->setColor(Color3B(0, 0, 0)); // black
 	
 	
 	// Coins
 	auto coinsLabel = Label::createWithTTF("Coins ", LABEL_FONT, 32);
 	this->addChild(coinsLabel);
-	coinsLabel->setPosition(Vec2(PADDING + origin.x + coinsLabel->getContentSize().width / 2, distanceLabel->getPositionY() - PADDING - distanceLabel->getContentSize().height / 2));	
+	coinsLabel->setPosition(Vec2(PADDING + origin.x + coinsLabel->getContentSize().width / 2, distanceLabel->getPositionY() - PADDING * 2 - distanceLabel->getContentSize().height / 2));	
+	coinsLabel->setColor(Color3B(0, 0, 0)); // black
 	m_nCoins = 0;
 	// Coins label		
 	m_lCoinsValueLabel = Label::createWithTTF(std::to_string(m_nCoins), VALUE_FONT, 32);
-	m_lCoinsValueLabel->setPosition(Vec2(PADDING + coinsLabel->getContentSize().width + m_lCoinsValueLabel->getContentSize().width / 2, coinsLabel->getPositionY()));
 	this->addChild(m_lCoinsValueLabel);
+	m_lCoinsValueLabel->setPosition(Vec2(PADDING * 5 + distanceLabel->getContentSize().width, coinsLabel->getPositionY()));
+	m_lCoinsValueLabel->setColor(Color3B(0, 0, 0)); // black
+	
 	
 	// Menu 
 	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(HUD::pauseGame, this));
