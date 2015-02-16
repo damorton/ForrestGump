@@ -28,30 +28,13 @@ public:
 	CREATE_FUNC(GameScene);
 private:
 	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
-	PhysicsWorld* m_pSceneWorld;	
-	Sprite* backgroundA;
-	Sprite* backgroundB;
-	int spawnSegmentTimer;
+	PhysicsWorld* m_pSceneWorld;		
 	SegmentManager* m_pSegmentManager;
 	HUD* m_HudLayer;
 	Parallax* m_pParallax;
 	Layer* gamePlayLayer;
 	SpawnManager* m_pSpawnManager;
-	Enemy m_enemey;
-
-	/*
-
-	// sprites
-	Sprite* m_pSpriteBackgroundFirst;
-	Sprite* m_pSpriteBackgroundFirst1;
-	Sprite* m_pSpriteBackgroundSecond;
-	Sprite* m_pSpriteBackgroundSecond1;
-	Sprite* m_pSpriteBackgroundThird;
-	Sprite* m_pSpriteBackgroundThird1;
-	*/
-
-	// variables
-	float m_fSpeed;
+	Enemy m_enemey;	
 };
 
 #endif // __GAMESCENE_SCENE_H__

@@ -54,7 +54,6 @@ bool GameScene::initializeGame()
 	gamePlayLayer->addChild(m_HudLayer, 1, TAG_HUD);
 
 	// segment spawns	
-	spawnSegmentTimer = 0;
 	m_pSegmentManager = SegmentManager::create();
 	gamePlayLayer->addChild(m_pSegmentManager, 0, TAG_SEGMENT_MANAGER);
 	
@@ -96,9 +95,7 @@ bool GameScene::initializeGame()
 	listener->setSwallowTouches(true);
 	listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-			
-	m_fSpeed = 5.0f;
-
+	
 	// creating a schedule to control enemey spawns in delta time
 	//this->schedule(schedule_selector(GameScene::spawnEnemy), ENEMY_SPAWN_FREQ * visibleSize.width);
 
