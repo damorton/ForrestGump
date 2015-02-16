@@ -103,7 +103,7 @@ bool GameScene::initializeGame()
 	m_fSpeed = 5.0f;
 
 	// creating a schedule to control enemey spawns in delta time
-	this->schedule(schedule_selector(GameScene::spawnEnemy), ENEMY_SPAWN_FREQ * visibleSize.width);
+	//this->schedule(schedule_selector(GameScene::spawnEnemy), ENEMY_SPAWN_FREQ * visibleSize.width);
 
 	// call the schedule update in order to run this layers update function
 	this->scheduleUpdate();
@@ -159,4 +159,9 @@ void GameScene::pause()
 
 	// to play sound effect if button is pressed 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("button-21.wav", false, 1.0f, 1.0f, 1.0f);
+}
+
+void GameScene::cleanup()
+{
+	CollisionManager::getInstance()->cleanUp();
 }

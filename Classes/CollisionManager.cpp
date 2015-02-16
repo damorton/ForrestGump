@@ -48,6 +48,6 @@ bool CollisionManager::checkCollisionsWithLayers()
 
 void CollisionManager::cleanUp()
 {	
-	delete m_Instance;
-	m_Instance = NULL;
+	m_pPlayer = NULL;
+	m_vpLayers.clear();
 }

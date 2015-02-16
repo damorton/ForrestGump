@@ -17,6 +17,8 @@ class GameScene : public cocos2d::Layer
 public:    
     static cocos2d::Scene* createScene();   
     virtual bool init();  
+	virtual ~GameScene(){ this->cleanup(); };
+	void cleanup();
 	bool initializeGame();
 	void update(float delta);	
 	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event * event);	
