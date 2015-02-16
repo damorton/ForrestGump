@@ -15,11 +15,8 @@ typedef enum {
 	TAG_HUD_MENU,
 } tags;
 
-// segments
-#define SEGMENT_MOVEMENT_SPEED 0.005f
-#define SEGMENT_START_POS (Vec2(VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, 0))
-#define SEGMENT_SPAWN_TIME 50
-#define VISIBLE_ORIGIN_X (Director::getInstance()->getVisibleOrigin().x)
+// Sprites; coins, items, powerups
+#define SPRITE_MOVEMENT_SPEED 0.006f
 
 // scenes
 #define DISPLY_TIME_SPLASH_SCENCE 2
@@ -43,7 +40,7 @@ typedef enum {
 #define	ENEMY_GAP 20
 #define	UPPER_SCRENE_ENEMY_THRESHOLD 0.75
 #define	LOWER_SCRENE_ENEMY_THRESHOLD 0.25
-#define ENEMY_MOVEMENT_SPEED 0.005
-#define SCROLL_SPEED 0.005
+#define ENEMY_MOVEMENT_SPEED 0.008f
+#define SCROLL_SPEED 0.008f
 
 #endif // DEFINITIONS_H__

@@ -72,7 +72,7 @@ bool GameScene::initializeGame()
 	}	
 
 	// CHANGE FLOOR SPRITE TO RECT FOR THE PLAYER POSITION
-	auto floorSprite = Sprite::create("foreground/floorSprite.png");
+	auto floorSprite = Sprite::create("background/floorBoundaries.png");	
 	floorSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, floorSprite->getContentSize().height / 2 + origin.y));
 	auto floorEdgeBody = PhysicsBody::createEdgeBox(floorSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
 	floorSprite->setPhysicsBody(floorEdgeBody);

@@ -10,25 +10,66 @@ bool SegmentManager::init()
 		return false;
 	}			
 	m_iSpawnSegmentTimer = 0;
-	m_pTileMap = NULL;
-	m_pTileMap = TMXTiledMap::create("maps/CoinSegmentA.tmx");
-	this->addChild(m_pTileMap);	
-	m_pCoinLayer = m_pTileMap->getLayer("segment");		
+	this->addTMXTileMap("maps/SpawnManagerMap.tmx");	
+	
+	m_pCoinLayer = m_pTileMap->getLayer("coins");	
+	this->initTilePositions(m_pCoinLayer);
+
 	m_pItemLayer = m_pTileMap->getLayer("items");
+	this->initTilePositions(m_pItemLayer);
+
+	m_pBoosterLayer = m_pTileMap->getLayer("boosters");
+	this->initTilePositions(m_pBoosterLayer);
 
 	CollisionManager::getInstance()->addLayer(m_pCoinLayer);
 	CollisionManager::getInstance()->addLayer(m_pItemLayer);
+	CollisionManager::getInstance()->addLayer(m_pBoosterLayer);
+	
+	srand(time(NULL));
 
 	this->spawnSprites();	
 	CCLOG("Segment Manager initialized");	
 	return true;
 }
 
+bool SegmentManager::initTilePositions(TMXLayer* layer)
+{
+	Size layerSize = layer->getLayerSize();
+	for (int i = 0; i < layerSize.height; i++)
+	{
+		for (int j = 0; j < layerSize.width; j++)
+		{
+			auto tileSprite = layer->tileAt(Vec2(i, j));
+			if (tileSprite)
+			{
+				tileSprite->setPosition(Vec2(tileSprite->getPositionX() + VISIBLE_SIZE_WIDTH, tileSprite->getPositionY()));
+			}
+		}
+	}	
+	return true;
+}
+
 bool SegmentManager::spawnSprites()
 {		
-	this->addTileBehaviour(m_pCoinLayer);	
-	this->addTileBehaviour(m_pItemLayer);
-	//this->addPhysicsToTiles(m_pCoinLayer);
+	int randomnumber;
+	int numberOfLayers = 3;
+	randomnumber = (rand() % numberOfLayers);
+
+	CCLOG("random number: %d", randomnumber);
+	switch (randomnumber)
+	{
+	case 0:
+		this->addTileBehaviour(m_pCoinLayer);
+		break;
+	case 1:
+		this->addTileBehaviour(m_pItemLayer);		
+		break;		
+	case 2:
+		this->addTileBehaviour(m_pBoosterLayer);
+		break;
+	default:
+		CCLOG("segment spawn random number unknown");
+	}	
 	return true;
 }
 
@@ -42,11 +83,10 @@ bool SegmentManager::addTileBehaviour(TMXLayer* layer)
 			auto tileSprite = layer->tileAt(Vec2(i, j));
 			if (tileSprite)
 			{
-				tileSprite->setPosition(Vec2(tileSprite->getPositionX() + VISIBLE_SIZE_WIDTH * 1, tileSprite->getPositionY()));
-				this->addSpriteBehaviour(tileSprite);
+				this->addSpriteBehaviour(tileSprite);				
 			}
 		}
-	}
+	}	
 	return true;
 }
 
@@ -56,7 +96,7 @@ void SegmentManager::addSpriteBehaviour(Sprite* tileSprite)
 	{
 		auto reset = CCCallFuncND::create(this, callfuncND_selector(SegmentManager::resetSprite), (void*)tileSprite);
 		auto tileSpriteBehaviour = Sequence::create(
-			MoveBy::create(SEGMENT_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-(VISIBLE_SIZE_WIDTH * 2), 0)),
+			MoveBy::create(SPRITE_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-(VISIBLE_SIZE_WIDTH * 2), 0)),
 			reset,
 			NULL);
 		tileSprite->runAction(tileSpriteBehaviour);
@@ -76,7 +116,6 @@ bool SegmentManager::addPhysicsToTiles(TMXLayer* layer)
 				tileSprite->setPhysicsBody(PhysicsBody::createBox(Size(tileSprite->getContentSize().width, tileSprite->getContentSize().height)));
 				tileSprite->getPhysicsBody()->setDynamic(true);
 				tileSprite->getPhysicsBody()->setGravityEnable(false);
-				tileSprite->setPosition(Vec2((tileSprite->getPosition().x + tileSprite->getContentSize().width / 2), (tileSprite->getPosition().y + tileSprite->getContentSize().height / 2)));
 			}
 		}
 	}
@@ -91,34 +130,9 @@ void SegmentManager::resetSprite(Node* sender, void* tileSprite)
 		tile->stopAllActions();				
 		tile->setPosition(Vec2(tile->getPositionX() + (VISIBLE_SIZE_WIDTH * 2), tile->getPositionY()));
 		tile->setVisible(true);
-		this->addSpriteBehaviour(tile);
-		CCLOG("Tile reset");
+		this->spawnSprites();
+		CCLOG("Tiles reset");
 	}	
-}
-
-bool SegmentManager::spawnSegment()
-{	
-	/*
-	m_pTileMap = TMXTiledMap::create("maps/CoinSegmentA.tmx");
-	m_pTileMap->setPosition(SEGMENT_START_POS);
-	this->addChild(m_pTileMap);
-
-	TMXLayer* segment = m_pTileMap->getLayer("segment");
-	this->addPhysicsToTiles(segment);
-	this->addTileBehaviour(segment);	
-	auto removeSegment = CCCallFuncND::create(this,	callfuncND_selector(SegmentManager::deleteTilemap),	(void*)m_pTileMap);
-	auto removeLayer = CCCallFuncND::create(this, callfuncND_selector(SegmentManager::removeLayer), (void*)segment);
-	auto segmentBehaviour = Sequence::create(
-		MoveBy::create(SEGMENT_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-VISIBLE_SIZE_WIDTH * 3, 0)),
-		RemoveSelf::create(),
-		removeLayer,
-		removeSegment,
-		NULL);	
-	segment->runAction(segmentBehaviour);		
-	CollisionManager::getInstance()->addLayer(segment);
-	m_bIsSpawned = true;
-	*/
-	return true;
 }
 
 void SegmentManager::deleteTilemap(Node* sender, void* tilemap)
@@ -142,7 +156,8 @@ void SegmentManager::removeLayer(Node* sender, void* layer)
 
 bool SegmentManager::addTMXTileMap(const std::string& filename)
 {	
-	m_pTileMap = TMXTiledMap::create(filename);		
+	m_pTileMap = TMXTiledMap::create(filename);
+	this->addChild(m_pTileMap);
 	return true;
 }
 
@@ -161,14 +176,6 @@ bool SegmentManager::addPhysicsEdgeBox()
 }
 
 void SegmentManager::update()
-{	
-	// spawn a new segment (TMXTileMap)
-	m_iSpawnSegmentTimer++;
-	if (m_iSpawnSegmentTimer > SEGMENT_SPAWN_TIME)
-	{
-		//CCLOG("Spawn segment");		
-		//this->spawnSegment();
-		
-		m_iSpawnSegmentTimer = 0;
-	}
+{		
+
 }
