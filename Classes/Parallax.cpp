@@ -17,12 +17,11 @@ Parallax* Parallax::getInstance()
 */
 bool Parallax::init()
 {
-	if (!Layer::init())
+	if (!LayerColor::initWithColor(Color4B(173, 216, 230, 255)))
 	{
 		return false;
 	}
 //	this->setPosition(Vec2(VISIBLE_SIZE_WIDTH, Director::getInstance()->getVisibleOrigin().y));	
-	
 	return true;
 }
 
@@ -39,8 +38,8 @@ bool Parallax::addBackground(const std::string& filename1, const std::string& fi
 	m_pSpriteBackgroundFirst1 = CCSprite::create(filename1);
 	m_pSpriteBackgroundFirst->setPosition(Vec2(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
 	m_pSpriteBackgroundFirst1->setPosition(Vec2(VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
-	this->addChild(m_pSpriteBackgroundFirst, 1);
-	this->addChild(m_pSpriteBackgroundFirst1, 1);
+	this->addChild(m_pSpriteBackgroundFirst, 2);
+	this->addChild(m_pSpriteBackgroundFirst1, 2);
 //	m_pParallaxLayer->addChild(m_pSpriteBackgroundFirst, 1);
 //	m_pParallaxLayer->addChild(m_pSpriteBackgroundFirst1, 1);
 	
@@ -49,8 +48,8 @@ bool Parallax::addBackground(const std::string& filename1, const std::string& fi
 	m_pSpriteBackgroundSecond1 = CCSprite::create(filename2);
 	m_pSpriteBackgroundSecond->setPosition(Vec2(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
 	m_pSpriteBackgroundSecond1->setPosition(Vec2(VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
-	this->addChild(m_pSpriteBackgroundSecond, -1);
-	this->addChild(m_pSpriteBackgroundSecond1, -1);
+	this->addChild(m_pSpriteBackgroundSecond, 1);
+	this->addChild(m_pSpriteBackgroundSecond1, 1);
 //	m_pParallaxLayer->addChild(m_pSpriteBackgroundSecond, -1); // add child
 //	m_pParallaxLayer->addChild(m_pSpriteBackgroundSecond1, -1); // add child
 
@@ -59,8 +58,8 @@ bool Parallax::addBackground(const std::string& filename1, const std::string& fi
 	m_pSpriteBackgroundThird1 = CCSprite::create(filename3);
 	m_pSpriteBackgroundThird->setPosition(Vec2(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
 	m_pSpriteBackgroundThird1->setPosition(Vec2(VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
-	this->addChild(m_pSpriteBackgroundThird, -2);
-	this->addChild(m_pSpriteBackgroundThird1, -2);
+	this->addChild(m_pSpriteBackgroundThird, 0);
+	this->addChild(m_pSpriteBackgroundThird1, 0);
 //	m_pParallaxLayer->addChild(m_pSpriteBackgroundThird, -2); // add child
 //	m_pParallaxLayer->addChild(m_pSpriteBackgroundThird1, -2); // add child
 	

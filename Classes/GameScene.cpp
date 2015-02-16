@@ -15,7 +15,7 @@ Scene* GameScene::createScene()
 	scene->setTag(TAG_GAME_SCENE);
 
 	GameScene* gameLayer = GameScene::create();
-	gameLayer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics
+	gameLayer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics	
 	scene->addChild(gameLayer, 0, TAG_GAME_LAYER);
 	
 	//SegmentManager* segmentManager = SegmentManager::create();
