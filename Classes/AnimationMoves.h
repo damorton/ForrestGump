@@ -14,8 +14,10 @@ public:
 	CREATE_FUNC(AnimationMoves);
 
 	static AnimationMoves* getInstance();
-	static Animate* getAnimationWithFrames(int from, int to);
+	//Animate* getAnimationWithFrames(int from, int to);
 	//void getAnimationWithFrames(int from, int to);
+
+	
 
 private:
 	static AnimationMoves* m_spInstance;

@@ -22,7 +22,7 @@ Player* Player::create(const std::string& filename)
 bool Player::init()
 {	
 	setType(PLAYER);
-	setState(RUNNING);		
+	setState(RUNNING);			
 	return true;
 }
 
@@ -33,9 +33,7 @@ void Player::jump()
 		this->stopAllActions();
 
 		m_ePlayerState = JUMPING;
-		auto action = JumpBy::create(JUMP_SPEED, Vec2(0, 0), JUMP_HEIGHT, NO_OF_JUMPS);
-		//auto action2 = Animate::create(AnimationMoves::getAnimationWithFrames(1, 4));
-		//auto action3 = Sequence::create(action, action2);
+		auto action = JumpBy::create(JUMP_SPEED, Vec2(0, 0), JUMP_HEIGHT, NO_OF_JUMPS);		
 		this->runAction(action);
 		CCLOG("Player jumped");
 	}
@@ -52,6 +50,11 @@ void Player::update()
 	{
 
 		m_ePlayerState = JUMPING;	
+
+		
+
+	//	m_pAnimation->getAnimationWithFrames();
+	//	this->runAction(RepeatForever::create(m_pAnimation->animate));
 		getAnimationWithFrames();
 		this->runAction(RepeatForever::create(animate));
 
@@ -90,7 +93,6 @@ void Player::getAnimationWithFrames(){
 
 	auto animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
 	animate = Animate::create(animation);
-
-
+	
 	//END ANIMATION
 }

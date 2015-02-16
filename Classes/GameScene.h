@@ -22,10 +22,7 @@ public:
 	void pause(cocos2d::Ref *pSender);
 	CREATE_FUNC(GameScene);
 
-	//ANIMATION
-	SpriteFrameCache* cache;
-	SpriteBatchNode* spritebatch;
-
+	//Start the game animated
 	Animate* animate;
 
 private:

@@ -14,12 +14,12 @@ class Parallax : public cocos2d::Layer
 		float m_fSpeed;
 
 		//Sprites
-		CCSprite* m_pSpriteBackgroundFirst;
-		CCSprite* m_pSpriteBackgroundFirst1;
-		CCSprite* m_pSpriteBackgroundSecond;
-		CCSprite* m_pSpriteBackgroundSecond1;
-		CCSprite* m_pSpriteBackgroundThird;
-		CCSprite* m_pSpriteBackgroundThird1;
+		Sprite* m_pSpriteBackgroundFirst;
+		Sprite* m_pSpriteBackgroundFirst1;
+		Sprite* m_pSpriteBackgroundSecond;
+		Sprite* m_pSpriteBackgroundSecond1;
+		Sprite* m_pSpriteBackgroundThird;
+		Sprite* m_pSpriteBackgroundThird1;
 
 		//Initialize the parent node
 		//Call the super class theen I can create my .create() from the super class of Layer
@@ -35,7 +35,7 @@ class Parallax : public cocos2d::Layer
 		void updateBackground();
 
 		// Update my background scrolling
-		void scrollBackground(CCSprite* bck1, CCSprite* bck2, float speed);		
+		void scrollBackground(Sprite* bck1, Sprite* bck2, float speed);		
 
 };
 

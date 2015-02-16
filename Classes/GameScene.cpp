@@ -38,31 +38,6 @@ bool GameScene::initializeGame()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_action_1.wav", true);
-	
-	//ANIMATION
-	Vector<SpriteFrame*> animFrames(4);
-	char str[100] = { 0 };
-	int i = 1;
-	while (i <= 2)
-	{
-		sprintf(str, "sprites/walk%02d.png", i);
-		auto frame = SpriteFrame::create(str, Rect(0, 0, 100, 128)); //we assume that the sprites' dimentions are 40*40 rectangles.
-		i++;
-		animFrames.pushBack(frame);
-		sprintf(str, "sprites/walk%02d.png", i);
-		auto frame1 = SpriteFrame::create(str, Rect(0, 0, 100, 128)); //we assume that the sprites' dimentions are 40*40 rectangles.
-		i++;
-		animFrames.pushBack(frame1);
-		i++;
-	}
-
-	auto animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
-	animate = Animate::create(animation);
-	
-
-	//END ANIMATION
-
-	
 
 	// Game play layer
 	gamePlayLayer = Layer::create();
@@ -96,8 +71,9 @@ bool GameScene::initializeGame()
 	gamePlayLayer->addChild(playerSprite, 0);
 	WorldManager::getInstance()->setPlayer(playerSprite);
 		
-
-	playerSprite->runAction(RepeatForever::create(animate));
+	//Start player walking
+	playerSprite->getAnimationWithFrames();
+	playerSprite->runAction(RepeatForever::create(playerSprite->animate));
 	
 
 	// Segment spawns	
@@ -154,77 +130,6 @@ void GameScene::update(float delta)
 	CCLOG("Parallax");
 	m_pParallax->updateBackground();
 
-	//ANIMATION TESTS
-	
-	//AnimationCache *animationCache = AnimationCache::getInstance();
-	//animationCache->addAnimationsWithFile("walk.plist");
-	//Animation* animation = animationCache->animationByName("Animation");
-	
-	
-	//SOURCE: http://www.cocos2d-x.org/wiki/Sprite_Sheet_Animation
-	CCLOG("Animation");
-	
-	/*****************************************************
-	Vector<SpriteFrame*> animFrames(15);
-
-	char str[100] = { 0 };
-
-
-
-	for (int i = 1; i < 4; i++)
-	{
-		sprintf(str, "sprites/walk%02d.png", i);
-		SpriteFrame* frame = cache->getSpriteFrameByName(str);
-		animFrames.pushBack(frame);
-	}
-
-	Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.3f);
-	playerSprite->runAction(RepeatForever::create(Animate::create(animation)));
-	**************************************************************/
-	//running animation	
-	//moving my hero
-	/*
-	SpriteBatchNode* spritebatch = SpriteBatchNode::create("sprites/player2.png");
-	SpriteFrameCache* cache = SpriteFrameCache::getInstance();
-	cache->addSpriteFramesWithFile("sprites/player2.plist");
-	
-	CCAnimation* anim = CCAnimation::create();
-
-	for (int i = 1; i <= 2; i++) {
-		String *str = String::createWithFormat("sprites/Playerwalk%02d.png", i);
-		anim->addSpriteFrameWithFileName(str->getCString());
-	}
-	anim->setLoops(-1);
-	Animate *animate = Animate::create(anim);
-	playerSprite->runAction(animate);
-	*/
-	
-	/* MOVING FOLLOWING HERO DIRECTION
-	if ((actualPos.x <= location.x) && (actualPos.y <= location.y)) {
-
-		playerSprite->runAction(Utils::getAnimationWithFrames(9, 16));
-	}
-	else if ((actualPos.x >= location.x) && (actualPos.y >= location.y)) {
-		hero->runAction(Utils::getAnimationWithFrames(1, 8));
-	}
-	else if ((actualPos.x <= location.x) && (actualPos.y >= location.y)) {
-		hero->runAction(Utils::getAnimationWithFrames(1, 4));
-		hero->runAction(Utils::getAnimationWithFrames(9, 12));
-	}
-	else{
-		hero->runAction(Utils::getAnimationWithFrames(13, 16));
-		hero->runAction(Utils::getAnimationWithFrames(5, 8));
-	}
-	*/
-	
-//	playerSprite->runAction(m_pAnimation->getAnimationWithFrames(1, 2));
-	//playerSprite->runAction(RepeatForever::create(AnimationMoves::getAnimationWithFrames(1, 2)));// (AnimationMoves::getAnimationWithFrames(1, 2));
-	//playerSprite->runAction(RepeatForever::create(animate));
-
-	//FIM ANIMATION TESTS
-
-	
-	
 	CCLOG("-------------GAME LOOP END--------------");
 }
 
