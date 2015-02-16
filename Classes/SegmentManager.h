@@ -39,7 +39,7 @@ public:
 		@param TMXLayer* layer of the tilemap with tile sprites
 		@return bool true if successful
 	*/
-	bool SegmentManager::initTilePositions(TMXLayer* layer);
+	bool initTilePositions(TMXLayer* layer);
 	void addSpriteBehaviour(Sprite* tileSprite);
 	
 	CREATE_FUNC(SegmentManager);

@@ -12,7 +12,20 @@ LOCAL_MODULE_FILENAME := libcocos2dcpp
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
-                   ../../Classes/HelloWorldScene.cpp
+                   ../../Classes/Splash.cpp \
+                   ../../Classes/MainMenu.cpp \
+                   ../../Classes/GameScene.cpp \
+                   ../../Classes/AnimationMoves.cpp \
+                   ../../Classes/CollisionManager.cpp \
+                   ../../Classes/Enemy.cpp \
+                   ../../Classes/EnemyFactory.cpp \
+                   ../../Classes/HUD.cpp \
+                   ../../Classes/Parallax.cpp \
+                   ../../Classes/Pause.cpp \
+                   ../../Classes/Player.cpp \
+                   ../../Classes/SegmentManager.cpp \
+                   ../../Classes/SpawnManager.cpp \
+                   ../../Classes/WorldManager.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
