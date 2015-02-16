@@ -34,7 +34,7 @@ bool CollisionManager::checkCollisionsWithLayers()
 					{						
 						if (m_pPlayer->getBoundingBox().intersectsRect(tileSprite->getBoundingBox()))
 						{
-							CCLOG("Collision detected");
+							//CCLOG("Collision detected");
 							tileSprite->setVisible(false);
 						}
 					}

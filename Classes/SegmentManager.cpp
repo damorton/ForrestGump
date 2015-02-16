@@ -26,9 +26,9 @@ bool SegmentManager::init()
 	CollisionManager::getInstance()->addLayer(m_pBoosterLayer);
 	
 	srand(time(NULL));
-
+	m_bIsSpawned = false;
 	this->spawnSprites();	
-	CCLOG("Segment Manager initialized");	
+	//CCLOG("Segment Manager initialized");	
 	return true;
 }
 
@@ -55,7 +55,7 @@ bool SegmentManager::spawnSprites()
 	int numberOfLayers = 3;
 	randomnumber = (rand() % numberOfLayers);
 
-	CCLOG("random number: %d", randomnumber);
+	//CCLOG("random number: %d", randomnumber);
 	switch (randomnumber)
 	{
 	case 0:
@@ -87,6 +87,7 @@ bool SegmentManager::addTileBehaviour(TMXLayer* layer)
 			}
 		}
 	}	
+	m_bIsSpawned = true;
 	return true;
 }
 
@@ -130,8 +131,8 @@ void SegmentManager::resetSprite(Node* sender, void* tileSprite)
 		tile->stopAllActions();				
 		tile->setPosition(Vec2(tile->getPositionX() + (VISIBLE_SIZE_WIDTH * 2), tile->getPositionY()));
 		tile->setVisible(true);
-		this->spawnSprites();
-		CCLOG("Tiles reset");
+		m_bIsSpawned = false;
+		//CCLOG("Tiles reset");
 	}	
 }
 
@@ -141,9 +142,8 @@ void SegmentManager::deleteTilemap(Node* sender, void* tilemap)
 	{
 		TMXTiledMap* tMap = static_cast<TMXTiledMap*>(tilemap);
 		tMap->removeFromParentAndCleanup(true);
-		CCLOG("Segment deleted");
+		//CCLOG("Segment deleted");
 	}
-	m_bIsSpawned = false;
 }
 
 void SegmentManager::removeLayer(Node* sender, void* layer)
@@ -176,6 +176,9 @@ bool SegmentManager::addPhysicsEdgeBox()
 }
 
 void SegmentManager::update()
-{		
-
+{
+	if (!m_bIsSpawned)
+	{
+		this->spawnSprites();
+	}
 }
