@@ -14,8 +14,10 @@ public:
 	void pauseGame(cocos2d::Ref *pSender);
 	CREATE_FUNC(HUD);
 private:
-	int m_iScore;
-	Label* m_lScore;	
+	int m_nDistance;
+	int m_nCoins;
+	Label* m_pDistanceValueLabel;
+	Label* m_lCoinsValueLabel;
 };
 
 #endif

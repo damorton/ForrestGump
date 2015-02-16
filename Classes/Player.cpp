@@ -19,6 +19,11 @@ bool Player::init()
 {	
 	setType(PLAYER);
 	setState(RUNNING);
+	m_nDistance = 0;
+	m_nCoins = 0;
+	m_nBoosters = 0;
+	m_nFood = 0;
+	m_nItems = 0;
 	return true;
 }
 
@@ -39,12 +44,12 @@ void Player::update()
 	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
 	{		
 		m_ePlayerState = RUNNING;	
-		
+		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
 	}
 	else
 	{
 		m_ePlayerState = JUMPING;	
-		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
+		
 	}		
 }
 

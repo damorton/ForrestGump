@@ -15,21 +15,26 @@ bool HUD::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	// Score
-	auto scoreTag = Label::createWithTTF("Score ", "fonts/Marker Felt.ttf", FONT_SIZE);
-	scoreTag->enableShadow();
-	scoreTag->enableGlow(Color4B::RED);
-	scoreTag->setPosition(Vec2(PADDING + origin.x + scoreTag->getContentSize().width / 2, origin.y + visibleSize.height - PADDING - scoreTag->getContentSize().height / 2));
-	this->addChild(scoreTag);
-	
-	m_iScore = 0;
-
+	auto distanceLabel = Label::createWithTTF("Distance ", LABEL_FONT, 32);
+	this->addChild(distanceLabel);
+	distanceLabel->setPosition(Vec2(PADDING + origin.x + distanceLabel->getContentSize().width / 2, origin.y + visibleSize.height - PADDING - distanceLabel->getContentSize().height / 2));
+	m_nDistance = 0;
 	// Score label		
-	m_lScore = Label::createWithTTF(std::to_string(m_iScore), "fonts/Marker Felt.ttf", FONT_SIZE, Size(scoreTag->getContentSize().width, FONT_SIZE), TextHAlignment::LEFT, TextVAlignment::TOP);
-	m_lScore->enableShadow();	
-	m_lScore->enableGlow(Color4B::RED);
-	m_lScore->setPosition(Vec2(PADDING + scoreTag->getContentSize().width + m_lScore->getContentSize().width / 2, scoreTag->getPositionY()));
-	this->addChild(m_lScore, 0);
-		
+	m_pDistanceValueLabel = Label::createWithTTF(std::to_string(m_nDistance), VALUE_FONT, 32);
+	this->addChild(m_pDistanceValueLabel);
+	m_pDistanceValueLabel->setPosition(Vec2(PADDING + distanceLabel->getContentSize().width + PADDING, distanceLabel->getPositionY()));
+	
+	
+	// Coins
+	auto coinsLabel = Label::createWithTTF("Coins ", LABEL_FONT, 32);
+	this->addChild(coinsLabel);
+	coinsLabel->setPosition(Vec2(PADDING + origin.x + coinsLabel->getContentSize().width / 2, distanceLabel->getPositionY() - PADDING - distanceLabel->getContentSize().height / 2));	
+	m_nCoins = 0;
+	// Coins label		
+	m_lCoinsValueLabel = Label::createWithTTF(std::to_string(m_nCoins), VALUE_FONT, 32);
+	m_lCoinsValueLabel->setPosition(Vec2(PADDING + coinsLabel->getContentSize().width + m_lCoinsValueLabel->getContentSize().width / 2, coinsLabel->getPositionY()));
+	this->addChild(m_lCoinsValueLabel);
+	
 	// Menu 
 	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(HUD::pauseGame, this));
 	menu_item_pause->setPosition(Vec2(origin.x + visibleSize.width - menu_item_pause->getContentSize().width / 2,
@@ -43,15 +48,14 @@ bool HUD::init()
 	return true;
 }
 
-void HUD::addScore()
-{
-	m_iScore++;
-	m_lScore->setString(std::to_string(m_iScore));	
-}
-
 void HUD::update()
 {
-	this->addScore();
+	if (WorldManager::getInstance()->getPlayer() != NULL)
+	{
+		WorldManager::getInstance()->getPlayer()->addDistance();		
+		m_pDistanceValueLabel->setString(std::to_string(WorldManager::getInstance()->getPlayer()->getDistance()));
+		m_lCoinsValueLabel->setString(std::to_string(WorldManager::getInstance()->getPlayer()->getCoins()));
+	}
 }
 
 void HUD::pauseGame(cocos2d::Ref *pSender)

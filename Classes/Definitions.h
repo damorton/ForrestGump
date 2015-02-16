@@ -13,6 +13,10 @@ typedef enum {
 	TAG_SEGMENT,
 	TAG_SEGMENT_MANAGER,
 	TAG_HUD_MENU,
+	TAG_COIN,
+	TAG_ITEM,
+	TAG_BOOSTER,
+	TAG_FOOD,
 } tags;
 
 // Sprites; coins, items, powerups
@@ -38,5 +42,8 @@ typedef enum {
 #define	UPPER_SCRENE_ENEMY_THRESHOLD 0.75
 #define	LOWER_SCRENE_ENEMY_THRESHOLD 0.25
 #define ENEMY_MOVEMENT_SPEED 0.008f
+
+#define LABEL_FONT "fonts/Drift___.ttf"
+#define VALUE_FONT "fonts/LittleLordFontleroyNF.ttf"
 
 #endif // DEFINITIONS_H__

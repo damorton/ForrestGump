@@ -30,11 +30,25 @@ public:
 	
 	void setType(EGameOjectType type){ m_eType = type; };
 	void setState(int state){ m_ePlayerState = (EPlayerState)state; };
-	
+
+	void addCoin(){ m_nCoins++; };
+	void addDistance(){ m_nDistance++; };
+	void addBooster(){ m_nBoosters++; };
+	void addFood(){ m_nFood++; };
+	void addItem(){ m_nItems++; };
+
+	int getCoins(){ return m_nCoins; };
+	int getDistance(){ return m_nDistance; };
+
 	CREATE_FUNC(Player);
-protected:
+private:
 	typedef enum { ALIVE, DEAD, BOOSTING, JUMPING, RUNNING } EPlayerState;
 	EPlayerState	m_ePlayerState;
+	int m_nDistance;
+	int m_nCoins;
+	int m_nBoosters;
+	int m_nFood;
+	int m_nItems;
 	
 };
 

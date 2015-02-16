@@ -61,16 +61,16 @@ bool SegmentManager::spawnSprites()
 	switch (randomnumber)
 	{
 	case 0:
-		this->addTileBehaviour(m_pCoinLayer);
+		this->addTileBehaviour(m_pCoinLayer, "coin");
 		break;
 	case 1:
-		this->addTileBehaviour(m_pItemLayer);		
+		this->addTileBehaviour(m_pItemLayer, "item");		
 		break;		
 	case 2:
-		this->addTileBehaviour(m_pBoosterLayer);
+		this->addTileBehaviour(m_pBoosterLayer, "booster");
 		break;
 	case 3:
-		this->addTileBehaviour(m_pFoodLayer);
+		this->addTileBehaviour(m_pFoodLayer, "food");
 		break;
 	default:
 		CCLOG("segment spawn random number unknown");
@@ -78,7 +78,7 @@ bool SegmentManager::spawnSprites()
 	return true;
 }
 
-bool SegmentManager::addTileBehaviour(TMXLayer* layer)
+bool SegmentManager::addTileBehaviour(TMXLayer* layer, char* name)
 {
 	Size layerSize = layer->getLayerSize();
 	for (int i = 0; i < layerSize.height; i++)
@@ -88,6 +88,7 @@ bool SegmentManager::addTileBehaviour(TMXLayer* layer)
 			auto tileSprite = layer->tileAt(Vec2(i, j));
 			if (tileSprite)
 			{
+				tileSprite->setName(name);
 				this->addSpriteBehaviour(tileSprite);				
 			}
 		}

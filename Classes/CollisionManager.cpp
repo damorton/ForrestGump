@@ -35,6 +35,10 @@ bool CollisionManager::checkCollisionsWithLayers()
 						if (m_pPlayer->getBoundingBox().intersectsRect(tileSprite->getBoundingBox()))
 						{
 							//CCLOG("Collision detected");
+							if (tileSprite->getName() == "coin")
+							{
+								WorldManager::getInstance()->getPlayer()->addCoin();
+							}
 							tileSprite->setVisible(false);
 						}
 					}

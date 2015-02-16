@@ -21,7 +21,6 @@ public:
 	void addLayer(TMXLayer* layer){ m_vpLayers.push_back(layer); };
 	void removeLayer(){ m_vpLayers.pop_front(); };
 	void cleanUp();
-
 	Player* getPlayer(){ return m_pPlayer; };
 	std::deque<TMXLayer*> getLayers(){ return (std::deque<TMXLayer*>)m_vpLayers; };
 	void setPlayer(Player* player){ m_pPlayer = player; };	
