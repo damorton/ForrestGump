@@ -37,8 +37,10 @@ public:
 	void addFood(){ m_nFood++; };
 	void addItem(){ m_nItems++; };
 
-	int getCoins(){ return m_nCoins; };
 	int getDistance(){ return m_nDistance; };
+	int getCoins(){ return m_nCoins; };
+	int getItems(){ return m_nItems; };
+	
 
 	CREATE_FUNC(Player);
 private:

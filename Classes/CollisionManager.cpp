@@ -39,6 +39,10 @@ bool CollisionManager::checkCollisionsWithLayers()
 							{
 								WorldManager::getInstance()->getPlayer()->addCoin();
 							}
+							else if (tileSprite->getName() == "item")
+							{
+								WorldManager::getInstance()->getPlayer()->addItem();
+							}
 							tileSprite->setVisible(false);
 						}
 					}

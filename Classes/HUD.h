@@ -16,8 +16,10 @@ public:
 private:
 	int m_nDistance;
 	int m_nCoins;
+	int m_nItems;
 	Label* m_pDistanceValueLabel;
 	Label* m_lCoinsValueLabel;
+	Label* m_lItemsValueLabel;
 };
 
 #endif

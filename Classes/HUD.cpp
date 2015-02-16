@@ -37,6 +37,18 @@ bool HUD::init()
 	this->addChild(m_lCoinsValueLabel);
 	m_lCoinsValueLabel->setPosition(Vec2(PADDING * 5 + distanceLabel->getContentSize().width, coinsLabel->getPositionY()));
 	m_lCoinsValueLabel->setColor(Color3B(0, 0, 0)); // black
+
+	// Items
+	auto itemsLabel = Label::createWithTTF("Items ", LABEL_FONT, 32);
+	this->addChild(itemsLabel);
+	itemsLabel->setPosition(Vec2(PADDING + origin.x + itemsLabel->getContentSize().width / 2, coinsLabel->getPositionY() - PADDING * 2 - coinsLabel->getContentSize().height / 2));
+	itemsLabel->setColor(Color3B(0, 0, 0)); // black
+	m_nItems = 0;
+	// Items label		
+	m_lItemsValueLabel = Label::createWithTTF(std::to_string(m_nItems), VALUE_FONT, 32);
+	this->addChild(m_lItemsValueLabel);
+	m_lItemsValueLabel->setPosition(Vec2(PADDING * 5 + distanceLabel->getContentSize().width, itemsLabel->getPositionY()));
+	m_lItemsValueLabel->setColor(Color3B(0, 0, 0)); // black
 	
 	
 	// Menu 
@@ -59,6 +71,7 @@ void HUD::update()
 		WorldManager::getInstance()->getPlayer()->addDistance();		
 		m_pDistanceValueLabel->setString(std::to_string(WorldManager::getInstance()->getPlayer()->getDistance()));
 		m_lCoinsValueLabel->setString(std::to_string(WorldManager::getInstance()->getPlayer()->getCoins()));
+		m_lItemsValueLabel->setString(std::to_string(WorldManager::getInstance()->getPlayer()->getCoins()));
 	}
 }
 
