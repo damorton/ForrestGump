@@ -49,7 +49,7 @@ bool CollisionManager::checkCollisionsWithLayers()
 								{
 									WorldManager::getInstance()->getPlayer()->addBooster();
 								}
-								else if (tileSprite->getName() == "food")
+								else if(tileSprite->getName() == "food")
 								{
 									WorldManager::getInstance()->getPlayer()->addFood();
 								}

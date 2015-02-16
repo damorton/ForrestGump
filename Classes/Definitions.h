@@ -1,16 +1,6 @@
 #ifndef DEFINITIONS_H__
 #define DEFINITIONS_H__
 
-#define PADDING 10
-#define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
-#define VISIBLE_SIZE_HEIGHT (Director::getInstance()->getVisibleSize().height)
-#define SIZE (Director::getInstance()->getVisibleSize())
-#define ORIGIN (Director::getInstance()->getVisibleOrigin())
-
-// hud
-#define LABEL_POSITION_X (ORIGIN + PADDING + )
-#define VALUE_LABEL_POSITION_X (VDirector::getInstance()->getVisibleSize().width * 0.25)
-
 typedef enum {
 	TAG_GAME_LAYER,
 	TAG_HUD,
@@ -25,6 +15,10 @@ typedef enum {
 	TAG_BOOSTER,
 	TAG_FOOD,
 } tags;
+
+#define PADDING 10
+#define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
+#define VISIBLE_SIZE_HEIGHT (Director::getInstance()->getVisibleSize().height)
 
 // Sprites; coins, items, powerups
 #define SPRITE_MOVEMENT_SPEED 0.008f
