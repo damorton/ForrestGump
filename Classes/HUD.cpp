@@ -17,7 +17,7 @@ bool HUD::init()
 	// Score
 	auto distanceLabel = Label::createWithTTF("Distance ", LABEL_FONT, 32);
 	this->addChild(distanceLabel);
-	distanceLabel->setPosition(Vec2(PADDING + origin.x + distanceLabel->getContentSize().width / 2, origin.y + visibleSize.height - PADDING * 2 - distanceLabel->getContentSize().height / 2));
+	distanceLabel->setPosition(Vec2(PADDING + origin.x + distanceLabel->getContentSize().width / 2, origin.y + visibleSize.height - PADDING - distanceLabel->getContentSize().height / 2));
 	distanceLabel->setColor(Color3B(0, 0, 0)); // black
 	m_nDistance = 0;
 	// Score label		
@@ -25,8 +25,7 @@ bool HUD::init()
 	this->addChild(m_pDistanceValueLabel);
 	m_pDistanceValueLabel->setPosition(Vec2(PADDING * 5 + distanceLabel->getContentSize().width, distanceLabel->getPositionY()));
 	m_pDistanceValueLabel->setColor(Color3B(0, 0, 0)); // black
-	
-	
+		
 	// Coins
 	auto coinsLabel = Label::createWithTTF("Coins ", LABEL_FONT, 32);
 	this->addChild(coinsLabel);
