@@ -32,7 +32,6 @@ bool SegmentManager::init()
 	srand(time(NULL));
 	m_bIsSpawned = false;
 	this->spawnSprites();	
-	//CCLOG("Segment Manager initialized");	
 	return true;
 }
 
@@ -59,7 +58,6 @@ bool SegmentManager::spawnSprites()
 	int numberOfLayers = CollisionManager::getInstance()->getLayers().size();
 	randomnumber = (rand() % numberOfLayers);
 
-	//CCLOG("random number: %d", randomnumber);
 	switch (randomnumber)
 	{
 	case 0:
@@ -139,7 +137,6 @@ void SegmentManager::resetSprite(Node* sender, void* tileSprite)
 		tile->setPosition(Vec2(tile->getPositionX() + (VISIBLE_SIZE_WIDTH * 2), tile->getPositionY()));
 		tile->setVisible(true);
 		m_bIsSpawned = false;
-		//CCLOG("Tiles reset");
 	}	
 }
 
@@ -149,7 +146,6 @@ void SegmentManager::deleteTilemap(Node* sender, void* tilemap)
 	{
 		TMXTiledMap* tMap = static_cast<TMXTiledMap*>(tilemap);
 		tMap->removeFromParentAndCleanup(true);
-		//CCLOG("Segment deleted");
 	}
 }
 

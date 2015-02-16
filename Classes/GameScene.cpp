@@ -24,9 +24,6 @@ Scene* GameScene::createScene()
 	//HUD* hudLayer = HUD::create();
 	//scene->addChild(hudLayer, 1, TAG_HUD);
 		
-	//Pause* pause = Pause::create();
-	//scene->addChild(pause, 1, TAG_PAUSE);	
-	
 	return scene;
 }
 
