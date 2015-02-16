@@ -50,15 +50,17 @@ bool MainMenu::init()
 	// create the main menu items
 	auto playButton = MenuItemImage::create("buttons/PlayNormal.png", "buttons/PlaySelected.png", CC_CALLBACK_1(MainMenu::playGame, this));
 	auto highscoresButton = MenuItemImage::create("buttons/TrophyNormal.png", "buttons/TrophySelected.png", CC_CALLBACK_1(MainMenu::leaderboard, this));
+	auto settingsButton = MenuItemImage::create("buttons/settings2.png", "buttons/settings2.png", CC_CALLBACK_1(MainMenu::settings, this));
 	
 	
 	// position the menu buttons on screen
 	playButton->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 8) * 2));
 	highscoresButton->setPosition(Point((visibleSize.width / 4) * 3, (visibleSize.height / 5) * 4));
+	settingsButton->setPosition(Point(visibleSize.width / 4, (visibleSize.height / 5) * 2));
 	
 
 	// create menu and add menu items
-	auto* menu = Menu::create(playButton, highscoresButton, NULL);
+	auto* menu = Menu::create(playButton, highscoresButton, settingsButton, NULL);
 
 	// position the main menu
 	menu->setPosition(Vec2::ZERO);
