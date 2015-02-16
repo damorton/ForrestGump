@@ -34,21 +34,31 @@ bool CollisionManager::checkCollisionsWithLayers()
 					{						
 						if (m_pPlayer->getBoundingBox().intersectsRect(tileSprite->getBoundingBox()))
 						{
-							//CCLOG("Collision detected");
-							if (tileSprite->getName() == "coin")
+							if (tileSprite->isVisible())
 							{
-								WorldManager::getInstance()->getPlayer()->addCoin();
+								//CCLOG("Collision detected");
+								if (tileSprite->getName() == "coin")
+								{
+									WorldManager::getInstance()->getPlayer()->addCoin();
+								}
+								else if (tileSprite->getName() == "item")
+								{
+									WorldManager::getInstance()->getPlayer()->addItem();
+								}
+								else if (tileSprite->getName() == "booster")
+								{
+									WorldManager::getInstance()->getPlayer()->addBooster();
+								}
+								else if (tileSprite->getName() == "food")
+								{
+									WorldManager::getInstance()->getPlayer()->addFood();
+								}
+								tileSprite->setVisible(false);
 							}
-							else if (tileSprite->getName() == "item")
-							{
-								WorldManager::getInstance()->getPlayer()->addItem();
-							}
-							tileSprite->setVisible(false);
 						}
 					}
 				}
-			}
-			
+			}			
 		}
 	}	
 	return true; 

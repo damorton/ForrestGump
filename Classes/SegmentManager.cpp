@@ -136,7 +136,7 @@ void SegmentManager::resetSprite(Node* sender, void* tileSprite)
 		Sprite* tile = static_cast<Sprite*>(tileSprite);
 		tile->stopAllActions();				
 		tile->setPosition(Vec2(tile->getPositionX() + (VISIBLE_SIZE_WIDTH * 2), tile->getPositionY()));
-		tile->setVisible(true);
+		tile->setVisible(true);		
 		m_bIsSpawned = false;
 	}	
 }
