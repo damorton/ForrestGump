@@ -111,8 +111,7 @@ bool GameScene::initializeGame()
 			
 	m_fSpeed = 5.0f;
 
-	// creating a schedule to control enemey spawns in delta time
-	this->schedule(schedule_selector(GameScene::spawnEnemy), ENEMY_SPAWN_FREQ * visibleSize.width);
+	
 
 	// call the schedule update in order to run this layers update function
 	this->scheduleUpdate();
@@ -170,11 +169,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	return true;
 }
 
-// calling this function to spawn enemies
-void GameScene::spawnEnemy(float dt)
-{
-	m_enemey.spawnEnemy(this);
-}
+
 
 
 void GameScene::pause()

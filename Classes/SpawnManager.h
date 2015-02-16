@@ -2,6 +2,10 @@
 #define SPAWNMANAGER_H_
 
 #include "cocos2d.h"
+#include "Enemy.h"
+//#include "WorldManager.h"
+#include "Definitions.h"
+
 
 class SpawnManager : public cocos2d::Layer
 {
@@ -12,6 +16,8 @@ public:
 	virtual bool init();
 	virtual ~SpawnManager(){};
 	void update();
+	bool spawnEnemy();
+	int getEnemyCount();
 
 	/*
 	Initialize the parent node
@@ -19,9 +25,8 @@ public:
 	CREATE_FUNC(SpawnManager);
 
 private:
-
-	Enemy* m_pEnemy; // creating a rreference to the enemey
-	
+	Enemy* m_pEnemy;
+	int m_enemyCount = 0; // keep track of number of spawned objects
 };
 
 #endif
