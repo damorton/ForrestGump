@@ -19,6 +19,8 @@ public:
 	CREATE_FUNC(SpawnManager);
 
 private:
+
+	Enemy* m_pEnemy; // creating a rreference to the enemey
 	
 };
 
