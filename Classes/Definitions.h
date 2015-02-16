@@ -46,4 +46,7 @@ typedef enum {
 #define ENEMY_MOVEMENT_SPEED 0.005
 #define SCROLL_SPEED 0.005
 
+// spawn manager
+#define ENEMY_SPAWN_COUNT 5
+
 #endif // DEFINITIONS_H__

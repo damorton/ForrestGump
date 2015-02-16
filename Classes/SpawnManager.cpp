@@ -29,7 +29,7 @@ void SpawnManager::update()
 bool SpawnManager::spawnEnemy()
 {
 
-	if (m_enemyCount > 5)
+	if (m_enemyCount > ENEMY_SPAWN_COUNT) // setting the count at 5 for now, we can increase this with difficulty
 	{
 		CCLOG("Cant spawn enemy max count reached");
 
