@@ -12,6 +12,8 @@ public:
 	void addScore();
 	void update();
 	void pauseGame(cocos2d::Ref *pSender);
+	void initLabel(Label* label);
+	void initValueLabel(Label* label)
 	CREATE_FUNC(HUD);
 private:
 	int m_nDistance;

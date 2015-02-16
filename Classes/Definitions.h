@@ -1,8 +1,15 @@
 #ifndef DEFINITIONS_H__
 #define DEFINITIONS_H__
 
+#define PADDING 10
 #define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
 #define VISIBLE_SIZE_HEIGHT (Director::getInstance()->getVisibleSize().height)
+#define SIZE (Director::getInstance()->getVisibleSize())
+#define ORIGIN (Director::getInstance()->getVisibleOrigin())
+
+// hud
+#define LABEL_POSITION_X (ORIGIN + PADDING + )
+#define VALUE_LABEL_POSITION_X (VDirector::getInstance()->getVisibleSize().width * 0.25)
 
 typedef enum {
 	TAG_GAME_LAYER,
@@ -28,7 +35,6 @@ typedef enum {
 
 // fonts
 #define FONT_SIZE ((Director::getInstance()->getVisibleSize().width / 1920) * 100)
-#define PADDING 10
 
 // player
 #define PLAYER_POSITION_IN_WINDOW ((Director::getInstance()->getVisibleSize().width / 3) * 1)
