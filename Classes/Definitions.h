@@ -16,7 +16,7 @@ typedef enum {
 } tags;
 
 // Sprites; coins, items, powerups
-#define SPRITE_MOVEMENT_SPEED 0.006f
+#define SPRITE_MOVEMENT_SPEED 0.008f
 
 // scenes
 #define DISPLY_TIME_SPLASH_SCENCE 2
@@ -41,6 +41,5 @@ typedef enum {
 #define	UPPER_SCRENE_ENEMY_THRESHOLD 0.75
 #define	LOWER_SCRENE_ENEMY_THRESHOLD 0.25
 #define ENEMY_MOVEMENT_SPEED 0.008f
-#define SCROLL_SPEED 0.008f
 
 #endif // DEFINITIONS_H__

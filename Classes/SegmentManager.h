@@ -48,6 +48,7 @@ private:
 	TMXLayer* m_pCoinLayer;
 	TMXLayer* m_pItemLayer;
 	TMXLayer* m_pBoosterLayer;
+	TMXLayer* m_pFoodLayer;
 
 	bool m_bIsSpawned;
 	int m_iSpawnSegmentTimer;	

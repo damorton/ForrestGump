@@ -21,9 +21,13 @@ bool SegmentManager::init()
 	m_pBoosterLayer = m_pTileMap->getLayer("boosters");
 	this->initTilePositions(m_pBoosterLayer);
 
+	m_pFoodLayer = m_pTileMap->getLayer("food");
+	this->initTilePositions(m_pFoodLayer);
+
 	CollisionManager::getInstance()->addLayer(m_pCoinLayer);
 	CollisionManager::getInstance()->addLayer(m_pItemLayer);
 	CollisionManager::getInstance()->addLayer(m_pBoosterLayer);
+	CollisionManager::getInstance()->addLayer(m_pFoodLayer);
 	
 	srand(time(NULL));
 	m_bIsSpawned = false;
@@ -52,7 +56,7 @@ bool SegmentManager::initTilePositions(TMXLayer* layer)
 bool SegmentManager::spawnSprites()
 {		
 	int randomnumber;
-	int numberOfLayers = 3;
+	int numberOfLayers = CollisionManager::getInstance()->getLayers().size();
 	randomnumber = (rand() % numberOfLayers);
 
 	//CCLOG("random number: %d", randomnumber);
@@ -66,6 +70,9 @@ bool SegmentManager::spawnSprites()
 		break;		
 	case 2:
 		this->addTileBehaviour(m_pBoosterLayer);
+		break;
+	case 3:
+		this->addTileBehaviour(m_pFoodLayer);
 		break;
 	default:
 		CCLOG("segment spawn random number unknown");
