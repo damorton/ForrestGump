@@ -6,7 +6,7 @@
 
 USING_NS_CC;
 
-class Parallax : public cocos2d::Layer
+class Parallax : public cocos2d::LayerColor
 {
 	public:		
 		/*

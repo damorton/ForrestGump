@@ -12,10 +12,23 @@ public:
 	void addScore();
 	void update();
 	void pauseGame(cocos2d::Ref *pSender);
+	void initLabel(Label* label, Vec2 position);
+	void initValueLabel(Label* label, Label* value);
 	CREATE_FUNC(HUD);
 private:
-	int m_iScore;
-	Label* m_lScore;	
+	Size m_Size;
+	Vec2 m_Origin;	
+	float m_fValuePosX;
+	int m_nDistance;
+	int m_nCoins;
+	int m_nItems;
+	int m_nBoosters;
+	int m_nFood;
+	Label* m_pDistanceValueLabel;
+	Label* m_pCoinsValueLabel;
+	Label* m_pItemsValueLabel;
+	Label* m_pBoostersValueLabel;
+	Label* m_pFoodValueLabel;
 };
 
 #endif

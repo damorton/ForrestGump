@@ -21,9 +21,9 @@ HUD* WorldManager::hudLayer()
 	return (HUD*)WorldManager::layerWithTag(TAG_HUD);
 }
 
-SegmentManager* WorldManager::segmentManagerLayer()
+CollectableFactory* WorldManager::CollectableFactoryLayer()
 {
-	return (SegmentManager*)WorldManager::layerWithTag(TAG_SEGMENT_MANAGER);
+	return (CollectableFactory*)WorldManager::layerWithTag(TAG_SEGMENT_MANAGER);
 }
 
 Layer* WorldManager::layerWithTag(int tag)
@@ -42,9 +42,7 @@ bool WorldManager::init()
 }
 
 void WorldManager::cleanUp()
-{	
-	delete m_pInstance;		
-	m_pInstance = NULL;
+{		
 	m_pFloorSprite = NULL;
 	m_pPlayer = NULL;	
 }

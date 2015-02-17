@@ -9,8 +9,7 @@ bool SpawnManager::init()
 	{
 		return false;
 	}
-	this->setPosition(Vec2(VISIBLE_SIZE_WIDTH, Director::getInstance()->getVisibleOrigin().y));
-	
+	this->setPosition(Vec2(VISIBLE_SIZE_WIDTH, Director::getInstance()->getVisibleOrigin().y));	
 	return true;
 }
 

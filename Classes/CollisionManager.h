@@ -4,7 +4,7 @@
 
 // includes 
 #include "cocos2d.h"
-#include "SegmentManager.h"
+#include "CollectableFactory.h"
 #include "Player.h"
 #include <vector>
 #include <memory>
@@ -16,21 +16,18 @@ class CollisionManager
 {
 public:
 	virtual bool init();
-	static CollisionManager* getInstance();			
-	bool checkCollisions();
-	void cleanUp(); 
-
+	static CollisionManager* getInstance();	
+	bool checkCollisionsWithLayers();
+	void addLayer(TMXLayer* layer){ m_vpLayers.push_back(layer); };
+	void removeLayer(){ m_vpLayers.pop_front(); };
+	void cleanUp();
 	Player* getPlayer(){ return m_pPlayer; };
-	TMXLayer* getSegment(){ return m_pSegment; };
-	SegmentManager* getSegmentManager(){ return m_pSegmentManager; };
-	
-	void registerPlayer(Player* player){ m_pPlayer = player; };
-	void registerSegment(TMXLayer* segment){ m_pSegment = segment; };
-	void registerSegment(SegmentManager* segmentManager){ m_pSegmentManager = segmentManager; };
+	std::deque<TMXLayer*> getLayers(){ return (std::deque<TMXLayer*>)m_vpLayers; };
+	void setPlayer(Player* player){ m_pPlayer = player; };	
+	void setLayers(std::deque<TMXLayer*> layers){ m_vpLayers = layers; };
 protected:
-	Player* m_pPlayer; 	
-	TMXLayer* m_pSegment;
-	SegmentManager* m_pSegmentManager;
+	Player* m_pPlayer; 		
+	std::deque<TMXLayer*> m_vpLayers;
 private:
 	static CollisionManager* m_Instance;
 	CollisionManager(){ this->init(); }; // constructor

@@ -7,15 +7,13 @@ class Pause : public cocos2d::Layer
 {
 public:
 	static cocos2d::Scene* createScene();
-	virtual bool init();
-	cocos2d::Sprite *mySprite;
-
+	virtual bool init();	
 	void resume(Ref *pSender);
 	void mainMenu(Ref *pSender);
 	void exit(Ref *pSender);
-
-	// implement the "static create()" method manually
 	CREATE_FUNC(Pause);
+protected:
+	cocos2d::Sprite *mySprite;
 };
 
 #endif // __PAUSE_SCENE_H__

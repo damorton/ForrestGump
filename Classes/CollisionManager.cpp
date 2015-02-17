@@ -18,36 +18,54 @@ bool CollisionManager::init()
 	return true;
 }
 
-bool CollisionManager::checkCollisions()
+bool CollisionManager::checkCollisionsWithLayers()
 {	
-	if (m_pSegmentManager->isSpawned())
+	if (!m_vpLayers.empty())
 	{
-		Size layerSize = m_pSegment->getLayerSize();
-		for (int i = 0; i < layerSize.height; i++)
+		for (std::deque<TMXLayer*>::size_type it = 0; it < m_vpLayers.size(); ++it)
 		{
-			for (int j = 0; j < layerSize.width; j++)
+			Size layerSize = m_vpLayers.at(it)->getLayerSize();
+			for (int i = 0; i < layerSize.height; i++)
 			{
-				auto tileSprite = m_pSegment->tileAt(Vec2(i, j));
-				if (tileSprite)
+				for (int j = 0; j < layerSize.width; j++)
 				{
-					if (m_pPlayer->getBoundingBox().intersectsRect(tileSprite->getBoundingBox()))
-					{	
-						tileSprite->removeFromParent();
-						CCLOG("Collision with tile");
-					}					
+					auto tileSprite = m_vpLayers.at(it)->tileAt(Vec2(i, j));
+					if (tileSprite)
+					{						
+						if (m_pPlayer->getBoundingBox().intersectsRect(tileSprite->getBoundingBox()))
+						{
+							if (tileSprite->isVisible())
+							{
+								//CCLOG("Collision detected");
+								if (tileSprite->getName() == "coin")
+								{
+									WorldManager::getInstance()->getPlayer()->addCoin();
+								}
+								else if (tileSprite->getName() == "item")
+								{
+									WorldManager::getInstance()->getPlayer()->addItem();
+								}
+								else if (tileSprite->getName() == "booster")
+								{
+									WorldManager::getInstance()->getPlayer()->addBooster();
+								}
+								else if(tileSprite->getName() == "food")
+								{
+									WorldManager::getInstance()->getPlayer()->addFood();
+								}
+								tileSprite->setVisible(false);
+							}
+						}
+					}
 				}
-			}
+			}			
 		}
 	}	
-	else
-	{
-		CCLOG("No segment has been spawned");
-	}
-	return true;
+	return true; 
 }
 
 void CollisionManager::cleanUp()
 {	
-	delete m_Instance;
-	m_Instance = NULL;
+	m_pPlayer = NULL;
+	m_vpLayers.clear();
 }
