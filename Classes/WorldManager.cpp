@@ -1,4 +1,10 @@
 #include "WorldManager.h"
+#include <iostream>
+#include "DAO/Node.h"
+#include "DAO/User.h"
+#include "DAO/GameDAO.h"
+
+using namespace std;
 
 WorldManager* WorldManager::m_pInstance = 0;
 
@@ -38,6 +44,50 @@ Layer* WorldManager::layerWithTag(int tag)
 
 bool WorldManager::init()
 {		
+	cout << "test" << endl;
+
+	/*std::shared_ptr<Node> node = Node::create();
+	cout << "Node X: " << node->getX() << endl;
+	cout << "Node Y: " << node->getY() << endl;
+
+
+	std::shared_ptr<Node> node2 = Node::create(12, 2);
+	cout << "Node X: " << node2->getX() << endl;
+	cout << "Node Y: " << node2->getY() << endl;
+
+	std::shared_ptr<Node> node3 = Node::create(true);
+	cout << "Node X: " << node3->getX() << endl;
+	cout << "Node Y: " << node3->getY() << endl;
+	std::shared_ptr<Node> node4 = Node::create(12, 2, true);
+	cout << "Node X: " << node4->getX() << endl;
+	cout << "Node Y: " << node4->getY() << endl;
+	*/
+	IGameDAO* dao = new GameDAO();
+	std::shared_ptr<std::vector<User>> users = dao->read();
+
+	//todo:fix tinyxml errors. UserDefault already uses tinyxml in cocos2d::UserDefault
+	// check the GameDAO.cpp for a comment starting the user default search
+
+	/*
+	User user;
+	user.setUsername("John");
+	user.addScore("Distance 3890");
+	user.addScore("Coins 7893");
+
+	users->push_back(user);
+	*/
+
+	for (int i = 0; i < 2; i++)
+	{
+		CCLOG("%s", users->at(i).getUsername()->getText());
+
+		for (int j = 0; j < users->at(i).getScores()->size(); j++)
+		{
+			CCLOG("%s", users->at(i).getScores()->at(j).getText());
+		}
+	}
+
+	dao->update(users);
 	return true;
 }
 

@@ -11,15 +11,14 @@ class User
 public:
 	User();
 	~User();
-	void setUsername(const char* Username);
-	void addScore(const char* Score);
+	void setUsername(const char* name);
+	void addScore(const char* value);
 	std::shared_ptr<Username> getUsername();
 	std::shared_ptr<std::vector<Score>> getScores();
 
 private:
-	std::shared_ptr<Username> text;
-	std::shared_ptr<std::vector<Score>> choices;
-
+	std::shared_ptr<Username> m_spUsername;
+	std::shared_ptr<std::vector<Score>> m_vpScores;
 };
 
 #endif

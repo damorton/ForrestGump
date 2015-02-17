@@ -2,8 +2,8 @@
 
 User::User()
 {
-	text = std::shared_ptr<Username>(new Username());
-	choices = std::shared_ptr<std::vector<Score>>(new std::vector<Score>());
+	m_spUsername = std::shared_ptr<Username>(new Username());
+	m_vpScores = std::shared_ptr<std::vector<Score>>(new std::vector<Score>());
 }
 
 User::~User()
@@ -11,24 +11,23 @@ User::~User()
 
 }
 
-void User::setUsername(const char* Username)
+void User::setUsername(const char* name)
 {
-	text->setText(Username);
+	m_spUsername->setText(name);
 }
 
 
-void User::addScore(const char* Score)
-{
-	
-	choices->push_back(Score(std::string(Score)));
+void User::addScore(const char* value)
+{	
+	m_vpScores->push_back(Score(std::string(value)));
 }
 
 std::shared_ptr<Username> User::getUsername()
 {
-	return text;
+	return m_spUsername;
 }
 
 std::shared_ptr<std::vector<Score>> User::getScores()
 {
-	return choices;
+	return m_vpScores;
 }

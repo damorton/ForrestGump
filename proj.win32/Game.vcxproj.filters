@@ -131,9 +131,6 @@
     <ClInclude Include="..\Classes\CollectableFactory.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\DAO\StoryChoice.h">
-      <Filter>Classes\DAO</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\DAO\TextItem.h">
       <Filter>Classes\DAO</Filter>
     </ClInclude>
@@ -150,6 +147,9 @@
       <Filter>Classes\DAO</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\DAO\Username.h">
+      <Filter>Classes\DAO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DAO\Score.h">
       <Filter>Classes\DAO</Filter>
     </ClInclude>
   </ItemGroup>

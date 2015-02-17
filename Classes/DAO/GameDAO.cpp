@@ -1,8 +1,10 @@
 #include "GameDAO.h"
+#include "./cocos2d.h"
 
 //create
 void GameDAO::create()
-{
+{	
+	//cocos2d::UserDefault::getInstance()->
 	tinyxml2::XMLDocument doc;
 	tinyxml2::XMLNode* node = doc.NewElement("Game");
 	doc.InsertEndChild(node);
@@ -21,18 +23,16 @@ std::shared_ptr<std::vector<User>> GameDAO::read()
 
 	if(doc.LoadFile(XMLDOC) ==  tinyxml2::XML_SUCCESS)
 	{
-		//doc.Parse(XMLDOC);
-
-		//get the first story element
+		//get the first user element
 		tinyxml2::XMLElement* root = doc.FirstChildElement();
 		for(tinyxml2::XMLElement* child = root->FirstChildElement(); child != NULL; child =  child->NextSiblingElement())
 		{
 			User tempUser;
 			tempUser.setUsername(child->FirstChildElement()->GetText());
 
-			for(tinyxml2::XMLElement* ScoreElement = child->FirstChildElement("Score"); ScoreElement != NULL; ScoreElement = ScoreElement->NextSiblingElement())
+			for(tinyxml2::XMLElement* scoreElement = child->FirstChildElement("Score"); scoreElement != NULL; scoreElement = scoreElement->NextSiblingElement())
 			{
-				tempUser.addScore(ScoreElement->GetText());
+				tempUser.addScore(scoreElement->GetText());
 			}
 
 			UserToReturn->push_back(tempUser);
@@ -53,31 +53,30 @@ void GameDAO::update(std::shared_ptr<std::vector<User>> Users)
 		doc.Parse(XMLDOC);
 		tinyxml2::XMLElement* root = doc.NewElement("Game");
 				
-		for(int i = 0; i<Users->size(); i++)
+		for(int i = 0; i < Users->size(); i++)
 		{
-			tinyxml2::XMLElement* username = doc.NewElement("Username");
-			tinyxml2::XMLElement* score  = doc.NewElement("Score");
-			tinyxml2::XMLText* Username = doc.NewText(Users->at(i).getUsername()->getText().c_str());
+			tinyxml2::XMLElement* userElement = doc.NewElement("User");
+			tinyxml2::XMLElement* usernameElement  = doc.NewElement("Username");
 			
-			root->InsertEndChild(storyElement);
-			storyElement->InsertEndChild(UsernameElement);
-			UsernameElement->InsertEndChild(Username);
+			tinyxml2::XMLText* username = doc.NewText(Users->at(i).getUsername()->getText().c_str());
 			
-			//write the story choices
-			for(int j = 0; j<Users->at(i).getScores()->size(); j++)
+			root->InsertEndChild(userElement);
+			userElement->InsertEndChild(usernameElement);
+			usernameElement->InsertEndChild(username);
+			
+			//write the users scores
+			for(int j = 0; j < Users->at(i).getScores()->size(); j++)
 			{
-				tinyxml2::XMLElement* ScoreElement = doc.NewElement("Score");
-				//tinyxml2::XMLAttribute* UsernameElement = ScoreElement->
-				tinyxml2::XMLText* ScoreText = doc.NewText(Users->at(i).getScores()->at(j).getText().c_str());
-				storyElement->InsertEndChild(ScoreElement);
-				ScoreElement->InsertEndChild(ScoreText);
+				tinyxml2::XMLElement* scoreElement = doc.NewElement("Score");
+				tinyxml2::XMLText* scoreValue = doc.NewText(Users->at(i).getScores()->at(j).getText().c_str());
+				userElement->InsertEndChild(scoreElement);
+				scoreElement->InsertEndChild(scoreValue);
 				
 			}
 
 			doc.InsertEndChild(root);
 
 		}
-		//doc.Print();
 		doc.SaveFile(XMLDOC);
 	}
 }

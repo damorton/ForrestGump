@@ -1,7 +1,12 @@
 <Game>
-    <User>
-        <Username>You Open on a courtyard, it is dark. You see a Door</Username>
-        <Score>1. Open Door</Score>
-        <Score>2. Run Away</Score>
-    </User>
+  <User>
+    <Username>David</Username>
+    <Score>2986</Score>
+    <Score>7897345</Score>
+  </User>
+  <User>
+    <Username>John</Username>
+    <Score>Distance 3890</Score>
+    <Score>Coins 7893</Score>
+  </User>
 </Game>
