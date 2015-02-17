@@ -1,16 +1,16 @@
-#ifndef _STORY_POINT_
-#define _STORY_POINT_
+#ifndef _USER_
+#define _USER_
 
 #include "StoryChoice.h"
 #include "StoryText.h"
 #include <vector>
 #include <memory>
 
-class StoryPoint
+class User
 {
 public:
-	StoryPoint();
-	~StoryPoint();
+	User();
+	~User();
 	void setStoryText(const char* storyText);
 	void addStoryChoice(const char* storyChoice);
 	std::shared_ptr<StoryText> getStoryText();

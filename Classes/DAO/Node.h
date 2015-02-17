@@ -22,11 +22,7 @@ public:
 private:
 	int x;
 	int y;
-	bool flipped;
-
-	
-	
-	
+	bool flipped;	
 };
 
 

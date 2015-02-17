@@ -5,13 +5,10 @@ std::shared_ptr<Node> Node::create()
 	//create our instance to be returned
 	std::shared_ptr<Node> pRet(new Node());
 	//set up default values 
-	
-
 	if(pRet->initAll(0, 0, false))
 	{
 		//instance = pRet;
 		return pRet;
-
 	}
 	return NULL;
 }
@@ -66,9 +63,6 @@ bool Node::initAll(int pX,int pY, bool isFlipped)
 	x = pX;
 	y= pY;
 	flipped = isFlipped;
-
-	
-
 	if(init())
 	{
 		return true;

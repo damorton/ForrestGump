@@ -18,6 +18,7 @@ Player* Player::create(const std::string& filename)
 
 bool Player::init()
 {	
+	m_strUsername = "David";
 	setType(PLAYER);
 	setState(RUNNING);
 	m_nDistance = 0;

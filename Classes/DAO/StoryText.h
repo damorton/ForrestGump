@@ -7,15 +7,8 @@ class StoryText : public TextItem
 public:
 	StoryText(){}
 	StoryText(std::string thisText){setText(thisText.c_str());}
-	~StoryText(){}
-
-	
-	
-	
+	~StoryText(){}	
 private:
-	
-
-	
 };
 
 

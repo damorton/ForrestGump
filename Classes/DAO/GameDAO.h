@@ -1,6 +1,6 @@
 #ifndef _GAMEDAO_
 #define _GAMEDAO_
-#include "StoryPoint.h"
+#include "User.h"
 #include "tinyxml2.h"
 
 #define XMLDOC "game.xml"
@@ -14,10 +14,10 @@ public:
 	virtual void create() = 0;
 
 	//read
-	virtual std::shared_ptr<std::vector<StoryPoint>> read() = 0;
+	virtual std::shared_ptr<std::vector<User>> read() = 0;
 
 	//update
-	virtual void update(std::shared_ptr<std::vector<StoryPoint>> storyPoints) = 0;
+	virtual void update(std::shared_ptr<std::vector<User>> Users) = 0;
 
 	//delete
 	virtual void del() = 0;
@@ -36,10 +36,10 @@ public:
 	void create();
 
 	//read
-	std::shared_ptr<std::vector<StoryPoint>> read();
+	std::shared_ptr<std::vector<User>> read();
 
 	//update
-	void update(std::shared_ptr<std::vector<StoryPoint>> storyPoints);
+	void update(std::shared_ptr<std::vector<User>> Users);
 
 	//delete
 	void del();

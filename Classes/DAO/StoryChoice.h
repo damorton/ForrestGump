@@ -3,20 +3,13 @@
 #include "TextItem.h"
 #include "Node.h"
 
-class StoryChoice : public TextItem //: public Node
+class StoryChoice : public TextItem
 {
 public:
 	StoryChoice(){}
 	StoryChoice(std::string thisText){setText(thisText.c_str());}
-	~StoryChoice(){}
-
-	
-	
-	
-private:
-	
-
-	
+	~StoryChoice(){}	
+private:	
 };
 
 

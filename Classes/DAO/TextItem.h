@@ -8,15 +8,10 @@ public:
 	TextItem(){}
 	TextItem(std::string thisText){text = thisText;}
 	~TextItem(){}
-
 	std::string getText(){return text;}
-	void setText(const char* newText){text.assign(newText);}
-	
-	
+	void setText(const char* newText){text.assign(newText);}	
 private:
-	std::string text;
-
-	
+	std::string text;	
 };
 
 

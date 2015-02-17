@@ -10,11 +10,11 @@ void GameDAO::create()
 }
 
 //read
-std::shared_ptr<std::vector<StoryPoint>> GameDAO::read()
+std::shared_ptr<std::vector<User>> GameDAO::read()
 {
 
 	//construct a story point vector to pass back
-	std::shared_ptr<std::vector<StoryPoint>> storyPointToReturn = std::shared_ptr<std::vector<StoryPoint>>(new std::vector<StoryPoint>());
+	std::shared_ptr<std::vector<User>> UserToReturn = std::shared_ptr<std::vector<User>>(new std::vector<User>());
 
 	tinyxml2::XMLDocument doc;
 	doc.LoadFile(XMLDOC);
@@ -27,23 +27,23 @@ std::shared_ptr<std::vector<StoryPoint>> GameDAO::read()
 		tinyxml2::XMLElement* root = doc.FirstChildElement();
 		for(tinyxml2::XMLElement* child = root->FirstChildElement(); child != NULL; child =  child->NextSiblingElement())
 		{
-			StoryPoint tempStoryPoint;
-			tempStoryPoint.setStoryText(child->FirstChildElement()->GetText());
+			User tempUser;
+			tempUser.setStoryText(child->FirstChildElement()->GetText());
 
 			for(tinyxml2::XMLElement* storyChoiceElement = child->FirstChildElement("StoryChoice"); storyChoiceElement != NULL; storyChoiceElement = storyChoiceElement->NextSiblingElement())
 			{
-				tempStoryPoint.addStoryChoice(storyChoiceElement->GetText());
+				tempUser.addStoryChoice(storyChoiceElement->GetText());
 			}
 
-			storyPointToReturn->push_back(tempStoryPoint);
+			UserToReturn->push_back(tempUser);
 		}
-		return storyPointToReturn;
+		return UserToReturn;
 
 	}
 	return NULL;
 }
 //update
-void GameDAO::update(std::shared_ptr<std::vector<StoryPoint>> storyPoints)
+void GameDAO::update(std::shared_ptr<std::vector<User>> Users)
 {
 	tinyxml2::XMLDocument doc;
 	doc.LoadFile(XMLDOC);
@@ -53,22 +53,22 @@ void GameDAO::update(std::shared_ptr<std::vector<StoryPoint>> storyPoints)
 		doc.Parse(XMLDOC);
 		tinyxml2::XMLElement* root = doc.NewElement("Game");
 				
-		for(int i = 0; i<storyPoints->size(); i++)
+		for(int i = 0; i<Users->size(); i++)
 		{
 			tinyxml2::XMLElement* username = doc.NewElement("Username");
 			tinyxml2::XMLElement* score  = doc.NewElement("Score");
-			tinyxml2::XMLText* storyText = doc.NewText(storyPoints->at(i).getStoryText()->getText().c_str());
+			tinyxml2::XMLText* storyText = doc.NewText(Users->at(i).getStoryText()->getText().c_str());
 			
 			root->InsertEndChild(storyElement);
 			storyElement->InsertEndChild(storyTextElement);
 			storyTextElement->InsertEndChild(storyText);
 			
 			//write the story choices
-			for(int j = 0; j<storyPoints->at(i).getStoryChoices()->size(); j++)
+			for(int j = 0; j<Users->at(i).getStoryChoices()->size(); j++)
 			{
 				tinyxml2::XMLElement* storyChoiceElement = doc.NewElement("StoryChoice");
 				//tinyxml2::XMLAttribute* storyTextElement = storyChoiceElement->
-				tinyxml2::XMLText* storyChoiceText = doc.NewText(storyPoints->at(i).getStoryChoices()->at(j).getText().c_str());
+				tinyxml2::XMLText* storyChoiceText = doc.NewText(Users->at(i).getStoryChoices()->at(j).getText().c_str());
 				storyElement->InsertEndChild(storyChoiceElement);
 				storyChoiceElement->InsertEndChild(storyChoiceText);
 				
@@ -83,7 +83,7 @@ void GameDAO::update(std::shared_ptr<std::vector<StoryPoint>> storyPoints)
 }
 
 //delete
-void StoryDAO::del()
+void GameDAO::del()
 {
 
 }

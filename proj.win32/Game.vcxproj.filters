@@ -10,6 +10,9 @@
     <Filter Include="resource">
       <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\DAO">
+      <UniqueIdentifier>{ba3e70ee-610a-4f9d-a59a-6a58ce04a808}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -59,6 +62,18 @@
     </ClCompile>
     <ClCompile Include="..\Classes\CollectableFactory.cpp">
       <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DAO\StoryPoint.cpp">
+      <Filter>Classes\DAO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DAO\tinyxml2.cpp">
+      <Filter>Classes\DAO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DAO\GameDAO.cpp">
+      <Filter>Classes\DAO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DAO\Node.cpp">
+      <Filter>Classes\DAO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -116,10 +131,36 @@
     <ClInclude Include="..\Classes\CollectableFactory.h">
       <Filter>Classes</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\DAO\StoryChoice.h">
+      <Filter>Classes\DAO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DAO\StoryPoint.h">
+      <Filter>Classes\DAO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DAO\StoryText.h">
+      <Filter>Classes\DAO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DAO\TextItem.h">
+      <Filter>Classes\DAO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DAO\tinyxml2.h">
+      <Filter>Classes\DAO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DAO\GameDAO.h">
+      <Filter>Classes\DAO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DAO\Node.h">
+      <Filter>Classes\DAO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
       <Filter>resource</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\Classes\DAO\game.xml">
+      <Filter>Classes\DAO</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

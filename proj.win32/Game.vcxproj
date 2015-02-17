@@ -138,6 +138,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\AnimationMoves.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\CollisionManager.cpp" />
+    <ClCompile Include="..\Classes\DAO\GameDAO.cpp" />
+    <ClCompile Include="..\Classes\DAO\Node.cpp" />
+    <ClCompile Include="..\Classes\DAO\StoryPoint.cpp" />
+    <ClCompile Include="..\Classes\DAO\tinyxml2.cpp" />
     <ClCompile Include="..\Classes\Enemy.cpp" />
     <ClCompile Include="..\Classes\EnemyFactory.cpp" />
     <ClCompile Include="..\Classes\GameScene.cpp" />
@@ -157,6 +161,13 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\Character.h" />
     <ClInclude Include="..\Classes\CollisionManager.h" />
+    <ClInclude Include="..\Classes\DAO\GameDAO.h" />
+    <ClInclude Include="..\Classes\DAO\Node.h" />
+    <ClInclude Include="..\Classes\DAO\StoryChoice.h" />
+    <ClInclude Include="..\Classes\DAO\StoryPoint.h" />
+    <ClInclude Include="..\Classes\DAO\StoryText.h" />
+    <ClInclude Include="..\Classes\DAO\TextItem.h" />
+    <ClInclude Include="..\Classes\DAO\tinyxml2.h" />
     <ClInclude Include="..\Classes\Definitions.h" />
     <ClInclude Include="..\Classes\Enemy.h" />
     <ClInclude Include="..\Classes\EnemyFactory.h" />
@@ -186,6 +197,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\Classes\DAO\game.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

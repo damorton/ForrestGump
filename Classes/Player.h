@@ -45,6 +45,7 @@ private:
 	int m_nFood;
 	int m_nItems;		
 	CCParticleSystem *ccEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
+	std::string m_strUsername;
 };
 
 #endif
