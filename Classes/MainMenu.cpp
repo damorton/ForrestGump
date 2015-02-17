@@ -29,17 +29,26 @@ bool MainMenu::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	// particle testing 
+	// particle testing for high score button
 	CCParticleSystem *ccEmitter = CCParticleSystemQuad::create("Flower.plist");
 	ccEmitter->setPosition(Point((visibleSize.width / 4) * 3, (visibleSize.height / 5) * 4));
-	ccEmitter->setDuration(0.20);
+	ccEmitter->setEmissionRate(200.00);
+	ccEmitter->setTotalParticles(50);
 	this->addChild(ccEmitter);
 
-	// particle testing 
+	// particle testing for play button
 	CCParticleSystem *ccEmitter2 = CCParticleSystemQuad::create("Flower.plist");
 	ccEmitter2->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 8) * 2));
-	ccEmitter2->setDuration(0.20);
+	ccEmitter2->setEmissionRate(300.00);
+	ccEmitter2->setTotalParticles(50);
 	this->addChild(ccEmitter2);
+
+	// particle testing for settings button
+	CCParticleSystem *ccEmitter3 = CCParticleSystemQuad::create("Flower.plist");
+	ccEmitter3->setPosition(Point(visibleSize.width / 4, (visibleSize.height / 5) * 2));
+	ccEmitter3->setEmissionRate(300.00);
+	ccEmitter3->setTotalParticles(50);
+	this->addChild(ccEmitter3);
 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_menu.wav", true);
 	
