@@ -28,6 +28,10 @@ bool Player::init()
 	return true;
 }
 
+void Player::addCoin(){
+	m_nCoins++;
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Pickup_Coin.wav", false, 1.0f, 1.0f, 1.0f);
+}
 void Player::addParticle(Player* pS)
 {
 	ccEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
