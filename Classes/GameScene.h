@@ -2,11 +2,13 @@
 #define __GAMESCENE_SCENE_H__
 
 #include "cocos2d.h"
-#include "SegmentManager.h"
+#include "CollectableFactory.h"
 #include "HUD.h"
 #include "Parallax.h"
 #include "AnimationMoves.h"
 #include "Player.h"
+#include "SpawnManager.h"
+#include "Enemy.h"
 
 USING_NS_CC;
 
@@ -15,11 +17,14 @@ class GameScene : public cocos2d::Layer
 public:    
     static cocos2d::Scene* createScene();   
     virtual bool init();  
+	virtual ~GameScene(){ this->cleanup(); };
+	void cleanup();
 	bool initializeGame();
 	void update(float delta);	
 	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event * event);	
 	bool onContactBegin(cocos2d::PhysicsContact& contact);
-	void pause(cocos2d::Ref *pSender);
+	void pause();
+	void spawnEnemy(float dt);
 	CREATE_FUNC(GameScene);
 
 	//Start the game animated
@@ -27,10 +32,11 @@ public:
 
 private:
 	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
+	
 	PhysicsWorld* m_pSceneWorld;	
 	
 	int spawnSegmentTimer;
-	SegmentManager* m_pSegmentManager;
+	//SegmentManager* m_pSegmentManager;
 	HUD* m_HudLayer;
 	Parallax* m_pParallax;
 	Layer* gamePlayLayer;
@@ -38,6 +44,14 @@ private:
 
 	// variables
 	float m_fSpeed;
+
+	//PhysicsWorld* m_pSceneWorld;		
+	CollectableFactory* m_pCollectableFactory;
+//	HUD* m_HudLayer;
+	//Parallax* m_pParallax;
+	//Layer* gamePlayLayer;
+	SpawnManager* m_pSpawnManager;
+	Enemy m_enemey;	
 };
 
 #endif // __GAMESCENE_SCENE_H__

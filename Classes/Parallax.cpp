@@ -5,11 +5,10 @@ USING_NS_CC;
 
 bool Parallax::init()
 {
-	if (!Layer::init())
+	if (!LayerColor::initWithColor(Color4B(173, 216, 230, 255)))
 	{
 		return false;
 	}
-
 	return true;
 }
 
@@ -38,6 +37,7 @@ bool Parallax::addBackground(const std::string& filename1, const std::string& fi
 	m_pSpriteBackgroundThird1->setPosition(Vec2(VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
 	this->addChild(m_pSpriteBackgroundThird, -2);
 	this->addChild(m_pSpriteBackgroundThird1, -2);
+
 	
 	return true;	
 }
