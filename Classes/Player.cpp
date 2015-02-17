@@ -9,6 +9,7 @@ Player* Player::create(const std::string& filename)
 	{
 		pSprite->autorelease();
 		pSprite->init();
+		pSprite->addParticle(pSprite);		
 		return pSprite;
 	}
 	CC_SAFE_DELETE(pSprite);
@@ -27,6 +28,15 @@ bool Player::init()
 	return true;
 }
 
+void Player::addParticle(Player* pS){
+
+ccEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
+ccEmitter->setPosition(Point(pS->getPosition().x, pS->getPosition().y));
+ccEmitter->setEmissionRate(20.00);
+ccEmitter->setTotalParticles(20);
+pS->addChild(ccEmitter);
+}
+
 void Player::jump()
 {
 	if (m_ePlayerState == RUNNING)
@@ -43,13 +53,16 @@ void Player::update()
 {	
 	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
 	{		
-		m_ePlayerState = RUNNING;	
-		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
+		m_ePlayerState = RUNNING;
+		ccEmitter->setScale(1.0);
+		ccEmitter->resume();	
 	}
 	else
 	{
-		m_ePlayerState = JUMPING;	
-		
+		m_ePlayerState = JUMPING;
+		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/trashdropping.wav", false, 1.0f, 1.0f, 1.0f);
+		ccEmitter->setScale(0.0);
+		ccEmitter->pause();
 	}		
 }
 
