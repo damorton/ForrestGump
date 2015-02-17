@@ -13,11 +13,12 @@ public:
 	void update();
 	void pauseGame(cocos2d::Ref *pSender);
 	void initLabel(Label* label, Vec2 position);
-	void initValueLabel(Label* label);
+	void initValueLabel(Label* label, Label* value);
 	CREATE_FUNC(HUD);
 private:
 	Size m_Size;
 	Vec2 m_Origin;	
+	float m_fValuePosX;
 	int m_nDistance;
 	int m_nCoins;
 	int m_nItems;

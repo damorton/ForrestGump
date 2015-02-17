@@ -45,5 +45,6 @@ typedef enum {
 
 #define LABEL_FONT "fonts/go3v2.ttf"
 #define VALUE_FONT "fonts/Roboto-Light.ttf"
+#define LABEL_FONT_SIZE 32
 
 #endif // DEFINITIONS_H__
