@@ -65,7 +65,7 @@ bool HUD::init()
 	hudButtonsMenu->setPosition(Point(0, 0));
 	this->addChild(hudButtonsMenu);
 
-	CCLOG("HUD initialized");
+	//CCLOG("HUD initialized");
 	return true;
 }
 
@@ -75,7 +75,7 @@ void HUD::initLabelWithValue(Label* label, Vec2 position, Label* value)
 	this->addChild(value);
 	label->setPosition(position);
 	label->setColor(Color3B(200, 0, 0));
-	label->enableOutline(Color4B(0,0,0,255), 10);
+	label->enableOutline(Color4B(0,0,0,255));
 	label->enableGlow(Color4B(255, 255, 51, 255));	
 	value->setPosition(Vec2(VISIBLE_SIZE_WIDTH * .25, label->getPositionY()));
 	value->setColor(Color3B(0, 0, 0));
