@@ -10,7 +10,7 @@ bool CollectableFactory::init()
 		return false;
 	}			
 	m_iSpawnSegmentTimer = 0;
-	this->addTMXTileMap("maps/SpawnManagerMap.tmx");	
+	this->addTMXTileMap("maps/SpawnManagerMap.tmx");
 	
 	m_pCoinLayer = m_pTileMap->getLayer("coins");	
 	this->initTilePositions(m_pCoinLayer);
@@ -185,4 +185,15 @@ void CollectableFactory::update()
 	{
 		this->spawnSprites();
 	}
+}
+
+void CollectableFactory::cleanup()
+{
+	m_pTileMap = NULL;
+	m_pCoinLayer = NULL;
+	m_pItemLayer = NULL;
+	m_pBoosterLayer = NULL;
+	m_pFoodLayer = NULL;
+	m_bIsSpawned = false;
+	m_iSpawnSegmentTimer = 0;
 }
