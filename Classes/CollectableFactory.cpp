@@ -1,9 +1,9 @@
-#include "SegmentManager.h"
+#include "CollectableFactory.h"
 #include "Definitions.h"
 #include "WorldManager.h"
 #include "CollisionManager.h"
 
-bool SegmentManager::init()
+bool CollectableFactory::init()
 {	
 	if (!Layer::init())
 	{
@@ -35,7 +35,7 @@ bool SegmentManager::init()
 	return true;
 }
 
-bool SegmentManager::initTilePositions(TMXLayer* layer)
+bool CollectableFactory::initTilePositions(TMXLayer* layer)
 {
 	Size layerSize = layer->getLayerSize();
 	for (int i = 0; i < layerSize.height; i++)
@@ -52,7 +52,7 @@ bool SegmentManager::initTilePositions(TMXLayer* layer)
 	return true;
 }
 
-bool SegmentManager::spawnSprites()
+bool CollectableFactory::spawnSprites()
 {		
 	int randomnumber;
 	int numberOfLayers = CollisionManager::getInstance()->getLayers().size();
@@ -78,7 +78,7 @@ bool SegmentManager::spawnSprites()
 	return true;
 }
 
-bool SegmentManager::addTileBehaviour(TMXLayer* layer, char* name)
+bool CollectableFactory::addTileBehaviour(TMXLayer* layer, char* name)
 {
 	Size layerSize = layer->getLayerSize();
 	for (int i = 0; i < layerSize.height; i++)
@@ -97,11 +97,11 @@ bool SegmentManager::addTileBehaviour(TMXLayer* layer, char* name)
 	return true;
 }
 
-void SegmentManager::addSpriteBehaviour(Sprite* tileSprite)
+void CollectableFactory::addSpriteBehaviour(Sprite* tileSprite)
 {
 	if (tileSprite != NULL)
 	{
-		auto reset = CCCallFuncND::create(this, callfuncND_selector(SegmentManager::resetSprite), (void*)tileSprite);
+		auto reset = CCCallFuncND::create(this, callfuncND_selector(CollectableFactory::resetSprite), (void*)tileSprite);
 		auto tileSpriteBehaviour = Sequence::create(
 			MoveBy::create(SPRITE_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-(VISIBLE_SIZE_WIDTH * 2), 0)),
 			reset,
@@ -110,7 +110,7 @@ void SegmentManager::addSpriteBehaviour(Sprite* tileSprite)
 	}
 }
 
-bool SegmentManager::addPhysicsToTiles(TMXLayer* layer)
+bool CollectableFactory::addPhysicsToTiles(TMXLayer* layer)
 {
 	Size layerSize = layer->getLayerSize();
 	for (int i = 0; i < layerSize.height; i++)
@@ -129,7 +129,7 @@ bool SegmentManager::addPhysicsToTiles(TMXLayer* layer)
 	return true;
 }
 
-void SegmentManager::resetSprite(Node* sender, void* tileSprite)
+void CollectableFactory::resetSprite(Node* sender, void* tileSprite)
 {
 	if (tileSprite != NULL)
 	{
@@ -141,7 +141,7 @@ void SegmentManager::resetSprite(Node* sender, void* tileSprite)
 	}	
 }
 
-void SegmentManager::deleteTilemap(Node* sender, void* tilemap)
+void CollectableFactory::deleteTilemap(Node* sender, void* tilemap)
 { 		
 	if (tilemap != NULL)
 	{
@@ -150,7 +150,7 @@ void SegmentManager::deleteTilemap(Node* sender, void* tilemap)
 	}
 }
 
-void SegmentManager::removeLayer(Node* sender, void* layer)
+void CollectableFactory::removeLayer(Node* sender, void* layer)
 {
 	if (!CollisionManager::getInstance()->getLayers().empty())
 	{
@@ -158,28 +158,28 @@ void SegmentManager::removeLayer(Node* sender, void* layer)
 	}
 }
 
-bool SegmentManager::addTMXTileMap(const std::string& filename)
+bool CollectableFactory::addTMXTileMap(const std::string& filename)
 {	
 	m_pTileMap = TMXTiledMap::create(filename);
 	this->addChild(m_pTileMap);
 	return true;
 }
 
-bool SegmentManager::rotateSegment(float duration, float angle)
+bool CollectableFactory::rotateSegment(float duration, float angle)
 {	
 	auto rotate = RotateBy::create(duration, angle);
 	m_pTileMap->runAction(RepeatForever::create(rotate));
 	return true;
 }
 
-bool SegmentManager::addPhysicsEdgeBox()
+bool CollectableFactory::addPhysicsEdgeBox()
 {
-	auto SegmentManagerEdge = PhysicsBody::createEdgeBox(m_pTileMap->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
-	m_pTileMap->setPhysicsBody(SegmentManagerEdge);
+	auto CollectableFactoryEdge = PhysicsBody::createEdgeBox(m_pTileMap->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
+	m_pTileMap->setPhysicsBody(CollectableFactoryEdge);
 	return true;
 }
 
-void SegmentManager::update()
+void CollectableFactory::update()
 {
 	if (!m_bIsSpawned)
 	{

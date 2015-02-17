@@ -23,10 +23,12 @@ private:
 	int m_nCoins;
 	int m_nItems;
 	int m_nBoosters;
+	int m_nFood;
 	Label* m_pDistanceValueLabel;
 	Label* m_pCoinsValueLabel;
 	Label* m_pItemsValueLabel;
 	Label* m_pBoostersValueLabel;
+	Label* m_pFoodValueLabel;
 };
 
 #endif

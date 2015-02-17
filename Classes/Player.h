@@ -24,6 +24,7 @@ public:
 	int getCoins(){ return m_nCoins; };
 	int getItems(){ return m_nItems; };
 	int getBoosters(){ return m_nBoosters; };
+	int getFood(){ return m_nFood; };
 	
 	void setType(EGameOjectType type){ m_eType = type; };
 	void setState(int state){ m_ePlayerState = (EPlayerState)state; };

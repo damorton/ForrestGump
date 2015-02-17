@@ -18,8 +18,8 @@ Scene* GameScene::createScene()
 	gameLayer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics	
 	scene->addChild(gameLayer, 0, TAG_GAME_LAYER);
 	
-	//SegmentManager* segmentManager = SegmentManager::create();
-	//scene->addChild(segmentManager, 0, TAG_SEGMENT_MANAGER);
+	//CollectableFactory* CollectableFactory = CollectableFactory::create();
+	//scene->addChild(CollectableFactory, 0, TAG_SEGMENT_MANAGER);
 
 	//HUD* hudLayer = HUD::create();
 	//scene->addChild(hudLayer, 1, TAG_HUD);
@@ -54,8 +54,8 @@ bool GameScene::initializeGame()
 	gamePlayLayer->addChild(m_HudLayer, 1, TAG_HUD);
 
 	// segment spawns	
-	m_pSegmentManager = SegmentManager::create();
-	gamePlayLayer->addChild(m_pSegmentManager, 0, TAG_SEGMENT_MANAGER);
+	m_pCollectableFactory = CollectableFactory::create();
+	gamePlayLayer->addChild(m_pCollectableFactory, 0, TAG_SEGMENT_MANAGER);
 	
 	//Background
 	m_pParallax = Parallax::create();
@@ -115,7 +115,7 @@ void GameScene::update(float delta)
 	//CCLOG("-------------GAME LOOP START--------------");	
 	
 	WorldManager::getInstance()->getPlayer()->update();
-	m_pSegmentManager->update();
+	m_pCollectableFactory->update();
 	CollisionManager::getInstance()->checkCollisionsWithLayers();
 	m_HudLayer->update();
 	m_pParallax->updateBackground();

@@ -4,7 +4,7 @@
 
 // includes 
 #include "cocos2d.h"
-#include "SegmentManager.h"
+#include "CollectableFactory.h"
 #include "Player.h"
 #include <vector>
 #include <memory>

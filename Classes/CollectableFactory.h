@@ -1,15 +1,15 @@
-#ifndef SEGMENT_MANAGER_
-#define	SEGMENT_MANAGER_
+#ifndef COLLECTABLE_FACTORY
+#define	COLLECTABLE_FACTORY
 
 #include "cocos2d.h"
 
 USING_NS_CC;
 
-class SegmentManager : public cocos2d::Layer
+class CollectableFactory : public cocos2d::Layer
 {
 public:		
 	virtual bool init();
-	virtual ~SegmentManager(){};	
+	virtual ~CollectableFactory(){};	
 	bool rotateSegment(float duration = 30.0f, float angle = 360);
 	bool addPhysicsEdgeBox();
 	bool addPhysicsToTiles(TMXLayer* layer);	
@@ -24,7 +24,7 @@ public:
 	void update();	
 	bool initTilePositions(TMXLayer* layer);
 	void addSpriteBehaviour(Sprite* tileSprite);	
-	CREATE_FUNC(SegmentManager);
+	CREATE_FUNC(CollectableFactory);
 private:
 	TMXTiledMap* m_pTileMap;
 	TMXLayer* m_pCoinLayer;

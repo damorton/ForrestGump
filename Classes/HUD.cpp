@@ -13,6 +13,7 @@ bool HUD::init()
 	m_nCoins = 0;
 	m_nItems = 0;
 	m_nBoosters = 0;
+	m_nFood = 0;
 
 	m_Size = Director::getInstance()->getVisibleSize();
 	m_Origin = Director::getInstance()->getVisibleOrigin();
@@ -44,6 +45,12 @@ bool HUD::init()
 	this->initLabel(boostersLabel, Vec2(m_Origin.x + PADDING + boostersLabel->getContentSize().width / 2, itemsLabel->getPositionY() - PADDING - boostersLabel->getContentSize().height / 2));
 	m_pBoostersValueLabel = Label::createWithTTF(std::to_string(m_nBoosters), VALUE_FONT, LABEL_FONT_SIZE);
 	this->initValueLabel(boostersLabel, m_pBoostersValueLabel);
+
+	// Food
+	auto foodLabel = Label::createWithTTF("Food ", LABEL_FONT, LABEL_FONT_SIZE);
+	this->initLabel(foodLabel, Vec2(m_Origin.x + PADDING + foodLabel->getContentSize().width / 2, boostersLabel->getPositionY() - PADDING - foodLabel->getContentSize().height / 2));
+	m_pFoodValueLabel = Label::createWithTTF(std::to_string(m_nFood), VALUE_FONT, LABEL_FONT_SIZE);
+	this->initValueLabel(foodLabel, m_pFoodValueLabel);
 
 	// Menu 
 	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(HUD::pauseGame, this));
@@ -83,6 +90,7 @@ void HUD::update()
 		m_pCoinsValueLabel->setString(std::to_string(WorldManager::getInstance()->getPlayer()->getCoins()));
 		m_pItemsValueLabel->setString(std::to_string(WorldManager::getInstance()->getPlayer()->getItems()));
 		m_pBoostersValueLabel->setString(std::to_string(WorldManager::getInstance()->getPlayer()->getBoosters()));
+		m_pFoodValueLabel->setString(std::to_string(WorldManager::getInstance()->getPlayer()->getFood()));
 	}
 }
 

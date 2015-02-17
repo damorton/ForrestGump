@@ -21,9 +21,9 @@ HUD* WorldManager::hudLayer()
 	return (HUD*)WorldManager::layerWithTag(TAG_HUD);
 }
 
-SegmentManager* WorldManager::segmentManagerLayer()
+CollectableFactory* WorldManager::CollectableFactoryLayer()
 {
-	return (SegmentManager*)WorldManager::layerWithTag(TAG_SEGMENT_MANAGER);
+	return (CollectableFactory*)WorldManager::layerWithTag(TAG_SEGMENT_MANAGER);
 }
 
 Layer* WorldManager::layerWithTag(int tag)

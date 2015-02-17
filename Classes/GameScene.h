@@ -2,7 +2,7 @@
 #define __GAMESCENE_SCENE_H__
 
 #include "cocos2d.h"
-#include "SegmentManager.h"
+#include "CollectableFactory.h"
 #include "HUD.h"
 #include "Parallax.h"
 #include "AnimationMoves.h"
@@ -29,7 +29,7 @@ public:
 private:
 	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
 	PhysicsWorld* m_pSceneWorld;		
-	SegmentManager* m_pSegmentManager;
+	CollectableFactory* m_pCollectableFactory;
 	HUD* m_HudLayer;
 	Parallax* m_pParallax;
 	Layer* gamePlayLayer;

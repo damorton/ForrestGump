@@ -21,7 +21,7 @@ public:
 	static WorldManager* getInstance(); 
 	static Layer* layerWithTag(int tag);
 	static HUD* hudLayer();
-	static SegmentManager* segmentManagerLayer();
+	static CollectableFactory* CollectableFactoryLayer();
 	static GameScene* gameLayer();	
 
 	Player* getPlayer(){ return m_pPlayer; };
