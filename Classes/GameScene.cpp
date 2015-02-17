@@ -37,7 +37,7 @@ bool GameScene::initializeGame()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Ambler.wav", true);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/Ambler.wav", true);
 
 	// game play layer
 	gamePlayLayer = Layer::create();

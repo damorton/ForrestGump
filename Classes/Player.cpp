@@ -60,7 +60,7 @@ void Player::update()
 	else
 	{
 		m_ePlayerState = JUMPING;
-		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/trashdropping.wav", false, 1.0f, 1.0f, 1.0f);
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/trashdropping.wav", false, 1.0f, 1.0f, 1.0f);
 		ccEmitter->setScale(0.0);
 		ccEmitter->pause();
 	}		
