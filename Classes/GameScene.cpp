@@ -120,6 +120,7 @@ void GameScene::update(float delta)
 	CollisionManager::getInstance()->checkCollisionsWithLayers();
 	m_HudLayer->update();
 	m_pParallax->updateBackground();
+	m_pSpawnManager->update();
 		
 	//CCLOG("-------------GAME LOOP END--------------");
 }
