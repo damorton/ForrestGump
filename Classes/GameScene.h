@@ -36,8 +36,6 @@ private:
 	Layer* gamePlayLayer;
 	Player* playerSprite;
 
-	AnimationMoves* m_pAnimation;
-
 	// variables
 	float m_fSpeed;
 };
