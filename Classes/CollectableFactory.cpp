@@ -78,7 +78,7 @@ bool CollectableFactory::spawnSprites()
 	return true;
 }
 
-bool CollectableFactory::addTileBehaviour(TMXLayer* layer, char* name)
+bool CollectableFactory::addTileBehaviour(TMXLayer* layer, std::string name)
 {
 	Size layerSize = layer->getLayerSize();
 	for (int i = 0; i < layerSize.height; i++)

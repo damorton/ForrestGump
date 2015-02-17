@@ -33,7 +33,7 @@ public:
 	void addItem(){ m_nItems++; };
 	void addBooster(){ m_nBoosters++; };
 	void addFood(){ m_nFood++; };
-	void Player::addParticle(Player* pS);
+	void addParticle(Player* pS);
 	
 	CREATE_FUNC(Player);
 private:
