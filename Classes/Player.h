@@ -30,11 +30,14 @@ public:
 	
 	void setType(EGameOjectType type){ m_eType = type; };
 	void setState(int state){ m_ePlayerState = (EPlayerState)state; };
+
+	void Player::addParticle(Player* pS);
 	
 	CREATE_FUNC(Player);
 protected:
 	typedef enum { ALIVE, DEAD, BOOSTING, JUMPING, RUNNING } EPlayerState;
 	EPlayerState	m_ePlayerState;
+	CCParticleSystem *ccEmitter = CCParticleSystemQuad::create("Flower.plist");
 	
 };
 

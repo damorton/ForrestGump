@@ -10,6 +10,7 @@ Player* Player::create(const std::string& filename)
 	{
 		pSprite->autorelease();
 		pSprite->init();
+		pSprite->addParticle(pSprite);
 		//pSprite->addEvents();
 		return pSprite;
 	}
@@ -23,6 +24,15 @@ bool Player::init()
 	setType(PLAYER);
 	setState(RUNNING);		
 	return true;
+}
+
+void Player::addParticle(Player* pS){
+
+ccEmitter = CCParticleSystemQuad::create("Flower.plist");
+ccEmitter->setPosition(Point(pS->getPosition().x, pS->getPosition().y));
+ccEmitter->setEmissionRate(20.00);
+ccEmitter->setTotalParticles(20);
+pS->addChild(ccEmitter);
 }
 
 void Player::jump()
@@ -42,13 +52,18 @@ void Player::update()
 {	
 	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
 	{		
-		m_ePlayerState = RUNNING;	
+		m_ePlayerState = RUNNING;
+		ccEmitter->setScale(1.0);
+		ccEmitter->resume();
 		
 	}
 	else
 	{
 		m_ePlayerState = JUMPING;	
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("trashdropping.wav", false, 1.0f, 1.0f, 1.0f);
+
+		ccEmitter->setScale(0.0);
+		ccEmitter->pause();
 	}		
 }
 
