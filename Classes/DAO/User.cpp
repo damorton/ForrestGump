@@ -2,8 +2,8 @@
 
 User::User()
 {
-	text = std::shared_ptr<StoryText>(new StoryText());
-	choices = std::shared_ptr<std::vector<StoryChoice>>(new std::vector<StoryChoice>());
+	text = std::shared_ptr<Username>(new Username());
+	choices = std::shared_ptr<std::vector<Score>>(new std::vector<Score>());
 }
 
 User::~User()
@@ -11,24 +11,24 @@ User::~User()
 
 }
 
-void User::setStoryText(const char* storyText)
+void User::setUsername(const char* Username)
 {
-	text->setText(storyText);
+	text->setText(Username);
 }
 
 
-void User::addStoryChoice(const char* storyChoice)
+void User::addScore(const char* Score)
 {
 	
-	choices->push_back(StoryChoice(std::string(storyChoice)));
+	choices->push_back(Score(std::string(Score)));
 }
 
-std::shared_ptr<StoryText> User::getStoryText()
+std::shared_ptr<Username> User::getUsername()
 {
 	return text;
 }
 
-std::shared_ptr<std::vector<StoryChoice>> User::getStoryChoices()
+std::shared_ptr<std::vector<Score>> User::getScores()
 {
 	return choices;
 }

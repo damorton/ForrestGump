@@ -1,7 +1,7 @@
 <Game>
     <User>
-        <StoryText>You Open on a courtyard, it is dark. You see a Door</StoryText>
-        <StoryChoice>1. Open Door</StoryChoice>
-        <StoryChoice>2. Run Away</StoryChoice>
+        <Username>You Open on a courtyard, it is dark. You see a Door</Username>
+        <Score>1. Open Door</Score>
+        <Score>2. Run Away</Score>
     </User>
 </Game>

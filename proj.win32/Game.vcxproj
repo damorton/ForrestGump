@@ -140,7 +140,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\CollisionManager.cpp" />
     <ClCompile Include="..\Classes\DAO\GameDAO.cpp" />
     <ClCompile Include="..\Classes\DAO\Node.cpp" />
-    <ClCompile Include="..\Classes\DAO\StoryPoint.cpp" />
+    <ClCompile Include="..\Classes\DAO\User.cpp" />
     <ClCompile Include="..\Classes\DAO\tinyxml2.cpp" />
     <ClCompile Include="..\Classes\Enemy.cpp" />
     <ClCompile Include="..\Classes\EnemyFactory.cpp" />
@@ -164,8 +164,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\DAO\GameDAO.h" />
     <ClInclude Include="..\Classes\DAO\Node.h" />
     <ClInclude Include="..\Classes\DAO\StoryChoice.h" />
-    <ClInclude Include="..\Classes\DAO\StoryPoint.h" />
-    <ClInclude Include="..\Classes\DAO\StoryText.h" />
+    <ClInclude Include="..\Classes\DAO\User.h" />
+    <ClInclude Include="..\Classes\DAO\Username.h" />
     <ClInclude Include="..\Classes\DAO\TextItem.h" />
     <ClInclude Include="..\Classes\DAO\tinyxml2.h" />
     <ClInclude Include="..\Classes\Definitions.h" />
