@@ -37,6 +37,13 @@ bool Splash::init()
 	splashBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(splashBackground);	
 
+	// particle testing for splash screen
+	CCParticleSystem *ccEmitter = CCParticleSystemQuad::create("Flower.plist");
+	ccEmitter->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 8) * 2));
+	ccEmitter->setTotalParticles(1000);
+	ccEmitter->setGravity(ccp(-100.00, 100.00));
+	this->addChild(ccEmitter);
+
 	this->scheduleOnce(schedule_selector(Splash::goToMainMenuScene), DISPLY_TIME_SPLASH_SCENCE);	
 	return true;
 }
