@@ -21,7 +21,7 @@ typedef enum {
 #define VISIBLE_SIZE_HEIGHT (Director::getInstance()->getVisibleSize().height)
 
 // Sprites; coins, items, powerups
-#define SPRITE_MOVEMENT_SPEED 0.008f
+#define SPRITE_MOVEMENT_SPEED 0.006f
 
 // scenes
 #define DISPLY_TIME_SPLASH_SCENCE 2

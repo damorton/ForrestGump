@@ -63,7 +63,7 @@ void HUD::initLabel(Label* label, Vec2 position)
 	this->addChild(label);
 	label->setPosition(position);
 	label->setColor(Color3B(0, 0, 0)); // black
-	label->enableGlow(Color4B(255, 0, 127, 255));
+	label->enableGlow(Color4B(255, 255, 51, 255));
 }
 
 void HUD::initValueLabel(Label* label, Label* value)
@@ -71,7 +71,7 @@ void HUD::initValueLabel(Label* label, Label* value)
 	this->addChild(value);
 	value->setPosition(Vec2(m_fValuePosX, label->getPositionY()));
 	value->setColor(Color3B(0, 0, 0)); // black	
-	value->enableGlow(Color4B(255, 0, 127, 255));
+	value->enableGlow(Color4B(255, 255, 51, 255));
 }
 
 void HUD::update()
