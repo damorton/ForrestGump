@@ -5,16 +5,13 @@
 Player* Player::create(const std::string& filename)
 {
 	Player* pSprite = new Player();
-
 	if (pSprite->initWithFile(filename))
 	{
 		pSprite->autorelease();
 		pSprite->init();
-		pSprite->addParticle(pSprite);
-		//pSprite->addEvents();
+		pSprite->addParticle(pSprite);		
 		return pSprite;
 	}
-
 	CC_SAFE_DELETE(pSprite);
 	return NULL;
 }
@@ -22,13 +19,18 @@ Player* Player::create(const std::string& filename)
 bool Player::init()
 {	
 	setType(PLAYER);
-	setState(RUNNING);		
+	setState(RUNNING);
+	m_nDistance = 0;
+	m_nCoins = 0;
+	m_nBoosters = 0;
+	m_nFood = 0;
+	m_nItems = 0;
 	return true;
 }
 
 void Player::addParticle(Player* pS){
 
-ccEmitter = CCParticleSystemQuad::create("Flower.plist");
+ccEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
 ccEmitter->setPosition(Point(pS->getPosition().x, pS->getPosition().y));
 ccEmitter->setEmissionRate(20.00);
 ccEmitter->setTotalParticles(20);
@@ -40,11 +42,10 @@ void Player::jump()
 	if (m_ePlayerState == RUNNING)
 	{
 		m_ePlayerState = JUMPING;
-		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("jump3.wav", false, 1.0f, 1.0f, 1.0f);
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/jump3.wav", false, 1.0f, 1.0f, 1.0f);
 		auto action = JumpBy::create(JUMP_SPEED, Vec2(0, 0), JUMP_HEIGHT, NO_OF_JUMPS);
 		this->runAction(action);
 		this->runAction(AnimationMoves::getAnimationWithFrames(1, 2));
-		CCLOG("Player jumped");
 	}
 }
 
@@ -54,14 +55,12 @@ void Player::update()
 	{		
 		m_ePlayerState = RUNNING;
 		ccEmitter->setScale(1.0);
-		ccEmitter->resume();
-		
+		ccEmitter->resume();	
 	}
 	else
 	{
-		m_ePlayerState = JUMPING;	
-		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("trashdropping.wav", false, 1.0f, 1.0f, 1.0f);
-
+		m_ePlayerState = JUMPING;
+		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/trashdropping.wav", false, 1.0f, 1.0f, 1.0f);
 		ccEmitter->setScale(0.0);
 		ccEmitter->pause();
 	}		

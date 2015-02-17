@@ -14,31 +14,37 @@ public:
 	virtual ~Player(){};
 	bool init();
 	void cleanUp();	
-
 	void jump();
-
-	/* 
-		Player touch function
-
-		@param Point location of the touch position
-	*/
 	void touch(const Point& location);	
 	void update();
 
 	EGameOjectType getType(){ return m_eType; };
 	int getState(){ return m_ePlayerState; };	
+	int getDistance(){ return m_nDistance; };
+	int getCoins(){ return m_nCoins; };
+	int getItems(){ return m_nItems; };
+	int getBoosters(){ return m_nBoosters; };
+	int getFood(){ return m_nFood; };
 	
 	void setType(EGameOjectType type){ m_eType = type; };
 	void setState(int state){ m_ePlayerState = (EPlayerState)state; };
-
+	void addDistance(){ m_nDistance++; };
+	void addCoin(){ m_nCoins++; };	
+	void addItem(){ m_nItems++; };
+	void addBooster(){ m_nBoosters++; };
+	void addFood(){ m_nFood++; };
 	void Player::addParticle(Player* pS);
 	
 	CREATE_FUNC(Player);
-protected:
+private:
 	typedef enum { ALIVE, DEAD, BOOSTING, JUMPING, RUNNING } EPlayerState;
-	EPlayerState	m_ePlayerState;
-	CCParticleSystem *ccEmitter = CCParticleSystemQuad::create("Flower.plist");
-	
+	EPlayerState m_ePlayerState;
+	int m_nDistance;
+	int m_nCoins;
+	int m_nBoosters;
+	int m_nFood;
+	int m_nItems;		
+	CCParticleSystem *ccEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
 };
 
 #endif

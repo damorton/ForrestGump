@@ -38,7 +38,7 @@ bool Splash::init()
 	this->addChild(splashBackground);	
 
 	// particle testing for splash screen
-	CCParticleSystem *ccEmitter = CCParticleSystemQuad::create("Flower.plist");
+	CCParticleSystem *ccEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
 	ccEmitter->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 8) * 2));
 	ccEmitter->setTotalParticles(1000);
 	ccEmitter->setGravity(ccp(-100.00, 100.00));
