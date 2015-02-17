@@ -55,10 +55,8 @@ void GameDAO::update(std::shared_ptr<std::vector<StoryPoint>> storyPoints)
 				
 		for(int i = 0; i<storyPoints->size(); i++)
 		{
-			tinyxml2::XMLElement* storyElement = doc.NewElement("StoryPoint");
-			//doc.InsertEndChild(storyElement);
-			//write the story text
-			tinyxml2::XMLElement* storyTextElement  = doc.NewElement("StoryText");
+			tinyxml2::XMLElement* username = doc.NewElement("Username");
+			tinyxml2::XMLElement* score  = doc.NewElement("Score");
 			tinyxml2::XMLText* storyText = doc.NewText(storyPoints->at(i).getStoryText()->getText().c_str());
 			
 			root->InsertEndChild(storyElement);
