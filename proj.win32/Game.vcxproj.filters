@@ -63,9 +63,6 @@
     <ClCompile Include="..\Classes\CollectableFactory.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\DAO\tinyxml2.cpp">
-      <Filter>Classes\DAO</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\DAO\GameDAO.cpp">
       <Filter>Classes\DAO</Filter>
     </ClCompile>
@@ -132,9 +129,6 @@
       <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\DAO\TextItem.h">
-      <Filter>Classes\DAO</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\DAO\tinyxml2.h">
       <Filter>Classes\DAO</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\DAO\GameDAO.h">

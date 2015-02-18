@@ -1,9 +1,6 @@
 #ifndef _GAMEDAO_
 #define _GAMEDAO_
 #include "User.h"
-#include "tinyxml2.h"
-
-#define XMLDOC "game.xml"
 
 class IGameDAO
 {
