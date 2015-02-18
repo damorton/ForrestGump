@@ -49,6 +49,7 @@ bool WorldManager::init()
 	std::shared_ptr<std::vector<User>> users = dao->read();
 		
 	// remove comments to add to the game.xml file
+	
 	/*
 	User john;
 	john.setUsername("John");
@@ -61,9 +62,10 @@ bool WorldManager::init()
 	tom.addScore("Coins 10");
 
 	users->push_back(john);
+	users->push_back(tom);
 	*/
 
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < users->size(); i++)
 	{
 		CCLOG("%s", users->at(i).getUsername()->getText().c_str());
 
