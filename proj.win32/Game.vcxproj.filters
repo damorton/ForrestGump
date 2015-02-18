@@ -146,9 +146,4 @@
       <Filter>resource</Filter>
     </ResourceCompile>
   </ItemGroup>
-  <ItemGroup>
-    <Xml Include="..\Classes\DAO\game.xml">
-      <Filter>Classes\DAO</Filter>
-    </Xml>
-  </ItemGroup>
 </Project>

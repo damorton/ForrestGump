@@ -1,16 +1,18 @@
 #include "GameDAO.h"
 #include "Definitions.h"
 #include "tinyxml2\tinyxml2.h"
+#include "cocos2d.h"
 
-#define XMLDOC "game.xml"
+#define XMLDOC "config/game.xml"
 
 //create
 void GameDAO::create()
 {		
+	std::string filename = cocos2d::FileUtils::getInstance()->fullPathForFilename(XMLDOC);
 	tinyxml2::XMLDocument doc;
 	tinyxml2::XMLNode* node = doc.NewElement("Game");
 	doc.InsertEndChild(node);
-	doc.SaveFile(XMLDOC);
+	doc.SaveFile(filename.c_str());
 }
 
 //read
@@ -20,10 +22,11 @@ std::shared_ptr<std::vector<User>> GameDAO::read()
 	//construct a story point vector to pass back
 	std::shared_ptr<std::vector<User>> UserToReturn = std::shared_ptr<std::vector<User>>(new std::vector<User>());
 
+	std::string filename = cocos2d::FileUtils::getInstance()->fullPathForFilename(XMLDOC);
 	tinyxml2::XMLDocument doc;
-	doc.LoadFile(XMLDOC);
+	doc.LoadFile(filename.c_str());
 
-	if(doc.LoadFile(XMLDOC) ==  tinyxml2::XML_SUCCESS)
+	if (doc.LoadFile(filename.c_str()) == tinyxml2::XML_SUCCESS)
 	{
 		//get the first user element
 		tinyxml2::XMLElement* root = doc.FirstChildElement();
