@@ -25,7 +25,10 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/Player.cpp \
                    ../../Classes/CollectableFactory.cpp \
                    ../../Classes/SpawnManager.cpp \
-                   ../../Classes/WorldManager.cpp
+                   ../../Classes/WorldManager.cpp \
+                   ../../Classes/DAO/GameDAO.cpp \
+                   ../../Classes/DAO/User.cpp \
+                   ../../Classes/cocos2d/external/tinyxml2/tinyxml2.cpp                   
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
