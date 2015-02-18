@@ -48,6 +48,8 @@ bool WorldManager::init()
 	IGameDAO* dao = new GameDAO();
 	std::shared_ptr<std::vector<User>> users = dao->read();
 		
+	// remove comments to add to the game.xml file
+	/*
 	User john;
 	john.setUsername("John");
 	john.addScore("Distance 3890");
@@ -59,7 +61,7 @@ bool WorldManager::init()
 	tom.addScore("Coins 10");
 
 	users->push_back(john);
-	
+	*/
 
 	for (int i = 0; i < 2; i++)
 	{
