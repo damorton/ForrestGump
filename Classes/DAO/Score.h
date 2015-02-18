@@ -1,7 +1,6 @@
 #ifndef _SCORE_
 #define _SCORE_
 #include "TextItem.h"
-#include "Node.h"
 
 class Score : public TextItem
 {

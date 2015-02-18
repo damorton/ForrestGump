@@ -66,9 +66,6 @@
     <ClCompile Include="..\Classes\DAO\GameDAO.cpp">
       <Filter>Classes\DAO</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\DAO\Node.cpp">
-      <Filter>Classes\DAO</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\DAO\User.cpp">
       <Filter>Classes\DAO</Filter>
     </ClCompile>
@@ -132,9 +129,6 @@
       <Filter>Classes\DAO</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\DAO\GameDAO.h">
-      <Filter>Classes\DAO</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\DAO\Node.h">
       <Filter>Classes\DAO</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\DAO\User.h">

@@ -2,10 +2,11 @@
 #include "Definitions.h"
 #include "tinyxml2\tinyxml2.h"
 
+#define XMLDOC "game.xml"
+
 //create
 void GameDAO::create()
-{	
-	
+{		
 	tinyxml2::XMLDocument doc;
 	tinyxml2::XMLNode* node = doc.NewElement("Game");
 	doc.InsertEndChild(node);
@@ -20,7 +21,7 @@ std::shared_ptr<std::vector<User>> GameDAO::read()
 	std::shared_ptr<std::vector<User>> UserToReturn = std::shared_ptr<std::vector<User>>(new std::vector<User>());
 
 	tinyxml2::XMLDocument doc;
-	//doc.LoadFile(XMLDOC);
+	doc.LoadFile(XMLDOC);
 
 	if(doc.LoadFile(XMLDOC) ==  tinyxml2::XML_SUCCESS)
 	{

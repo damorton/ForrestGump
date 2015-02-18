@@ -139,7 +139,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\CollisionManager.cpp" />
     <ClCompile Include="..\Classes\DAO\GameDAO.cpp" />
-    <ClCompile Include="..\Classes\DAO\Node.cpp" />
     <ClCompile Include="..\Classes\DAO\User.cpp" />
     <ClCompile Include="..\Classes\Enemy.cpp" />
     <ClCompile Include="..\Classes\EnemyFactory.cpp" />
@@ -161,7 +160,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Character.h" />
     <ClInclude Include="..\Classes\CollisionManager.h" />
     <ClInclude Include="..\Classes\DAO\GameDAO.h" />
-    <ClInclude Include="..\Classes\DAO\Node.h" />
     <ClInclude Include="..\Classes\DAO\Score.h" />
     <ClInclude Include="..\Classes\DAO\User.h" />
     <ClInclude Include="..\Classes\DAO\Username.h" />
