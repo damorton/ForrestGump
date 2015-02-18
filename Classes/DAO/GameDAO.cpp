@@ -1,5 +1,7 @@
 #include "GameDAO.h"
 #include "Definitions.h"
+// file not found error in Android project
+// use file utils get data and buffers?
 #include "cocos2d\external\tinyxml2\tinyxml2.h"
 #include "cocos2d.h"
 
