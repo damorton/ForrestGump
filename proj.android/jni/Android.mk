@@ -23,7 +23,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/Parallax.cpp \
                    ../../Classes/Pause.cpp \
                    ../../Classes/Player.cpp \
-                   ../../Classes/SegmentManager.cpp \
+                   ../../Classes/CollectableFactory.cpp \
                    ../../Classes/SpawnManager.cpp \
                    ../../Classes/WorldManager.cpp
 

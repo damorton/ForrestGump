@@ -28,13 +28,13 @@ bool Player::init()
 	return true;
 }
 
-void Player::addParticle(Player* pS){
-
-ccEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
-ccEmitter->setPosition(Point(pS->getPosition().x, pS->getPosition().y));
-ccEmitter->setEmissionRate(20.00);
-ccEmitter->setTotalParticles(20);
-pS->addChild(ccEmitter);
+void Player::addParticle(Player* pS)
+{
+	ccEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
+	ccEmitter->setPosition(Point(pS->getPosition().x, pS->getPosition().y));
+	ccEmitter->setEmissionRate(20.00);
+	ccEmitter->setTotalParticles(20);
+	pS->addChild(ccEmitter);
 }
 
 void Player::jump()
