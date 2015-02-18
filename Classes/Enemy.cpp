@@ -101,3 +101,20 @@ void Enemy::spawnEnemy(Layer *layer){
 	m_floatingEnemy->runAction(m_floatingEnemyAction);
 
 }
+
+//This is the animation Function, look Player.cpp to know how to use me
+void Enemy::getAnimationWithFrames(int init, int end){
+	Vector<SpriteFrame*> animFrames(2);
+	char str[100] = { 0 };
+	int i = init;
+	while (i <= end)
+	{
+		sprintf(str, "sprites/walk%02d.png", i);
+		auto frame = SpriteFrame::create(str, Rect(0, 0, 105, 135)); //we assume that the sprites' dimentions are 105*135 rectangles.
+		i++;
+		animFrames.pushBack(frame);
+	}
+
+	auto animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
+	animate = Animate::create(animation);
+}

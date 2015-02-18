@@ -38,6 +38,7 @@ public:
 	CREATE_FUNC(Player);
 
 	//ANIMATION
+	void getAnimationWithFramesJump(int, int);
 	void getAnimationWithFrames(int, int);
 	Animate* animate;
 

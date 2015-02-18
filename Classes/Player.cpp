@@ -47,6 +47,7 @@ void Player::jump()
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/jump3.wav", false, 1.0f, 1.0f, 1.0f);
 		auto action = JumpBy::create(JUMP_SPEED, Vec2(0, 0), JUMP_HEIGHT, NO_OF_JUMPS);
 		this->runAction(action);
+		//Implement how to jump without using JumpBy
 	}
 }
 
@@ -55,18 +56,24 @@ void Player::update()
 	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
 	{		
 		m_ePlayerState = RUNNING;
+
+		//Jump Animation
+		//getAnimationWithFramesJump(1, 2);
+		//this->runAction(RepeatForever::create(animate));
+
 		ccEmitter->setScale(1.0);
-		ccEmitter->resume();	
+		ccEmitter->resume();
 	}
 	else
 	{
 		m_ePlayerState = JUMPING;
 		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/trashdropping.wav", false, 1.0f, 1.0f, 1.0f);
 		ccEmitter->setScale(0.0);
-		ccEmitter->pause();
+		ccEmitter->pause();		
 		
 		getAnimationWithFrames(1, 4);
 		this->runAction(RepeatForever::create(animate));
+
 	}		
 }
 
@@ -88,17 +95,31 @@ void Player::getAnimationWithFrames(int init, int end){
 	int i = init;
 	while (i <= end)
 	{
-		//if (m_ePlayerState == RUNNING)
-	//	{
-			sprintf(str, "sprites/walk%02d.png", i);
-			auto frame = SpriteFrame::create(str, Rect(0, 0, 105, 138)); //we assume that the sprites' dimentions are 40*40 rectangles.
+			//sprintf(str, "sprites/walk%02d.png", i);
+			//auto frame = SpriteFrame::create(str, Rect(0, 0, 105, 135)); //we assume that the sprites' dimentions are 105*135 rectangles.
+			sprintf(str, "sprites/walk%02dsmall.png", i);
+			auto frame = SpriteFrame::create(str, Rect(0, 0, 55, 69)); //we assume that the sprites' dimentions are 40*40 rectangles.
 			i++;
 			animFrames.pushBack(frame);
-	//	}
-	//	else
-	//	{
-	//		i++;
-	//	}		
+	}
+
+	auto animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
+	animate = Animate::create(animation);
+}
+
+
+void Player::getAnimationWithFramesJump(int init, int end){
+	Vector<SpriteFrame*> animFrames(4);
+	char str[100] = { 0 };
+	int i = init;
+	while (i <= end)
+	{
+		sprintf(str, "sprites/hit%02d.png", i);
+		auto frame = SpriteFrame::create(str, Rect(0, 0, 105, 135)); //we assume that the sprites' dimentions are 105*135 rectangles.
+		//sprintf(str, "sprites/walk%02dsmall.png", i);
+		//auto frame = SpriteFrame::create(str, Rect(0, 0, 55, 69)); //we assume that the sprites' dimentions are 40*40 rectangles.
+		i++;
+		animFrames.pushBack(frame);
 	}
 
 	auto animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
