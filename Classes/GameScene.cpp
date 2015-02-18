@@ -17,13 +17,7 @@ Scene* GameScene::createScene()
 	GameScene* gameLayer = GameScene::create();
 	gameLayer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics	
 	scene->addChild(gameLayer, 0, TAG_GAME_LAYER);
-	
-	//CollectableFactory* CollectableFactory = CollectableFactory::create();
-	//scene->addChild(CollectableFactory, 0, TAG_SEGMENT_MANAGER);
-
-	//HUD* hudLayer = HUD::create();
-	//scene->addChild(hudLayer, 1, TAG_HUD);
-		
+			
 	return scene;
 }
 
@@ -73,7 +67,7 @@ bool GameScene::initializeGame()
 	auto floorEdgeBody = PhysicsBody::createEdgeBox(floorSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
 	floorSprite->setPhysicsBody(floorEdgeBody);
 	floorSprite->getPhysicsBody()->setDynamic(false);
-	gamePlayLayer->addChild(floorSprite, 0); // add at z:1 for floorSprite	
+	gamePlayLayer->addChild(floorSprite, -1); // add at z:1 for floorSprite	
 	WorldManager::getInstance()->setFloorSprite(floorSprite);
 		
 	// Player			
@@ -117,7 +111,7 @@ void GameScene::update(float delta)
 	
 	WorldManager::getInstance()->getPlayer()->update();
 	m_pCollectableFactory->update();
-	CollisionManager::getInstance()->checkCollisionsWithLayers();
+	CollisionManager::getInstance()->checkCollisions();
 	m_HudLayer->update();
 	m_pParallax->updateBackground();
 	m_pSpawnManager->update();

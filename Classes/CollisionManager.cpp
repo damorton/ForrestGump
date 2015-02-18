@@ -18,7 +18,12 @@ bool CollisionManager::init()
 	return true;
 }
 
-bool CollisionManager::checkCollisionsWithLayers()
+void CollisionManager::checkCollisions()
+{
+	this->checkCollisionsWithItems();
+}
+
+void CollisionManager::checkCollisionsWithItems()
 {	
 	if (!m_vpLayers.empty())
 	{
@@ -61,7 +66,6 @@ bool CollisionManager::checkCollisionsWithLayers()
 			}			
 		}
 	}	
-	return true; 
 }
 
 void CollisionManager::cleanUp()

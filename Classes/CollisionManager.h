@@ -18,7 +18,8 @@ class CollisionManager
 public:
 	virtual bool init();
 	static CollisionManager* getInstance();	
-	bool checkCollisionsWithLayers();
+	void checkCollisions();
+	void checkCollisionsWithItems();
 	void addLayer(TMXLayer* layer){ m_vpLayers.push_back(layer); };
 	void removeLayer(){ m_vpLayers.pop_front(); };
 	void cleanUp();

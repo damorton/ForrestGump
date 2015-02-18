@@ -2,6 +2,7 @@
 #define	COLLECTABLE_FACTORY
 
 #include "cocos2d.h"
+#include <iostream>
 
 USING_NS_CC;
 
@@ -13,9 +14,9 @@ public:
 	bool rotateSegment(float duration = 30.0f, float angle = 360);
 	bool addPhysicsEdgeBox();
 	bool addPhysicsToTiles(TMXLayer* layer);	
-	bool addTileBehaviour(TMXLayer* layer, char* name);
+	bool addTileBehaviour(TMXLayer* layer, std::string name);
 	bool addTMXTileMap(const std::string& filename);
-	bool setTileMap(TMXTiledMap* tilemap){ m_pTileMap = tilemap; };		
+	void setTileMap(TMXTiledMap* tilemap){ m_pTileMap = tilemap; };		
 	void deleteTilemap(Node* sender, void* tilemap);
 	void removeLayer(Node* sender, void* layer);
 	bool spawnSprites();
