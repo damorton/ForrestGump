@@ -8,6 +8,7 @@
 #include "Player.h"
 #include <vector>
 #include <memory>
+#include "SpawnManager.h"
 
 // forward declarations
 class Enemy;
@@ -28,6 +29,7 @@ public:
 protected:
 	Player* m_pPlayer; 		
 	std::deque<TMXLayer*> m_vpLayers;
+	std::deque<Enemy*> m_vpEnemies;
 private:
 	static CollisionManager* m_Instance;
 	CollisionManager(){ this->init(); }; // constructor
