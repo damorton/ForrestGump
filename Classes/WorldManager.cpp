@@ -47,23 +47,27 @@ bool WorldManager::init()
 		
 	IGameDAO* dao = new GameDAO();
 	std::shared_ptr<std::vector<User>> users = dao->read();
-	
-	/*
-	User user;
-	user.setUsername("John");
-	user.addScore("Distance 3890");
-	user.addScore("Coins 7893");
+		
+	User john;
+	john.setUsername("John");
+	john.addScore("Distance 3890");
+	john.addScore("Coins 7893");
 
-	users->push_back(user);
-	*/
+	User tom;
+	tom.setUsername("Tom");
+	tom.addScore("Distance 456");
+	tom.addScore("Coins 10");
+
+	users->push_back(john);
+	
 
 	for (int i = 0; i < 2; i++)
 	{
-		CCLOG("%s", users->at(i).getUsername()->getText());
+		CCLOG("%s", users->at(i).getUsername()->getText().c_str());
 
 		for (int j = 0; j < users->at(i).getScores()->size(); j++)
 		{
-			CCLOG("%s", users->at(i).getScores()->at(j).getText());
+			CCLOG("%s", users->at(i).getScores()->at(j).getText().c_str());
 		}
 	}
 

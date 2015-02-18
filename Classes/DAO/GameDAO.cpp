@@ -47,15 +47,17 @@ std::shared_ptr<std::vector<User>> GameDAO::read()
 	}
 	return NULL;
 }
+
 //update
 void GameDAO::update(std::shared_ptr<std::vector<User>> Users)
 {
+	std::string filename = cocos2d::FileUtils::getInstance()->fullPathForFilename(XMLDOC);
 	tinyxml2::XMLDocument doc;
-	doc.LoadFile(XMLDOC);
+	doc.LoadFile(filename.c_str());
 
-	if(doc.LoadFile(XMLDOC) ==  tinyxml2::XML_SUCCESS)
+	if (doc.LoadFile(filename.c_str()) == tinyxml2::XML_SUCCESS)
 	{
-		doc.Parse(XMLDOC);
+		doc.Parse(filename.c_str());
 		tinyxml2::XMLElement* root = doc.NewElement("Game");
 				
 		for(int i = 0; i < Users->size(); i++)
@@ -82,7 +84,7 @@ void GameDAO::update(std::shared_ptr<std::vector<User>> Users)
 			doc.InsertEndChild(root);
 
 		}
-		doc.SaveFile(XMLDOC);
+		doc.SaveFile(filename.c_str());
 	}
 }
 
