@@ -19,24 +19,24 @@ bool Parallax::addBackground(const std::string& filename1, const std::string& fi
 	m_pSpriteBackgroundFirst1 = CCSprite::create(filename1);
 	m_pSpriteBackgroundFirst->setPosition(Vec2(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
 	m_pSpriteBackgroundFirst1->setPosition(Vec2(VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
-	this->addChild(m_pSpriteBackgroundFirst, 1);
-	this->addChild(m_pSpriteBackgroundFirst1, 1);
+	this->addChild(m_pSpriteBackgroundFirst, 3);
+	this->addChild(m_pSpriteBackgroundFirst1, 3);
 	
 	// background 2 - Mountains
 	m_pSpriteBackgroundSecond = CCSprite::create(filename2);
 	m_pSpriteBackgroundSecond1 = CCSprite::create(filename2);
 	m_pSpriteBackgroundSecond->setPosition(Vec2(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
 	m_pSpriteBackgroundSecond1->setPosition(Vec2(VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
-	this->addChild(m_pSpriteBackgroundSecond, -1);
-	this->addChild(m_pSpriteBackgroundSecond1, -1);
+	this->addChild(m_pSpriteBackgroundSecond, 2);
+	this->addChild(m_pSpriteBackgroundSecond1, 2);
 
 	// background 3	- Clounds, Sun and Far Mountains
 	m_pSpriteBackgroundThird = CCSprite::create(filename3);
 	m_pSpriteBackgroundThird1 = CCSprite::create(filename3);
 	m_pSpriteBackgroundThird->setPosition(Vec2(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
 	m_pSpriteBackgroundThird1->setPosition(Vec2(VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
-	this->addChild(m_pSpriteBackgroundThird, -2);
-	this->addChild(m_pSpriteBackgroundThird1, -2);
+	this->addChild(m_pSpriteBackgroundThird, 1);
+	this->addChild(m_pSpriteBackgroundThird1, 1);
 
 	
 	return true;	

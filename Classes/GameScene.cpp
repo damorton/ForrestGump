@@ -36,7 +36,7 @@ bool GameScene::initializeGame()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Ambler.wav", true);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/Ambler.wav", true);
 
 	// game play layer
 	gamePlayLayer = Layer::create();
@@ -65,7 +65,7 @@ bool GameScene::initializeGame()
 	floorSprite->setPhysicsBody(floorEdgeBody);
 	floorSprite->getPhysicsBody()->setDynamic(false);
 
-	gamePlayLayer->addChild(floorSprite, 0); // add at z:1 for floorSprite	
+	gamePlayLayer->addChild(floorSprite, -2); // add at z:1 for floorSprite	
 	WorldManager::getInstance()->setFloorSprite(floorSprite);
 
 	//Player
@@ -77,7 +77,7 @@ bool GameScene::initializeGame()
 	gamePlayLayer->addChild(playerSprite, 0);
 
 	//Start player walking
-	playerSprite->getAnimationWithFrames();
+	playerSprite->getAnimationWithFrames(1, 4);
 	playerSprite->runAction(RepeatForever::create(playerSprite->animate));
 
 	WorldManager::getInstance()->setPlayer(playerSprite);

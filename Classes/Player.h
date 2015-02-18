@@ -33,19 +33,13 @@ public:
 	void addItem(){ m_nItems++; };
 	void addBooster(){ m_nBoosters++; };
 	void addFood(){ m_nFood++; };
-	void Player::addParticle(Player* pS);
+	void addParticle(Player* pS);
 	
 	CREATE_FUNC(Player);
 
 	//ANIMATION
-	void getAnimationWithFrames();
+	void getAnimationWithFrames(int, int);
 	Animate* animate;
-	
-
-protected:
-	//typedef enum { ALIVE, DEAD, BOOSTING, JUMPING, RUNNING } EPlayerState;
-	//EPlayerState	m_ePlayerState;
-	//AnimationMoves* m_pAnimation;
 
 private:
 	typedef enum { ALIVE, DEAD, BOOSTING, JUMPING, RUNNING } EPlayerState;

@@ -1,6 +1,5 @@
 #include "Definitions.h"
 #include "WorldManager.h"
-#include "AnimationMoves.h"
 #include "Player.h"
 
 Player* Player::create(const std::string& filename)
@@ -65,7 +64,8 @@ void Player::update()
 		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/trashdropping.wav", false, 1.0f, 1.0f, 1.0f);
 		ccEmitter->setScale(0.0);
 		ccEmitter->pause();
-		getAnimationWithFrames();
+		
+		getAnimationWithFrames(1, 4);
 		this->runAction(RepeatForever::create(animate));
 	}		
 }
@@ -82,26 +82,25 @@ void Player::cleanUp()
 {
 }
 
-void Player::getAnimationWithFrames(){
-	//ANIMATION
+void Player::getAnimationWithFrames(int init, int end){
 	Vector<SpriteFrame*> animFrames(4);
 	char str[100] = { 0 };
-	int i = 1;
-	while (i <= 2)
+	int i = init;
+	while (i <= end)
 	{
-		sprintf(str, "sprites/walk%02d.png", i);
-		auto frame = SpriteFrame::create(str, Rect(0, 0, 100, 128)); //we assume that the sprites' dimentions are 40*40 rectangles.
-		i++;
-		animFrames.pushBack(frame);
-		sprintf(str, "sprites/walk%02d.png", i);
-		auto frame1 = SpriteFrame::create(str, Rect(0, 0, 100, 128)); //we assume that the sprites' dimentions are 40*40 rectangles.
-		i++;
-		animFrames.pushBack(frame1);
-		i++;
+		//if (m_ePlayerState == RUNNING)
+	//	{
+			sprintf(str, "sprites/walk%02d.png", i);
+			auto frame = SpriteFrame::create(str, Rect(0, 0, 105, 138)); //we assume that the sprites' dimentions are 40*40 rectangles.
+			i++;
+			animFrames.pushBack(frame);
+	//	}
+	//	else
+	//	{
+	//		i++;
+	//	}		
 	}
 
 	auto animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
 	animate = Animate::create(animation);
-	
-	//END ANIMATION
 }
