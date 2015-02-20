@@ -26,30 +26,17 @@ public:
 	void pause();
 	void spawnEnemy(float dt);
 	CREATE_FUNC(GameScene);
-
-	//Start the game animated
-	Animate* animate;
-
+	
 private:
 	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
-	
-	PhysicsWorld* m_pSceneWorld;	
-	
 	int spawnSegmentTimer;
-	//SegmentManager* m_pSegmentManager;
+
+	PhysicsWorld* m_pSceneWorld;			
 	HUD* m_HudLayer;
 	Parallax* m_pParallax;
 	Layer* gamePlayLayer;
 	Player* playerSprite;
-
-	// variables
-	float m_fSpeed;
-
-	//PhysicsWorld* m_pSceneWorld;		
 	CollectableFactory* m_pCollectableFactory;
-//	HUD* m_HudLayer;
-	//Parallax* m_pParallax;
-	//Layer* gamePlayLayer;
 	SpawnManager* m_pSpawnManager;
 	Enemy m_enemey;	
 };

@@ -10,11 +10,13 @@ USING_NS_CC;
 
 Scene* GameScene::createScene()
 {	
-	auto scene = Scene::createWithPhysics();	
+	auto scene = Scene::createWithPhysics();
+//	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);	
 	scene->setTag(TAG_GAME_SCENE);
 
 	GameScene* gameLayer = GameScene::create();
-	gameLayer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics	
+	gameLayer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics		
+	
 	scene->addChild(gameLayer, 0, TAG_GAME_LAYER);
 	return scene;
 }
@@ -53,7 +55,7 @@ bool GameScene::initializeGame()
 	m_pParallax = Parallax::create();
 	gamePlayLayer->addChild(m_pParallax, -1, "parallax");
 
-	if (m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png"))
+	if (m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png", "background/backgroundFourth.png"));
 	{
 		CCLOG("Images loaded successful");
 	}
@@ -69,14 +71,16 @@ bool GameScene::initializeGame()
 	//Player
 	Player* playerSprite = Player::create("sprites/Playersmall.png");
 	playerSprite->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, (WorldManager::getInstance()->getFloorSprite()->getContentSize().height + playerSprite->getContentSize().height / 2) - 5));
-	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+	auto playerPhysicsBody = PhysicsBody::createBox(Size(playerSprite->getContentSize().width, playerSprite->getContentSize().height - 5), PHYSICSBODY_MATERIAL_DEFAULT);
 	playerSprite->setPhysicsBody(playerPhysicsBody);
-	playerPhysicsBody->setDynamic(false);
+	playerPhysicsBody->setDynamic(true);
+	playerPhysicsBody->setGravityEnable(true);
+	playerSprite->getPhysicsBody()->setRotationEnable(false);
 	gamePlayLayer->addChild(playerSprite, 0);
 
 	//Start player walking
-	playerSprite->getAnimationWithFrames(1, 4);
-	playerSprite->runAction(RepeatForever::create(playerSprite->animate));
+	playerSprite->getAnimationWithFrames(1, 4, 1);
+	playerSprite->runAction(playerSprite->animate);
 
 	WorldManager::getInstance()->setPlayer(playerSprite);
 	CollisionManager::getInstance()->setPlayer(playerSprite);
@@ -114,6 +118,7 @@ void GameScene::update(float delta)
 	CollisionManager::getInstance()->checkCollisions();
 	m_HudLayer->update();
 	m_pParallax->updateBackground();
+	CCLOG("%f", delta);
 		
 	//CCLOG("-------------GAME LOOP END--------------");
 
@@ -131,9 +136,6 @@ inline Point locationInGLFromTouch(Touch& touch)
 bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event) 
 {
 	WorldManager::getInstance()->getPlayer()->touch(locationInGLFromTouch(*touch));
-	//playerSprite->stopAllActions();
-	//playerSprite->runAction(AnimationMoves::getAnimationWithFrames(1, 4));
-	//hero->runAction(Utils::getAnimationWithFrames(9, 16));
 	return true;
 }
 
