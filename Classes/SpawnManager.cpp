@@ -17,8 +17,32 @@ bool SpawnManager::init()
 	m_pGroundEnemy->setPosition(Vec2(m_pGroundEnemy->getPositionX() + VISIBLE_SIZE_WIDTH * 1.5, 100));
 	m_pFloatingEnemy->setPosition(Vec2(m_pFloatingEnemy->getPositionX() + VISIBLE_SIZE_WIDTH * 1.5, 50));
 
+	auto groundEnemyPhysicsBody = PhysicsBody::createBox(m_pGroundEnemy->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+	m_pGroundEnemy->setPhysicsBody(groundEnemyPhysicsBody);
+	groundEnemyPhysicsBody->setDynamic(false);
+	
+	m_pGroundEnemy->setPhysicsBody(PhysicsBody::createBox(Size(m_pGroundEnemy->getContentSize().width, m_pGroundEnemy->getContentSize().height)));
+	m_pGroundEnemy->getPhysicsBody()->setDynamic(true);
+	m_pGroundEnemy->getPhysicsBody()->setGravityEnable(false);
+
+	auto floatingEnemyPhysicsBody = PhysicsBody::createBox(m_pFloatingEnemy->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+	m_pFloatingEnemy->setPhysicsBody(floatingEnemyPhysicsBody);
+	floatingEnemyPhysicsBody->setDynamic(false);
+
+	m_pFloatingEnemy->setPhysicsBody(PhysicsBody::createBox(Size(m_pFloatingEnemy->getContentSize().width, m_pFloatingEnemy->getContentSize().height)));
+	m_pFloatingEnemy->getPhysicsBody()->setDynamic(true);
+	m_pFloatingEnemy->getPhysicsBody()->setGravityEnable(false);
+
 	this->addChild(m_pGroundEnemy);
 	this->addChild(m_pFloatingEnemy);
+
+	//CollisionManager::getInstance()->setEnemyFloating(m_pFloatingEnemy);
+	//CollisionManager::getInstance()->setEnemyGround(m_pGroundEnemy);
+
+
+	// adding the enemies to a vector
+	CollisionManager::getInstance()->addEnemy(m_pGroundEnemy);
+	CollisionManager::getInstance()->addEnemy(m_pFloatingEnemy);
 
 	srand(time(NULL));
 	m_bIsSpawned = false;

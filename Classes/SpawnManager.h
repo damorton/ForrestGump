@@ -30,7 +30,7 @@ public:
 private:
 	Enemy* m_pGroundEnemy;
 	Enemy* m_pFloatingEnemy;
-	//std::deque<Enemy*> m_vpEnemies;
+	std::vector<Enemy*> m_vpEnemies;
 	int m_enemyCount = 0; // keep track of number of spawned objects
 	
 	
