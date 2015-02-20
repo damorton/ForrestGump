@@ -24,7 +24,6 @@ public:
 	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event * event);	
 	bool onContactBegin(cocos2d::PhysicsContact& contact);
 	void pause();
-	void spawnEnemy(float dt);
 	CREATE_FUNC(GameScene);
 	
 private:
