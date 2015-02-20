@@ -1,13 +1,11 @@
 #include "SpawnManager.h"
 
-
 USING_NS_CC;
 
 bool SpawnManager::init()
 {
 	if (!Layer::init())
 	{
-
 		return false;
 	}
 	
@@ -36,11 +34,7 @@ bool SpawnManager::init()
 	this->addChild(m_pGroundEnemy);
 	this->addChild(m_pFloatingEnemy);
 
-	//CollisionManager::getInstance()->setEnemyFloating(m_pFloatingEnemy);
-	//CollisionManager::getInstance()->setEnemyGround(m_pGroundEnemy);
-
-
-	// adding the enemies to a vector
+	// adding enemies to the collision manager
 	CollisionManager::getInstance()->addEnemy(m_pGroundEnemy);
 	CollisionManager::getInstance()->addEnemy(m_pFloatingEnemy);
 
@@ -67,7 +61,6 @@ void SpawnManager::update()
 */
 bool SpawnManager::spawnEnemy()
 {
-
 	/*
 	if (m_enemyCount > ENEMY_SPAWN_COUNT) // setting the count at 5 for now, we can increase this with difficulty
 	{

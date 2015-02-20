@@ -21,8 +21,6 @@ bool CollisionManager::init()
 void CollisionManager::checkCollisions()
 {
 	this->checkCollisionsWithItems();
-	// this->checkCollisionsWithFloatingEnemy();
-	// this->checkCollisionsWithGroundEnemy();
 	this->checkCollisionsWithEnemies();
 }
 
@@ -71,52 +69,17 @@ void CollisionManager::checkCollisionsWithItems()
 	}
 }
 
-
-void CollisionManager::checkCollisionsWithFloatingEnemy()
-{
-
-	if (m_pPlayer->getBoundingBox().intersectsRect(m_pFloatingEnemy->getBoundingBox()))
-	{
-		if (m_pFloatingEnemy->isVisible())
-		{
-
-			m_pFloatingEnemy->setVisible(false);
-		}
-
-	}
-	
-}
-
-void CollisionManager::checkCollisionsWithGroundEnemy()
-{
-
-	// loop through the vector and register enemy
-
-	if (m_pPlayer->getBoundingBox().intersectsRect(m_pGroundEnemy->getBoundingBox()))
-	{
-		if (m_pGroundEnemy->isVisible())
-		{
-
-			m_pGroundEnemy->setVisible(false);
-		}
-
-	}
-
-}
-
 void CollisionManager::checkCollisionsWithEnemies()
 {
-
 	if (!m_vpEnemies.empty())
 	{
+		// loop through the vector and register enemy
 		for (std::vector<Enemy*>::size_type it = 0; it < m_vpEnemies.size(); ++it)
 		{
 			auto enemy = m_vpEnemies.at(it);
 
 			if (enemy)
 			{
-
-				// loop through the vector and register enemy
 				if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
 				{
 					if (enemy->isVisible())

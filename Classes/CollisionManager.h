@@ -32,8 +32,6 @@ public:
 	Player* getPlayer(){ return m_pPlayer; };
 	std::deque<TMXLayer*> getLayers(){ return (std::deque<TMXLayer*>)m_vpLayers; };
 	void setPlayer(Player* player){ m_pPlayer = player; };	
-	void setEnemyGround(Enemy* groundEnemy){ m_pGroundEnemy = groundEnemy; };
-	void setEnemyFloating(Enemy* floatingEnemy){ m_pFloatingEnemy = floatingEnemy; };
 	void setEnemies(std::vector<Enemy*> enemies){ m_vpEnemies = enemies; };
 	void setLayers(std::deque<TMXLayer*> layers){ m_vpLayers = layers; };
 protected:

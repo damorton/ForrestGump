@@ -3,7 +3,6 @@
 
 #include "cocos2d.h"
 #include "Enemy.h"
-//#include "WorldManager.h"
 #include "Definitions.h"
 #include "CollisionManager.h"
 #include <iostream>
