@@ -28,8 +28,28 @@ bool Player::init()
 	return true;
 }
 
-void Player::addCoin(){
+void Player::addCoin()
+{
 	m_nCoins++;
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Pickup_Coin.wav", false, 1.0f, 1.0f, 1.0f);
+
+}
+
+void Player::addBooster()
+{
+	m_nBoosters++;
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Pickup_Coin.wav", false, 1.0f, 1.0f, 1.0f);
+}
+
+void Player::addFood()
+{
+	m_nFood++;
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Pickup_Coin.wav", false, 1.0f, 1.0f, 1.0f);
+}
+
+void Player::addItem()
+{
+	m_nItems++;
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Pickup_Coin.wav", false, 1.0f, 1.0f, 1.0f);
 }
 void Player::addParticle(Player* pS)

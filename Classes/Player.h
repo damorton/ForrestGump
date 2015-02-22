@@ -30,9 +30,9 @@ public:
 	void setState(int state){ m_ePlayerState = (EPlayerState)state; };
 	void addDistance(){ m_nDistance++; };
 	void addCoin();	
-	void addItem(){ m_nItems++; };
-	void addBooster(){ m_nBoosters++; };
-	void addFood(){ m_nFood++; };
+	void addItem();
+	void addBooster();
+	void addFood();
 	void addParticle(Player* pS);
 	
 	CREATE_FUNC(Player);
