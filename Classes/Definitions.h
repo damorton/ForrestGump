@@ -47,4 +47,7 @@ typedef enum {
 #define VALUE_FONT "fonts/Pixel Coleco.otf"
 #define LABEL_FONT_SIZE 32
 
+// spawn manager
+#define ENEMY_SPAWN_COUNT 5
+
 #endif // DEFINITIONS_H__

@@ -90,10 +90,11 @@ bool GameScene::initializeGame()
 	listener->setSwallowTouches(true);
 	listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-	
-	// creating a schedule to control enemey spawns in delta time
-	//this->schedule(schedule_selector(GameScene::spawnEnemy), ENEMY_SPAWN_FREQ * visibleSize.width);
 
+			
+	//m_fSpeed = 5.0f;
+
+	
 	// call the schedule update in order to run this layers update function
 	this->scheduleUpdate();
 	return true;
@@ -113,6 +114,7 @@ void GameScene::update(float delta)
 	CollisionManager::getInstance()->checkCollisions();
 	m_HudLayer->update();
 	m_pParallax->updateBackground();
+	m_pSpawnManager->update();
 		
 	//CCLOG("-------------GAME LOOP END--------------");
 }
@@ -132,11 +134,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	return true;
 }
 
-// calling this function to spawn enemies
-void GameScene::spawnEnemy(float dt)
-{
-	m_enemey.spawnEnemy(this);
-}
+
 
 
 void GameScene::pause()
