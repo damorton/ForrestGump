@@ -29,10 +29,10 @@ public:
 	void setType(EGameOjectType type){ m_eType = type; };
 	void setState(int state){ m_ePlayerState = (EPlayerState)state; };
 	void addDistance(){ m_nDistance++; };
-	void addCoin();//{ m_nCoins++; };	
-	void addItem(){ m_nItems++; };
-	void addBooster(){ m_nBoosters++; };
-	void addFood(){ m_nFood++; };
+	void addCoin();	
+	void addItem();
+	void addBooster();
+	void addFood();
 	void addParticle(Player* pS);
 	
 	CREATE_FUNC(Player);
