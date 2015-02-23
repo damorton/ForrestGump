@@ -10,14 +10,14 @@ USING_NS_CC;
 
 Scene* GameScene::createScene()
 {	
-	auto scene = Scene::createWithPhysics();	
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL); // draw debug lines around objects in the world		
+	auto scene = Scene::createWithPhysics();
+//	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);	
 	scene->setTag(TAG_GAME_SCENE);
 
 	GameScene* gameLayer = GameScene::create();
-	gameLayer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics	
+	gameLayer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics		
+	
 	scene->addChild(gameLayer, 0, TAG_GAME_LAYER);
-			
 	return scene;
 }
 
@@ -28,12 +28,12 @@ bool GameScene::init()
 		return false;
 	}	
 	this->initializeGame();
+
 	return true;
 }
 
 bool GameScene::initializeGame()
 {	
-
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
@@ -47,37 +47,41 @@ bool GameScene::initializeGame()
 	m_HudLayer = HUD::create();
 	gamePlayLayer->addChild(m_HudLayer, 1, TAG_HUD);
 
-	// segment spawns	
+	// segment spawns
 	m_pCollectableFactory = CollectableFactory::create();
 	gamePlayLayer->addChild(m_pCollectableFactory, 0, TAG_SEGMENT_MANAGER);
-	
+
 	//Background
 	m_pParallax = Parallax::create();
 	gamePlayLayer->addChild(m_pParallax, -1, "parallax");
 
-	//WorldManager::getInstance()->gameLayer()->addChild(m_pParallax, 0, "parallax");	
-	if (m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png"))
+	if (m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png", "background/backgroundFourth.png"));
 	{
 		CCLOG("Images loaded successful");
-	}	
-
+	}
 	// CHANGE FLOOR SPRITE TO RECT FOR THE PLAYER POSITION
-	auto floorSprite = Sprite::create("background/floorBoundaries.png");	
+	auto floorSprite = Sprite::create("background/floorBoundaries.png");
 	floorSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, floorSprite->getContentSize().height / 2 + origin.y));
 	auto floorEdgeBody = PhysicsBody::createEdgeBox(floorSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
 	floorSprite->setPhysicsBody(floorEdgeBody);
 	floorSprite->getPhysicsBody()->setDynamic(false);
-	gamePlayLayer->addChild(floorSprite, -1); // add at z:1 for floorSprite	
+	gamePlayLayer->addChild(floorSprite, -2); // add at z:1 for floorSprite	
 	WorldManager::getInstance()->setFloorSprite(floorSprite);
-		
-	// Player			
-	Player* playerSprite = Player::create("sprites/Player.png");
-	playerSprite->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, (WorldManager::getInstance()->getFloorSprite()->getContentSize().height + playerSprite->getContentSize().height / 2) - 5));
 
-	auto playerPhysicsBody = PhysicsBody::createBox(playerSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+	//Player
+	Player* playerSprite = Player::create("sprites/Playersmall.png");
+	playerSprite->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, (WorldManager::getInstance()->getFloorSprite()->getContentSize().height + playerSprite->getContentSize().height / 2) - 5));
+	auto playerPhysicsBody = PhysicsBody::createBox(Size(playerSprite->getContentSize().width, playerSprite->getContentSize().height - 5), PHYSICSBODY_MATERIAL_DEFAULT);
 	playerSprite->setPhysicsBody(playerPhysicsBody);
-	playerPhysicsBody->setDynamic(false);
+	playerPhysicsBody->setDynamic(true);
+	playerPhysicsBody->setGravityEnable(true);
+	playerSprite->getPhysicsBody()->setRotationEnable(false);
 	gamePlayLayer->addChild(playerSprite, 0);
+
+	//Start player walking
+	playerSprite->getAnimationWithFrames(1, 4, 1);
+	playerSprite->runAction(playerSprite->animate);
+
 	WorldManager::getInstance()->setPlayer(playerSprite);
 	CollisionManager::getInstance()->setPlayer(playerSprite);
 
@@ -107,6 +111,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
 
 void GameScene::update(float delta)
 {
+
 	//CCLOG("-------------GAME LOOP START--------------");	
 	
 	WorldManager::getInstance()->getPlayer()->update();
@@ -114,9 +119,12 @@ void GameScene::update(float delta)
 	CollisionManager::getInstance()->checkCollisions();
 	m_HudLayer->update();
 	m_pParallax->updateBackground();
+
 	m_pSpawnManager->update();
+
 		
 	//CCLOG("-------------GAME LOOP END--------------");
+
 }
 
 /*

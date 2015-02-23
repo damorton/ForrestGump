@@ -18,6 +18,11 @@ public:
 	EGameOjectType getType(){ return m_eType; };	
 	void setType(EGameOjectType type){ m_eType = type; };	
 	CREATE_FUNC(Enemy);
+
+	//ANIMATION
+	void getAnimationWithFrames(int, int);
+	Animate* animate;
+
 };
 
 #endif
