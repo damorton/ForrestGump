@@ -25,6 +25,10 @@ bool Player::init()
 	m_nBoosters = 0;
 	m_nFood = 0;
 	m_nItems = 0;
+
+	//getAnimationWithFrames(1, 4, 1);	
+	//this->runAction(RepeatForever::create(animate));
+
 	return true;
 }
 
@@ -67,26 +71,49 @@ void Player::jump()
 	{
 		m_ePlayerState = JUMPING;
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/jump3.wav", false, 1.0f, 1.0f, 1.0f);
-		auto action = JumpBy::create(JUMP_SPEED, Vec2(0, 0), JUMP_HEIGHT, NO_OF_JUMPS);
-		this->runAction(action);
-		this->runAction(AnimationMoves::getAnimationWithFrames(1, 2));
+		
+		//Stop the Running animation Forever
+		this->stopAllActions();
+
+		//Create the Jump Animation
+		getAnimationWithFrames(1, 3, 2);		
+		Animate* animate2 = animate; //jumping
+
+		//Create the Running Animation
+		getAnimationWithFrames(1, 4, 1);
+		Animate* animate3 = animate; //running	
+
+		//Create the Sequence of Animation
+		FiniteTimeAction* animationSequence = Sequence::create(animate2, animate3, nullptr);
+		this->runAction(animationSequence);
+
+		//NEW JUMP
+		CCLOG("jump");
+		Vec2 impulse(0.0f, 0.0f);	
+		impulse.y = 50000.0f;
+		impulse.x = 0.0f;
+		this->getPhysicsBody()->applyImpulse(impulse);
 	}
 }
 
 void Player::update()
-{	
+{		
+	
 	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
 	{		
 		m_ePlayerState = RUNNING;
 		ccEmitter->setScale(1.0);
-		ccEmitter->resume();	
+		ccEmitter->resume();
 	}
 	else
 	{
 		m_ePlayerState = JUMPING;
+<<<<<<< HEAD
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/trashdropping.wav", false, 1.0f, 1.0f, 1.0f);
+=======
+>>>>>>> 17652b915d5a86e78460c575d39c9fd4934162a7
 		ccEmitter->setScale(0.0);
-		ccEmitter->pause();
+		ccEmitter->pause();			
 	}		
 }
 
@@ -100,4 +127,42 @@ void Player::touch(const Point& location)
 
 void Player::cleanUp()
 {
+}
+
+/*
+Animation Function
+Return Animate object, parameters: 
+	init:	initial image, 
+	end:	end image, which animation image
+	act:	action, which animation
+*/
+void Player::getAnimationWithFrames(int init, int end, int act){
+	Vector<SpriteFrame*> animFrames(4);
+	char str[100] = { 0 };
+	int i = init;
+	while (i <= end)
+	{
+		if (act == 1)		//1 - Running
+		{
+			//sprintf(str, "sprites/walk%02d.png", i);
+			//auto frame = SpriteFrame::create(str, Rect(0, 0, 105, 135)); //we assume that the sprites' dimentions are 105*135 rectangles.
+			sprintf(str, "sprites/walk%02dsmall.png", i);
+			auto frame = SpriteFrame::create(str, Rect(0, 0, 55, 69)); //we assume that the sprites' dimentions are 55*69 rectangles.
+			i++;
+			animFrames.pushBack(frame);
+		}
+		else if (act == 2)	//2 - Jumping
+		{
+			sprintf(str, "sprites/jump%02dsmall.png", i);
+			auto frame = SpriteFrame::create(str, Rect(0, 0, 55, 69)); //we assume that the sprites' dimentions are 55*69 rectangles.
+			i++;
+			animFrames.pushBack(frame);
+		}
+	}
+
+	//Define number of loops
+	auto animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
+		if(act == 2) animation->setLoops(4);
+		else if (act == 1) animation->setLoops(-1);
+	animate = Animate::create(animation);
 }
