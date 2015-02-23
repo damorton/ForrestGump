@@ -50,6 +50,7 @@ private:
 	int m_nFood;
 	int m_nItems;		
 	ParticleSystem *ccEmitter = ParticleSystemQuad::create("particles/Flower.plist");
+
 };
 
 #endif

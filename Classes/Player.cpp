@@ -109,9 +109,16 @@ void Player::update()
 	{
 		m_ePlayerState = JUMPING;
 <<<<<<< HEAD
+<<<<<<< HEAD
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/trashdropping.wav", false, 1.0f, 1.0f, 1.0f);
 =======
 >>>>>>> 17652b915d5a86e78460c575d39c9fd4934162a7
+=======
+
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/trashdropping.wav", false, 1.0f, 1.0f, 1.0f);
+
+
+>>>>>>> georgina_audio
 		ccEmitter->setScale(0.0);
 		ccEmitter->pause();			
 	}		
