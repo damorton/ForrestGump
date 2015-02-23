@@ -66,9 +66,13 @@ bool MainMenu::init()
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu);
 
+
+
+
 	// creation of actions for tweening of main menu
 	auto ccPlayBtnAction = MoveBy::create(1, Point(visibleSize.width / 2, (visibleSize.height / 8) * 2));
 	playButton->runAction(ccPlayBtnAction);
+	
 
 	auto ccSettingsBtnAction = MoveBy::create(1, Point(visibleSize.width / 4, (visibleSize.height / 5) * 2));
 	settingsButton->runAction(ccSettingsBtnAction);
@@ -79,6 +83,15 @@ bool MainMenu::init()
 	// loading .plist file
 	//CCString* file = CCString::create("sprites/walk.plist");
 	//CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(file->getCString());
+	
+	auto rotateAction = RotateBy::create(2.0f, 360.0f);
+	playButton->runAction(rotateAction);
+	
+	auto rotateAction2 = RotateBy::create(2.0f, 360.0f);
+	settingsButton->runAction(rotateAction2);
+
+	auto rotateAction3 = RotateBy::create(2.0f, 360.0f);
+	highscoresButton->runAction(rotateAction3);
 
     return true;
 }
@@ -93,6 +106,7 @@ void MainMenu::playGame(cocos2d::Ref *pSender)
 {
 	Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::createScene()));
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);	
+	
 }
 
 void MainMenu::leaderboard(cocos2d::Ref *pSender)
