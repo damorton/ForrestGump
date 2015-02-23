@@ -36,6 +36,11 @@ public:
 	void addParticle(Player* pS);
 	
 	CREATE_FUNC(Player);
+
+	//ANIMATION
+	void getAnimationWithFrames(int, int, int);
+	Animate* animate;
+
 private:
 	typedef enum { ALIVE, DEAD, BOOSTING, JUMPING, RUNNING } EPlayerState;
 	EPlayerState m_ePlayerState;
@@ -44,7 +49,7 @@ private:
 	int m_nBoosters;
 	int m_nFood;
 	int m_nItems;		
-	CCParticleSystem *ccEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
+	ParticleSystem *ccEmitter = ParticleSystemQuad::create("particles/Flower.plist");
 };
 
 #endif
