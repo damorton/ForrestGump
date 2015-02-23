@@ -22,14 +22,14 @@ bool MainMenu::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 
-	// particle testing 
+	// particle testing  for high scores button
 	CCParticleSystem *ccEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
-	ccEmitter->setPosition(Point((visibleSize.width / 4) * 3, (visibleSize.height / 5) * 4));
+	ccEmitter->setPosition(Point((visibleSize.width / 4) * 3, (visibleSize.height / 5) * 2));
 	ccEmitter->setEmissionRate(200.00);
 	ccEmitter->setTotalParticles(50);
 	this->addChild(ccEmitter);
 
-	// particle testing 
+	// particle testing for play button
 	CCParticleSystem *ccEmitter2 = CCParticleSystemQuad::create("particles/Flower.plist");
 	ccEmitter2->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 8) * 2));
 	ccEmitter2->setEmissionRate(300.00);
@@ -56,15 +56,25 @@ bool MainMenu::init()
 	
 	
 	// position the menu buttons on screen
-	playButton->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 8) * 2));
-	highscoresButton->setPosition(Point((visibleSize.width / 4) * 3, (visibleSize.height / 5) * 4));
-	settingsButton->setPosition(Point(visibleSize.width / 4, (visibleSize.height / 5) * 2));
+	playButton->setPosition(Point(0,0));
+	highscoresButton->setPosition(Point(0,0));
+	settingsButton->setPosition(Point(0,0));
 	
 
 	// create menu and add menu items
 	auto* menu = Menu::create(playButton, highscoresButton, settingsButton, NULL);
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu);
+
+	// creation of actions for tweening of main menu
+	auto ccPlayBtnAction = MoveBy::create(1, Point(visibleSize.width / 2, (visibleSize.height / 8) * 2));
+	playButton->runAction(ccPlayBtnAction);
+
+	auto ccSettingsBtnAction = MoveBy::create(1, Point(visibleSize.width / 4, (visibleSize.height / 5) * 2));
+	settingsButton->runAction(ccSettingsBtnAction);
+
+	auto ccHighScoreBtnAction = MoveBy::create(1, Point((visibleSize.width / 4) * 3, (visibleSize.height / 5) * 2));
+	highscoresButton->runAction(ccHighScoreBtnAction);
 
 	// loading .plist file
 	//CCString* file = CCString::create("sprites/walk.plist");
