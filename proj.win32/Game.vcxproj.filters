@@ -60,9 +60,6 @@
     <ClCompile Include="..\Classes\Parallax.cpp">
       <Filter>Classes\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Pause.cpp">
-      <Filter>Classes\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Player.cpp">
       <Filter>Classes\Source Files</Filter>
     </ClCompile>
@@ -80,6 +77,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\DAO\User.cpp">
       <Filter>Classes\DAO\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameOver.cpp">
+      <Filter>Classes\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -125,9 +125,6 @@
     <ClInclude Include="..\Classes\Parallax.h">
       <Filter>Classes\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Pause.h">
-      <Filter>Classes\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Player.h">
       <Filter>Classes\Header Files</Filter>
     </ClInclude>
@@ -151,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\DAO\Username.h">
       <Filter>Classes\DAO\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameOver.h">
+      <Filter>Classes\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

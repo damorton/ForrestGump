@@ -11,7 +11,7 @@ public:
 	virtual bool init();		
 	void addScore();
 	void update();
-	void pauseGame(cocos2d::Ref *pSender);
+	void gameOver(cocos2d::Ref *pSender);
 	void initLabelWithValue(Label* label, Vec2 position, Label* value);
 	CREATE_FUNC(HUD);
 private:

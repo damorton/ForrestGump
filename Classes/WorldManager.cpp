@@ -1,7 +1,6 @@
 #include "WorldManager.h"
-#include <iostream>
 #include "DAO/User.h"
-#include "DAO/GameDAO.h"
+#include <iostream>
 
 using namespace std;
 
@@ -42,14 +41,18 @@ Layer* WorldManager::layerWithTag(int tag)
 }
 
 bool WorldManager::init()
-{		
-	cout << "test" << endl;
-		
-	IGameDAO* dao = new GameDAO();
-	std::shared_ptr<std::vector<User>> users = dao->read();
-		
+{				
+	this->createDAO();
+	return true;
+}
+
+void WorldManager::createDAO()
+{
+	m_DataAccessObject = std::shared_ptr<IGameDAO>(new GameDAO());
+	std::shared_ptr<std::vector<User>> users = m_DataAccessObject->read();
+
 	// remove comments to add to the game.xml file
-	
+
 	/*
 	User john;
 	john.setUsername("John");
@@ -75,12 +78,15 @@ bool WorldManager::init()
 		}
 	}
 
-	dao->update(users);
-	return true;
+	m_DataAccessObject->update(users);
 }
 
 void WorldManager::cleanUp()
 {		
+	// auto release objects
 	m_pFloorSprite = NULL;
 	m_pPlayer = NULL;	
+
+	// members of WorldManager
+	
 }

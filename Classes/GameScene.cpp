@@ -3,7 +3,7 @@
 #include "WorldManager.h"
 #include "CollisionManager.h"
 #include "MainMenu.h"
-#include "Pause.h"
+#include "GameOver.h"
 #include "Player.h"
 
 USING_NS_CC;
@@ -134,11 +134,10 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 
 
 
-void GameScene::pause()
+void GameScene::gameOver()
 {
-	CCLOG("Pause");
-	auto scene = Pause::createScene();
-	Director::getInstance()->pushScene(TransitionFade::create(1, scene));
+	CCLOG("GameOver");
+	Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
 }
 

@@ -57,7 +57,7 @@ bool HUD::init()
 		m_pFoodValueLabel);
 	
 	// Menu 
-	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(HUD::pauseGame, this));
+	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(HUD::gameOver, this));
 	menu_item_pause->setPosition(Vec2(m_Origin.x + VISIBLE_SIZE_WIDTH - menu_item_pause->getContentSize().width / 2,
 		m_Origin.y + VISIBLE_SIZE_HEIGHT - menu_item_pause->getContentSize().height / 2));
 		
@@ -95,7 +95,7 @@ void HUD::update()
 	}
 }
 
-void HUD::pauseGame(cocos2d::Ref *pSender)
+void HUD::gameOver(cocos2d::Ref *pSender)
 {
-	WorldManager::getInstance()->gameLayer()->pause();
+	WorldManager::getInstance()->gameLayer()->gameOver();
 }
