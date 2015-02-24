@@ -26,6 +26,7 @@ public:
 	static CollectableFactory* CollectableFactoryLayer();
 	static GameScene* gameLayer();	
 	void createDAO();
+	void addUser(std::string username);
 
 	Player* getPlayer(){ return m_pPlayer; };
 	std::vector<std::shared_ptr<Enemy>> getEnemies(){ return m_vpEnemies; };

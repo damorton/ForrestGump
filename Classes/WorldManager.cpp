@@ -43,31 +43,17 @@ Layer* WorldManager::layerWithTag(int tag)
 bool WorldManager::init()
 {				
 	this->createDAO();
+	this->addUser("David");
 	return true;
 }
 
 void WorldManager::createDAO()
 {
-	m_DataAccessObject = std::shared_ptr<IGameDAO>(new GameDAO());
-	std::shared_ptr<std::vector<User>> users = m_DataAccessObject->read();
-
-	// remove comments to add to the game.xml file
-
+	m_DataAccessObject = std::shared_ptr<IGameDAO>(new GameDAO());	
+	//m_DataAccessObject->create();
+	
 	/*
-	User john;
-	john.setUsername("John");
-	john.addScore("Distance 3890");
-	john.addScore("Coins 7893");
-
-	User tom;
-	tom.setUsername("Tom");
-	tom.addScore("Distance 456");
-	tom.addScore("Coins 10");
-
-	users->push_back(john);
-	users->push_back(tom);
-	*/
-
+	std::shared_ptr<std::vector<User>> users = m_DataAccessObject->read();
 	for (int i = 0; i < users->size(); i++)
 	{
 		CCLOG("%s", users->at(i).getUsername()->getText().c_str());
@@ -77,7 +63,20 @@ void WorldManager::createDAO()
 			CCLOG("%s", users->at(i).getScores()->at(j).getText().c_str());
 		}
 	}
+	*/	
+}
 
+void WorldManager::addUser(std::string username)
+{
+	std::shared_ptr<std::vector<User>> users = m_DataAccessObject->read();
+	User user;
+	user.setUsername(username.c_str());
+	user.addScore("0");	// distance
+	user.addScore("0");	// coins
+	user.addScore("0");	// items
+	user.addScore("0");	// boosters
+	user.addScore("0");	// food
+	users->push_back(user);
 	m_DataAccessObject->update(users);
 }
 

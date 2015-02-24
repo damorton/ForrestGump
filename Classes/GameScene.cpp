@@ -103,14 +103,12 @@ void GameScene::update(float delta)
 
 	//CCLOG("-------------GAME LOOP START--------------");	
 	
-	WorldManager::getInstance()->getPlayer()->update();
-	m_pCollectableFactory->update();
 	CollisionManager::getInstance()->checkCollisions();
+	WorldManager::getInstance()->getPlayer()->update();
+	m_pCollectableFactory->update();	
 	m_HudLayer->update();
-	m_pParallax->updateBackground();
-
+	m_pParallax->update();
 	m_pSpawnManager->update();
-
 		
 	//CCLOG("-------------GAME LOOP END--------------");
 

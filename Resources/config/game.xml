@@ -1,14 +1,18 @@
 <Game>
     <User>
         <Username>David</Username>
-        <Score>398</Score>
+        <Score>0</Score>
+        <Score>0</Score>
+        <Score>0</Score>
+        <Score>0</Score>
+        <Score>0</Score>
     </User>
     <User>
-        <Username>John</Username>
-        <Score>Distance 3890</Score>
-    </User>
-    <User>
-        <Username>Tom</Username>
-        <Score>Distance 456</Score>
+        <Username>David</Username>
+        <Score>0</Score>
+        <Score>0</Score>
+        <Score>0</Score>
+        <Score>0</Score>
+        <Score>0</Score>
     </User>
 </Game>

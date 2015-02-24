@@ -50,7 +50,7 @@ bool Parallax::addBackground(const std::string& filename1, const std::string& fi
 	return true;	
 }
 
-void Parallax::updateBackground()
+void Parallax::update()
 {
 	m_fSpeed = 5.0f;
 	

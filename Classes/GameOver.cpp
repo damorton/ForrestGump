@@ -52,7 +52,7 @@ bool GameOver::initializeGameOverScene()
 	//resumeButton->setPosition(Point(m_Size.width / 2, (m_Size.height / 3) + 150));
 	//mainMenuButton->setPosition(Point(m_Size.width / 2, (m_Size.height / 3)));
 	//exitButton->setPosition(Point(m_Size.width - 50, (m_Size.height / 3)-100));
-	playAgainButton->setPosition(Point(m_Size.width / 2, m_Size.height / 4 * 1));
+	playAgainButton->setPosition(Point((m_Size.width * 0.75), m_Size.height / 4 * 1));
 
 	// create menu and add menu items
 	//auto* menu = Menu::create(resumeButton, mainMenuButton, exitButton, NULL);

@@ -13,6 +13,7 @@ public:
 	~User();
 	void setUsername(const char* name);
 	void addScore(const char* value);
+	void addDistanceScore(const char* value);
 	std::shared_ptr<Username> getUsername();
 	std::shared_ptr<std::vector<Score>> getScores();
 
