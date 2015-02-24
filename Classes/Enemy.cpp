@@ -12,7 +12,6 @@ Enemy* Enemy::create(const std::string& filename)
 	{
 		pSprite->autorelease();
 		pSprite->init();
-		//pSprite->addEvents();
 		return pSprite;
 	}
 
@@ -49,4 +48,3 @@ void Enemy::cleanUp()
 {	CCLOG("Enemy::cleanUp()");
 
 }
-

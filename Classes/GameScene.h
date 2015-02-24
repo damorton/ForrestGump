@@ -25,13 +25,17 @@ public:
 	bool onContactBegin(cocos2d::PhysicsContact& contact);
 	void pause();
 	CREATE_FUNC(GameScene);
+	
 private:
 	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
-	PhysicsWorld* m_pSceneWorld;		
-	CollectableFactory* m_pCollectableFactory;
+	int spawnSegmentTimer;
+
+	PhysicsWorld* m_pSceneWorld;			
 	HUD* m_HudLayer;
 	Parallax* m_pParallax;
 	Layer* gamePlayLayer;
+	Player* playerSprite;
+	CollectableFactory* m_pCollectableFactory;
 	SpawnManager* m_pSpawnManager;
 	Enemy m_enemey;	
 };

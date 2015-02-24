@@ -29,13 +29,18 @@ public:
 	void setType(EGameOjectType type){ m_eType = type; };
 	void setState(int state){ m_ePlayerState = (EPlayerState)state; };
 	void addDistance(){ m_nDistance++; };
-	void addCoin(){ m_nCoins++; };	
-	void addItem(){ m_nItems++; };
-	void addBooster(){ m_nBoosters++; };
-	void addFood(){ m_nFood++; };
+	void addCoin();	
+	void addItem();
+	void addBooster();
+	void addFood();
 	void addParticle(Player* pS);
 	
 	CREATE_FUNC(Player);
+
+	//ANIMATION
+	void getAnimationWithFrames(int, int, int);
+	Animate* animate;
+
 private:
 	typedef enum { ALIVE, DEAD, BOOSTING, JUMPING, RUNNING } EPlayerState;
 	EPlayerState m_ePlayerState;
@@ -44,8 +49,8 @@ private:
 	int m_nBoosters;
 	int m_nFood;
 	int m_nItems;		
-	CCParticleSystem *ccEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
 	std::string m_strUsername;
+	ParticleSystem *ccEmitter = ParticleSystemQuad::create("particles/Flower.plist");
 };
 
 #endif
