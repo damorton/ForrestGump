@@ -127,14 +127,9 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	return true;
 }
 
-
-
-
 void GameScene::gameOver()
 {
-	CCLOG("GameOver");
-	WorldManager::getInstance()->setPlayerDistanceScore(std::to_string(WorldManager::getInstance()->getPlayer()->getDistance()));
-	WorldManager::getInstance()->getPlayer()->setState(Player::DEAD);
+	CCLOG("GameOver");	
 	Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
 }

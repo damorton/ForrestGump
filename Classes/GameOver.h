@@ -14,6 +14,7 @@ public:
 	void displayPlayerStatistics();
 	void initLabelWithValue(Label* label, Label* value, Label* statsLabel);
 	void displayLeaderboard();
+	void storeHighscore();
 	void resume(Ref *pSender);
 	void mainMenu(Ref *pSender);
 	void exit(Ref *pSender);
@@ -32,6 +33,7 @@ private:
 	Label* m_pItemsValueLabel;
 	Label* m_pBoostersValueLabel;
 	Label* m_pFoodValueLabel;
+	Label* m_newHighscore;
 };
 
 #endif 

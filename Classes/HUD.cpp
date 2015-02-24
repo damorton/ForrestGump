@@ -24,29 +24,25 @@ bool HUD::init()
 	// Distance
 	auto distanceLabel = Label::createWithTTF("Distance ", LABEL_FONT, LABEL_FONT_SIZE);
 	distanceLabel->setPosition(Vec2(m_Origin.x + PADDING + distanceLabel->getContentSize().width / 2, m_Origin.y + VISIBLE_SIZE_HEIGHT - PADDING - distanceLabel->getContentSize().height / 2));
-	distanceLabel->setColor(Color3B(80, 80, 80));
-	distanceLabel->enableOutline(Color4B(0, 0, 0, 255));
-	distanceLabel->enableGlow(Color4B(0, 0, 0, 255));
+	distanceLabel->setColor(Color3B(255, 255, 255));
+	distanceLabel->enableGlow(Color4B(255, 255, 51, 255));
 	this->addChild(distanceLabel);
 	m_pDistanceValueLabel = Label::createWithTTF(std::to_string(m_nDistance) + "m", LABEL_FONT, LABEL_FONT_SIZE);
 	m_pDistanceValueLabel->setPosition(Vec2(distanceLabel->getPositionX() + distanceLabel->getContentSize().width / 2 + PADDING + m_pDistanceValueLabel->getContentSize().width/2, distanceLabel->getPositionY()));
-	m_pDistanceValueLabel->setColor(Color3B(80, 80, 80));
-	m_pDistanceValueLabel->enableGlow(Color4B(0, 0, 0, 255));
+	m_pDistanceValueLabel->setColor(Color3B(255, 255, 64));
+	m_pDistanceValueLabel->enableGlow(Color4B(255, 255, 51, 255));
 	this->addChild(m_pDistanceValueLabel);
 	
 	// Coins
 	auto coinsLabel = Label::createWithTTF("Coins ", LABEL_FONT, LABEL_FONT_SIZE);
 	coinsLabel->setPosition(Vec2(m_Origin.x + PADDING + coinsLabel->getContentSize().width / 2, distanceLabel->getPositionY() - distanceLabel->getContentSize().height / 2));
-	coinsLabel->setColor(Color3B(255, 206, 48));
-	coinsLabel->enableOutline(Color4B(0, 0, 0, 255));
-	coinsLabel->enableGlow(Color4B(0, 0, 0, 255));
+	coinsLabel->setColor(Color3B(255, 255, 255));
+	coinsLabel->enableGlow(Color4B(255, 255, 51, 255));
 	this->addChild(coinsLabel);
-	m_pCoinsValueLabel = Label::createWithTTF(std::to_string(m_nCoins), VALUE_FONT, LABEL_FONT_SIZE);
-	m_pCoinsValueLabel = Label::createWithTTF(std::to_string(m_nDistance) + "m", LABEL_FONT, LABEL_FONT_SIZE);
+	m_pCoinsValueLabel = Label::createWithTTF(std::to_string(m_nCoins), LABEL_FONT, LABEL_FONT_SIZE);
 	m_pCoinsValueLabel->setPosition(Vec2(coinsLabel->getPositionX() + coinsLabel->getContentSize().width / 2 + PADDING + m_pCoinsValueLabel->getContentSize().width / 2, coinsLabel->getPositionY()));
-	m_pCoinsValueLabel->setColor(Color3B(255, 206, 48));
-	m_pCoinsValueLabel->enableOutline(Color4B(0, 0, 0, 255));
-	m_pCoinsValueLabel->enableGlow(Color4B(0, 0, 0, 255));
+	m_pCoinsValueLabel->setColor(Color3B(255, 255, 64));
+	m_pCoinsValueLabel->enableGlow(Color4B(255, 255, 51, 255));
 	this->addChild(m_pCoinsValueLabel);
 		
 	// Menu 

@@ -70,16 +70,38 @@ void GameOver::displayPlayerStatistics()
 	auto distanceLabel = Label::createWithTTF(WorldManager::getInstance()->getPlayerUsername() + " YOU RAN", LABEL_FONT, LABEL_FONT_SIZE* 1.5);
 	distanceLabel->setPosition(Vec2((m_Size.width * 0.25), m_Origin.y + (VISIBLE_SIZE_HEIGHT / 4 )*3 - distanceLabel->getContentSize().height / 2));
 	distanceLabel->setColor(Color3B(255, 255, 255));
-	distanceLabel->enableOutline(Color4B(0, 0, 0, 255));
 	distanceLabel->enableGlow(Color4B(255, 255, 51, 255));
 	distanceLabel->setRotation(-6.0f);
 	this->addChild(distanceLabel);
-	m_pDistanceValueLabel = Label::createWithTTF(std::to_string(WorldManager::getInstance()->getPlayer()->getDistance()) + "m", LABEL_FONT, LABEL_FONT_SIZE * 4);
-	m_pDistanceValueLabel->setPosition(Vec2(distanceLabel->getPositionX(), distanceLabel->getPositionY() - PADDING - m_pDistanceValueLabel->getContentSize().height / 2));
-	m_pDistanceValueLabel->setColor(Color3B(255, 255, 64));
-	m_pDistanceValueLabel->enableGlow(Color4B(255, 255, 51, 255));
-	m_pDistanceValueLabel->setRotation(-6.0f);
-	this->addChild(m_pDistanceValueLabel);
+	auto distanceValue = Label::createWithTTF(std::to_string(WorldManager::getInstance()->getPlayer()->getDistance()) + "m", LABEL_FONT, LABEL_FONT_SIZE * 4);
+	distanceValue->setPosition(Vec2(distanceLabel->getPositionX(), distanceLabel->getPositionY() - PADDING - distanceValue->getContentSize().height / 2));
+	distanceValue->setColor(Color3B(255, 255, 64));
+	distanceValue->enableGlow(Color4B(255, 255, 51, 255));
+	distanceValue->setRotation(-6.0f);
+	this->addChild(distanceValue);
+	
+	auto newHighscore = Label::createWithTTF("NEW HIGHSCORE!", LABEL_FONT, LABEL_FONT_SIZE);
+	newHighscore->setPosition(Vec2(distanceLabel->getPositionX(), distanceValue->getPositionY() - PADDING - distanceValue->getContentSize().height / 2 - newHighscore->getContentSize().height / 2));
+	newHighscore->setColor(Color3B(255, 0, 0));
+	newHighscore->enableGlow(Color4B(255, 255, 51, 255));
+	newHighscore->setRotation(-6.0f);
+	newHighscore->setVisible(false);
+	this->addChild(newHighscore);
+
+	int previousHighscore = std::atoi(WorldManager::getInstance()->getPlayerHighscore().c_str());
+	CCLOG("previous %d", previousHighscore);
+	int currentScore = WorldManager::getInstance()->getPlayer()->getDistance();
+	CCLOG("current %d", currentScore);
+	if (currentScore > previousHighscore)
+	{
+		CCLOG("New higscore recorded!");
+		newHighscore->setVisible(true);
+		auto scaleUp = ScaleBy::create(.5, 2.0);
+		auto scaleDown = ScaleBy::create(.5, 0.5);
+		auto scaling = Sequence::create(scaleUp, scaleDown, NULL);
+		newHighscore->runAction(scaling);
+		this->storeHighscore();
+	}
 		
 	auto statsLabel = Label::createWithTTF("STATISTICS", LABEL_FONT, LABEL_FONT_SIZE * 1.5);	
 	statsLabel->setPosition(Point((m_Size.width * 0.75), m_Origin.y + m_Size.height - PADDING - statsLabel->getContentSize().height / 2));
@@ -129,6 +151,11 @@ void GameOver::initLabelWithValue(Label* label, Label* value, Label* labelAbove)
 	value->enableOutline(Color4B(0, 0, 0, 255));
 	value->enableGlow(Color4B(0, 0, 0, 255));
 	this->addChild(value);
+}
+
+void GameOver::storeHighscore()
+{
+	WorldManager::getInstance()->setPlayerHighscore(std::to_string(WorldManager::getInstance()->getPlayer()->getDistance()));
 }
 
 void GameOver::displayLeaderboard()

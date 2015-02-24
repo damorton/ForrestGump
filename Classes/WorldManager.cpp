@@ -71,16 +71,12 @@ void WorldManager::addUser(std::string username)
 	std::shared_ptr<std::vector<User>> users = m_DataAccessObject->read();
 	User user;
 	user.setUsername(username.c_str());
-	user.addScore("0");	// distance
-	user.addScore("0");	// coins
-	user.addScore("0");	// items
-	user.addScore("0");	// boosters
-	user.addScore("0");	// food
+	user.addScore("0");	// distance	
 	users->push_back(user);
 	m_DataAccessObject->update(users);
 }
 
-std::string WorldManager::getPlayerDistanceScore()
+std::string WorldManager::getPlayerHighscore()
 {
 	std::string playerDistance;
 	std::shared_ptr<std::vector<User>> users = m_DataAccessObject->read();
@@ -96,10 +92,10 @@ std::string WorldManager::getPlayerUsername()
 	return playerUsername;
 }
 
-void WorldManager::setPlayerDistanceScore(std::string distanceScore)
+void WorldManager::setPlayerHighscore(std::string highscore)
 {
 	std::shared_ptr<std::vector<User>> users = m_DataAccessObject->read();
-	users->at(0).getScores()->at(0).setText(distanceScore.c_str());
+	users->at(0).getScores()->at(0).setText(highscore.c_str());
 	m_DataAccessObject->update(users);
 }
 

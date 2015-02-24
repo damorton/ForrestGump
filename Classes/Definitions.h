@@ -43,7 +43,6 @@ typedef enum {
 #define ENEMY_MOVEMENT_SPEED 0.008f
 
 #define LABEL_FONT "fonts/go3v2.ttf"
-#define VALUE_FONT "fonts/Pixel Coleco.otf"
 #define LABEL_FONT_SIZE 32
 
 // spawn manager
