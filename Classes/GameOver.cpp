@@ -80,10 +80,7 @@ void GameOver::displayPlayerStatistics()
 	m_pDistanceValueLabel->enableGlow(Color4B(255, 255, 51, 255));
 	m_pDistanceValueLabel->setRotation(-6.0f);
 	this->addChild(m_pDistanceValueLabel);
-
-	// statistcis png for title?
-	// set all labels relative to the statistics png image
-
+		
 	auto statsLabel = Label::createWithTTF("STATISTICS", LABEL_FONT, LABEL_FONT_SIZE * 1.5);	
 	statsLabel->setPosition(Point((m_Size.width * 0.75), m_Origin.y + m_Size.height - PADDING - statsLabel->getContentSize().height / 2));
 	statsLabel->setColor(Color3B(255, 255, 255));

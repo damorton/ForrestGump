@@ -57,9 +57,7 @@ bool GameScene::initializeGame()
 	gamePlayLayer->addChild(m_pParallax, -1, "parallax");
 
 	if (m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png", "background/backgroundFourth.png"));
-	{
-		CCLOG("Images loaded successful");
-	}
+	
 	// CHANGE FLOOR SPRITE TO RECT FOR THE PLAYER POSITION
 	auto floorSprite = Sprite::create("background/floorBoundaries.png");
 	floorSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, floorSprite->getContentSize().height / 2 + origin.y));
