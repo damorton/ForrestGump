@@ -56,7 +56,7 @@ bool GameScene::initializeGame()
 	m_pParallax = Parallax::create();
 	gamePlayLayer->addChild(m_pParallax, -1, "parallax");
 
-	if (m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png", "background/backgroundFourth.png"));
+	m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png", "background/backgroundFourth.png");
 	
 	// CHANGE FLOOR SPRITE TO RECT FOR THE PLAYER POSITION
 	auto floorSprite = Sprite::create("background/floorBoundaries.png");

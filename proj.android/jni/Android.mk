@@ -21,16 +21,17 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/EnemyFactory.cpp \
                    ../../Classes/HUD.cpp \
                    ../../Classes/Parallax.cpp \
-                   ../../Classes/Pause.cpp \
+                   ../../Classes/GameOver.cpp \
                    ../../Classes/Player.cpp \
                    ../../Classes/CollectableFactory.cpp \
                    ../../Classes/SpawnManager.cpp \
                    ../../Classes/WorldManager.cpp \
                    ../../Classes/DAO/GameDAO.cpp \
                    ../../Classes/DAO/User.cpp \
-                   ../../Classes/cocos2d/external/tinyxml2/tinyxml2.cpp                   
+                   ../../cocos2d/external/tinyxml2/tinyxml2.cpp                   
 
-LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
+					$(LOCAL_PATH)/../../cocos2d/external/tinyxml2
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
