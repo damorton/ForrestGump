@@ -14,6 +14,7 @@ public:
 	void leaderboard(Ref *pSender);
 	void settings(Ref *pSender);		
 	CREATE_FUNC(MainMenu);
+
 };
 
 #endif // __MAINMENU_SCENE_H__

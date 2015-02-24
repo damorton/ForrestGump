@@ -32,6 +32,30 @@ bool Player::init()
 	return true;
 }
 
+void Player::addCoin()
+{
+	m_nCoins++;
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Pickup_Coin.wav", false, 1.0f, 1.0f, 1.0f);
+
+}
+
+void Player::addBooster()
+{
+	m_nBoosters++;
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Pickup_Coin.wav", false, 1.0f, 1.0f, 1.0f);
+}
+
+void Player::addFood()
+{
+	m_nFood++;
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Pickup_Coin.wav", false, 1.0f, 1.0f, 1.0f);
+}
+
+void Player::addItem()
+{
+	m_nItems++;
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Pickup_Coin.wav", false, 1.0f, 1.0f, 1.0f);
+}
 void Player::addParticle(Player* pS)
 {
 	ccEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
@@ -84,6 +108,9 @@ void Player::update()
 	else
 	{
 		m_ePlayerState = JUMPING;
+
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/trashdropping.wav", false, 1.0f, 1.0f, 1.0f);
+
 		ccEmitter->setScale(0.0);
 		ccEmitter->pause();			
 	}		
