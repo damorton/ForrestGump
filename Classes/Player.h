@@ -33,7 +33,7 @@ public:
 	void addItem();
 	void addBooster();
 	void addFood();
-	void addParticle(Player* pS);
+	void addParticle();
 	
 	CREATE_FUNC(Player);
 
@@ -49,6 +49,7 @@ private:
 	int m_nBoosters;
 	int m_nFood;
 	int m_nItems;		
+	int m_nNumberOfJumps;
 	std::string m_strUsername;
 	ParticleSystem *ccEmitter = ParticleSystemQuad::create("particles/Flower.plist");
 };

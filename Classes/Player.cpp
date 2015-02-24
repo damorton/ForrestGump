@@ -9,7 +9,6 @@ Player* Player::create(const std::string& filename)
 	{
 		pSprite->autorelease();
 		pSprite->init();
-		pSprite->addParticle(pSprite);		
 		return pSprite;
 	}
 	CC_SAFE_DELETE(pSprite);
@@ -26,9 +25,22 @@ bool Player::init()
 	m_nBoosters = 0;
 	m_nFood = 0;
 	m_nItems = 0;
+	m_nNumberOfJumps = 0;
+	
+	this->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, (WorldManager::getInstance()->getFloorSprite()->getContentSize().height + this->getContentSize().height / 2) - 5));
+	auto playerPhysicsBody = PhysicsBody::createBox(Size(this->getContentSize().width, this->getContentSize().height - 5), PHYSICSBODY_MATERIAL_DEFAULT);	
+	playerPhysicsBody->setDynamic(true);
+	playerPhysicsBody->setGravityEnable(true);
+	playerPhysicsBody->setRotationEnable(false);
+	this->setPhysicsBody(playerPhysicsBody);
 
-	//getAnimationWithFrames(1, 4, 1);	
-	//this->runAction(RepeatForever::create(animate));
+	//Start player walking
+	this->getAnimationWithFrames(1, 4, 1);
+	this->runAction(this->animate);
+
+	WorldManager::getInstance()->setPlayer(this);
+	CollisionManager::getInstance()->setPlayer(this);
+	this->addParticle();
 
 	return true;
 }
@@ -57,19 +69,21 @@ void Player::addItem()
 	m_nItems++;
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Pickup_Coin.wav", false, 1.0f, 1.0f, 1.0f);
 }
-void Player::addParticle(Player* pS)
+
+void Player::addParticle()
 {
-	ccEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
-	ccEmitter->setPosition(Point(pS->getPosition().x, pS->getPosition().y));
+	ccEmitter = CCParticleSystemQuad::create("particles/Flower.plist");	
+	ccEmitter->setPosition(0, 0); // emitter position is relative to it parents position
 	ccEmitter->setEmissionRate(20.00);
-	ccEmitter->setTotalParticles(20);
-	pS->addChild(ccEmitter);
+	ccEmitter->setTotalParticles(100);
+	this->addChild(ccEmitter);
 }
 
 void Player::jump()
 {
-	if (m_ePlayerState == RUNNING)
+	if (m_ePlayerState == RUNNING || m_nNumberOfJumps < MAX_NO_OF_JUMPS)
 	{
+		m_nNumberOfJumps++;
 		m_ePlayerState = JUMPING;
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/jump3.wav", false, 1.0f, 1.0f, 1.0f);
 		
@@ -91,7 +105,7 @@ void Player::jump()
 		//NEW JUMP
 		CCLOG("jump");
 		Vec2 impulse(0.0f, 0.0f);	
-		impulse.y = 50000.0f;
+		impulse.y = 80000.0f;
 		impulse.x = 0.0f;
 		this->getPhysicsBody()->applyImpulse(impulse);
 	}
@@ -99,19 +113,19 @@ void Player::jump()
 
 void Player::update()
 {		
-	
+	// reset player poisiton 
+	this->setPositionX(PLAYER_POSITION_IN_WINDOW);
 	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
 	{		
 		m_ePlayerState = RUNNING;
 		ccEmitter->setScale(1.0);
 		ccEmitter->resume();
+		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/trashdropping.wav", false, 1.0f, 1.0f, 1.0f);
+		m_nNumberOfJumps = 0;
 	}
 	else
 	{
 		m_ePlayerState = JUMPING;
-
-		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/trashdropping.wav", false, 1.0f, 1.0f, 1.0f);
-
 		ccEmitter->setScale(0.0);
 		ccEmitter->pause();			
 	}		

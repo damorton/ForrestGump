@@ -33,7 +33,7 @@ typedef enum {
 // player
 #define PLAYER_POSITION_IN_WINDOW ((Director::getInstance()->getVisibleSize().width / 3) * 1)
 #define JUMP_SPEED 0.75F
-#define NO_OF_JUMPS 1
+#define MAX_NO_OF_JUMPS 2
 #define JUMP_HEIGHT (Director::getInstance()->getVisibleSize().height * .75)
 
 // enemy spawns

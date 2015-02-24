@@ -12,6 +12,7 @@ Scene* GameScene::createScene()
 {	
 	auto scene = Scene::createWithPhysics();
 //	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);	
+	scene->getPhysicsWorld()->setGravity(Vec2(0, -250));
 	scene->setTag(TAG_GAME_SCENE);
 
 	GameScene* gameLayer = GameScene::create();
@@ -70,20 +71,8 @@ bool GameScene::initializeGame()
 
 	//Player
 	Player* playerSprite = Player::create("sprites/Playersmall.png");
-	playerSprite->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, (WorldManager::getInstance()->getFloorSprite()->getContentSize().height + playerSprite->getContentSize().height / 2) - 5));
-	auto playerPhysicsBody = PhysicsBody::createBox(Size(playerSprite->getContentSize().width, playerSprite->getContentSize().height - 5), PHYSICSBODY_MATERIAL_DEFAULT);
-	playerSprite->setPhysicsBody(playerPhysicsBody);
-	playerPhysicsBody->setDynamic(true);
-	playerPhysicsBody->setGravityEnable(true);
-	playerSprite->getPhysicsBody()->setRotationEnable(false);
 	gamePlayLayer->addChild(playerSprite, 0);
 
-	//Start player walking
-	playerSprite->getAnimationWithFrames(1, 4, 1);
-	playerSprite->runAction(playerSprite->animate);
-
-	WorldManager::getInstance()->setPlayer(playerSprite);
-	CollisionManager::getInstance()->setPlayer(playerSprite);
 
 	// Spawn manager
 	m_pSpawnManager = SpawnManager::create();
