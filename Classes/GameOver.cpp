@@ -2,7 +2,7 @@
 #include "MainMenu.h"
 #include "GameScene.h"
 #include "Definitions.h"
-
+#include "WorldManager.h"
 USING_NS_CC;
 
 Scene* GameOver::createScene()
@@ -61,13 +61,14 @@ bool GameOver::initializeGameOverScene()
 
 	this->addStatistics();
 	this->addChild(menu);
+	
 	return success;
 }
 
 void GameOver::addStatistics()
 {
 	// Distance
-	auto distanceLabel = Label::createWithTTF("YOU RAN", LABEL_FONT, LABEL_FONT_SIZE);
+	auto distanceLabel = Label::createWithTTF(WorldManager::getInstance()->getPlayerUsername() + " YOU RAN", LABEL_FONT, LABEL_FONT_SIZE);
 	distanceLabel->setPosition(Vec2((m_Size.width * 0.25), m_Origin.y + (VISIBLE_SIZE_HEIGHT / 4 )*3 - distanceLabel->getContentSize().height / 2));
 	distanceLabel->setColor(Color3B(255, 255, 255));
 	distanceLabel->enableOutline(Color4B(0, 0, 0, 255));
@@ -75,7 +76,7 @@ void GameOver::addStatistics()
 	distanceLabel->setRotation(-6.0f);
 	this->addChild(distanceLabel);
 
-	m_pDistanceValueLabel = Label::createWithTTF(std::to_string(m_nDistance) + "m", VALUE_FONT, LABEL_FONT_SIZE*3);
+	m_pDistanceValueLabel = Label::createWithTTF(WorldManager::getInstance()->getPlayerDistanceScore() + "m", VALUE_FONT, LABEL_FONT_SIZE*3);
 	m_pDistanceValueLabel->setPosition(Vec2(distanceLabel->getPositionX(), distanceLabel->getPositionY() - PADDING - m_pDistanceValueLabel->getContentSize().height / 2));
 	m_pDistanceValueLabel->setColor(Color3B(255, 255, 64));
 	m_pDistanceValueLabel->enableGlow(Color4B(255, 255, 51, 255));

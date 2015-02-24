@@ -28,7 +28,7 @@ public:
 	
 	void setType(EGameOjectType type){ m_eType = type; };
 	void setState(int state){ m_ePlayerState = (EPlayerState)state; };
-	void addDistance(){ m_nDistance++; };
+	void addDistance();
 	void addCoin();	
 	void addItem();
 	void addBooster();
@@ -40,9 +40,8 @@ public:
 	//ANIMATION
 	void getAnimationWithFrames(int, int, int);
 	Animate* animate;
-
-private:
 	typedef enum { ALIVE, DEAD, BOOSTING, JUMPING, RUNNING } EPlayerState;
+private:	
 	EPlayerState m_ePlayerState;
 	int m_nDistance;
 	int m_nCoins;

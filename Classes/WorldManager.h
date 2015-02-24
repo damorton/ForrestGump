@@ -29,11 +29,14 @@ public:
 
 	Player* getPlayer(){ return m_pPlayer; };
 	std::vector<std::shared_ptr<Enemy>> getEnemies(){ return m_vpEnemies; };
-	cocos2d::Sprite* getFloorSprite(){ return m_pFloorSprite; };	
+	cocos2d::Sprite* getFloorSprite(){ return m_pFloorSprite; };
+	std::string getPlayerDistanceScore();
+	std::string getPlayerUsername();
 
 	void setPlayer(Player* player){ m_pPlayer = player; };
 	void setVectorOfEnemies(std::vector<std::shared_ptr<Enemy>> vectorOfEnemies){ m_vpEnemies = vectorOfEnemies; };
 	void setFloorSprite(cocos2d::Sprite* floor){ m_pFloorSprite = floor; };
+	void setPlayerDistanceScore(std::string distanceScore);
 
 private:	
 	WorldManager(){ this->init(); };  

@@ -44,6 +44,10 @@ bool Player::init()
 
 	return true;
 }
+void Player::addDistance()
+{
+	m_nDistance++;
+}
 
 void Player::addCoin()
 {

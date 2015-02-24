@@ -81,6 +81,29 @@ void WorldManager::createDAO()
 	m_DataAccessObject->update(users);
 }
 
+std::string WorldManager::getPlayerDistanceScore()
+{
+	std::string playerDistance;
+	std::shared_ptr<std::vector<User>> users = m_DataAccessObject->read();
+	playerDistance = users->at(0).getScores()->at(0).getText().c_str();
+	return playerDistance;
+}
+
+std::string WorldManager::getPlayerUsername()
+{
+	std::string playerUsername;
+	std::shared_ptr<std::vector<User>> users = m_DataAccessObject->read();
+	playerUsername = users->at(0).getUsername()->getText().c_str();
+	return playerUsername;
+}
+
+void WorldManager::setPlayerDistanceScore(std::string distanceScore)
+{
+	std::shared_ptr<std::vector<User>> users = m_DataAccessObject->read();
+	users->at(0).getScores()->at(0).setText(distanceScore.c_str());
+	m_DataAccessObject->update(users);
+}
+
 void WorldManager::cleanUp()
 {		
 	// auto release objects

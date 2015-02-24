@@ -1,17 +1,14 @@
 <Game>
     <User>
         <Username>David</Username>
-        <Score>2986</Score>
-        <Score>7897345</Score>
+        <Score>398</Score>
     </User>
     <User>
         <Username>John</Username>
         <Score>Distance 3890</Score>
-        <Score>Coins 7893</Score>
     </User>
     <User>
         <Username>Tom</Username>
         <Score>Distance 456</Score>
-        <Score>Coins 10</Score>
     </User>
 </Game>
