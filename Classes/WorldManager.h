@@ -33,6 +33,7 @@ public:
 	cocos2d::Sprite* getFloorSprite(){ return m_pFloorSprite; };
 	std::string getPlayerDistanceScore();
 	std::string getPlayerUsername();
+	std::shared_ptr<IGameDAO> getDAO(){ return m_DataAccessObject; };
 
 	void setPlayer(Player* player){ m_pPlayer = player; };
 	void setVectorOfEnemies(std::vector<std::shared_ptr<Enemy>> vectorOfEnemies){ m_vpEnemies = vectorOfEnemies; };

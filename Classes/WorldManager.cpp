@@ -43,7 +43,7 @@ Layer* WorldManager::layerWithTag(int tag)
 bool WorldManager::init()
 {				
 	this->createDAO();
-	this->addUser("David");
+	//this->addUser("David");
 	return true;
 }
 
