@@ -59,13 +59,13 @@ void Player::addCoin()
 void Player::addBooster()
 {
 	m_nBoosters++;
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Pickup_Coin.wav", false, 1.0f, 1.0f, 1.0f);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Boost.wav", false, 1.0f, 1.0f, 1.0f);
 }
 
 void Player::addFood()
 {
 	m_nFood++;
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Pickup_Coin.wav", false, 1.0f, 1.0f, 1.0f);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Crunch_DavidYoung.wav", false, 1.0f, 1.0f, 1.0f);
 }
 
 void Player::addItem()
@@ -76,7 +76,7 @@ void Player::addItem()
 
 void Player::addParticle()
 {
-	ccEmitter = CCParticleSystemQuad::create("particles/Flower.plist");	
+	ccEmitter = CCParticleSystemQuad::create("particles/Shadow.plist");
 	ccEmitter->setPosition(0, 0); // emitter position is relative to it parents position
 	ccEmitter->setEmissionRate(20.00);
 	ccEmitter->setTotalParticles(100);
@@ -122,7 +122,7 @@ void Player::update()
 	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
 	{		
 		m_ePlayerState = RUNNING;
-		ccEmitter->setScale(1.0);
+		ccEmitter->setScale(2.0);
 		ccEmitter->resume();
 		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/trashdropping.wav", false, 1.0f, 1.0f, 1.0f);
 		m_nNumberOfJumps = 0;

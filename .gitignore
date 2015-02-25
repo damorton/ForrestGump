@@ -6,4 +6,4 @@ proj.win32/*.opensdf
 proj.android/*
 proj.wp8-xaml/*
 
-Resources/Thumbs.db
+*.db
