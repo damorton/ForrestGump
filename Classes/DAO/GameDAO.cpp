@@ -9,7 +9,7 @@ void GameDAO::create()
 {		
 	//std::string filename = cocos2d::FileUtils::getInstance()->fullPathForFilename(XMLDOC);
 	std::string writePath = cocos2d::FileUtils::getInstance()->getWritablePath();
-	writePath.append(XMLDOC2);
+	writePath.append(XMLDOC);
 	tinyxml2::XMLDocument doc;
 	tinyxml2::XMLNode* node = doc.NewElement("Game");
 	doc.InsertEndChild(node);
@@ -23,7 +23,7 @@ std::shared_ptr<std::vector<User>> GameDAO::read()
 	std::shared_ptr<std::vector<User>> UserToReturn = std::shared_ptr<std::vector<User>>(new std::vector<User>());
 	//std::string filename = cocos2d::FileUtils::getInstance()->fullPathForFilename(XMLDOC);
 	std::string writePath = cocos2d::FileUtils::getInstance()->getWritablePath();
-	writePath.append(XMLDOC2);
+	writePath.append(XMLDOC);
 	//CCLOG("filename %s", filename.c_str());
 	//CCLOG("writepath %s", writePath.c_str());
 	tinyxml2::XMLDocument doc;
@@ -58,7 +58,7 @@ void GameDAO::update(std::shared_ptr<std::vector<User>> Users)
 {
 	//std::string filename = cocos2d::FileUtils::getInstance()->fullPathForFilename(XMLDOC);
 	std::string writePath = cocos2d::FileUtils::getInstance()->getWritablePath();
-	writePath.append(XMLDOC2);
+	writePath.append(XMLDOC);
 	tinyxml2::XMLDocument doc;
 	//doc.LoadFile(filename.c_str());
 	doc.LoadFile(writePath.c_str());

@@ -62,7 +62,7 @@ void WorldManager::createDAO()
 bool WorldManager::isXMLFileExist()
 {
 	std::string filepath = cocos2d::FileUtils::getInstance()->getWritablePath();
-	filepath.append(XMLDOC2);
+	filepath.append(XMLDOC);
 	FILE *fp = fopen(filepath.c_str(), "r");
 	bool bRet = false;
 
