@@ -56,22 +56,12 @@ bool GameScene::initializeGame()
 	m_pParallax = Parallax::create();
 	gamePlayLayer->addChild(m_pParallax, -1, "parallax");
 
-	m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png", "background/backgroundFourth.png");
+	m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png", "background/backgroundFourth.png", "background/floorBoundaries.png");
 	
-	// CHANGE FLOOR SPRITE TO RECT FOR THE PLAYER POSITION
-	auto floorSprite = Sprite::create("background/floorBoundaries.png");
-	floorSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, floorSprite->getContentSize().height / 2 + origin.y));
-	auto floorEdgeBody = PhysicsBody::createEdgeBox(floorSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
-	floorSprite->setPhysicsBody(floorEdgeBody);
-	floorSprite->getPhysicsBody()->setDynamic(false);
-	gamePlayLayer->addChild(floorSprite, -2);
-	WorldManager::getInstance()->setFloorSprite(floorSprite);
-
 	//Player
 	Player* playerSprite = Player::create("sprites/Playersmall.png");
 	gamePlayLayer->addChild(playerSprite, 0);
-
-
+	
 	// Spawn manager
 	m_pSpawnManager = SpawnManager::create();
 	gamePlayLayer->addChild(m_pSpawnManager, 0);
