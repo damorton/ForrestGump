@@ -12,7 +12,7 @@ Scene* GameScene::createScene()
 {	
 	auto scene = Scene::createWithPhysics();
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);	
-	scene->getPhysicsWorld()->setGravity(Vec2(0, -250));
+	scene->getPhysicsWorld()->setGravity(Vec2(0, -98));
 	scene->setTag(TAG_GAME_SCENE);
 
 	GameScene* gameLayer = GameScene::create();
