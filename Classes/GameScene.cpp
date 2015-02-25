@@ -3,7 +3,7 @@
 #include "WorldManager.h"
 #include "CollisionManager.h"
 #include "MainMenu.h"
-#include "Pause.h"
+#include "GameOver.h"
 #include "Player.h"
 
 USING_NS_CC;
@@ -12,6 +12,7 @@ Scene* GameScene::createScene()
 {	
 	auto scene = Scene::createWithPhysics();
 //	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);	
+	scene->getPhysicsWorld()->setGravity(Vec2(0, -250));
 	scene->setTag(TAG_GAME_SCENE);
 
 	GameScene* gameLayer = GameScene::create();
@@ -55,10 +56,8 @@ bool GameScene::initializeGame()
 	m_pParallax = Parallax::create();
 	gamePlayLayer->addChild(m_pParallax, -1, "parallax");
 
-	if (m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png", "background/backgroundFourth.png"))
-	{
-		CCLOG("Images loaded successful");
-	}
+	m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png", "background/backgroundFourth.png");
+	
 	// CHANGE FLOOR SPRITE TO RECT FOR THE PLAYER POSITION
 	auto floorSprite = Sprite::create("background/floorBoundaries.png");
 	floorSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, floorSprite->getContentSize().height / 2 + origin.y));
@@ -70,20 +69,8 @@ bool GameScene::initializeGame()
 
 	//Player
 	Player* playerSprite = Player::create("sprites/Playersmall.png");
-	playerSprite->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, (WorldManager::getInstance()->getFloorSprite()->getContentSize().height + playerSprite->getContentSize().height / 2) - 5));
-	auto playerPhysicsBody = PhysicsBody::createBox(Size(playerSprite->getContentSize().width, playerSprite->getContentSize().height - 5), PHYSICSBODY_MATERIAL_DEFAULT);
-	playerSprite->setPhysicsBody(playerPhysicsBody);
-	playerPhysicsBody->setDynamic(true);
-	playerPhysicsBody->setGravityEnable(true);
-	playerSprite->getPhysicsBody()->setRotationEnable(false);
 	gamePlayLayer->addChild(playerSprite, 0);
 
-	//Start player walking
-	playerSprite->getAnimationWithFrames(1, 4, 1);
-	playerSprite->runAction(playerSprite->animate);
-
-	WorldManager::getInstance()->setPlayer(playerSprite);
-	CollisionManager::getInstance()->setPlayer(playerSprite);
 
 	// Spawn manager
 	m_pSpawnManager = SpawnManager::create();
@@ -114,14 +101,12 @@ void GameScene::update(float delta)
 
 	//CCLOG("-------------GAME LOOP START--------------");	
 	
-	WorldManager::getInstance()->getPlayer()->update();
-	m_pCollectableFactory->update();
 	CollisionManager::getInstance()->checkCollisions();
+	WorldManager::getInstance()->getPlayer()->update();
+	m_pCollectableFactory->update();	
 	m_HudLayer->update();
-	m_pParallax->updateBackground();
-
+	m_pParallax->update();
 	m_pSpawnManager->update();
-
 		
 	//CCLOG("-------------GAME LOOP END--------------");
 
@@ -142,14 +127,10 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	return true;
 }
 
-
-
-
-void GameScene::pause()
+void GameScene::gameOver()
 {
-	CCLOG("Pause");
-	auto scene = Pause::createScene();
-	Director::getInstance()->pushScene(TransitionFade::create(1, scene));
+	CCLOG("GameOver");	
+	Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
 }
 

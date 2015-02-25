@@ -138,13 +138,15 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\AnimationMoves.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\CollisionManager.cpp" />
+    <ClCompile Include="..\Classes\DAO\GameDAO.cpp" />
+    <ClCompile Include="..\Classes\DAO\User.cpp" />
     <ClCompile Include="..\Classes\Enemy.cpp" />
     <ClCompile Include="..\Classes\EnemyFactory.cpp" />
     <ClCompile Include="..\Classes\GameScene.cpp" />
     <ClCompile Include="..\Classes\HUD.cpp" />
     <ClCompile Include="..\Classes\MainMenu.cpp" />
     <ClCompile Include="..\Classes\Parallax.cpp" />
-    <ClCompile Include="..\Classes\Pause.cpp" />
+    <ClCompile Include="..\Classes\GameOver.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\CollectableFactory.cpp" />
     <ClCompile Include="..\Classes\SpawnManager.cpp" />
@@ -157,6 +159,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\Character.h" />
     <ClInclude Include="..\Classes\CollisionManager.h" />
+    <ClInclude Include="..\Classes\DAO\GameDAO.h" />
+    <ClInclude Include="..\Classes\DAO\Score.h" />
+    <ClInclude Include="..\Classes\DAO\User.h" />
+    <ClInclude Include="..\Classes\DAO\Username.h" />
+    <ClInclude Include="..\Classes\DAO\TextItem.h" />
     <ClInclude Include="..\Classes\Definitions.h" />
     <ClInclude Include="..\Classes\Enemy.h" />
     <ClInclude Include="..\Classes\EnemyFactory.h" />
@@ -164,7 +171,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\HUD.h" />
     <ClInclude Include="..\Classes\MainMenu.h" />
     <ClInclude Include="..\Classes\Parallax.h" />
-    <ClInclude Include="..\Classes\Pause.h" />
+    <ClInclude Include="..\Classes\GameOver.h" />
     <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\CollectableFactory.h" />
     <ClInclude Include="..\Classes\SpawnManager.h" />

@@ -10,7 +10,8 @@ class CollectableFactory : public cocos2d::Layer
 {
 public:		
 	virtual bool init();
-	virtual ~CollectableFactory(){};	
+	virtual ~CollectableFactory(){ this->cleanup(); };
+	void cleanup();
 	bool rotateSegment(float duration = 30.0f, float angle = 360);
 	bool addPhysicsEdgeBox();
 	bool addPhysicsToTiles(TMXLayer* layer);	

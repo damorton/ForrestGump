@@ -11,6 +11,8 @@
 #include "Player.h"
 #include "Enemy.h"
 
+#include "DAO/GameDAO.h"
+
 #include <memory>
 
 class WorldManager
@@ -23,22 +25,31 @@ public:
 	static HUD* hudLayer();
 	static CollectableFactory* CollectableFactoryLayer();
 	static GameScene* gameLayer();	
+	void createDAO();
+	void addUser(std::string username);
+	bool isXMLFileExist();
 
 	Player* getPlayer(){ return m_pPlayer; };
 	std::vector<std::shared_ptr<Enemy>> getEnemies(){ return m_vpEnemies; };
-	cocos2d::Sprite* getFloorSprite(){ return m_pFloorSprite; };	
+	cocos2d::Sprite* getFloorSprite(){ return m_pFloorSprite; };
+	std::string getPlayerHighscore();
+	std::string getPlayerUsername();
+	std::shared_ptr<IGameDAO> getDAO(){ return m_DataAccessObject; };
 
 	void setPlayer(Player* player){ m_pPlayer = player; };
 	void setVectorOfEnemies(std::vector<std::shared_ptr<Enemy>> vectorOfEnemies){ m_vpEnemies = vectorOfEnemies; };
 	void setFloorSprite(cocos2d::Sprite* floor){ m_pFloorSprite = floor; };
-protected:	
-	Player* m_pPlayer;
-	std::vector<std::shared_ptr<Enemy>> m_vpEnemies;
-	cocos2d::Sprite* m_pFloorSprite;
+	void setPlayerHighscore(std::string highscore);
+
 private:	
 	WorldManager(){ this->init(); };  
 	~WorldManager(){ this->cleanUp(); }; 
 	static WorldManager* m_pInstance;
+
+	std::shared_ptr<IGameDAO> m_DataAccessObject;
+	Player* m_pPlayer;
+	std::vector<std::shared_ptr<Enemy>> m_vpEnemies;
+	cocos2d::Sprite* m_pFloorSprite;
 };
 
 #endif

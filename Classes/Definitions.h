@@ -1,11 +1,13 @@
 #ifndef DEFINITIONS_H__
 #define DEFINITIONS_H__
 
+#define XMLDOC "config/game.xml"
+#define XMLDOC2 "game.xml"
+
 typedef enum {
 	TAG_GAME_LAYER,
 	TAG_HUD,
 	TAG_GAME_SCENE,
-	TAG_PAUSE,
 	TAG_GAMEOVER,
 	TAG_SEGMENT,
 	TAG_SEGMENT_MANAGER,
@@ -33,7 +35,7 @@ typedef enum {
 // player
 #define PLAYER_POSITION_IN_WINDOW ((Director::getInstance()->getVisibleSize().width / 3) * 1)
 #define JUMP_SPEED 0.75F
-#define NO_OF_JUMPS 1
+#define MAX_NO_OF_JUMPS 2
 #define JUMP_HEIGHT (Director::getInstance()->getVisibleSize().height * .75)
 
 // enemy spawns
@@ -44,7 +46,6 @@ typedef enum {
 #define ENEMY_MOVEMENT_SPEED 0.008f
 
 #define LABEL_FONT "fonts/go3v2.ttf"
-#define VALUE_FONT "fonts/Pixel Coleco.otf"
 #define LABEL_FONT_SIZE 32
 
 // spawn manager

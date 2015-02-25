@@ -28,29 +28,29 @@ public:
 	
 	void setType(EGameOjectType type){ m_eType = type; };
 	void setState(int state){ m_ePlayerState = (EPlayerState)state; };
-	void addDistance(){ m_nDistance++; };
+	void addDistance();
 	void addCoin();	
 	void addItem();
 	void addBooster();
 	void addFood();
-	void addParticle(Player* pS);
+	void addParticle();
 	
 	CREATE_FUNC(Player);
 
 	//ANIMATION
 	void getAnimationWithFrames(int, int, int);
 	Animate* animate;
-
-private:
 	typedef enum { ALIVE, DEAD, BOOSTING, JUMPING, RUNNING } EPlayerState;
+private:	
 	EPlayerState m_ePlayerState;
 	int m_nDistance;
 	int m_nCoins;
 	int m_nBoosters;
 	int m_nFood;
 	int m_nItems;		
+	int m_nNumberOfJumps;
+	std::string m_strUsername;
 	ParticleSystem *ccEmitter = ParticleSystemQuad::create("particles/Flower.plist");
-
 };
 
 #endif

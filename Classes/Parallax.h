@@ -34,7 +34,7 @@ class Parallax : public cocos2d::LayerColor
 		bool addBackground(const std::string& filename1, const std::string& filename2, const std::string& filename3, const std::string& filename4);
 		
 		// Call the scroll function passing the background images
-		void updateBackground();
+		void update();
 
 		// Update my background scrolling
 		void scrollBackground(Sprite* bck1, Sprite* bck2, float speed);		
