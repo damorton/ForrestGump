@@ -64,7 +64,7 @@ bool GameScene::initializeGame()
 	auto floorEdgeBody = PhysicsBody::createEdgeBox(floorSprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
 	floorSprite->setPhysicsBody(floorEdgeBody);
 	floorSprite->getPhysicsBody()->setDynamic(false);
-	gamePlayLayer->addChild(floorSprite, -2); // add at z:1 for floorSprite	
+	gamePlayLayer->addChild(floorSprite, -2);
 	WorldManager::getInstance()->setFloorSprite(floorSprite);
 
 	//Player
