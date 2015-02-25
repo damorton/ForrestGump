@@ -1,7 +1,5 @@
 #include "GameDAO.h"
 #include "Definitions.h"
-// file not found error in Android project
-// use file utils get data and buffers?
 #include "tinyxml2/tinyxml2.h"
 #include "cocos2d.h"
 
@@ -25,9 +23,13 @@ std::shared_ptr<std::vector<User>> GameDAO::read()
 	std::shared_ptr<std::vector<User>> UserToReturn = std::shared_ptr<std::vector<User>>(new std::vector<User>());
 
 	std::string filename = cocos2d::FileUtils::getInstance()->fullPathForFilename(XMLDOC);
+	std::string writePath = cocos2d::FileUtils::getInstance()->getWritablePath();
+	writePath.append(XMLDOC);
+	CCLOG("filename %s", filename.c_str());
+	CCLOG("writepath %s", writePath.c_str());
 	tinyxml2::XMLDocument doc;
 	doc.LoadFile(filename.c_str());
-
+		
 	if (doc.LoadFile(filename.c_str()) == tinyxml2::XML_SUCCESS)
 	{
 		//get the first user element
