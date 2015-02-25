@@ -45,7 +45,7 @@ typedef enum {
 #define ENEMY_MOVEMENT_SPEED 0.008f
 
 #define LABEL_FONT "fonts/go3v2.ttf"
-#define LABEL_FONT_SIZE 32
+#define LABEL_FONT_SIZE (cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize().width / Director::getInstance()->getVisibleSize().width * 18)
 
 // spawn manager
 #define ENEMY_SPAWN_COUNT 5

@@ -6,17 +6,18 @@ USING_NS_CC;
 
 typedef struct tagResource
 {
-	Size size;
-	std::string directory;
+	cocos2d::CCSize size;
+	char directory[100];
 }Resource;
 
-static Resource smallResource = { Size(480, 320), "small" };
-static Resource mediumResource = { Size(1024, 768), "medium" };
-static Resource largeResource = { Size(2048, 1536), "large" };
+static Resource smallResource = { cocos2d::CCSizeMake(480, 320), "iphone" };
+static Resource smallHDResource = { cocos2d::CCSizeMake(960, 640), "iphonehd" };
+static Resource mediumResource = { cocos2d::CCSizeMake(1024, 768), "ipad" };
+static Resource largeResource = { cocos2d::CCSizeMake(2048, 1536), "ipadhd" };
+static cocos2d::CCSize designResolutionSize = cocos2d::CCSizeMake(480, 320);
 
 // The font size 24 is designed for small resolution, so we should change it to fit for current design resolution
 #define TITLE_FONT_SIZE  (cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize().width / smallResource.size.width * 24)
-
 
 AppDelegate::AppDelegate() {
 
@@ -38,70 +39,39 @@ bool AppDelegate::applicationDidFinishLaunching() {
         director->setOpenGLView(glview);
     }
 	
-	//glview->setFrameSize(960, 640);
+	// Set the design resolution
+	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionNoBorder);
 
-    // turn on display FPS
-    director->setDisplayStats(true);
-
-    // set FPS. the default value is 1.0/60 if you don't call this
-    director->setAnimationInterval(1.0 / 60);
-		
-	auto screenSize = glview->getFrameSize(); // get the devices screen size
-	auto designSize = cocos2d::Size(480, 320); // design resolution
-
+	CCSize frameSize = glview->getFrameSize();
+	
 	auto fileUtils = FileUtils::getInstance(); // get the file utilities
 	std::vector<std::string> resourceDir; // add the file path for resources for the file utilities
-	
-	if (2048 == screenSize.width || 2048 == screenSize.height)
-	{
-		resourceDir.push_back("ipadhd");
-		resourceDir.push_back("ipad");
-		resourceDir.push_back("iphonehd5");
-		resourceDir.push_back("iphonehd");
-		resourceDir.push_back("iphone");
 
-		glview->setDesignResolutionSize(2048, 1536, ResolutionPolicy::NO_BORDER);
-	}
-	else if (1024 == screenSize.width || 1024 == screenSize.height)
+	// if the frame's height is larger than the height of medium resource size, select large resource.
+	if (frameSize.height > mediumResource.size.height)
 	{
-		resourceDir.push_back("ipad");
-		resourceDir.push_back("iphonehd5");
-		resourceDir.push_back("iphonehd");
-		resourceDir.push_back("iphone");
-
-		glview->setDesignResolutionSize(1024, 768, ResolutionPolicy::NO_BORDER);
+		resourceDir.push_back(largeResource.directory);
+		director->setContentScaleFactor(largeResource.size.height / designResolutionSize.height);
 	}
-	else if (1136 == screenSize.width || 1136 == screenSize.height)
+	// if the frame's height is larger than the height of small resource size, select medium resource.
+	else if (frameSize.height > smallHDResource.size.height)
 	{
-		resourceDir.push_back("iphonehd5");
-		resourceDir.push_back("iphonehd");
-		resourceDir.push_back("iphone");
-
-		glview->setDesignResolutionSize(1136, 640, ResolutionPolicy::NO_BORDER);
+		resourceDir.push_back(mediumResource.directory);
+		director->setContentScaleFactor(mediumResource.size.height / designResolutionSize.height);
 	}
-	else if (960 == screenSize.width || 960 == screenSize.height)
+	// if the frame's height is larger than the height of small resource size, select medium resource.
+	else if (frameSize.height > smallResource.size.height)
 	{
-		resourceDir.push_back("iphonehd");
-		resourceDir.push_back("iphone");
-
-		glview->setDesignResolutionSize(960, 640, ResolutionPolicy::NO_BORDER);
+		resourceDir.push_back(smallHDResource.directory);
+		director->setContentScaleFactor(smallHDResource.size.height / designResolutionSize.height);
 	}
+	// if the frame's height is smaller than the height of medium resource size, select small resource.
 	else
 	{
-		if (screenSize.width > 1080)
-		{
-			resourceDir.push_back("iphonehd");
-			resourceDir.push_back("iphone");
-
-			glview->setDesignResolutionSize(960, 640, ResolutionPolicy::NO_BORDER);
-		}
-		else
-		{
-			resourceDir.push_back("iphone");
-
-			glview->setDesignResolutionSize(480, 320, ResolutionPolicy::NO_BORDER);
-		}
+		resourceDir.push_back(smallResource.directory);
+		director->setContentScaleFactor(smallResource.size.height / designResolutionSize.height);
 	}
+		
 
 	fileUtils->setSearchPaths(resourceDir);
 
