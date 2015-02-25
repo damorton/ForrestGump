@@ -1,5 +1,6 @@
 #include "WorldManager.h"
 #include "DAO/User.h"
+#include "Definitions.h"
 #include <iostream>
 
 using namespace std;
@@ -42,28 +43,36 @@ Layer* WorldManager::layerWithTag(int tag)
 
 bool WorldManager::init()
 {				
-	this->createDAO();
-	//this->addUser("David");
+	this->createDAO();		
 	return true;
 }
 
 void WorldManager::createDAO()
 {
-	m_DataAccessObject = std::shared_ptr<IGameDAO>(new GameDAO());	
-	//m_DataAccessObject->create();
-	
-	/*
-	std::shared_ptr<std::vector<User>> users = m_DataAccessObject->read();
-	for (int i = 0; i < users->size(); i++)
+	m_DataAccessObject = std::shared_ptr<IGameDAO>(new GameDAO());		
+	if (!this->isXMLFileExist())
 	{
-		CCLOG("%s", users->at(i).getUsername()->getText().c_str());
-
-		for (int j = 0; j < users->at(i).getScores()->size(); j++)
-		{
-			CCLOG("%s", users->at(i).getScores()->at(j).getText().c_str());
-		}
+		// Create XML file 
+		m_DataAccessObject->create();
+		// Add users
+		this->addUser("David");
 	}
-	*/	
+}
+
+bool WorldManager::isXMLFileExist()
+{
+	std::string filepath = cocos2d::FileUtils::getInstance()->getWritablePath();
+	filepath.append(XMLDOC2);
+	FILE *fp = fopen(filepath.c_str(), "r");
+	bool bRet = false;
+
+	if (fp)
+	{
+		bRet = true;
+		fclose(fp);
+	}
+
+	return bRet;
 }
 
 void WorldManager::addUser(std::string username)

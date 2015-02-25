@@ -1,6 +1,9 @@
 #ifndef DEFINITIONS_H__
 #define DEFINITIONS_H__
 
+#define XMLDOC "config/game.xml"
+#define XMLDOC2 "game.xml"
+
 typedef enum {
 	TAG_GAME_LAYER,
 	TAG_HUD,

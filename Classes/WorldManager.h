@@ -27,6 +27,7 @@ public:
 	static GameScene* gameLayer();	
 	void createDAO();
 	void addUser(std::string username);
+	bool isXMLFileExist();
 
 	Player* getPlayer(){ return m_pPlayer; };
 	std::vector<std::shared_ptr<Enemy>> getEnemies(){ return m_vpEnemies; };
@@ -44,6 +45,7 @@ private:
 	WorldManager(){ this->init(); };  
 	~WorldManager(){ this->cleanUp(); }; 
 	static WorldManager* m_pInstance;
+
 	std::shared_ptr<IGameDAO> m_DataAccessObject;
 	Player* m_pPlayer;
 	std::vector<std::shared_ptr<Enemy>> m_vpEnemies;
