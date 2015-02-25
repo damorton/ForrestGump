@@ -48,20 +48,19 @@ bool Parallax::addBackground(const std::string& filename1, const std::string& fi
 	this->addChild(m_pSpriteBackgroundFourth1, 1);
 
 	// background 5 - floor
-	m_pSpriteFloor1 = Sprite::create(filename5);
-	m_pSpriteFloor2 = Sprite::create(filename5);
+	m_pSpriteFloor1 = CCSprite::create(filename5);
+	m_pSpriteFloor2 = CCSprite::create(filename5);
 	m_pSpriteFloor1->setPosition(Vec2(VISIBLE_SIZE_WIDTH / 2, m_pSpriteFloor1->getContentSize().height / 2));
 	m_pSpriteFloor2->setPosition(Vec2(VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, m_pSpriteFloor2->getContentSize().height / 2));
 	this->addChild(m_pSpriteFloor1, 4);
 	this->addChild(m_pSpriteFloor2, 4);
 		
-	auto floorRect = Sprite::create(filename5);
+	auto floorRect = CCSprite::create(filename5);
 	floorRect->setPosition(Vec2(VISIBLE_SIZE_WIDTH / 2, m_pSpriteFloor1->getContentSize().height / 2));
 	this->addChild(floorRect);
 	auto floorEdgeBody = PhysicsBody::createEdgeBox(floorRect->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
-	floorRect->setPhysicsBody(floorEdgeBody);
-	floorRect->getPhysicsBody()->setDynamic(false);
-	this->addChild(floorRect, -2);
+	floorEdgeBody->setDynamic(false);
+	floorRect->setPhysicsBody(floorEdgeBody);		
 	WorldManager::getInstance()->setFloorSprite(floorRect);
 
 	return true;	
