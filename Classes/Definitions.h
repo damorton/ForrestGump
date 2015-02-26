@@ -20,9 +20,10 @@ typedef enum {
 #define PADDING 10
 #define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
 #define VISIBLE_SIZE_HEIGHT (Director::getInstance()->getVisibleSize().height)
+#define SCREEN_ORIGIN (Director::getInstance()->getVisibleOrigin())
 
 // Sprites; coins, items, powerups
-#define SPRITE_MOVEMENT_SPEED 0.016f
+#define SPRITE_MOVEMENT_SPEED 0.005f
 
 // scenes
 #define DISPLY_TIME_SPLASH_SCENCE 2

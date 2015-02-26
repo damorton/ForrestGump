@@ -45,7 +45,7 @@ bool CollectableFactory::initTilePositions(TMXLayer* layer)
 			auto tileSprite = layer->tileAt(Vec2(i, j));
 			if (tileSprite)
 			{
-				tileSprite->setPosition(Vec2(tileSprite->getPositionX() + VISIBLE_SIZE_WIDTH, tileSprite->getPositionY()));
+				tileSprite->setPosition(Vec2(SCREEN_ORIGIN.x + tileSprite->getPositionX() + VISIBLE_SIZE_WIDTH, SCREEN_ORIGIN.y + tileSprite->getPositionY()));
 			}
 		}
 	}	
