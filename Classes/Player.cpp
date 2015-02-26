@@ -77,7 +77,7 @@ void Player::addItem()
 void Player::addParticle()
 {
 	ccEmitter = CCParticleSystemQuad::create("particles/Shadow.plist");
-	ccEmitter->setPosition(this->getContentSize().width/2, 0); // emitter position is relative to it parents position
+	ccEmitter->setPosition(this->getContentSize().width/2, 0); 
 	ccEmitter->setEmissionRate(20.00);
 	ccEmitter->setTotalParticles(100);
 	this->addChild(ccEmitter);
