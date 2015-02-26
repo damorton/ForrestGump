@@ -28,9 +28,6 @@ typedef enum {
 #define DISPLY_TIME_SPLASH_SCENCE 2
 #define TRANSITION_TIME 0.5
 
-// fonts
-#define FONT_SIZE ((Director::getInstance()->getVisibleSize().width / 1920) * 100)
-
 // player
 #define PLAYER_POSITION_IN_WINDOW ((Director::getInstance()->getVisibleSize().width / 3) * 1)
 #define JUMP_SPEED 0.75F
@@ -45,7 +42,7 @@ typedef enum {
 #define ENEMY_MOVEMENT_SPEED 0.008f
 
 #define LABEL_FONT "fonts/go3v2.ttf"
-#define LABEL_FONT_SIZE (cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize().width / Director::getInstance()->getVisibleSize().width * 40)
+#define LABEL_FONT_SIZE (cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize().width / Director::getInstance()->getVisibleSize().width * 32)
 
 // spawn manager
 #define ENEMY_SPAWN_COUNT 5

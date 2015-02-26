@@ -109,7 +109,7 @@ void Player::jump()
 		//NEW JUMP
 		CCLOG("jump");
 		Vec2 impulse(0.0f, 0.0f);	
-		impulse.y = 60000.0f;
+		impulse.y = 70000.0f;
 		impulse.x = 0.0f;
 		this->getPhysicsBody()->applyImpulse(impulse);
 	}
