@@ -27,8 +27,8 @@ bool Player::init()
 	m_nItems = 0;
 	m_nNumberOfJumps = 0;
 	
-	this->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, SCREEN_ORIGIN.y + (WorldManager::getInstance()->getFloorSprite()->getContentSize().height + this->getContentSize().height / 2) - 5));
-	auto playerPhysicsBody = PhysicsBody::createBox(Size(this->getContentSize().width, this->getContentSize().height - 5), PHYSICSBODY_MATERIAL_DEFAULT);
+	this->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, (WorldManager::getInstance()->getFloorSprite()->getContentSize().height + this->getContentSize().height / 2) - 5));
+	auto playerPhysicsBody = PhysicsBody::createBox(Size(this->getContentSize().width, this->getContentSize().height - 5), PHYSICSBODY_MATERIAL_DEFAULT);	
 	playerPhysicsBody->setDynamic(true);
 	playerPhysicsBody->setGravityEnable(true);
 	playerPhysicsBody->setRotationEnable(false);
@@ -61,24 +61,27 @@ void Player::addBooster()
 {
 	m_nBoosters++;
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Boost.wav", false, 1.0f, 1.0f, 1.0f);
+	this->addParticleBoosters();
 }
 
 void Player::addFood()
 {
 	m_nFood++;
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Crunch_DavidYoung.wav", false, 1.0f, 1.0f, 1.0f);
+	this->addParticleMuffins();
 }
 
 void Player::addItem()
 {
 	m_nItems++;
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Pickup_Coin.wav", false, 1.0f, 1.0f, 1.0f);
+	this->addParticleItems();
 }
 
 void Player::addParticle()
 {
 	ccEmitter = CCParticleSystemQuad::create("particles/Shadow.plist");
-	ccEmitter->setPosition(this->getContentSize().width/2, 0); 
+	ccEmitter->setPosition(this->getContentSize().width/2, 0); // emitter position is relative to it parents position
 	ccEmitter->setEmissionRate(20.00);
 	ccEmitter->setTotalParticles(100);
 	this->addChild(ccEmitter);
@@ -87,10 +90,37 @@ void Player::addParticle()
 void Player::addParticleCoins()
 {
 	ccCoinEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
-	ccCoinEmitter->setPosition(this->getContentSize().width, this->getContentSize().height); // emitter position is relative to it parents position
+	ccCoinEmitter->setPosition(this->getContentSize().width, this->getContentSize().height);
 	ccCoinEmitter->setTotalParticles(1);
 	ccCoinEmitter->setDuration(0.001);
 	this->addChild(ccCoinEmitter);
+}
+
+void Player::addParticleMuffins()
+{
+	ccMuffinEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
+	ccMuffinEmitter->setPosition(this->getContentSize().width/2, this->getContentSize().height/2);
+	ccMuffinEmitter->setTotalParticles(1);
+	ccMuffinEmitter->setDuration(0.001);
+	this->addChild(ccMuffinEmitter);
+}
+
+void Player::addParticleBoosters()
+{
+	ccBoosterEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
+	ccBoosterEmitter->setPosition(this->getContentSize().width / 2, 0);
+	ccBoosterEmitter->setTotalParticles(1);
+	ccBoosterEmitter->setDuration(0.001);
+	this->addChild(ccBoosterEmitter);
+}
+
+void Player::addParticleItems()
+{
+	ccItemEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
+	ccItemEmitter->setPosition(this->getContentSize().width, this->getContentSize().height);
+	ccItemEmitter->setTotalParticles(1);
+	ccItemEmitter->setDuration(0.001);
+	this->addChild(ccItemEmitter);
 }
 
 void Player::jump()
@@ -115,11 +145,11 @@ void Player::jump()
 		//Create the Sequence of Animation
 		FiniteTimeAction* animationSequence = Sequence::create(animate2, animate3, nullptr);
 		this->runAction(animationSequence);
-		
+
 		//NEW JUMP
 		CCLOG("jump");
 		Vec2 impulse(0.0f, 0.0f);	
-		impulse.y = 70000.0f;
+		impulse.y = 80000.0f;
 		impulse.x = 0.0f;
 		this->getPhysicsBody()->applyImpulse(impulse);
 	}
@@ -165,7 +195,7 @@ Return Animate object, parameters:
 	act:	action, which animation
 */
 void Player::getAnimationWithFrames(int init, int end, int act){
-	Vector<SpriteFrame*> animFrames(4);	
+	Vector<SpriteFrame*> animFrames(4);
 	char str[100] = { 0 };
 	int i = init;
 	while (i <= end)
@@ -175,7 +205,7 @@ void Player::getAnimationWithFrames(int init, int end, int act){
 			//sprintf(str, "sprites/walk%02d.png", i);
 			//auto frame = SpriteFrame::create(str, Rect(0, 0, 105, 135)); //we assume that the sprites' dimentions are 105*135 rectangles.
 			sprintf(str, "sprites/walk%02dsmall.png", i);
-			auto frame = SpriteFrame::create(str, Rect(0,0,55,69)); //we assume that the sprites' dimentions are 55*69 rectangles.
+			auto frame = SpriteFrame::create(str, Rect(0, 0, 55, 69)); //we assume that the sprites' dimentions are 55*69 rectangles.
 			i++;
 			animFrames.pushBack(frame);
 		}
