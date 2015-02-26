@@ -28,7 +28,7 @@ bool Player::init()
 	m_nNumberOfJumps = 0;
 	
 	this->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, (WorldManager::getInstance()->getFloorSprite()->getContentSize().height + this->getContentSize().height / 2) - 5));
-	auto playerPhysicsBody = PhysicsBody::createBox(Size(this->getContentSize().width, this->getContentSize().height - 5), PHYSICSBODY_MATERIAL_DEFAULT);	
+	auto playerPhysicsBody = PhysicsBody::createBox(Size(this->getContentSize().width, this->getContentSize().height - 5), PHYSICSBODY_MATERIAL_DEFAULT);
 	playerPhysicsBody->setDynamic(true);
 	playerPhysicsBody->setGravityEnable(true);
 	playerPhysicsBody->setRotationEnable(false);
@@ -105,11 +105,11 @@ void Player::jump()
 		//Create the Sequence of Animation
 		FiniteTimeAction* animationSequence = Sequence::create(animate2, animate3, nullptr);
 		this->runAction(animationSequence);
-
+		
 		//NEW JUMP
 		CCLOG("jump");
 		Vec2 impulse(0.0f, 0.0f);	
-		impulse.y = 1500.0f;
+		impulse.y = 60000.0f;
 		impulse.x = 0.0f;
 		this->getPhysicsBody()->applyImpulse(impulse);
 	}
@@ -155,7 +155,7 @@ Return Animate object, parameters:
 	act:	action, which animation
 */
 void Player::getAnimationWithFrames(int init, int end, int act){
-	Vector<SpriteFrame*> animFrames(4);
+	Vector<SpriteFrame*> animFrames(4);	
 	char str[100] = { 0 };
 	int i = init;
 	while (i <= end)
@@ -165,7 +165,7 @@ void Player::getAnimationWithFrames(int init, int end, int act){
 			//sprintf(str, "sprites/walk%02d.png", i);
 			//auto frame = SpriteFrame::create(str, Rect(0, 0, 105, 135)); //we assume that the sprites' dimentions are 105*135 rectangles.
 			sprintf(str, "sprites/walk%02dsmall.png", i);
-			auto frame = SpriteFrame::create(str, Rect(0, 0, 55, 69)); //we assume that the sprites' dimentions are 55*69 rectangles.
+			auto frame = SpriteFrame::create(str, Rect(0,0,55,69)); //we assume that the sprites' dimentions are 55*69 rectangles.
 			i++;
 			animFrames.pushBack(frame);
 		}

@@ -4,97 +4,85 @@
 
 USING_NS_CC;
 
-typedef struct tagResource
-{
-	cocos2d::CCSize size;
-	char directory[100];
-}Resource;
-
-static Resource smallResource = { cocos2d::CCSizeMake(480, 320), "iphone" };
-static Resource smallHDResource = { cocos2d::CCSizeMake(960, 640), "iphonehd" };
-static Resource mediumResource = { cocos2d::CCSizeMake(1024, 768), "ipad" };
-static Resource largeResource = { cocos2d::CCSizeMake(2048, 1536), "ipadhd" };
-static cocos2d::CCSize designResolutionSize = cocos2d::CCSizeMake(480, 320);
-
-// The font size 24 is designed for small resolution, so we should change it to fit for current design resolution
-#define TITLE_FONT_SIZE  (cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize().width / smallResource.size.width * 24)
-
 AppDelegate::AppDelegate() {
 
 }
 
-AppDelegate::~AppDelegate() 
+AppDelegate::~AppDelegate()
 {
 }
 
-
-
 bool AppDelegate::applicationDidFinishLaunching() {
-    // initialize director
-    auto director = Director::getInstance();
-    auto glview = director->getOpenGLView();
+	// initialize director
+	auto director = Director::getInstance();
+	auto glview = director->getOpenGLView();
 
-    if(!glview) {
-        glview = GLView::create("Forrest Gump");	
-        director->setOpenGLView(glview);
-    }
-	
-	// Set the design resolution
-	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionNoBorder);
+	if (!glview) {
+		glview = GLView::create("Forrest Gump");
+		director->setOpenGLView(glview);
+	}
+		
+	//glview->setFrameSize(480, 320);
 
-	CCSize frameSize = glview->getFrameSize();
-	
+	// turn on display FPS
+	director->setDisplayStats(true);
+
+	// set FPS. the default value is 1.0/60 if you don't call this
+	director->setAnimationInterval(1.0 / 60);
+
+	auto screenSize = glview->getFrameSize(); // get the devices screen size
+	auto designSize = cocos2d::Size(480, 320); // design resolution
+
 	auto fileUtils = FileUtils::getInstance(); // get the file utilities
 	std::vector<std::string> resourceDir; // add the file path for resources for the file utilities
 
-	// if the frame's height is larger than the height of medium resource size, select large resource.
-	if (frameSize.height > mediumResource.size.height)
+	if (screenSize.height >= 1536)
 	{
-		resourceDir.push_back(largeResource.directory);
-		director->setContentScaleFactor(largeResource.size.height / designResolutionSize.height);
+		CCLOG("using ipadhd 2048x1536");
+		resourceDir.push_back("ipadhd");		
+		glview->setDesignResolutionSize(2048, 1536, ResolutionPolicy::NO_BORDER);
 	}
-	// if the frame's height is larger than the height of small resource size, select medium resource.
-	else if (frameSize.height > smallHDResource.size.height)
+	else if (screenSize.height >= 768)
 	{
-		resourceDir.push_back(mediumResource.directory);
-		director->setContentScaleFactor(mediumResource.size.height / designResolutionSize.height);
+		CCLOG("using ipad 1024x768");
+		resourceDir.push_back("ipad");		
+		glview->setDesignResolutionSize(1024, 768, ResolutionPolicy::NO_BORDER);
 	}
-	// if the frame's height is larger than the height of small resource size, select medium resource.
-	else if (frameSize.height > smallResource.size.height)
+	else if (screenSize.height >= 640)
 	{
-		resourceDir.push_back(smallHDResource.directory);
-		director->setContentScaleFactor(smallHDResource.size.height / designResolutionSize.height);
-	}
-	// if the frame's height is smaller than the height of medium resource size, select small resource.
+		CCLOG("using iphonehd 960x640");
+		resourceDir.push_back("iphonehd");
+		glview->setDesignResolutionSize(960, 640, ResolutionPolicy::NO_BORDER);
+	}	
 	else
 	{
-		resourceDir.push_back(smallResource.directory);
-		director->setContentScaleFactor(smallResource.size.height / designResolutionSize.height);
+		CCLOG("using iphone 480x320");
+		resourceDir.push_back("iphone");
+		glview->setDesignResolutionSize(480, 320, ResolutionPolicy::NO_BORDER);		
 	}
-		
 
 	fileUtils->setSearchPaths(resourceDir);
 
-    // create a scene. it's an autorelease object
-    auto scene = Splash::createScene();
+	// create a scene. it's an autorelease object
+	auto scene = Splash::createScene();
 
-    // run
-    director->runWithScene(scene);
+	// run
+	director->runWithScene(scene);
 
-    return true;
+	return true;
 }
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
 void AppDelegate::applicationDidEnterBackground() {
-    Director::getInstance()->stopAnimation();
-	    
-    // SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+	Director::getInstance()->stopAnimation();
+
+	// SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 }
 
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground() {
-    Director::getInstance()->startAnimation();
+	Director::getInstance()->startAnimation();
 
-    // if you use SimpleAudioEngine, it must resume here
-    // SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+	// if you use SimpleAudioEngine, it must resume here
+	// SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }

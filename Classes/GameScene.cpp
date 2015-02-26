@@ -55,12 +55,11 @@ bool GameScene::initializeGame()
 	//Background
 	m_pParallax = Parallax::create();
 	gamePlayLayer->addChild(m_pParallax, -1, "parallax");
-
 	m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png", "background/backgroundFourth.png", "background/floorBoundaries.png");
 	
 	//Player
 	Player* playerSprite = Player::create("sprites/Playersmall.png");
-	gamePlayLayer->addChild(playerSprite, 0);
+	gamePlayLayer->addChild(playerSprite, 1);
 	
 	// Spawn manager
 	m_pSpawnManager = SpawnManager::create();
@@ -97,7 +96,7 @@ void GameScene::update(float delta)
 	m_HudLayer->update();
 	m_pParallax->update();
 	m_pSpawnManager->update();
-		
+
 	//CCLOG("-------------GAME LOOP END--------------");
 
 }

@@ -68,13 +68,13 @@ bool Parallax::addBackground(const std::string& filename1, const std::string& fi
 
 void Parallax::update()
 {
-	m_fSpeed = 5.0f;
+	m_fSpeed = 3.0f;
 	
 	scrollBackground(m_pSpriteFloor1, m_pSpriteFloor2, m_fSpeed);
 	scrollBackground(m_pSpriteBackgroundFirst, m_pSpriteBackgroundFirst1, m_fSpeed);
-	scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, (m_fSpeed / 2));	
-	scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, ((m_fSpeed / 3) - 0.4));
-	scrollBackground(m_pSpriteBackgroundFourth, m_pSpriteBackgroundFourth1, ((m_fSpeed / 5) - 0.8));
+	scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, m_fSpeed / 2.0);	
+	scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, m_fSpeed / 3.0);
+	scrollBackground(m_pSpriteBackgroundFourth, m_pSpriteBackgroundFourth1, m_fSpeed / 5.0);
 }
 
 void Parallax::scrollBackground(CCSprite* bck1, CCSprite* bck2, float speed)
