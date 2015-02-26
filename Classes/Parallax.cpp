@@ -1,5 +1,6 @@
 #include "Parallax.h"
 #include "Definitions.h"
+#include "WorldManager.h"
 
 USING_NS_CC;
 
@@ -12,41 +13,56 @@ bool Parallax::init()
 	return true;
 }
 
-bool Parallax::addBackground(const std::string& filename1, const std::string& filename2, const std::string& filename3, const std::string& filename4)
+bool Parallax::addBackground(const std::string& filename1, const std::string& filename2, const std::string& filename3, const std::string& filename4, const std::string& filename5)
 {
-	// background 1 - Clouds and Floor moving
+	// background 1 - Clouds
 	m_pSpriteBackgroundFirst = CCSprite::create(filename1);
 	m_pSpriteBackgroundFirst1 = CCSprite::create(filename1);
-	m_pSpriteBackgroundFirst->setPosition(Vec2(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
-	m_pSpriteBackgroundFirst1->setPosition(Vec2(VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
+	m_pSpriteBackgroundFirst->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH / 2, SCREEN_ORIGIN.y + VISIBLE_SIZE_HEIGHT / 2));
+	m_pSpriteBackgroundFirst1->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, SCREEN_ORIGIN.y + VISIBLE_SIZE_HEIGHT / 2));
 	this->addChild(m_pSpriteBackgroundFirst, 4);
 	this->addChild(m_pSpriteBackgroundFirst1, 4);
 	
 	// background 2 - Mountains
 	m_pSpriteBackgroundSecond = CCSprite::create(filename2);
 	m_pSpriteBackgroundSecond1 = CCSprite::create(filename2);
-	m_pSpriteBackgroundSecond->setPosition(Vec2(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
-	m_pSpriteBackgroundSecond1->setPosition(Vec2(VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
+	m_pSpriteBackgroundSecond->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH / 2, SCREEN_ORIGIN.y + VISIBLE_SIZE_HEIGHT / 2));
+	m_pSpriteBackgroundSecond1->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, SCREEN_ORIGIN.y + VISIBLE_SIZE_HEIGHT / 2));
 	this->addChild(m_pSpriteBackgroundSecond, 3);
 	this->addChild(m_pSpriteBackgroundSecond1, 3);
 
 	// background 3	- Cactos
 	m_pSpriteBackgroundThird = CCSprite::create(filename3);
 	m_pSpriteBackgroundThird1 = CCSprite::create(filename3);
-	m_pSpriteBackgroundThird->setPosition(Vec2(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
-	m_pSpriteBackgroundThird1->setPosition(Vec2(VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
+	m_pSpriteBackgroundThird->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH / 2, SCREEN_ORIGIN.y + VISIBLE_SIZE_HEIGHT / 2));
+	m_pSpriteBackgroundThird1->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, SCREEN_ORIGIN.y + VISIBLE_SIZE_HEIGHT / 2));
 	this->addChild(m_pSpriteBackgroundThird, 2);
 	this->addChild(m_pSpriteBackgroundThird1, 2);
 
 	// background 4	- Clounds, Sun and Far Mountains
 	m_pSpriteBackgroundFourth = CCSprite::create(filename4);
 	m_pSpriteBackgroundFourth1 = CCSprite::create(filename4);
-	m_pSpriteBackgroundFourth->setPosition(Vec2(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
-	m_pSpriteBackgroundFourth1->setPosition(Vec2(VISIBLE_SIZE_WIDTH - 1 + VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2));
+	m_pSpriteBackgroundFourth->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH / 2, SCREEN_ORIGIN.y + VISIBLE_SIZE_HEIGHT / 2));
+	m_pSpriteBackgroundFourth1->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, SCREEN_ORIGIN.y + VISIBLE_SIZE_HEIGHT / 2));
 	this->addChild(m_pSpriteBackgroundFourth, 1);
 	this->addChild(m_pSpriteBackgroundFourth1, 1);
 
-	
+	// background 5 - floor
+	m_pSpriteFloor1 = CCSprite::create(filename5);
+	m_pSpriteFloor2 = CCSprite::create(filename5);
+	m_pSpriteFloor1->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH / 2, SCREEN_ORIGIN.y + m_pSpriteFloor1->getContentSize().height / 2));
+	m_pSpriteFloor2->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, SCREEN_ORIGIN.y + m_pSpriteFloor2->getContentSize().height / 2));
+	this->addChild(m_pSpriteFloor1, 4);
+	this->addChild(m_pSpriteFloor2, 4);
+		
+	auto floorRect = CCSprite::create(filename5);
+	floorRect->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH / 2, SCREEN_ORIGIN.y + m_pSpriteFloor1->getContentSize().height / 2));
+	this->addChild(floorRect);
+	auto floorEdgeBody = PhysicsBody::createEdgeBox(floorRect->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
+	floorEdgeBody->setDynamic(false);
+	floorRect->setPhysicsBody(floorEdgeBody);		
+	WorldManager::getInstance()->setFloorSprite(floorRect);
+
 	return true;	
 }
 
@@ -54,10 +70,11 @@ void Parallax::update()
 {
 	m_fSpeed = 5.0f;
 	
+	scrollBackground(m_pSpriteFloor1, m_pSpriteFloor2, m_fSpeed);
 	scrollBackground(m_pSpriteBackgroundFirst, m_pSpriteBackgroundFirst1, m_fSpeed);
-	scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, (m_fSpeed / 2));	
-	scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, ((m_fSpeed / 3) - 0.4));
-	scrollBackground(m_pSpriteBackgroundFourth, m_pSpriteBackgroundFourth1, ((m_fSpeed / 5) - 0.8));
+	scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, m_fSpeed / 2.0);	
+	scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, m_fSpeed / 3.0);
+	scrollBackground(m_pSpriteBackgroundFourth, m_pSpriteBackgroundFourth1, m_fSpeed / 5.0);
 }
 
 void Parallax::scrollBackground(CCSprite* bck1, CCSprite* bck2, float speed)

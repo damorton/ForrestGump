@@ -1,9 +1,18 @@
-#Cocos2dx .gitignore file
+#cocos2d
 cocos2d/*
+
+#win32
 proj.win32/Debug.win32/
 proj.win32/*.sdf
 proj.win32/*.opensdf
-proj.android/*
+
+#android
+proj.android/.settings/*
+proj.android/obj/*
+proj.android/bin/*
+
+#windows phone 8
 proj.wp8-xaml/*
 
+#general
 *.db

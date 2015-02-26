@@ -22,6 +22,10 @@ class Parallax : public cocos2d::LayerColor
 		Sprite* m_pSpriteBackgroundThird1;
 		Sprite* m_pSpriteBackgroundFourth;
 		Sprite* m_pSpriteBackgroundFourth1;
+		Sprite* m_pSpriteFloor1;
+		Sprite* m_pSpriteFloor2;
+
+
 
 		//Initialize the parent node
 		//Call the super class theen I can create my .create() from the super class of Layer
@@ -31,7 +35,7 @@ class Parallax : public cocos2d::LayerColor
 		virtual bool init();
 
 		//Add a background to the parallax layer		
-		bool addBackground(const std::string& filename1, const std::string& filename2, const std::string& filename3, const std::string& filename4);
+		bool addBackground(const std::string& filename1, const std::string& filename2, const std::string& filename3, const std::string& filename4, const std::string& filename5);
 		
 		// Call the scroll function passing the background images
 		void update();
