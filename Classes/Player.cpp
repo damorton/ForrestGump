@@ -53,6 +53,7 @@ void Player::addCoin()
 {
 	m_nCoins++;
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Pickup_Coin.wav", false, 1.0f, 1.0f, 1.0f);
+	this->addParticleCoins();
 
 }
 
@@ -81,6 +82,15 @@ void Player::addParticle()
 	ccEmitter->setEmissionRate(20.00);
 	ccEmitter->setTotalParticles(100);
 	this->addChild(ccEmitter);
+}
+
+void Player::addParticleCoins()
+{
+	ccCoinEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
+	ccCoinEmitter->setPosition(this->getContentSize().width, this->getContentSize().height); // emitter position is relative to it parents position
+	ccCoinEmitter->setTotalParticles(1);
+	ccCoinEmitter->setDuration(0.001);
+	this->addChild(ccCoinEmitter);
 }
 
 void Player::jump()
