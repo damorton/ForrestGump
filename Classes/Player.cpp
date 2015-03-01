@@ -89,10 +89,10 @@ void Player::addParticle()
 
 void Player::addParticleCoins()
 {
-	ccCoinEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
+	ccCoinEmitter = CCParticleSystemQuad::create("particles/CoinParticle2.plist");
 	ccCoinEmitter->setPosition(this->getContentSize().width, this->getContentSize().height);
 	ccCoinEmitter->setTotalParticles(1);
-	ccCoinEmitter->setDuration(0.001);
+	ccCoinEmitter->setDuration(0.5);
 	this->addChild(ccCoinEmitter);
 }
 
