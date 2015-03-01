@@ -98,10 +98,10 @@ void Player::addParticleCoins()
 
 void Player::addParticleMuffins()
 {
-	ccMuffinEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
+	ccMuffinEmitter = CCParticleSystemQuad::create("particles/SplatterParticle2.plist");
 	ccMuffinEmitter->setPosition(this->getContentSize().width/2, this->getContentSize().height/2);
-	ccMuffinEmitter->setTotalParticles(1);
-	ccMuffinEmitter->setDuration(0.001);
+	ccMuffinEmitter->setTotalParticles(2);
+	ccMuffinEmitter->setDuration(0.1);
 	this->addChild(ccMuffinEmitter);
 }
 
