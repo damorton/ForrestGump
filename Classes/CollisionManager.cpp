@@ -112,6 +112,10 @@ void CollisionManager::cleanUp()
 	m_vpEnemies.clear();
 }
 
+
+/*
+	On game over we call the game over scene
+*/
 void CollisionManager::gameOver()
 {
 	CCLOG("GameOver");
