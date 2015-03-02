@@ -5,6 +5,7 @@
 #include "Enemy.h"
 #include "Definitions.h"
 #include "CollisionManager.h"
+#include "Player.h"
 #include <iostream>
 
 class SpawnManager : public cocos2d::Layer
@@ -18,6 +19,8 @@ public:
 	void update();
 	void spawnEnemy(float dt);
 	int getEnemyCount();
+	int getPlayerDistance(); // used to adjust enemy spawns
+	void setSpawnFreq(int dist);
 	bool addEnemyBehaviour(Enemy* enemy, std::string name);
 	void resetSprite(Node* sender, void* enemy);
 
@@ -29,8 +32,11 @@ public:
 private:
 	Enemy* m_pGroundEnemy;
 	Enemy* m_pFloatingEnemy;
+	Player* m_pPlayer;
 	std::vector<Enemy*> m_vpEnemies;
-	int m_enemyCount = 0; // keep track of number of spawned objects
+	//int m_enemyCount = 0; // keep track of number of spawned objects
+
+	float spawnFrequency = 0.0029f;
 	
 	
 	bool m_bIsSpawned;

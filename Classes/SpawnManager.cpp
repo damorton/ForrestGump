@@ -1,4 +1,5 @@
 #include "SpawnManager.h"
+#include "WorldManager.h"
 
 USING_NS_CC;
 
@@ -18,16 +19,10 @@ bool SpawnManager::init()
 
 void SpawnManager::update()
 {
-	
-	int randomEnemyCount = 0;
-	int enemyMax = 10;
-	randomEnemyCount = (rand() % enemyMax);
-	if (!m_bIsSpawned)
-	{
-			//this->spawnEnemy(float dt);		
-	}
-	
+	    int dist = WorldManager::getInstance()->getPlayer()->getDistance();
 		//this->schedule(schedule_selector(SpawnManager::spawnEnemy), 0.7f * VISIBLE_SIZE_WIDTH);
+		this->schedule(schedule_selector(SpawnManager::spawnEnemy),spawnFrequency * VISIBLE_SIZE_WIDTH);
+		setSpawnFreq(dist);
 }
 
 
@@ -112,14 +107,6 @@ void SpawnManager::spawnEnemy(float dt)
 }
 
 
-/*
-	This function gives us the current enemy count
-*/
-int SpawnManager::getEnemyCount()
-{
-	return m_enemyCount;
-}
-
 bool SpawnManager::addEnemyBehaviour(Enemy* enemy, std::string name)
 {
 	enemy->setName(name);
@@ -148,5 +135,57 @@ void SpawnManager::resetSprite(Node* sender, void* enemyRef)
 		enemy->setPosition(Vec2(enemy->getPositionX() + (VISIBLE_SIZE_WIDTH * 2), enemy->getPositionY()));
 		enemy->setVisible(true);
 		m_bIsSpawned = false;
+	}
+}
+
+int SpawnManager::getPlayerDistance()
+{
+	//return m_pPlayer->getDistance();
+
+	return 2000;
+}
+
+void SpawnManager::setSpawnFreq(int dist)
+{
+
+	if (dist > 0 && dist < 1000){
+
+		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_1;
+
+	}
+
+	else if (dist > 1000 && dist < 2000)
+	{
+
+		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_2;
+	}
+
+	else if (dist > 2000 && dist < 3000)
+	{
+		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_3;
+
+	}
+
+	else if (dist > 3000 && dist < 4000)
+	{
+		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_4;
+
+	}
+
+	else if (dist > 4000 && dist < 5000)
+	{
+		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_5;
+
+	}
+
+	else if (dist > 5000 && dist < 6000)
+	{
+		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_6;
+
+	}
+	else
+	{
+		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_7;
+
 	}
 }

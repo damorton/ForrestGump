@@ -36,10 +36,13 @@ typedef enum {
 #define JUMP_HEIGHT (Director::getInstance()->getVisibleSize().height * .75)
 
 // enemy spawns
-#define ENEMY_SPAWN_FREQ 0.002
-#define	ENEMY_GAP 20
-#define	UPPER_SCRENE_ENEMY_THRESHOLD 0.75
-#define	LOWER_SCRENE_ENEMY_THRESHOLD 0.25
+#define ENEMY_SPAWN_FREQ_LEVEL_1 0.00929
+#define ENEMY_SPAWN_FREQ_LEVEL_2 0.00629
+#define ENEMY_SPAWN_FREQ_LEVEL_3 0.00429f
+#define ENEMY_SPAWN_FREQ_LEVEL_4 0.00229f
+#define ENEMY_SPAWN_FREQ_LEVEL_5 0.00109f
+#define ENEMY_SPAWN_FREQ_LEVEL_6 0.00099f
+#define ENEMY_SPAWN_FREQ_LEVEL_7 0.00088f
 #define ENEMY_MOVEMENT_SPEED 0.008f
 
 #define LABEL_FONT "fonts/go3v2.ttf"
