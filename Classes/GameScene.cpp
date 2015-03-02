@@ -77,6 +77,7 @@ bool GameScene::initializeGame()
 	
 	// call the schedule update in order to run this layers update function
 	this->scheduleUpdate();
+	this->schedule(schedule_selector(SpawnManager::spawnEnemy), 0.0007f * VISIBLE_SIZE_WIDTH);
 	return true;
 }
 

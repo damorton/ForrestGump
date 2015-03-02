@@ -9,6 +9,59 @@ bool SpawnManager::init()
 		return false;
 	}
 	
+	srand(time(NULL));
+	m_bIsSpawned = false;
+	//this->spawnEnemy();
+	//this->schedule(schedule_selector(SpawnManager::spawnEnemy), 0.7f * VISIBLE_SIZE_WIDTH);
+	return true;
+}
+
+void SpawnManager::update()
+{
+	
+	int randomEnemyCount = 0;
+	int enemyMax = 10;
+	randomEnemyCount = (rand() % enemyMax);
+	if (!m_bIsSpawned)
+	{
+			//this->spawnEnemy(float dt);		
+	}
+	
+		//this->schedule(schedule_selector(SpawnManager::spawnEnemy), 0.7f * VISIBLE_SIZE_WIDTH);
+}
+
+
+/*
+
+	This function checks the current enemy count if it
+	is less than the counter it spawns an enemy
+
+*/
+void SpawnManager::spawnEnemy(float dt)
+{
+	/*
+	if (m_enemyCount > ENEMY_SPAWN_COUNT) // setting the count at 5 for now, we can increase this with difficulty
+	{
+	CCLOG("Cant spawn enemy max count reached");
+
+	return false;
+	}
+
+	else
+	{
+	m_pEnemyGround->spawnEnemy(this);
+	m_enemyCount++; // increment the counter as we have spawned an enemy
+	//int count = this->getEnemyCount(); // getting the current enemy count
+	return true;
+	}
+
+	*/
+
+	int spawnPos;
+	//int numberOfEnemies = CollisionManager::getInstance()->getEnemies().size();
+	float spawnPosSeed = 4.0;
+	spawnPos = (rand() % 2);
+
 	m_pGroundEnemy = Enemy::create("sprites/Enemy2.png");
 	m_pFloatingEnemy = Enemy::create("sprites/Enemy.png");
 
@@ -18,7 +71,7 @@ bool SpawnManager::init()
 	auto groundEnemyPhysicsBody = PhysicsBody::createBox(m_pGroundEnemy->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 	m_pGroundEnemy->setPhysicsBody(groundEnemyPhysicsBody);
 	groundEnemyPhysicsBody->setDynamic(false);
-	
+
 	m_pGroundEnemy->setPhysicsBody(PhysicsBody::createBox(Size(m_pGroundEnemy->getContentSize().width, m_pGroundEnemy->getContentSize().height)));
 	m_pGroundEnemy->getPhysicsBody()->setDynamic(true);
 	m_pGroundEnemy->getPhysicsBody()->setGravityEnable(false);
@@ -38,64 +91,24 @@ bool SpawnManager::init()
 	CollisionManager::getInstance()->addEnemy(m_pGroundEnemy);
 	CollisionManager::getInstance()->addEnemy(m_pFloatingEnemy);
 
-	srand(time(NULL));
-	m_bIsSpawned = false;
-	this->spawnEnemy();
-	return true;
-}
-
-void SpawnManager::update()
-{
-	if (!m_bIsSpawned)
-	{
-		this->spawnEnemy();
-	}
-}
-
-
-/*
-
-	This function checks the current enemy count if it
-	is less than the counter it spawns an enemy
-
-*/
-bool SpawnManager::spawnEnemy()
-{
-	/*
-	if (m_enemyCount > ENEMY_SPAWN_COUNT) // setting the count at 5 for now, we can increase this with difficulty
-	{
-		CCLOG("Cant spawn enemy max count reached");
-
-		return false;
-	}
-
-	else
-	{
-		m_pEnemyGround->spawnEnemy(this);
-		m_enemyCount++; // increment the counter as we have spawned an enemy
-		//int count = this->getEnemyCount(); // getting the current enemy count
-		return true;
-	}
-
-	*/
-
 	int randomnumber;
 	//int numberOfEnemies = CollisionManager::getInstance()->getEnemies().size();
 	int numberOfEnemies = 2;
 	randomnumber = (rand() % numberOfEnemies);
 
-	switch (randomnumber)
-	{
-	case 0:
-		this->addEnemyBehaviour(m_pGroundEnemy, "ground");
-		break;
-	case 1:
-		this->addEnemyBehaviour(m_pFloatingEnemy, "floating");
-		break;
-	default:
-		CCLOG("segment spawn random number unknown");
-	}
-	return true;
+		switch (randomnumber)
+		{
+		case 0:
+			this->addEnemyBehaviour(m_pGroundEnemy, "ground");
+			break;
+		case 1:
+			this->addEnemyBehaviour(m_pFloatingEnemy, "floating");
+			break;
+		default:
+			CCLOG("segment spawn random number unknown");
+		}
+
+	//return true;
 }
 
 

@@ -16,7 +16,7 @@ public:
 	virtual bool init();
 	virtual ~SpawnManager(){};
 	void update();
-	bool spawnEnemy();
+	void spawnEnemy(float dt);
 	int getEnemyCount();
 	bool addEnemyBehaviour(Enemy* enemy, std::string name);
 	void resetSprite(Node* sender, void* enemy);

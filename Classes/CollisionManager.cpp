@@ -89,11 +89,11 @@ void CollisionManager::checkCollisionsWithEnemies()
 						//CCLOG("Collision detected");
 						if (enemy->getName() == "ground")
 						{
-							gameOver();
+							//gameOver();
 						}
 						else if (enemy->getName() == "floating")
 						{
-							gameOver();
+							//gameOver();
 						}
 						enemy->setVisible(false);
 					}
