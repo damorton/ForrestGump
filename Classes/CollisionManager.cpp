@@ -3,6 +3,8 @@
 #include "WorldManager.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "GameScene.h"
+#include "GameOver.h"
 
 CollisionManager* CollisionManager::m_Instance = 0;
 
@@ -87,11 +89,11 @@ void CollisionManager::checkCollisionsWithEnemies()
 						//CCLOG("Collision detected");
 						if (enemy->getName() == "ground")
 						{
-							// may use later
+							gameOver();
 						}
 						else if (enemy->getName() == "floating")
 						{
-							// may use later
+							gameOver();
 						}
 						enemy->setVisible(false);
 					}
@@ -108,4 +110,11 @@ void CollisionManager::cleanUp()
 	m_pFloatingEnemy = NULL;
 	m_vpLayers.clear();
 	m_vpEnemies.clear();
+}
+
+void CollisionManager::gameOver()
+{
+	CCLOG("GameOver");
+	Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
 }
