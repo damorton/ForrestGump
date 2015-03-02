@@ -9,7 +9,7 @@ bool SpawnManager::init()
 	{
 		return false;
 	}
-	
+
 	srand(time(NULL));
 	m_bIsSpawned = false;
 	//this->spawnEnemy();
@@ -20,48 +20,27 @@ bool SpawnManager::init()
 void SpawnManager::update()
 {
 	    int dist = WorldManager::getInstance()->getPlayer()->getDistance();
-		//this->schedule(schedule_selector(SpawnManager::spawnEnemy), 0.7f * VISIBLE_SIZE_WIDTH);
 		this->schedule(schedule_selector(SpawnManager::spawnEnemy),spawnFrequency * VISIBLE_SIZE_WIDTH);
 		setSpawnFreq(dist);
 }
 
 
 /*
-
 	This function checks the current enemy count if it
 	is less than the counter it spawns an enemy
-
 */
 void SpawnManager::spawnEnemy(float dt)
 {
-	/*
-	if (m_enemyCount > ENEMY_SPAWN_COUNT) // setting the count at 5 for now, we can increase this with difficulty
-	{
-	CCLOG("Cant spawn enemy max count reached");
-
-	return false;
-	}
-
-	else
-	{
-	m_pEnemyGround->spawnEnemy(this);
-	m_enemyCount++; // increment the counter as we have spawned an enemy
-	//int count = this->getEnemyCount(); // getting the current enemy count
-	return true;
-	}
-
-	*/
-
 	int spawnPos;
 	//int numberOfEnemies = CollisionManager::getInstance()->getEnemies().size();
 	float spawnPosSeed = 4.0;
 	spawnPos = (rand() % 2);
 
-	m_pGroundEnemy = Enemy::create("sprites/Enemy2.png");
+	m_pGroundEnemy = Enemy::create("sprites/walk05.png");
 	m_pFloatingEnemy = Enemy::create("sprites/Enemy.png");
 
-	m_pGroundEnemy->setPosition(Vec2(m_pGroundEnemy->getPositionX() + VISIBLE_SIZE_WIDTH * 1.5, SCREEN_ORIGIN.y + 100));
-	m_pFloatingEnemy->setPosition(Vec2(m_pFloatingEnemy->getPositionX() + VISIBLE_SIZE_WIDTH * 1.5, SCREEN_ORIGIN.y + 50));
+	m_pGroundEnemy->setPosition(Vec2(m_pGroundEnemy->getPositionX() + VISIBLE_SIZE_WIDTH * 1.5, SCREEN_ORIGIN.y + 50));
+	m_pFloatingEnemy->setPosition(Vec2(m_pFloatingEnemy->getPositionX() + VISIBLE_SIZE_WIDTH * 1.5, SCREEN_ORIGIN.y + 100));
 
 	auto groundEnemyPhysicsBody = PhysicsBody::createBox(m_pGroundEnemy->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 	m_pGroundEnemy->setPhysicsBody(groundEnemyPhysicsBody);
@@ -138,54 +117,29 @@ void SpawnManager::resetSprite(Node* sender, void* enemyRef)
 	}
 }
 
-int SpawnManager::getPlayerDistance()
-{
-	//return m_pPlayer->getDistance();
-
-	return 2000;
-}
-
 void SpawnManager::setSpawnFreq(int dist)
 {
-
 	if (dist > 0 && dist < 1000){
-
 		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_1;
-
 	}
-
 	else if (dist > 1000 && dist < 2000)
 	{
-
 		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_2;
 	}
-
 	else if (dist > 2000 && dist < 3000)
 	{
 		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_3;
-
 	}
-
 	else if (dist > 3000 && dist < 4000)
 	{
 		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_4;
-
 	}
-
 	else if (dist > 4000 && dist < 5000)
 	{
 		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_5;
-
 	}
-
-	else if (dist > 5000 && dist < 6000)
+	else if (dist > 5000)
 	{
 		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_6;
-
-	}
-	else
-	{
-		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_7;
-
 	}
 }
