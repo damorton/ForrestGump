@@ -116,10 +116,10 @@ void Player::addParticleBoosters()
 
 void Player::addParticleItems()
 {
-	ccItemEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
+	ccItemEmitter = CCParticleSystemQuad::create("particles/DiamondPar2.plist");
 	ccItemEmitter->setPosition(this->getContentSize().width, this->getContentSize().height);
 	ccItemEmitter->setTotalParticles(1);
-	ccItemEmitter->setDuration(0.001);
+	ccItemEmitter->setDuration(0.5);
 	this->addChild(ccItemEmitter);
 }
 
