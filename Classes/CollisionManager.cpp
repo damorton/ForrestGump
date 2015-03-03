@@ -56,10 +56,22 @@ void CollisionManager::checkCollisionsWithItems()
 								else if (tileSprite->getName() == "booster")
 								{
 									WorldManager::getInstance()->getPlayer()->addBooster();
+
+									if (WorldManager::getInstance()->getPlayer()->getScale() > 0.5)
+									{
+										WorldManager::getInstance()->getPlayer()->setScale(WorldManager::getInstance()->getPlayer()->getScale() - 0.01);
+									}
+
+
 								}
 								else if (tileSprite->getName() == "food")
 								{
 									WorldManager::getInstance()->getPlayer()->addFood();
+
+									if (WorldManager::getInstance()->getPlayer()->getScale() < 2.0)
+									{
+										WorldManager::getInstance()->getPlayer()->setScale(WorldManager::getInstance()->getPlayer()->getScale() + 0.01);
+									}
 								}
 								tileSprite->setVisible(false);
 							}

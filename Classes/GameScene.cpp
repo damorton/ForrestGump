@@ -59,8 +59,9 @@ bool GameScene::initializeGame()
 	
 	//Player
 	Player* playerSprite = Player::create("sprites/Playersmall.png");
+	//playerSprite->setScale(2.0);
 	gamePlayLayer->addChild(playerSprite, 1);
-	
+
 	// Spawn manager
 	m_pSpawnManager = SpawnManager::create();
 	gamePlayLayer->addChild(m_pSpawnManager, 0);
