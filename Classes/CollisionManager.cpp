@@ -82,6 +82,7 @@ void CollisionManager::checkCollisionsWithEnemies()
 			{
 				if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
 				{
+					WorldManager::getInstance()->getPlayer()->addCoinLossParticle();
 					if (enemy->isVisible())
 					{
 						//CCLOG("Collision detected");

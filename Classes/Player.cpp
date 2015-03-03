@@ -123,6 +123,15 @@ void Player::addParticleItems()
 	this->addChild(ccItemEmitter);
 }
 
+void Player::addCoinLossParticle()
+{
+	ccCoinLossEmitter = CCParticleSystemQuad::create("particles/CoinLoss.plist");
+	ccCoinLossEmitter->setPosition(this->getContentSize().width, this->getContentSize().height);
+	ccCoinLossEmitter->setTotalParticles(1);
+	ccCoinLossEmitter->setDuration(0.5);
+	this->addChild(ccCoinLossEmitter);
+}
+
 void Player::jump()
 {
 	if (m_ePlayerState == RUNNING || m_nNumberOfJumps < MAX_NO_OF_JUMPS)
