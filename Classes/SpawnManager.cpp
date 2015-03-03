@@ -39,7 +39,7 @@ void SpawnManager::spawnEnemy(float dt)
 	m_pGroundEnemy = Enemy::create("sprites/walk05.png");
 	m_pFloatingEnemy = Enemy::create("sprites/Enemy.png");
 
-	m_pGroundEnemy->setPosition(Vec2(m_pGroundEnemy->getPositionX() + VISIBLE_SIZE_WIDTH * 1.5, SCREEN_ORIGIN.y + 50));
+	m_pGroundEnemy->setPosition(Vec2(m_pGroundEnemy->getPositionX() + VISIBLE_SIZE_WIDTH * 1.5, SCREEN_ORIGIN.y + (WorldManager::getInstance()->getFloorSprite()->getContentSize().height + this->getContentSize().height / 2.5)));
 	m_pFloatingEnemy->setPosition(Vec2(m_pFloatingEnemy->getPositionX() + VISIBLE_SIZE_WIDTH * 1.5, SCREEN_ORIGIN.y + 100));
 
 	auto groundEnemyPhysicsBody = PhysicsBody::createBox(m_pGroundEnemy->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
@@ -48,7 +48,7 @@ void SpawnManager::spawnEnemy(float dt)
 
 	m_pGroundEnemy->setPhysicsBody(PhysicsBody::createBox(Size(m_pGroundEnemy->getContentSize().width, m_pGroundEnemy->getContentSize().height)));
 	m_pGroundEnemy->getPhysicsBody()->setDynamic(true);
-	m_pGroundEnemy->getPhysicsBody()->setGravityEnable(false);
+	m_pGroundEnemy->getPhysicsBody()->setGravityEnable(true);
 
 	auto floatingEnemyPhysicsBody = PhysicsBody::createBox(m_pFloatingEnemy->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 	m_pFloatingEnemy->setPhysicsBody(floatingEnemyPhysicsBody);
@@ -79,7 +79,7 @@ void SpawnManager::spawnEnemy(float dt)
 			this->addEnemyBehaviour(m_pFloatingEnemy, "floating");
 			break;
 		default:
-			CCLOG("segment spawn random number unknown");
+			CCLOG("enemy spawn random number unknown");
 		}
 
 	//return true;
