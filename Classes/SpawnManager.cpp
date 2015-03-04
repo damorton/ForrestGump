@@ -141,37 +141,6 @@ void SpawnManager::resetSprite(Node* sender, void* enemyRef)
 	}
 }
 
-/*
-void SpawnManager::setSpawnFreq()
-{
-	int dist = WorldManager::getInstance()->getPlayer()->getDistance();
-
-	if (dist > 0 && dist < 1000){
-		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_1;
-	}
-	else if (dist > 1000 && dist < 2000)
-	{
-		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_2;
-	}
-	else if (dist > 2000 && dist < 3000)
-	{
-		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_3;
-	}
-	else if (dist > 3000 && dist < 4000)
-	{
-		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_4;
-	}
-	else if (dist > 4000 && dist < 5000)
-	{
-		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_5;
-	}
-	else if (dist > 5000)
-	{
-		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_6;
-	}
-}
-*/
-
 void SpawnManager::update()
 {
 	if (!m_bIsSpawned)
