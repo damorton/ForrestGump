@@ -29,7 +29,6 @@ bool GameScene::init()
 		return false;
 	}	
 	this->initializeGame();
-
 	return true;
 }
 
@@ -59,7 +58,6 @@ bool GameScene::initializeGame()
 	
 	//Player
 	Player* playerSprite = Player::create("sprites/Playersmall.png");
-	//playerSprite->setScale(2.0);
 	gamePlayLayer->addChild(playerSprite, 1);
 
 	// Spawn manager
@@ -72,13 +70,7 @@ bool GameScene::initializeGame()
 	listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-			
-	//m_fSpeed = 5.0f;
-
-	
-	// call the schedule update in order to run this layers update function
 	this->scheduleUpdate();
-	//this->schedule(schedule_selector(SpawnManager::spawnEnemy), 0.0029f * VISIBLE_SIZE_WIDTH);
 	return true;
 }
 
@@ -89,23 +81,18 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
 
 void GameScene::update(float delta)
 {
-
 	//CCLOG("-------------GAME LOOP START--------------");	
-	
+		
 	CollisionManager::getInstance()->checkCollisions();
 	WorldManager::getInstance()->getPlayer()->update();
-	m_pCollectableFactory->update();	
-	m_HudLayer->update();
+	m_pCollectableFactory->update();		
 	m_pParallax->update();
 	m_pSpawnManager->update();
+	m_HudLayer->update();
 
 	//CCLOG("-------------GAME LOOP END--------------");
-
 }
 
-/*
-	This function converts each touch the user does into a Point(x, y)
-*/
 inline Point locationInGLFromTouch(Touch& touch)
 {
 	auto director = Director::getInstance();

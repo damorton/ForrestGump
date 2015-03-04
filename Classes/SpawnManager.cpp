@@ -3,15 +3,6 @@
 
 USING_NS_CC;
 
-void SpawnManager::update()
-{
-	//this->setSpawnFreq();
-	if (!m_bIsSpawned)
-	{
-		this->spawnEnemy();
-	}
-}
-
 bool SpawnManager::init()
 {
 	if (!Layer::init())
@@ -19,11 +10,7 @@ bool SpawnManager::init()
 		return false;
 	}
 	this->initEnemies();
-
-	//srand(time(NULL));
-	//m_bIsSpawned = false;
-	//this->spawnEnemy();
-	//this->schedule(schedule_selector(SpawnManager::spawnEnemy), 0.7f * VISIBLE_SIZE_WIDTH);
+	
 	return true;
 }
 
@@ -36,7 +23,7 @@ bool SpawnManager::initEnemies()
 	m_pGroundEnemy->setName("ground");
 	m_pFloatingEnemy = Enemy::create("sprites/Enemy.png");
 	m_pFloatingEnemy->setName("floating");
-	m_pRotatingEnemy = Enemy::create("sprites/Enemy3.png");
+	m_pRotatingEnemy = Enemy::create("sprites/Enemy2.png");
 	m_pRotatingEnemy->setName("rotating");
 
 	/*
@@ -98,8 +85,7 @@ bool SpawnManager::initEnemies()
 bool SpawnManager::spawnEnemy()
 {
 	int randomnumber;
-	//int numberOfEnemies = CollisionManager::getInstance()->getEnemies().size();
-	int numberOfEnemies = 3;
+	int numberOfEnemies = CollisionManager::getInstance()->getEnemies().size();	
 	randomnumber = (rand() % numberOfEnemies);
 
 		switch (randomnumber)
@@ -120,35 +106,23 @@ bool SpawnManager::spawnEnemy()
 	return true;
 }
 
-
 bool SpawnManager::addEnemyBehaviour(Enemy* enemy)
 {
-
 	if (enemy != NULL && enemy->getName() == "ground" || enemy != NULL && enemy->getName() == "floating")
-	{ 
-		// resetin sprite poisition + seeting sprite to invisible
+	{ 		
 		auto reset = CCCallFuncND::create(this, callfuncND_selector(SpawnManager::resetSprite), (void*)enemy);
 		auto enemeySpriteBehaviour = Sequence::create(
 			MoveBy::create(SPRITE_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-(VISIBLE_SIZE_WIDTH * 2), 0)),
 			reset,
 			NULL);
 		enemy->runAction(enemeySpriteBehaviour);
-	}
-
-	
+	}	
 	else if (enemy != NULL && enemy->getName() == "rotating")
 	{
-		// resetin sprite poisition + seeting sprite to invisible
 		auto reset = CCCallFuncND::create(this, callfuncND_selector(SpawnManager::resetSprite), (void*)enemy);
 		auto enemeySpriteBehaviour = Sequence::create(
-			MoveBy::create(SPRITE_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-(VISIBLE_SIZE_WIDTH * 2), 0)), reset, NULL);
-			//RotateBy::create(10, 360), NULL, NULL);
-
-		//auto rotateAction = RotateBy::create(INFINITY, 360.0f);
-		//playButton->runAction(rotateAction);
-
-		enemy->runAction(enemeySpriteBehaviour);
-		//enemy->runAction(rotateAction);
+			MoveBy::create(SPRITE_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-(VISIBLE_SIZE_WIDTH * 2), 0)), reset, NULL);	
+		enemy->runAction(enemeySpriteBehaviour);		
 	}
 
 	m_bIsSpawned = true;
@@ -197,3 +171,11 @@ void SpawnManager::setSpawnFreq()
 	}
 }
 */
+
+void SpawnManager::update()
+{
+	if (!m_bIsSpawned)
+	{
+		this->spawnEnemy();
+	}
+}
