@@ -21,7 +21,6 @@ public:
 	bool spawnEnemy();
 	int getEnemyCount();
 	int getPlayerDistance(); // used to adjust enemy spawns
-	void setSpawnFreq();
 	bool addEnemyBehaviour(Enemy* enemy);
 	void resetSprite(Node* sender, void* enemy);
 
@@ -35,12 +34,7 @@ private:
 	Enemy* m_pFloatingEnemy;
 	Enemy* m_pRotatingEnemy;
 	Player* m_pPlayer;
-	std::vector<Enemy*> m_vpEnemies;
-	//int m_enemyCount = 0; // keep track of number of spawned objects
-
-	float spawnFrequency = 0.0029f;
-	
-	
+	std::vector<Enemy*> m_vpEnemies;	
 	bool m_bIsSpawned;
 };
 

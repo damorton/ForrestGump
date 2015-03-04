@@ -23,7 +23,7 @@ bool SpawnManager::initEnemies()
 	m_pGroundEnemy->setName("ground");
 	m_pFloatingEnemy = Enemy::create("sprites/Enemy.png");
 	m_pFloatingEnemy->setName("floating");
-	m_pRotatingEnemy = Enemy::create("sprites/Enemy2.png");
+	m_pRotatingEnemy = Enemy::create("sprites/Enemy3.png");
 	m_pRotatingEnemy->setName("rotating");
 
 	/*
@@ -140,37 +140,6 @@ void SpawnManager::resetSprite(Node* sender, void* enemyRef)
 		m_bIsSpawned = false;
 	}
 }
-
-/*
-void SpawnManager::setSpawnFreq()
-{
-	int dist = WorldManager::getInstance()->getPlayer()->getDistance();
-
-	if (dist > 0 && dist < 1000){
-		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_1;
-	}
-	else if (dist > 1000 && dist < 2000)
-	{
-		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_2;
-	}
-	else if (dist > 2000 && dist < 3000)
-	{
-		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_3;
-	}
-	else if (dist > 3000 && dist < 4000)
-	{
-		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_4;
-	}
-	else if (dist > 4000 && dist < 5000)
-	{
-		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_5;
-	}
-	else if (dist > 5000)
-	{
-		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_6;
-	}
-}
-*/
 
 void SpawnManager::update()
 {
