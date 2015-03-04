@@ -23,7 +23,7 @@ bool SpawnManager::initEnemies()
 	m_pGroundEnemy->setName("ground");
 	m_pFloatingEnemy = Enemy::create("sprites/Enemy.png");
 	m_pFloatingEnemy->setName("floating");
-	m_pRotatingEnemy = Enemy::create("sprites/Enemy2.png");
+	m_pRotatingEnemy = Enemy::create("sprites/Enemy3.png");
 	m_pRotatingEnemy->setName("rotating");
 
 	/*
