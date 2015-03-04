@@ -54,7 +54,6 @@ void Player::addCoin()
 	m_nCoins++;
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Pickup_Coin.wav", false, 1.0f, 1.0f, 1.0f);
 	this->addParticleCoins();
-
 }
 
 void Player::addBooster()
@@ -69,6 +68,7 @@ void Player::addFood()
 	m_nFood++;
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Crunch_DavidYoung.wav", false, 1.0f, 1.0f, 1.0f);
 	this->addParticleMuffins();
+	this->addParticleMuffins2();
 }
 
 void Player::addItem()
@@ -85,11 +85,12 @@ void Player::addParticle()
 	ccEmitter->setEmissionRate(20.00);
 	ccEmitter->setTotalParticles(100);
 	this->addChild(ccEmitter);
+	
 }
 
 void Player::addParticleCoins()
 {
-	ccCoinEmitter = CCParticleSystemQuad::create("particles/coinP3.plist");
+	ccCoinEmitter = CCParticleSystemQuad::create("particles/coinLoss.plist");
 	ccCoinEmitter->setPosition(this->getContentSize().width, this->getContentSize().height);
 	ccCoinEmitter->setTotalParticles(1);
 	ccCoinEmitter->setDuration(0.5);
@@ -98,11 +99,22 @@ void Player::addParticleCoins()
 
 void Player::addParticleMuffins()
 {
-	ccMuffinEmitter = CCParticleSystemQuad::create("particles/SplatterParticle2.plist");
+	ccMuffinEmitter = CCParticleSystemQuad::create("particles/SplatterParticle2.plist");	
 	ccMuffinEmitter->setPosition(this->getContentSize().width/2, this->getContentSize().height/2);
 	ccMuffinEmitter->setTotalParticles(2);
 	ccMuffinEmitter->setDuration(0.1);
 	this->addChild(ccMuffinEmitter);
+	ccMuffinEmitter->setAutoRemoveOnFinish(true);
+}
+
+void Player::addParticleMuffins2()
+{
+	CCLOG("Called");
+	ccMuffinEmitter2 = CCParticleSystemQuad::create("particles/coinLoss.plist");
+	ccMuffinEmitter2->setPosition(this->getContentSize().width,0);
+	ccMuffinEmitter2->setTotalParticles(2);
+	ccMuffinEmitter2->setDuration(0.5);
+	this->addChild(ccMuffinEmitter2);
 }
 
 void Player::addParticleBoosters()
@@ -116,7 +128,7 @@ void Player::addParticleBoosters()
 
 void Player::addParticleItems()
 {
-	ccItemEmitter = CCParticleSystemQuad::create("particles/DiamondPar2.plist");
+	ccItemEmitter = CCParticleSystemQuad::create("particles/DiamondPar3.plist");
 	ccItemEmitter->setPosition(this->getContentSize().width, this->getContentSize().height);
 	ccItemEmitter->setTotalParticles(1);
 	ccItemEmitter->setDuration(0.5);
@@ -125,9 +137,9 @@ void Player::addParticleItems()
 
 void Player::addCoinLossParticle()
 {
-	ccCoinLossEmitter = CCParticleSystemQuad::create("particles/CoinLoss.plist");
+	ccCoinLossEmitter = CCParticleSystemQuad::create("particles/coinLoss.plist");
 	ccCoinLossEmitter->setPosition(this->getContentSize().width, this->getContentSize().height);
-	ccCoinLossEmitter->setTotalParticles(1);
+	ccCoinLossEmitter->setTotalParticles(4);
 	ccCoinLossEmitter->setDuration(0.5);
 	this->addChild(ccCoinLossEmitter);
 }

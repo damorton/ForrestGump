@@ -38,7 +38,8 @@ public:
 	void addParticleMuffins();
 	void addParticleBoosters();
 	void addParticleItems();
-	void Player::addCoinLossParticle();
+	void addParticleMuffins2();
+	void addCoinLossParticle();
 	
 	CREATE_FUNC(Player);
 
@@ -61,6 +62,7 @@ private:
 	ParticleSystem *ccBoosterEmitter;
 	ParticleSystem *ccItemEmitter;
 	ParticleSystem *ccCoinLossEmitter;
+	ParticleSystem *ccMuffinEmitter2;
 
 };
 
