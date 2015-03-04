@@ -17,11 +17,12 @@ public:
 	virtual bool init();
 	virtual ~SpawnManager(){};
 	void update();
-	void spawnEnemy(float dt);
+	bool initEnemies();
+	bool spawnEnemy();
 	int getEnemyCount();
 	int getPlayerDistance(); // used to adjust enemy spawns
-	void setSpawnFreq(int dist);
-	bool addEnemyBehaviour(Enemy* enemy, std::string name);
+	void setSpawnFreq();
+	bool addEnemyBehaviour(Enemy* enemy);
 	void resetSprite(Node* sender, void* enemy);
 
 	/*

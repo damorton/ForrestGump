@@ -3,54 +3,51 @@
 
 USING_NS_CC;
 
+void SpawnManager::update()
+{
+	//this->setSpawnFreq();
+	if (!m_bIsSpawned)
+	{
+		this->spawnEnemy();
+	}
+}
+
 bool SpawnManager::init()
 {
 	if (!Layer::init())
 	{
 		return false;
 	}
+	this->initEnemies();
 
-	srand(time(NULL));
-	m_bIsSpawned = false;
+	//srand(time(NULL));
+	//m_bIsSpawned = false;
 	//this->spawnEnemy();
 	//this->schedule(schedule_selector(SpawnManager::spawnEnemy), 0.7f * VISIBLE_SIZE_WIDTH);
 	return true;
 }
 
-void SpawnManager::update()
+bool SpawnManager::initEnemies()
 {
-	    int dist = WorldManager::getInstance()->getPlayer()->getDistance();
-		this->schedule(schedule_selector(SpawnManager::spawnEnemy),spawnFrequency * VISIBLE_SIZE_WIDTH);
-		setSpawnFreq(dist);
-}
-
-
-/*
-	This function checks the current enemy count if it
-	is less than the counter it spawns an enemy
-*/
-void SpawnManager::spawnEnemy(float dt)
-{
-	int spawnPos;
-	float spawnPosSeed = 4.0;
-	spawnPos = (rand() % 2);
-
 	/*
-		Creating enemies
+	Creating enemies
 	*/
 	m_pGroundEnemy = Enemy::create("sprites/walk05.png");
+	m_pGroundEnemy->setName("ground");
 	m_pFloatingEnemy = Enemy::create("sprites/Enemy.png");
+	m_pFloatingEnemy->setName("floating");
 	m_pRotatingEnemy = Enemy::create("sprites/Enemy3.png");
+	m_pRotatingEnemy->setName("rotating");
 
 	/*
-		Setting enemy positions
+	Setting enemy positions
 	*/
-	m_pGroundEnemy->setPosition(Vec2(m_pGroundEnemy->getPositionX() + VISIBLE_SIZE_WIDTH * 1.5, SCREEN_ORIGIN.y + (WorldManager::getInstance()->getFloorSprite()->getContentSize().height + this->getContentSize().height / 2.5)));
+	m_pGroundEnemy->setPosition(Vec2(m_pGroundEnemy->getPositionX() + VISIBLE_SIZE_WIDTH * 1.5, SCREEN_ORIGIN.y + (WorldManager::getInstance()->getFloorSprite()->getContentSize().height + m_pGroundEnemy->getContentSize().height / 2)));
 	m_pFloatingEnemy->setPosition(Vec2(m_pFloatingEnemy->getPositionX() + VISIBLE_SIZE_WIDTH * 1.5, SCREEN_ORIGIN.y + 100));
 	m_pRotatingEnemy->setPosition(Vec2(m_pRotatingEnemy->getPositionX() + VISIBLE_SIZE_WIDTH * 1.5, VISIBLE_SIZE_HEIGHT / 3));
 
 	/*
-		Assigning enemies physics properties
+	Assigning enemies physics properties
 	*/
 	auto groundEnemyPhysicsBody = PhysicsBody::createBox(m_pGroundEnemy->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 	m_pGroundEnemy->setPhysicsBody(groundEnemyPhysicsBody);
@@ -58,7 +55,7 @@ void SpawnManager::spawnEnemy(float dt)
 
 	m_pGroundEnemy->setPhysicsBody(PhysicsBody::createBox(Size(m_pGroundEnemy->getContentSize().width, m_pGroundEnemy->getContentSize().height)));
 	m_pGroundEnemy->getPhysicsBody()->setDynamic(true);
-	m_pGroundEnemy->getPhysicsBody()->setGravityEnable(true);
+	m_pGroundEnemy->getPhysicsBody()->setGravityEnable(false);
 	m_pGroundEnemy->getPhysicsBody()->setRotationEnable(false);
 
 	auto floatingEnemyPhysicsBody = PhysicsBody::createBox(m_pFloatingEnemy->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
@@ -87,6 +84,19 @@ void SpawnManager::spawnEnemy(float dt)
 	CollisionManager::getInstance()->addEnemy(m_pFloatingEnemy);
 	CollisionManager::getInstance()->addEnemy(m_pRotatingEnemy);
 
+	srand(time(NULL));
+	m_bIsSpawned = false;
+	this->spawnEnemy();
+
+	return true;
+}
+
+/*
+	This function checks the current enemy count if it
+	is less than the counter it spawns an enemy
+*/
+bool SpawnManager::spawnEnemy()
+{
 	int randomnumber;
 	//int numberOfEnemies = CollisionManager::getInstance()->getEnemies().size();
 	int numberOfEnemies = 3;
@@ -95,51 +105,51 @@ void SpawnManager::spawnEnemy(float dt)
 		switch (randomnumber)
 		{
 		case 0:
-			this->addEnemyBehaviour(m_pGroundEnemy, "ground");
+			this->addEnemyBehaviour(m_pGroundEnemy);
 			break;
 		case 1:
-			this->addEnemyBehaviour(m_pFloatingEnemy, "floating");
+			this->addEnemyBehaviour(m_pFloatingEnemy);
 			break;
 		case 2:
-			this->addEnemyBehaviour(m_pRotatingEnemy, "rotating");
+			this->addEnemyBehaviour(m_pRotatingEnemy);
 			break;
 		default:
 			CCLOG("enemy spawn random number unknown");
 		}
 
-	//return true;
+	return true;
 }
 
 
-bool SpawnManager::addEnemyBehaviour(Enemy* enemy, std::string name)
+bool SpawnManager::addEnemyBehaviour(Enemy* enemy)
 {
-	enemy->setName(name);
 
-	if (enemy != NULL && name == "ground" || enemy != NULL && name == "floating")
-	{
+	if (enemy != NULL && enemy->getName() == "ground" || enemy != NULL && enemy->getName() == "floating")
+	{ 
 		// resetin sprite poisition + seeting sprite to invisible
 		auto reset = CCCallFuncND::create(this, callfuncND_selector(SpawnManager::resetSprite), (void*)enemy);
-		auto enemtySpriteBehaviour = Sequence::create(
+		auto enemeySpriteBehaviour = Sequence::create(
 			MoveBy::create(SPRITE_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-(VISIBLE_SIZE_WIDTH * 2), 0)),
 			reset,
 			NULL);
-		enemy->runAction(enemtySpriteBehaviour);
+		enemy->runAction(enemeySpriteBehaviour);
 	}
 
 	
-	else if (enemy != NULL && name == "rotating")
+	else if (enemy != NULL && enemy->getName() == "rotating")
 	{
 		// resetin sprite poisition + seeting sprite to invisible
 		auto reset = CCCallFuncND::create(this, callfuncND_selector(SpawnManager::resetSprite), (void*)enemy);
-		auto enemtySpriteBehaviour = Sequence::create(
-			MoveBy::create(SPRITE_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-(VISIBLE_SIZE_WIDTH * 2), 0)),reset,
-			RotateBy::create(10, 360), NULL, NULL);
-		enemy->runAction(enemtySpriteBehaviour);
+		auto enemeySpriteBehaviour = Sequence::create(
+			MoveBy::create(SPRITE_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-(VISIBLE_SIZE_WIDTH * 2), 0)), reset, NULL);
+			//RotateBy::create(10, 360), NULL, NULL);
 
+		//auto rotateAction = RotateBy::create(INFINITY, 360.0f);
+		//playButton->runAction(rotateAction);
 
+		enemy->runAction(enemeySpriteBehaviour);
+		//enemy->runAction(rotateAction);
 	}
-
-	
 
 	m_bIsSpawned = true;
 	return true;
@@ -157,8 +167,11 @@ void SpawnManager::resetSprite(Node* sender, void* enemyRef)
 	}
 }
 
-void SpawnManager::setSpawnFreq(int dist)
+/*
+void SpawnManager::setSpawnFreq()
 {
+	int dist = WorldManager::getInstance()->getPlayer()->getDistance();
+
 	if (dist > 0 && dist < 1000){
 		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_1;
 	}
@@ -183,3 +196,4 @@ void SpawnManager::setSpawnFreq(int dist)
 		spawnFrequency = ENEMY_SPAWN_FREQ_LEVEL_6;
 	}
 }
+*/
