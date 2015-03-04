@@ -107,7 +107,7 @@ void Player::jump()
 		this->runAction(animationSequence);
 		
 		//NEW JUMP
-		CCLOG("jump");
+		//CCLOG("jump");
 		Vec2 impulse(0.0f, 0.0f);	
 		impulse.y = 70000.0f;
 		impulse.x = 0.0f;
@@ -124,7 +124,6 @@ void Player::update()
 		m_ePlayerState = RUNNING;
 		ccEmitter->setScale(2.0);
 		ccEmitter->resume();
-		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/trashdropping.wav", false, 1.0f, 1.0f, 1.0f);
 		m_nNumberOfJumps = 0;
 	}
 	else

@@ -2,8 +2,6 @@
 #include "Definitions.h"
 #include "WorldManager.h"
 
-USING_NS_CC;
-
 bool Parallax::init()
 {
 	if (!LayerColor::initWithColor(Color4B(173, 216, 230, 255)))
@@ -55,6 +53,7 @@ bool Parallax::addBackground(const std::string& filename1, const std::string& fi
 	this->addChild(m_pSpriteFloor1, 4);
 	this->addChild(m_pSpriteFloor2, 4);
 		
+	// Floor boundary
 	auto floorRect = CCSprite::create(filename5);
 	floorRect->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH / 2, SCREEN_ORIGIN.y + m_pSpriteFloor1->getContentSize().height / 2));
 	this->addChild(floorRect);
