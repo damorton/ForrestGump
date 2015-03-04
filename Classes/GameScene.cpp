@@ -59,8 +59,9 @@ bool GameScene::initializeGame()
 	
 	//Player
 	Player* playerSprite = Player::create("sprites/Playersmall.png");
+	//playerSprite->setScale(2.0);
 	gamePlayLayer->addChild(playerSprite, 1);
-	
+
 	// Spawn manager
 	m_pSpawnManager = SpawnManager::create();
 	gamePlayLayer->addChild(m_pSpawnManager, 0);
@@ -77,6 +78,7 @@ bool GameScene::initializeGame()
 	
 	// call the schedule update in order to run this layers update function
 	this->scheduleUpdate();
+	//this->schedule(schedule_selector(SpawnManager::spawnEnemy), 0.0029f * VISIBLE_SIZE_WIDTH);
 	return true;
 }
 

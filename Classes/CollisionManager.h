@@ -10,6 +10,8 @@
 #include <memory>
 #include "Enemy.h"
 #include "SpawnManager.h"
+//#include "GameScene.h"
+//#include "GameOver.h"
 
 // forward declarations
 class Enemy;
@@ -34,6 +36,7 @@ public:
 	void setPlayer(Player* player){ m_pPlayer = player; };	
 	void setEnemies(std::vector<Enemy*> enemies){ m_vpEnemies = enemies; };
 	void setLayers(std::deque<TMXLayer*> layers){ m_vpLayers = layers; };
+	void gameOver();
 protected:
 	Player* m_pPlayer;
 	Enemy* m_pGroundEnemy;

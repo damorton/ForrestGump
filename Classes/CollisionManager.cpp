@@ -3,6 +3,8 @@
 #include "WorldManager.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "GameScene.h"
+#include "GameOver.h"
 
 CollisionManager* CollisionManager::m_Instance = 0;
 
@@ -54,10 +56,22 @@ void CollisionManager::checkCollisionsWithItems()
 								else if (tileSprite->getName() == "booster")
 								{
 									WorldManager::getInstance()->getPlayer()->addBooster();
+
+									if (WorldManager::getInstance()->getPlayer()->getScale() > 0.5)
+									{
+										WorldManager::getInstance()->getPlayer()->setScale(WorldManager::getInstance()->getPlayer()->getScale() - 0.01);
+									}
+
+
 								}
 								else if (tileSprite->getName() == "food")
 								{
 									WorldManager::getInstance()->getPlayer()->addFood();
+
+									if (WorldManager::getInstance()->getPlayer()->getScale() < 2.0)
+									{
+										WorldManager::getInstance()->getPlayer()->setScale(WorldManager::getInstance()->getPlayer()->getScale() + 0.01);
+									}
 								}
 								tileSprite->setVisible(false);
 							}
@@ -87,11 +101,11 @@ void CollisionManager::checkCollisionsWithEnemies()
 						//CCLOG("Collision detected");
 						if (enemy->getName() == "ground")
 						{
-							// may use later
+							//gameOver();
 						}
 						else if (enemy->getName() == "floating")
 						{
-							// may use later
+							//gameOver();
 						}
 						enemy->setVisible(false);
 					}
@@ -108,4 +122,15 @@ void CollisionManager::cleanUp()
 	m_pFloatingEnemy = NULL;
 	m_vpLayers.clear();
 	m_vpEnemies.clear();
+}
+
+
+/*
+	On game over we call the game over scene
+*/
+void CollisionManager::gameOver()
+{
+	CCLOG("GameOver");
+	Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
 }
