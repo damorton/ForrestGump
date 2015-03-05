@@ -14,6 +14,7 @@ Enemy* Enemy::create(const std::string& filename)
 		pSprite->init();
 		return pSprite;
 	}
+	
 
 	CC_SAFE_DELETE(pSprite);
 	return NULL;

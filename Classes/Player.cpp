@@ -20,7 +20,8 @@ bool Player::init()
 {	
 	m_strUsername = "David";
 	setType(PLAYER);
-	setState(RUNNING);
+	setAction(RUNNING);
+	setState(ALIVE);
 	m_nDistance = 0;
 	m_nCoins = 0;
 	m_nBoosters = 0;
@@ -81,75 +82,77 @@ void Player::addItem()
 
 void Player::addParticle()
 {
-	ccEmitter = CCParticleSystemQuad::create("particles/Shadow.plist");
-	ccEmitter->setPosition(this->getContentSize().width/2, 0); // emitter position is relative to it parents position
-	ccEmitter->setEmissionRate(20.00);
-	ccEmitter->setTotalParticles(100);
-	this->addChild(ccEmitter);
-	ccEmitter->setAutoRemoveOnFinish(true);
+	m_pEmitter = CCParticleSystemQuad::create("particles/Shadow.plist");
+	m_pEmitter->setPosition(this->getContentSize().width / 2, 0);
+	m_pEmitter->setEmissionRate(20.00);
+	m_pEmitter->setTotalParticles(100);
+	this->addChild(m_pEmitter);
+	m_pEmitter->setAutoRemoveOnFinish(true);
 	
 }
 
 void Player::addParticleCoins()
 {
-	ccCoinEmitter = CCParticleSystemQuad::create("particles/coin.plist");
-	ccCoinEmitter->setPosition(this->getContentSize().width, this->getContentSize().height);
-	ccCoinEmitter->setTotalParticles(1);
-	ccCoinEmitter->setDuration(0.5);
-	this->addChild(ccCoinEmitter);
-	ccCoinEmitter->setAutoRemoveOnFinish(true);
+	m_pCoinEmitter = CCParticleSystemQuad::create("particles/coin.plist");
+	m_pCoinEmitter->setPosition(this->getContentSize().width, this->getContentSize().height);
+	m_pCoinEmitter->setTotalParticles(1);
+	m_pCoinEmitter->setDuration(0.5);
+	this->addChild(m_pCoinEmitter);
+	m_pCoinEmitter->setAutoRemoveOnFinish(true);
 }
 
 void Player::addParticleMuffins()
 {
-	ccMuffinEmitter = CCParticleSystemQuad::create("particles/SplatterParticle2.plist");	
-	ccMuffinEmitter->setPosition(this->getContentSize().width/2, this->getContentSize().height/2);
-	ccMuffinEmitter->setTotalParticles(2);
-	ccMuffinEmitter->setDuration(0.1);
-	this->addChild(ccMuffinEmitter);
-	ccMuffinEmitter->setAutoRemoveOnFinish(true);
+	m_pMuffinEmitter = CCParticleSystemQuad::create("particles/SplatterParticle2.plist");
+	m_pMuffinEmitter->setPosition(this->getContentSize().width / 2, this->getContentSize().height / 2);
+	m_pMuffinEmitter->setTotalParticles(2);
+	m_pMuffinEmitter->setDuration(0.1);
+	this->addChild(m_pMuffinEmitter);
+	m_pMuffinEmitter->setAutoRemoveOnFinish(true);
 }
 
 void Player::addParticleMuffins2()
 {
-	ccMuffinEmitter2 = CCParticleSystemQuad::create("particles/Muffin.plist");
-	ccMuffinEmitter2->setPosition(this->getContentSize().width/2, 0);
-	ccMuffinEmitter2->setTotalParticles(1);
-	ccMuffinEmitter2->setDuration(0.5);
-	this->addChild(ccMuffinEmitter2);
+	m_pMuffinEmitter2 = CCParticleSystemQuad::create("particles/Muffin.plist");
+	m_pMuffinEmitter2->setPosition(this->getContentSize().width/2, 0);
+	m_pMuffinEmitter2->setTotalParticles(1);
+	m_pMuffinEmitter2->setDuration(0.5);
+	this->addChild(m_pMuffinEmitter2);
 }
 
 void Player::addParticleBoosters()
 {
-	ccBoosterEmitter = CCParticleSystemQuad::create("particles/booster.plist");
-	ccBoosterEmitter->setPosition(this->getContentSize().width / 2, 0);
-	ccBoosterEmitter->setTotalParticles(1);
-	ccBoosterEmitter->setDuration(0.5);
-	this->addChild(ccBoosterEmitter);
-	ccBoosterEmitter->setAutoRemoveOnFinish(true);
+	m_pBoosterEmitter = CCParticleSystemQuad::create("particles/booster.plist");
+	m_pBoosterEmitter->setPosition(this->getContentSize().width / 2, 0);
+	m_pBoosterEmitter->setTotalParticles(1);
+	m_pBoosterEmitter->setDuration(0.5);
+	this->addChild(m_pBoosterEmitter);
+	m_pBoosterEmitter->setAutoRemoveOnFinish(true);
 }
 
 void Player::addParticleItems()
 {
-	ccItemEmitter = CCParticleSystemQuad::create("particles/DiamondPar3.plist");
-	ccItemEmitter->setPosition(this->getContentSize().width, this->getContentSize().height);
-	ccItemEmitter->setTotalParticles(1);
-	ccItemEmitter->setDuration(0.5);
-	this->addChild(ccItemEmitter);
-	ccItemEmitter->setAutoRemoveOnFinish(true);
+	m_pItemEmitter = CCParticleSystemQuad::create("particles/DiamondPar3.plist");
+	m_pItemEmitter->setPosition(this->getContentSize().width, this->getContentSize().height);
+	m_pItemEmitter->setTotalParticles(1);
+	m_pItemEmitter->setDuration(0.5);
+	this->addChild(m_pItemEmitter);
+	m_pItemEmitter->setAutoRemoveOnFinish(true);
 }
 
 void Player::addCoinLossParticle()
 {
-	ccCoinLossEmitter = CCParticleSystemQuad::create("particles/coinLoss2.plist");
-	ccCoinLossEmitter->setPosition(this->getContentSize().width, this->getContentSize().height/2);
-	ccCoinLossEmitter->setTotalParticles(8);
-	ccCoinLossEmitter->setDuration(0.5);
-	this->addChild(ccCoinLossEmitter);
-	ccCoinLossEmitter->setAutoRemoveOnFinish(true);
+	//m_pCoinLossEmitter
+	//addParticles("filename", NULL, NULL, m_nCoins, NULL);
+	m_pCoinLossEmitter = CCParticleSystemQuad::create("particles/coinLoss2.plist");
+	m_pCoinLossEmitter->setPosition(this->getContentSize().width, this->getContentSize().height / 2);
+	m_pCoinLossEmitter->setTotalParticles(m_nCoins);
+	m_pCoinLossEmitter->setDuration(0.5);
+	this->addChild(m_pCoinLossEmitter);
+	m_pCoinLossEmitter->setAutoRemoveOnFinish(true);
 }
 
-void Player::setCoins()
+void Player::resetCoins()
 {
 	m_nCoins = 0;
 }
@@ -162,10 +165,10 @@ void Player::endGame()
 
 void Player::jump()
 {
-	if (m_ePlayerState == RUNNING || m_nNumberOfJumps < MAX_NO_OF_JUMPS)
+	if (m_ePlayerAction == RUNNING || m_nNumberOfJumps < MAX_NO_OF_JUMPS)
 	{
 		m_nNumberOfJumps++;
-		m_ePlayerState = JUMPING;
+		m_ePlayerAction = JUMPING;
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/jump3.wav", false, 1.0f, 1.0f, 1.0f);
 		
 		//Stop the Running animation Forever
@@ -198,17 +201,17 @@ void Player::update()
 	this->setPositionX(PLAYER_POSITION_IN_WINDOW);
 	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
 	{		
-		m_ePlayerState = RUNNING;
-		ccEmitter->setScale(2.0);
-		ccEmitter->resume();
+		m_ePlayerAction = RUNNING;
+		m_pEmitter->setScale(2.0);
+		m_pEmitter->resume();
 		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/trashdropping.wav", false, 1.0f, 1.0f, 1.0f);
 		m_nNumberOfJumps = 0;
 	}
 	else
 	{
-		m_ePlayerState = JUMPING;
-		ccEmitter->setScale(0.0);
-		ccEmitter->pause();			
+		m_ePlayerAction = JUMPING;
+		m_pEmitter->setScale(0.0);
+		m_pEmitter->pause();
 	}		
 }
 

@@ -81,28 +81,23 @@ void CollisionManager::checkCollisionsWithEnemies()
 			auto enemy = m_vpEnemies.at(it);
 
 			if (enemy)
-			{
+			{				
 				if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
 				{
-					if (m_pPlayer->getCoins()>0)
-					{
-						m_pPlayer->addCoinLossParticle();
-						m_pPlayer->setCoins();
-					}
+					//enemy->setState(Enemy::DEAD);
 					
-					/*if (m_pPlayer->getCoins() == 0)
-					{
-						CCLOG("Called");
-						Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));
-					}
-				     if (m_pPlayer->getCoins() > 0)
-					{
-						//WorldManager::getInstance()->getPlayer()->coinLossFunction();
-					}*/
-					
-
 					if (enemy->isVisible())
 					{
+						enemy->setVisible(false);
+						if (m_pPlayer->getCoins() < 1)
+						{
+							WorldManager::getInstance()->gameLayer()->gameOver();
+						}
+						else
+						{
+							m_pPlayer->addCoinLossParticle();
+							m_pPlayer->resetCoins();
+						}
 						//CCLOG("Collision detected");
 						if (enemy->getName() == "ground")
 						{
@@ -112,10 +107,8 @@ void CollisionManager::checkCollisionsWithEnemies()
 						{
 							// may use later
 						}
-						enemy->setVisible(false);
-					}
-
-
+						
+					}					
 				}
 			}
 		}
