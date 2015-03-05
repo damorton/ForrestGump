@@ -51,10 +51,8 @@ void WorldManager::createDAO()
 {
 	m_DataAccessObject = std::shared_ptr<IGameDAO>(new GameDAO());		
 	if (!this->isXMLFileExist())
-	{
-		// Create XML file 
-		m_DataAccessObject->create();
-		// Add users
+	{		
+		m_DataAccessObject->create();	
 		this->addUser("David");
 	}
 }
@@ -110,10 +108,6 @@ void WorldManager::setPlayerHighscore(std::string highscore)
 
 void WorldManager::cleanUp()
 {		
-	// auto release objects
 	m_pFloorSprite = NULL;
-	m_pPlayer = NULL;	
-
-	// members of WorldManager
-	
+	m_pPlayer = NULL;			
 }
