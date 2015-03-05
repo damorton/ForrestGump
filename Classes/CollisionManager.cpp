@@ -3,6 +3,8 @@
 #include "WorldManager.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "GameOver.h"
+
 
 CollisionManager* CollisionManager::m_Instance = 0;
 
@@ -82,7 +84,23 @@ void CollisionManager::checkCollisionsWithEnemies()
 			{
 				if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
 				{
-					WorldManager::getInstance()->getPlayer()->addCoinLossParticle();
+					if (m_pPlayer->getCoins()>0)
+					{
+						m_pPlayer->addCoinLossParticle();
+						m_pPlayer->setCoins();
+					}
+					
+					/*if (m_pPlayer->getCoins() == 0)
+					{
+						CCLOG("Called");
+						Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));
+					}
+				     if (m_pPlayer->getCoins() > 0)
+					{
+						//WorldManager::getInstance()->getPlayer()->coinLossFunction();
+					}*/
+					
+
 					if (enemy->isVisible())
 					{
 						//CCLOG("Collision detected");
@@ -96,6 +114,8 @@ void CollisionManager::checkCollisionsWithEnemies()
 						}
 						enemy->setVisible(false);
 					}
+
+
 				}
 			}
 		}

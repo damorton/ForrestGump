@@ -1,6 +1,7 @@
 #include "Definitions.h"
 #include "WorldManager.h"
 #include "Player.h"
+#include "GameOver.h"
 
 Player* Player::create(const std::string& filename)
 {
@@ -85,16 +86,18 @@ void Player::addParticle()
 	ccEmitter->setEmissionRate(20.00);
 	ccEmitter->setTotalParticles(100);
 	this->addChild(ccEmitter);
+	ccEmitter->setAutoRemoveOnFinish(true);
 	
 }
 
 void Player::addParticleCoins()
 {
-	ccCoinEmitter = CCParticleSystemQuad::create("particles/coinLoss.plist");
+	ccCoinEmitter = CCParticleSystemQuad::create("particles/coin.plist");
 	ccCoinEmitter->setPosition(this->getContentSize().width, this->getContentSize().height);
 	ccCoinEmitter->setTotalParticles(1);
 	ccCoinEmitter->setDuration(0.5);
 	this->addChild(ccCoinEmitter);
+	ccCoinEmitter->setAutoRemoveOnFinish(true);
 }
 
 void Player::addParticleMuffins()
@@ -109,21 +112,21 @@ void Player::addParticleMuffins()
 
 void Player::addParticleMuffins2()
 {
-	CCLOG("Called");
-	ccMuffinEmitter2 = CCParticleSystemQuad::create("particles/coinLoss.plist");
-	ccMuffinEmitter2->setPosition(this->getContentSize().width,0);
-	ccMuffinEmitter2->setTotalParticles(2);
+	ccMuffinEmitter2 = CCParticleSystemQuad::create("particles/Muffin.plist");
+	ccMuffinEmitter2->setPosition(this->getContentSize().width/2, 0);
+	ccMuffinEmitter2->setTotalParticles(1);
 	ccMuffinEmitter2->setDuration(0.5);
 	this->addChild(ccMuffinEmitter2);
 }
 
 void Player::addParticleBoosters()
 {
-	ccBoosterEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
+	ccBoosterEmitter = CCParticleSystemQuad::create("particles/booster.plist");
 	ccBoosterEmitter->setPosition(this->getContentSize().width / 2, 0);
 	ccBoosterEmitter->setTotalParticles(1);
-	ccBoosterEmitter->setDuration(0.001);
+	ccBoosterEmitter->setDuration(0.5);
 	this->addChild(ccBoosterEmitter);
+	ccBoosterEmitter->setAutoRemoveOnFinish(true);
 }
 
 void Player::addParticleItems()
@@ -133,15 +136,28 @@ void Player::addParticleItems()
 	ccItemEmitter->setTotalParticles(1);
 	ccItemEmitter->setDuration(0.5);
 	this->addChild(ccItemEmitter);
+	ccItemEmitter->setAutoRemoveOnFinish(true);
 }
 
 void Player::addCoinLossParticle()
 {
-	ccCoinLossEmitter = CCParticleSystemQuad::create("particles/coinLoss.plist");
-	ccCoinLossEmitter->setPosition(this->getContentSize().width, this->getContentSize().height);
-	ccCoinLossEmitter->setTotalParticles(4);
+	ccCoinLossEmitter = CCParticleSystemQuad::create("particles/coinLoss2.plist");
+	ccCoinLossEmitter->setPosition(this->getContentSize().width, this->getContentSize().height/2);
+	ccCoinLossEmitter->setTotalParticles(8);
 	ccCoinLossEmitter->setDuration(0.5);
 	this->addChild(ccCoinLossEmitter);
+	ccCoinLossEmitter->setAutoRemoveOnFinish(true);
+}
+
+void Player::setCoins()
+{
+	m_nCoins = 0;
+}
+
+void Player::endGame()
+{
+	CCLOG("Called");
+	Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));
 }
 
 void Player::jump()

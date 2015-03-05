@@ -40,6 +40,9 @@ public:
 	void addParticleItems();
 	void addParticleMuffins2();
 	void addCoinLossParticle();
+	void endGame();
+	void setCoins();
+	
 	
 	CREATE_FUNC(Player);
 
@@ -59,10 +62,10 @@ private:
 	ParticleSystem *ccEmitter;
 	ParticleSystem *ccCoinEmitter;
 	ParticleSystem *ccMuffinEmitter;
+	ParticleSystem *ccMuffinEmitter2;
 	ParticleSystem *ccBoosterEmitter;
 	ParticleSystem *ccItemEmitter;
 	ParticleSystem *ccCoinLossEmitter;
-	ParticleSystem *ccMuffinEmitter2;
 
 };
 
