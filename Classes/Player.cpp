@@ -142,8 +142,6 @@ void Player::addParticleItems()
 
 void Player::addCoinLossParticle()
 {
-	//m_pCoinLossEmitter
-	//addParticles("filename", NULL, NULL, m_nCoins, NULL);
 	m_pCoinLossEmitter = CCParticleSystemQuad::create("particles/coinLoss2.plist");
 	m_pCoinLossEmitter->setPosition(this->getContentSize().width, this->getContentSize().height / 2);
 	m_pCoinLossEmitter->setTotalParticles(m_nCoins);

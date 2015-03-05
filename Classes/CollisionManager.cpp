@@ -96,9 +96,7 @@ void CollisionManager::checkCollisionsWithEnemies()
 			if (enemy)
 			{				
 				if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
-				{
-					//enemy->setState(Enemy::DEAD);
-					
+				{	
 					if (enemy->isVisible())
 					{
 						enemy->setVisible(false);
