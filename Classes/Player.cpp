@@ -40,6 +40,9 @@ bool Player::init()
 	this->getAnimationWithFrames(1, 4, 1);
 	this->runAction(this->animate);
 
+	// add hint sprite
+
+
 	WorldManager::getInstance()->setPlayer(this);
 	CollisionManager::getInstance()->setPlayer(this);
 	this->addParticle();
@@ -211,6 +214,7 @@ void Player::touch(const Point& location)
 	if (location.x < PLAYER_POSITION_IN_WINDOW) 
 	{
 		this->jump();
+		// if hint sprite touched, set visible false
 	}
 }
 

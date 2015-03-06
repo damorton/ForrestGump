@@ -74,11 +74,6 @@ bool GameScene::initializeGame()
 	return true;
 }
 
-bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
-{
-	return true;
-}
-
 void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	

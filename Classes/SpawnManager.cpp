@@ -29,9 +29,9 @@ bool SpawnManager::initEnemies()
 	/*
 	Setting enemy positions
 	*/
-	m_pGroundEnemy->setPosition(Vec2(m_pGroundEnemy->getPositionX() + VISIBLE_SIZE_WIDTH * 1.5, SCREEN_ORIGIN.y + (WorldManager::getInstance()->getFloorSprite()->getContentSize().height + m_pGroundEnemy->getContentSize().height / 2)));
-	m_pFloatingEnemy->setPosition(Vec2(m_pFloatingEnemy->getPositionX() + VISIBLE_SIZE_WIDTH * 1.5, SCREEN_ORIGIN.y + 100));
-	m_pRotatingEnemy->setPosition(Vec2(m_pRotatingEnemy->getPositionX() + VISIBLE_SIZE_WIDTH * 1.5, VISIBLE_SIZE_HEIGHT / 3));
+	m_pGroundEnemy->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH + m_pGroundEnemy->getContentSize().width, SCREEN_ORIGIN.y + (WorldManager::getInstance()->getFloorSprite()->getContentSize().height + m_pGroundEnemy->getContentSize().height / 2)));
+	m_pFloatingEnemy->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH + m_pFloatingEnemy->getContentSize().width, SCREEN_ORIGIN.y + 100));
+	m_pRotatingEnemy->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH + m_pRotatingEnemy->getContentSize().width, SCREEN_ORIGIN.y + VISIBLE_SIZE_HEIGHT / 3));
 
 	/*
 	Assigning enemies physics properties
@@ -112,7 +112,7 @@ bool SpawnManager::addEnemyBehaviour(Enemy* enemy)
 	{ 		
 		auto reset = CCCallFuncND::create(this, callfuncND_selector(SpawnManager::resetSprite), (void*)enemy);
 		auto enemeySpriteBehaviour = Sequence::create(
-			MoveBy::create(SPRITE_MOVEMENT_SPEED, Point(-(VISIBLE_SIZE_WIDTH * 2), 0)),
+			MoveBy::create(ENEMY_MOVEMENT_SPEED, Point(-(VISIBLE_SIZE_WIDTH * 2), 0)),
 			reset,
 			NULL);
 		enemy->runAction(enemeySpriteBehaviour);
@@ -121,7 +121,9 @@ bool SpawnManager::addEnemyBehaviour(Enemy* enemy)
 	{
 		auto reset = CCCallFuncND::create(this, callfuncND_selector(SpawnManager::resetSprite), (void*)enemy);
 		auto enemeySpriteBehaviour = Sequence::create(
-			MoveBy::create(SPRITE_MOVEMENT_SPEED, Point(-(VISIBLE_SIZE_WIDTH * 2), 0)), reset, NULL);	
+			MoveBy::create(ENEMY_MOVEMENT_SPEED, Point(-(VISIBLE_SIZE_WIDTH * 2), 0)),
+			reset,
+			NULL);	
 		enemy->runAction(enemeySpriteBehaviour);		
 	}
 

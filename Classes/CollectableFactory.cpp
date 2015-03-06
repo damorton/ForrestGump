@@ -103,7 +103,7 @@ void CollectableFactory::addSpriteBehaviour(Sprite* tileSprite)
 	{
 		auto reset = CCCallFuncND::create(this, callfuncND_selector(CollectableFactory::resetSprite), (void*)tileSprite);
 		auto tileSpriteBehaviour = Sequence::create(
-			MoveBy::create(SPRITE_MOVEMENT_SPEED, Point(-(VISIBLE_SIZE_WIDTH * 2), 0)),
+			MoveBy::create(WORLD_MOVEMENT_SPEED, Point(-(VISIBLE_SIZE_WIDTH * 2), 0)),
 			reset,
 			NULL);
 		tileSprite->runAction(tileSpriteBehaviour);
@@ -180,7 +180,7 @@ bool CollectableFactory::addPhysicsEdgeBox()
 }
 
 void CollectableFactory::update()
-{
+{	
 	if (!m_bIsSpawned)
 	{
 		this->spawnSprites();

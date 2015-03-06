@@ -22,7 +22,6 @@ public:
 	bool initializeGame();
 	void update(float delta);	
 	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event * event);	
-	bool onContactBegin(cocos2d::PhysicsContact& contact);
 	void gameOver();
 	CREATE_FUNC(GameScene);
 	
