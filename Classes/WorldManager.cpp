@@ -19,7 +19,8 @@ WorldManager* WorldManager::getInstance()
 bool WorldManager::init()
 {
 	this->createDAO();
-	m_fWorldSpeed = 5.0f;
+	m_fWorldSpeed = 3.0f;
+	m_fItemSpeed = 5.0f;
 	return true;
 }
 

@@ -20,6 +20,7 @@ typedef enum {
 // World
 #define GRAVITATIONAL_FORCE Vec2(0, -300)
 #define WORLD_MOVEMENT_SPEED (WorldManager::getInstance()->getGameWorldSpeed())
+#define ITEM_MOVEMENT_SPEED (WorldManager::getInstance()->getCollectableItemSpeed())
 #define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
 #define VISIBLE_SIZE_HEIGHT (Director::getInstance()->getVisibleSize().height)
 #define SCREEN_ORIGIN (Director::getInstance()->getVisibleOrigin())

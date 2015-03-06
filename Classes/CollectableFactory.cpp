@@ -12,6 +12,7 @@ bool CollectableFactory::init()
 	m_iSpawnSegmentTimer = 0;
 	this->addTMXTileMap("maps/SpawnManagerMap.tmx");
 	
+
 	m_pCoinLayer = m_pTileMap->getLayer("coins");	
 	this->initTilePositions(m_pCoinLayer);
 
@@ -161,6 +162,7 @@ void CollectableFactory::removeLayer(Node* sender, void* layer)
 bool CollectableFactory::addTMXTileMap(const std::string& filename)
 {	
 	m_pTileMap = TMXTiledMap::create(filename);
+	m_pTileMap->setPosition(SCREEN_ORIGIN);
 	this->addChild(m_pTileMap);
 	return true;
 }
