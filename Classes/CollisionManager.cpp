@@ -6,6 +6,7 @@
 #include "GameScene.h"
 #include "GameOver.h"
 
+
 CollisionManager* CollisionManager::m_Instance = 0;
 
 CollisionManager* CollisionManager::getInstance()
@@ -93,11 +94,21 @@ void CollisionManager::checkCollisionsWithEnemies()
 			auto enemy = m_vpEnemies.at(it);
 
 			if (enemy)
-			{
+			{				
 				if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
-				{
+				{	
 					if (enemy->isVisible())
 					{
+						enemy->setVisible(false);
+						if (m_pPlayer->getCoins() < 1)
+						{
+							WorldManager::getInstance()->gameLayer()->gameOver();
+						}
+						else
+						{
+							m_pPlayer->addCoinLossParticle();
+							m_pPlayer->resetCoins();
+						}
 						//CCLOG("Collision detected");
 						if (enemy->getName() == "ground")
 						{
@@ -107,8 +118,8 @@ void CollisionManager::checkCollisionsWithEnemies()
 						{
 							//gameOver();
 						}
-						enemy->setVisible(false);
-					}
+						
+					}					
 				}
 			}
 		}

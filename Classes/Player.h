@@ -10,6 +10,7 @@ USING_NS_CC;
 class Player : public Sprite, public Character
 {
 public:		
+	typedef enum { BOOSTING, JUMPING, RUNNING } EPlayerAction;
 	static Player* create(const std::string& filename);
 	virtual ~Player(){};
 	bool init();
@@ -19,7 +20,8 @@ public:
 	void update();
 
 	EGameOjectType getType(){ return m_eType; };
-	int getState(){ return m_ePlayerState; };	
+	int getState(){ return m_eState; };
+	int getAction(){ return m_ePlayerAction; }
 	int getDistance(){ return m_nDistance; };
 	int getCoins(){ return m_nCoins; };
 	int getItems(){ return m_nItems; };
@@ -27,22 +29,29 @@ public:
 	int getFood(){ return m_nFood; };
 	
 	void setType(EGameOjectType type){ m_eType = type; };
-	void setState(int state){ m_ePlayerState = (EPlayerState)state; };
+	void setState(ECharacterState state){ m_eState = state; };
+	void setAction(EPlayerAction action){ m_ePlayerAction = action; };
 	void addDistance();
 	void addCoin();	
 	void addItem();
 	void addBooster();
 	void addFood();
 	void addParticle();
-	
-	CREATE_FUNC(Player);
-
+	void addParticleCoins();
+	void addParticleMuffins();
+	void addParticleBoosters();
+	void addParticleItems();
+	void addParticleMuffins2();
+	void addCoinLossParticle();
+	//void addParticles(std::string filename, Point point = Point(0,0), float duration = 0.5f, int numberOfParticles = 5);
+	void endGame();
+	void resetCoins();
 	//ANIMATION
 	void getAnimationWithFrames(int, int, int);
-	Animate* animate;
-	typedef enum { ALIVE, DEAD, BOOSTING, JUMPING, RUNNING } EPlayerState;
+	Animate* animate;	
+	CREATE_FUNC(Player);	
 private:	
-	EPlayerState m_ePlayerState;
+	EPlayerAction m_ePlayerAction;
 	int m_nDistance;
 	int m_nCoins;
 	int m_nBoosters;
@@ -50,7 +59,14 @@ private:
 	int m_nItems;		
 	int m_nNumberOfJumps;
 	std::string m_strUsername;
-	ParticleSystem *ccEmitter = ParticleSystemQuad::create("particles/Flower.plist");
+	ParticleSystem *m_pEmitter;
+	ParticleSystem *m_pCoinEmitter;
+	ParticleSystem *m_pMuffinEmitter;
+	ParticleSystem *m_pMuffinEmitter2;
+	ParticleSystem *m_pBoosterEmitter;
+	ParticleSystem *m_pItemEmitter;
+	ParticleSystem *m_pCoinLossEmitter;
+
 };
 
 #endif

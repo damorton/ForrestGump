@@ -137,6 +137,7 @@ void SpawnManager::resetSprite(Node* sender, void* enemyRef)
 		enemy->stopAllActions();
 		enemy->setPosition(Vec2(enemy->getPositionX() + (VISIBLE_SIZE_WIDTH * 2), enemy->getPositionY()));
 		enemy->setVisible(true);
+		enemy->setState(Enemy::ALIVE);
 		m_bIsSpawned = false;
 	}
 }

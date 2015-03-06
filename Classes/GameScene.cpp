@@ -82,12 +82,16 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
 void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	
+
 		
 	CollisionManager::getInstance()->checkCollisions();
 	WorldManager::getInstance()->getPlayer()->update();
 	m_pCollectableFactory->update();		
 	m_pParallax->update();
 	m_pSpawnManager->update();
+
+	CollisionManager::getInstance()->checkCollisions();
+
 	m_HudLayer->update();
 
 	//CCLOG("-------------GAME LOOP END--------------");

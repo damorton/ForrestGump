@@ -15,9 +15,10 @@ public:
 	void cleanUp(); // house keeping 
 	void runAI(); // run Enemy AI
 	void update(); // update the Enemy
-	EGameOjectType getType(){ return m_eType; };	
-	void setType(EGameOjectType type){ m_eType = type; };	
-	CREATE_FUNC(Enemy);
+	EGameOjectType getType(){ return m_eType; };
+	int getState(){ return m_eState; };
+	void setType(EGameOjectType type){ m_eType = type; };
+	void setState(ECharacterState state){ m_eState = state; };
 
 	//ANIMATION
 	void getAnimationWithFrames(int, int);
