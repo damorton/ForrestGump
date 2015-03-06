@@ -116,6 +116,20 @@ void GameScene::gameOver()
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
 }
 
+void GameScene::pauseGame()
+{
+	CCLOG("PauseGame");
+	Director::getInstance()-> replaceScene(TransitionFade::create(1, GameOver::createScene()));
+	//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
+}
+
+void GameScene::resumeGame()
+{
+	CCLOG("ResumeGame");
+	//Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));
+	//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
+}
+
 void GameScene::cleanup()
 {
 	CollisionManager::getInstance()->cleanUp();

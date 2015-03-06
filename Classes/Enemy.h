@@ -21,7 +21,8 @@ public:
 	void setState(ECharacterState state){ m_eState = state; };
 
 	//ANIMATION
-	void getAnimationWithFrames(int, int);
+	void getAnimationWithFrames(int, int, int);
+	void animateEnemy();
 	Animate* animate;
 
 };

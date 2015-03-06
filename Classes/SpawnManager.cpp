@@ -92,12 +92,15 @@ bool SpawnManager::spawnEnemy()
 		{
 		case 0:
 			this->addEnemyBehaviour(m_pGroundEnemy);
+			m_pGroundEnemy->animateEnemy();
 			break;
 		case 1:
 			this->addEnemyBehaviour(m_pFloatingEnemy);
+			m_pFloatingEnemy->animateEnemy();
 			break;
 		case 2:
 			this->addEnemyBehaviour(m_pRotatingEnemy);
+			m_pRotatingEnemy->animateEnemy();
 			break;
 		default:
 			CCLOG("enemy spawn random number unknown");

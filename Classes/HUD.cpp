@@ -85,3 +85,13 @@ void HUD::gameOver(cocos2d::Ref *pSender)
 {
 	WorldManager::getInstance()->gameLayer()->gameOver();
 }
+
+void HUD::pauseGame(cocos2d::Ref *pSender)
+{
+	WorldManager::getInstance()->gameLayer()->pauseGame();
+}
+
+void HUD::resumeGame(cocos2d::Ref *pSender)
+{
+	WorldManager::getInstance()->gameLayer()->resumeGame();
+}

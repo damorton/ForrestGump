@@ -5,7 +5,6 @@
 #include "CollectableFactory.h"
 #include "HUD.h"
 #include "Parallax.h"
-#include "AnimationMoves.h"
 #include "Player.h"
 #include "SpawnManager.h"
 #include "Enemy.h"
@@ -24,6 +23,8 @@ public:
 	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event * event);	
 	bool onContactBegin(cocos2d::PhysicsContact& contact);
 	void gameOver();
+	void pauseGame();
+	void resumeGame();
 	CREATE_FUNC(GameScene);
 	
 private:
