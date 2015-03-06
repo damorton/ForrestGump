@@ -26,6 +26,8 @@ public:
 	void update();	
 	bool initTilePositions(TMXLayer* layer);
 	void addSpriteBehaviour(Sprite* tileSprite);	
+	void moveSprites();
+	void resetItem(Sprite* item);
 	CREATE_FUNC(CollectableFactory);
 private:
 	TMXTiledMap* m_pTileMap;
@@ -35,6 +37,7 @@ private:
 	TMXLayer* m_pFoodLayer;
 	bool m_bIsSpawned;
 	int m_iSpawnSegmentTimer;	
+	std::vector<Sprite*> m_vpItems;	
 };
 
 #endif

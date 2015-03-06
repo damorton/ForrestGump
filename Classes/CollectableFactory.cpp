@@ -12,7 +12,6 @@ bool CollectableFactory::init()
 	m_iSpawnSegmentTimer = 0;
 	this->addTMXTileMap("maps/SpawnManagerMap.tmx");
 	
-
 	m_pCoinLayer = m_pTileMap->getLayer("coins");	
 	this->initTilePositions(m_pCoinLayer);
 
@@ -56,19 +55,25 @@ bool CollectableFactory::initTilePositions(TMXLayer* layer)
 bool CollectableFactory::spawnSprites()
 {		
 	int randomnumber;
-	int numberOfLayers = CollisionManager::getInstance()->getLayers().size();
+	int numberOfLayers = CollisionManager::getInstance()->getLayers().size();	
 	randomnumber = (rand() % numberOfLayers);
+
+	m_vpItems.clear();
 
 	switch (randomnumber)
 	{
 	case 0:
 		this->addTileBehaviour(m_pCoinLayer, "coin");
+		this->addTileBehaviour(m_pItemLayer, "item");
+		this->addTileBehaviour(m_pFoodLayer, "food");
 		break;
 	case 1:
 		this->addTileBehaviour(m_pItemLayer, "item");		
+		this->addTileBehaviour(m_pBoosterLayer, "booster");
 		break;		
 	case 2:
 		this->addTileBehaviour(m_pBoosterLayer, "booster");
+		this->addTileBehaviour(m_pFoodLayer, "food");
 		break;
 	case 3:
 		this->addTileBehaviour(m_pFoodLayer, "food");
@@ -90,7 +95,8 @@ bool CollectableFactory::addTileBehaviour(TMXLayer* layer, std::string name)
 			if (tileSprite)
 			{
 				tileSprite->setName(name);
-				this->addSpriteBehaviour(tileSprite);				
+				m_vpItems.push_back(tileSprite);
+				//this->addSpriteBehaviour(tileSprite);				
 			}
 		}
 	}	
@@ -103,7 +109,7 @@ void CollectableFactory::addSpriteBehaviour(Sprite* tileSprite)
 	if (tileSprite != NULL)
 	{
 		auto reset = CCCallFuncND::create(this, callfuncND_selector(CollectableFactory::resetSprite), (void*)tileSprite);
-		auto tileSpriteBehaviour = Sequence::create(
+		auto tileSpriteBehaviour = Sequence::create(			
 			MoveBy::create(WORLD_MOVEMENT_SPEED, Point(-(VISIBLE_SIZE_WIDTH * 2), 0)),
 			reset,
 			NULL);
@@ -140,6 +146,16 @@ void CollectableFactory::resetSprite(Node* sender, void* tileSprite)
 		tile->setVisible(true);		
 		m_bIsSpawned = false;
 	}	
+}
+
+void CollectableFactory::resetItem(Sprite* item)
+{
+	if(item != NULL)
+	{
+		Sprite* tile = static_cast<Sprite*>(item);
+		tile->setPosition(Vec2(tile->getPositionX() + (VISIBLE_SIZE_WIDTH * 2), tile->getPositionY()));
+		tile->setVisible(true);		
+	}
 }
 
 void CollectableFactory::deleteTilemap(Node* sender, void* tilemap)
@@ -182,10 +198,36 @@ bool CollectableFactory::addPhysicsEdgeBox()
 }
 
 void CollectableFactory::update()
-{	
+{		
+	if (m_vpItems.empty())
+	{
+		m_bIsSpawned = false;
+	}
 	if (!m_bIsSpawned)
 	{
 		this->spawnSprites();
+	}
+	this->moveSprites();
+}
+
+void CollectableFactory::moveSprites()
+{
+	if (!m_vpItems.empty())
+	{
+		// loop through the vector and move the sprite
+		for (std::vector<Sprite*>::size_type it = 0; it < m_vpItems.size(); ++it)
+		{
+			auto item = m_vpItems.at(it);
+
+			if (item)
+			{
+				item->setPosition(Vec2(item->getPosition().x - WORLD_MOVEMENT_SPEED, item->getPosition().y));
+
+				if (item->getPosition().x < SCREEN_ORIGIN.x - item->getContentSize().width / 2){
+					this->resetItem(item);
+				}
+			}
+		}
 	}
 }
 

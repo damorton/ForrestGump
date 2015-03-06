@@ -87,7 +87,7 @@ bool SpawnManager::spawnEnemy()
 	int randomnumber;
 	int numberOfEnemies = CollisionManager::getInstance()->getEnemies().size();	
 	randomnumber = (rand() % numberOfEnemies);
-
+	
 	switch (randomnumber)
 	{
 	case 0:

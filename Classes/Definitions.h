@@ -19,11 +19,14 @@ typedef enum {
 
 // World
 #define GRAVITATIONAL_FORCE Vec2(0, -300)
-#define WORLD_MOVEMENT_SPEED (WorldManager::getInstance()->getGameWorldSpeed())
-#define ITEM_MOVEMENT_SPEED (WorldManager::getInstance()->getCollectableItemSpeed())
 #define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
 #define VISIBLE_SIZE_HEIGHT (Director::getInstance()->getVisibleSize().height)
 #define SCREEN_ORIGIN (Director::getInstance()->getVisibleOrigin())
+
+// Movement speeds
+#define WORLD_MOVEMENT_SPEED (WorldManager::getInstance()->getGameWorldSpeed())
+#define ITEM_MOVEMENT_SPEED (WorldManager::getInstance()->getGameWorldSpeed())
+#define ENEMY_MOVEMENT_SPEED 10.0f
 
 // Scenes
 #define DISPLY_TIME_SPLASH_SCENCE 2
@@ -38,7 +41,6 @@ typedef enum {
 
 // Enemies
 #define ENEMY_SPAWN_COUNT 5
-#define ENEMY_MOVEMENT_SPEED 10.0f
 
 // Labels
 #define LABEL_FONT "fonts/go3v2.ttf"
