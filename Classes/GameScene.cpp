@@ -39,7 +39,7 @@ bool GameScene::initializeGame()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/Ambler.wav", true);
-
+	paused = false;
 	// game play layer
 	gamePlayLayer = Layer::create();
 	this->addChild(gamePlayLayer, 0, TAG_GAME_LAYER);
@@ -83,18 +83,19 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
 void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	
+	if (!paused)
+	{
 
-		
-	CollisionManager::getInstance()->checkCollisions();
-	WorldManager::getInstance()->getPlayer()->update();
-	m_pCollectableFactory->update();		
-	m_pParallax->update();
-	m_pSpawnManager->update();
+		CollisionManager::getInstance()->checkCollisions();
+		WorldManager::getInstance()->getPlayer()->update();
+		m_pCollectableFactory->update();
+		m_pParallax->update();
+		m_pSpawnManager->update();
 
-	CollisionManager::getInstance()->checkCollisions();
+		CollisionManager::getInstance()->checkCollisions();
 
-	m_HudLayer->update();
-
+		m_HudLayer->update();
+	}
 	//CCLOG("-------------GAME LOOP END--------------");
 }
 
@@ -119,9 +120,11 @@ void GameScene::gameOver()
 
 void GameScene::pauseGame()
 {
+	paused = true;
+	Director::getInstance()->stopAnimation();
 	gamePlayLayer->pauseSchedulerAndActions();
 	// create a sprite that says simply 'Paused'
-	pausedSprite = CCSprite::create("background/pause1.png"); // sprite image
+	pausedSprite = CCSprite::create("background/pause2.png"); // sprite image
 	// create the paused sprite and paused menu buttons off screen
 	pausedSprite->setPosition(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2);
 	// add the Paused sprite and menu to the current layer
@@ -149,7 +152,11 @@ void GameScene::pauseGame()
 void GameScene::resumeGame(cocos2d::Ref *pSender)
 {
 	CCLOG("ResumeGame");	
+	//auto scene = GameScene::createScene();
+	//Director::getInstance()->popScene();
+	Director::getInstance()->startAnimation();
 	gamePlayLayer->resumeSchedulerAndActions();
+	Director::getInstance()->popScene();
 	//Director::getInstance()->popScene();
 }
 

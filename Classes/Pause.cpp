@@ -6,8 +6,8 @@ USING_NS_CC;
 Scene* Pause::createScene()
 {
 	// 'scene' is an autorelease object
-	auto scene = Scene::create();
-
+	auto scene = Scene::create();	
+	
 	// 'layer' is an autorelease object
 	auto layer = Pause::create();
 
@@ -53,8 +53,6 @@ bool Pause::init()
 
 /*
 Resume button pops the pause scene and returns to the game scene
-
-@param cocos2d::Ref *pSender pointer used by the engine
 */
 void Pause::resume(cocos2d::Ref *pSender)
 {
@@ -65,13 +63,11 @@ void Pause::resume(cocos2d::Ref *pSender)
 /*
 Main menu button pops the pause scene and then replaces the game scene with
 a new main menu scene.
-
-@param cocos2d::Ref *pSender pointer used by the engine
 */
 void Pause::mainMenu(cocos2d::Ref *pSender)
 {
 	// pop screen & replace game scene
-	Director::getInstance()->popScene();
+	//Director::getInstance()->popScene();
 	auto scene = MainMenu::createScene();
 	Director::getInstance()->replaceScene(TransitionFlipX::create(1, scene));
 }

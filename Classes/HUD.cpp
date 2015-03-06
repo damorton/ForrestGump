@@ -1,6 +1,7 @@
 #include "HUD.h"
 #include "WorldManager.h"
 #include "Definitions.h"
+#include "Pause.h"
 
 bool HUD::init()
 {	
@@ -89,6 +90,8 @@ void HUD::gameOver(cocos2d::Ref *pSender)
 void HUD::pauseGame(cocos2d::Ref *pSender)
 {
 	WorldManager::getInstance()->gameLayer()->pauseGame();
+	//auto scene = Pause::createScene();
+	//Director::getInstance()->pushScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
 void HUD::resumeGame(cocos2d::Ref *pSender)
