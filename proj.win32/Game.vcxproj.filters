@@ -30,9 +30,6 @@
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\AnimationMoves.cpp">
-      <Filter>Classes\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>Classes\Source Files</Filter>
     </ClCompile>
@@ -87,9 +84,6 @@
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\WorldManager.h">
-      <Filter>Classes\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\AnimationMoves.h">
       <Filter>Classes\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">

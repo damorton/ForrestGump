@@ -5,7 +5,6 @@
 #include "CollectableFactory.h"
 #include "HUD.h"
 #include "Parallax.h"
-#include "AnimationMoves.h"
 #include "Player.h"
 #include "SpawnManager.h"
 #include "Enemy.h"

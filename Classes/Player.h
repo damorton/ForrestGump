@@ -3,7 +3,6 @@
 
 #include "Character.h"
 #include "cocos2d.h"
-#include "AnimationMoves.h"
 
 USING_NS_CC;
 
@@ -46,10 +45,12 @@ public:
 	//void addParticles(std::string filename, Point point = Point(0,0), float duration = 0.5f, int numberOfParticles = 5);
 	void endGame();
 	void resetCoins();
+
 	//ANIMATION
 	void getAnimationWithFrames(int, int, int);
 	Animate* animate;	
 	CREATE_FUNC(Player);	
+
 private:	
 	EPlayerAction m_ePlayerAction;
 	int m_nDistance;
