@@ -46,7 +46,7 @@ bool HUD::init()
 	this->addChild(m_pCoinsValueLabel);
 		
 	// Menu 
-	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(HUD::gameOver, this));
+	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(HUD::pauseGame, this));
 	menu_item_pause->setPosition(Vec2(m_Origin.x + VISIBLE_SIZE_WIDTH - menu_item_pause->getContentSize().width / 2,
 		m_Origin.y + VISIBLE_SIZE_HEIGHT - menu_item_pause->getContentSize().height / 2));
 		
@@ -93,5 +93,5 @@ void HUD::pauseGame(cocos2d::Ref *pSender)
 
 void HUD::resumeGame(cocos2d::Ref *pSender)
 {
-	WorldManager::getInstance()->gameLayer()->resumeGame();
+//	WorldManager::getInstance()->gameLayer()->resumeGame();
 }

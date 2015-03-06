@@ -24,7 +24,18 @@ public:
 	bool onContactBegin(cocos2d::PhysicsContact& contact);
 	void gameOver();
 	void pauseGame();
-	void resumeGame();
+	void resumeGame(cocos2d::Ref *pSender);
+	void mainGame(cocos2d::Ref *pSender);
+	void exit(cocos2d::Ref *pSender);
+
+	//PAUSE MENU
+	//pausedSprite is simply an image that literally says ‘Paused’
+	CCSprite *pausedSprite;
+	//pausedMenu is the CCMenu that contains buttons for quit, restart and resume.
+	CCMenu *pausedMenu;
+	//paused is a variable that tracks when the game is or isn’t paused.
+	bool paused;
+
 	CREATE_FUNC(GameScene);
 	
 private:

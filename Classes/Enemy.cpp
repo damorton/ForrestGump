@@ -69,7 +69,9 @@ void Enemy::getAnimationWithFrames(int init, int end, int act){
 	while (i <= end)
 	{
 		sprintf(str, "sprites/walk%02dsmall.png", i);
-		auto frame = SpriteFrame::create(str, Rect(0, 0, 55, 69)); //we assume that the sprites' dimentions are 55*69 rectangles.
+		auto tempSprite = Sprite::create(str);
+		
+		auto frame = SpriteFrame::create(str, Rect(0, 0, tempSprite->getContentSize().width, tempSprite->getContentSize().height)); //we assume that the sprites' dimentions are 55*69 rectangles.
 		i++;
 		animFrames.pushBack(frame);
 	}
