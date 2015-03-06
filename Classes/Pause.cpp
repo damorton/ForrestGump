@@ -81,4 +81,3 @@ void Pause::exit(cocos2d::Ref *pSender)
 	//exit game
 	Director::sharedDirector()->end();
 }
-

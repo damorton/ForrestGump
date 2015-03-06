@@ -119,8 +119,9 @@ void GameScene::gameOver()
 
 void GameScene::pauseGame()
 {
+	gamePlayLayer->pauseSchedulerAndActions();
 	// create a sprite that says simply 'Paused'
-	pausedSprite = CCSprite::create("background/Splash.png"); // sprite image
+	pausedSprite = CCSprite::create("background/pause1.png"); // sprite image
 	// create the paused sprite and paused menu buttons off screen
 	pausedSprite->setPosition(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2);
 	// add the Paused sprite and menu to the current layer
@@ -132,11 +133,8 @@ void GameScene::pauseGame()
 
 	// create menu and add menu items
 	pausedMenu = Menu::create(resumeButton, mainMenuButton, exitButton, NULL);	
+	pausedMenu->alignItemsVertically();
 	pausedSprite->addChild(pausedMenu, 3);
-
-	
-
-	
 
 	/*
 	CCLOG("Pause");
@@ -151,7 +149,8 @@ void GameScene::pauseGame()
 void GameScene::resumeGame(cocos2d::Ref *pSender)
 {
 	CCLOG("ResumeGame");	
-	Director::getInstance()->popScene();
+	gamePlayLayer->resumeSchedulerAndActions();
+	//Director::getInstance()->popScene();
 }
 
 void GameScene::mainGame(cocos2d::Ref *pSender)
