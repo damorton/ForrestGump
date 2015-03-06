@@ -20,6 +20,7 @@ bool WorldManager::init()
 {
 	this->createDAO();
 	m_fWorldSpeed = 5.0f;
+	m_fEnemyMovementSpeed = 6.0f;
 	return true;
 }
 

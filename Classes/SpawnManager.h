@@ -10,31 +10,26 @@
 
 class SpawnManager : public cocos2d::Layer
 {
-public:
-	/*
-	Initialize the SpawnManager layer
-	*/
+public:	
 	virtual bool init();
 	virtual ~SpawnManager(){};
 	void update();
-	bool initEnemies();
 	bool spawnEnemy();
 	int getEnemyCount();
-	int getPlayerDistance(); // used to adjust enemy spawns
-	bool addEnemyBehaviour(Enemy* enemy);
+	bool addEnemyToActiveVector(Enemy* enemy);
 	void resetSprite(Node* sender, void* enemy);
-
-	/*
-	Initialize the parent node
-	*/
+	void moveSprites();
+	void resetEnemy(Enemy* enemy);
+	void createEnemies();
+	void createEnemy(std::string filename, std::string name, Vec2 position, bool gravity, bool rotate);
 	CREATE_FUNC(SpawnManager);
-
 private:
 	Enemy* m_pGroundEnemy;
 	Enemy* m_pFloatingEnemy;
 	Enemy* m_pRotatingEnemy;
 	Player* m_pPlayer;
 	std::vector<Enemy*> m_vpEnemies;	
+	std::vector<Enemy*> m_vpActiveEnemies;
 	bool m_bIsSpawned;
 };
 

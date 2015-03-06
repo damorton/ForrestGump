@@ -19,8 +19,6 @@ public:
 	static CollisionManager* getInstance();	
 	void checkCollisions();
 	void checkCollisionsWithItems();
-	void checkCollisionsWithFloatingEnemy();
-	void checkCollisionsWithGroundEnemy();
 	void checkCollisionsWithEnemies();
 	void addLayer(TMXLayer* layer){ m_vpLayers.push_back(layer); };
 	void addEnemy(Enemy* enemy){ m_vpEnemies.push_back(enemy); };
@@ -33,17 +31,13 @@ public:
 	void setPlayer(Player* player){ m_pPlayer = player; };	
 	void setEnemies(std::vector<Enemy*> enemies){ m_vpEnemies = enemies; };
 	void setLayers(std::deque<TMXLayer*> layers){ m_vpLayers = layers; };
-	void gameOver();
-protected:
-	Player* m_pPlayer;
-	Enemy* m_pGroundEnemy;
-	Enemy* m_pFloatingEnemy;
-	std::deque<TMXLayer*> m_vpLayers;
-	std::vector<Enemy*> m_vpEnemies;
-private:
+private:	
 	static CollisionManager* m_Instance;
 	CollisionManager(){ this->init(); }; 
 	~CollisionManager(){ this->cleanUp(); }; 
+	Player* m_pPlayer;
+	std::deque<TMXLayer*> m_vpLayers;
+	std::vector<Enemy*> m_vpEnemies;
 };
 
 #endif

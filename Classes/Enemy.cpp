@@ -22,7 +22,7 @@ Enemy* Enemy::create(const std::string& filename)
 
 bool Enemy::init()
 {
-	setType(ENEMY);	
+	setType(ENEMY);
 	return true;
 }
 
@@ -53,10 +53,14 @@ void Enemy::animateEnemy(){
 		this->getAnimationWithFrames(9, 12, 1);
 		this->runAction(animate);
 	}
-	else // Rotating
+	else if (this->getName() == "rotating")
 	{
 		this->getAnimationWithFrames(14, 17, 2);
 		this->runAction(animate);
+	}
+	else
+	{
+		// no animation
 	}
 }
 

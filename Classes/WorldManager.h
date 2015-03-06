@@ -35,7 +35,9 @@ public:
 	void setFloorSprite(cocos2d::Sprite* floor){ m_pFloorSprite = floor; };
 	void setPlayerHighscore(std::string highscore);
 	void setGameWorldSpeed(float speed){ m_fWorldSpeed = speed; };
+	void setEnemyMovementSpeed(float speed){ m_fEnemyMovementSpeed = speed; };
 	float getGameWorldSpeed(){ return m_fWorldSpeed; };
+	float getEnemyMovementSpeed(){ return m_fEnemyMovementSpeed; };
 private:	
 	WorldManager(){ this->init(); };  
 	~WorldManager(){ this->cleanUp(); }; 
@@ -45,6 +47,7 @@ private:
 	std::vector<std::shared_ptr<Enemy>> m_vpEnemies;
 	cocos2d::Sprite* m_pFloorSprite;
 	float m_fWorldSpeed;
+	float m_fEnemyMovementSpeed;
 };
 
 

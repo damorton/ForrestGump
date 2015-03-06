@@ -25,8 +25,7 @@ typedef enum {
 
 // Movement speeds
 #define WORLD_MOVEMENT_SPEED (WorldManager::getInstance()->getGameWorldSpeed())
-#define ITEM_MOVEMENT_SPEED (WorldManager::getInstance()->getGameWorldSpeed())
-#define ENEMY_MOVEMENT_SPEED 10.0f
+#define ENEMY_MOVEMENT_SPEED (WorldManager::getInstance()->getEnemyMovementSpeed())
 
 // Scenes
 #define DISPLY_TIME_SPLASH_SCENCE 2

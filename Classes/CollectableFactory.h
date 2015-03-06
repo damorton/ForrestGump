@@ -12,20 +12,18 @@ public:
 	virtual bool init();
 	virtual ~CollectableFactory(){ this->cleanup(); };
 	void cleanup();
-	bool rotateSegment(float duration = 30.0f, float angle = 360);
 	bool addPhysicsEdgeBox();
 	bool addPhysicsToTiles(TMXLayer* layer);	
-	bool addTileBehaviour(TMXLayer* layer, std::string name);
+	bool addItemsToActiveVector(TMXLayer* layer);
 	bool addTMXTileMap(const std::string& filename);
 	void setTileMap(TMXTiledMap* tilemap){ m_pTileMap = tilemap; };		
-	void deleteTilemap(Node* sender, void* tilemap);
 	void removeLayer(Node* sender, void* layer);
 	bool spawnSprites();
-	void resetSprite(Node* sender, void* tileSprite);		
+	//void resetSprite(Node* sender, void* tileSprite);		
 	bool isSpawned(){ return m_bIsSpawned; };
 	void update();	
-	bool initTilePositions(TMXLayer* layer);
-	void addSpriteBehaviour(Sprite* tileSprite);	
+	bool initTilePositions(TMXLayer* layer, std::string name);
+	//void addSpriteBehaviour(Sprite* tileSprite);	
 	void moveSprites();
 	void resetItem(Sprite* item);
 	CREATE_FUNC(CollectableFactory);
@@ -36,8 +34,8 @@ private:
 	TMXLayer* m_pBoosterLayer;
 	TMXLayer* m_pFoodLayer;
 	bool m_bIsSpawned;
-	int m_iSpawnSegmentTimer;	
-	std::vector<Sprite*> m_vpItems;	
+	std::vector<Sprite*> m_vpActiveItems;
+	int m_nNumberOfActiveItems;
 };
 
 #endif
