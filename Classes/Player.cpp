@@ -182,14 +182,8 @@ void Player::jump()
 
 		//Create the Sequence of Animation
 		FiniteTimeAction* animationSequence = Sequence::create(animate2, animate3, nullptr);
-		this->runAction(animationSequence);
-
-		//NEW JUMP
-		//CCLOG("jump");
-		Vec2 impulse(0.0f, 0.0f);	
-		impulse.y = 80000.0f;
-		impulse.x = 0.0f;
-		this->getPhysicsBody()->applyImpulse(impulse);
+		this->runAction(animationSequence);		
+		this->getPhysicsBody()->applyImpulse(PLAYER_JUMP_VEL);
 	}
 }
 
@@ -199,12 +193,6 @@ void Player::update()
 	this->setPositionX(PLAYER_POSITION_IN_WINDOW);
 	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
 	{		
-
-		m_ePlayerAction = RUNNING;
-		m_pEmitter->setScale(2.0);
-		m_pEmitter->resume();
-		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/trashdropping.wav", false, 1.0f, 1.0f, 1.0f);
-
 		m_ePlayerAction = RUNNING;
 		m_pEmitter->setScale(2.0);
 		m_pEmitter->resume();

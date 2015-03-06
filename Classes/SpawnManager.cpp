@@ -88,20 +88,20 @@ bool SpawnManager::spawnEnemy()
 	int numberOfEnemies = CollisionManager::getInstance()->getEnemies().size();	
 	randomnumber = (rand() % numberOfEnemies);
 
-		switch (randomnumber)
-		{
-		case 0:
-			this->addEnemyBehaviour(m_pGroundEnemy);
-			break;
-		case 1:
-			this->addEnemyBehaviour(m_pFloatingEnemy);
-			break;
-		case 2:
-			this->addEnemyBehaviour(m_pRotatingEnemy);
-			break;
-		default:
-			CCLOG("enemy spawn random number unknown");
-		}
+	switch (randomnumber)
+	{
+	case 0:
+		this->addEnemyBehaviour(m_pGroundEnemy);
+		break;
+	case 1:
+		this->addEnemyBehaviour(m_pFloatingEnemy);
+		break;
+	case 2:
+		this->addEnemyBehaviour(m_pRotatingEnemy);
+		break;
+	default:
+		CCLOG("enemy spawn random number unknown");
+	}
 
 	return true;
 }
@@ -112,7 +112,7 @@ bool SpawnManager::addEnemyBehaviour(Enemy* enemy)
 	{ 		
 		auto reset = CCCallFuncND::create(this, callfuncND_selector(SpawnManager::resetSprite), (void*)enemy);
 		auto enemeySpriteBehaviour = Sequence::create(
-			MoveBy::create(SPRITE_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-(VISIBLE_SIZE_WIDTH * 2), 0)),
+			MoveBy::create(SPRITE_MOVEMENT_SPEED, Point(-(VISIBLE_SIZE_WIDTH * 2), 0)),
 			reset,
 			NULL);
 		enemy->runAction(enemeySpriteBehaviour);
@@ -121,7 +121,7 @@ bool SpawnManager::addEnemyBehaviour(Enemy* enemy)
 	{
 		auto reset = CCCallFuncND::create(this, callfuncND_selector(SpawnManager::resetSprite), (void*)enemy);
 		auto enemeySpriteBehaviour = Sequence::create(
-			MoveBy::create(SPRITE_MOVEMENT_SPEED * VISIBLE_SIZE_WIDTH, Point(-(VISIBLE_SIZE_WIDTH * 2), 0)), reset, NULL);	
+			MoveBy::create(SPRITE_MOVEMENT_SPEED, Point(-(VISIBLE_SIZE_WIDTH * 2), 0)), reset, NULL);	
 		enemy->runAction(enemeySpriteBehaviour);		
 	}
 

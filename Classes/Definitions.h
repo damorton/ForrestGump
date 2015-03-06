@@ -17,21 +17,23 @@ typedef enum {
 	TAG_FOOD,
 } tags;
 
+
+// World
+#define GRAVITATIONAL_FORCE Vec2(0, -300)
+#define SPRITE_MOVEMENT_SPEED (WorldManager::getInstance()->getGameWorldSpeed())
 #define PADDING 10
 #define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
 #define VISIBLE_SIZE_HEIGHT (Director::getInstance()->getVisibleSize().height)
 #define SCREEN_ORIGIN (Director::getInstance()->getVisibleOrigin())
-
-// Sprites; coins, items, powerups
-#define SPRITE_MOVEMENT_SPEED 0.005f
 
 // scenes
 #define DISPLY_TIME_SPLASH_SCENCE 2
 #define TRANSITION_TIME 0.5
 
 // player
-#define PLAYER_POSITION_IN_WINDOW ((Director::getInstance()->getVisibleSize().width / 3) * 1)
+#define PLAYER_POSITION_IN_WINDOW ((Director::getInstance()->getVisibleSize().width / 7) * 1)
 #define JUMP_SPEED 0.75F
+#define PLAYER_JUMP_VEL Vec2(0.0f, 80000.0f)
 #define MAX_NO_OF_JUMPS 2
 #define JUMP_HEIGHT (Director::getInstance()->getVisibleSize().height * .75)
 

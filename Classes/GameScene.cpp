@@ -12,7 +12,7 @@ Scene* GameScene::createScene()
 {	
 	auto scene = Scene::createWithPhysics();
 	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);	
-	scene->getPhysicsWorld()->setGravity(Vec2(0, -300));
+	scene->getPhysicsWorld()->setGravity(GRAVITATIONAL_FORCE);
 	scene->setTag(TAG_GAME_SCENE);
 
 	GameScene* gameLayer = GameScene::create();
@@ -89,9 +89,6 @@ void GameScene::update(float delta)
 	m_pCollectableFactory->update();		
 	m_pParallax->update();
 	m_pSpawnManager->update();
-
-	CollisionManager::getInstance()->checkCollisions();
-
 	m_HudLayer->update();
 
 	//CCLOG("-------------GAME LOOP END--------------");

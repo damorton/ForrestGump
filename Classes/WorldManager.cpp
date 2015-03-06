@@ -43,7 +43,8 @@ Layer* WorldManager::layerWithTag(int tag)
 
 bool WorldManager::init()
 {				
-	this->createDAO();		
+	this->createDAO();	
+	m_fWorldSpeed = 3.0f;
 	return true;
 }
 
