@@ -244,9 +244,7 @@ void Player::getAnimationWithFrames(int init, int end, int act){
 	while (i <= end)
 	{
 		if (act == 1)		//1 - Running
-		{
-			//sprintf(str, "sprites/walk%02d.png", i);
-			//auto frame = SpriteFrame::create(str, Rect(0, 0, 105, 135)); //we assume that the sprites' dimentions are 105*135 rectangles.
+		{		
 			sprintf(str, "sprites/walk%02dsmall.png", i);
 			auto frame = SpriteFrame::create(str, Rect(0, 0, 55, 69)); //we assume that the sprites' dimentions are 55*69 rectangles.
 			i++;
