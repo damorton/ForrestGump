@@ -12,7 +12,7 @@ Scene* GameScene::createScene()
 {	
 	auto scene = Scene::createWithPhysics();
 	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);	
-	scene->getPhysicsWorld()->setGravity(Vec2(0, -300));
+	//scene->getPhysicsWorld()->setGravity(GRAVITATIONAL_FORCE);
 	scene->setTag(TAG_GAME_SCENE);
 
 	GameScene* gameLayer = GameScene::create();
@@ -73,6 +73,7 @@ bool GameScene::initializeGame()
 	this->scheduleUpdate();
 	return true;
 }
+
 void GameScene::addScreenShake()
 {
 	auto jump = JumpBy::create(2.0, Point(10, 10), 10, 3);
@@ -80,10 +81,6 @@ void GameScene::addScreenShake()
 	this->runAction(jump);
 	this->runAction(reverse);
 	WorldManager::getInstance()->gameLayer()->setPosition(Vec2(this->getPosition().x, this->getPosition().y));
-}
-bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
-{
-	return true;
 }
 
 
@@ -97,9 +94,6 @@ void GameScene::update(float delta)
 	m_pCollectableFactory->update();		
 	m_pParallax->update();
 	m_pSpawnManager->update();
-
-	CollisionManager::getInstance()->checkCollisions();
-
 	m_HudLayer->update();
 
 	//CCLOG("-------------GAME LOOP END--------------");

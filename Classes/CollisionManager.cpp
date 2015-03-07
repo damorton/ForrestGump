@@ -41,34 +41,33 @@ void CollisionManager::checkCollisionsWithItems()
 					auto tileSprite = m_vpLayers.at(it)->tileAt(Vec2(i, j));
 					if (tileSprite)
 					{
-						if (m_pPlayer->getBoundingBox().intersectsRect(tileSprite->getBoundingBox()))
+						if (tileSprite->isVisible())
 						{
-							if (tileSprite->isVisible())
+							if (m_pPlayer->getBoundingBox().intersectsRect(tileSprite->getBoundingBox()))
 							{
-								//CCLOG("Collision detected");
-								if (tileSprite->getName() == "coin")
+								if (tileSprite->getName() == "coins")
 								{
 									WorldManager::getInstance()->getPlayer()->addCoin();
 								}
-								else if (tileSprite->getName() == "item")
+								else if (tileSprite->getName() == "items")
 								{
 									WorldManager::getInstance()->getPlayer()->addItem();
 								}
-								else if (tileSprite->getName() == "booster")
+								else if (tileSprite->getName() == "boosters")
 								{
 									WorldManager::getInstance()->getPlayer()->addBooster();
 
+									// Scale player down
 									if (WorldManager::getInstance()->getPlayer()->getScale() > 0.5)
 									{
 										WorldManager::getInstance()->getPlayer()->setScale(WorldManager::getInstance()->getPlayer()->getScale() - 0.01);
 									}
-
-
 								}
 								else if (tileSprite->getName() == "food")
 								{
 									WorldManager::getInstance()->getPlayer()->addFood();
 
+									// Scale player up
 									if (WorldManager::getInstance()->getPlayer()->getScale() < 2.0)
 									{
 										WorldManager::getInstance()->getPlayer()->setScale(WorldManager::getInstance()->getPlayer()->getScale() + 0.01);
@@ -77,7 +76,7 @@ void CollisionManager::checkCollisionsWithItems()
 								tileSprite->setVisible(false);
 							}
 						}
-					}
+					}					
 				}
 			}
 		}
@@ -88,16 +87,14 @@ void CollisionManager::checkCollisionsWithEnemies()
 {
 	if (!m_vpEnemies.empty())
 	{
-		// loop through the vector and register enemy
 		for (std::vector<Enemy*>::size_type it = 0; it < m_vpEnemies.size(); ++it)
 		{
 			auto enemy = m_vpEnemies.at(it);
-
 			if (enemy)
-			{				
-				if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
-				{	
-					if (enemy->isVisible())
+			{
+				if (enemy->isVisible())
+				{
+					if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
 					{
 
 						enemy->setVisible(false);
@@ -110,6 +107,7 @@ void CollisionManager::checkCollisionsWithEnemies()
 							m_pPlayer->addCoinLossParticle();
 							m_pPlayer->resetCoins();
 						}
+
 
 						WorldManager::getInstance()->gameLayer()->addScreenShake();
 						//CCLOG("Collision detected");
@@ -124,6 +122,7 @@ void CollisionManager::checkCollisionsWithEnemies()
 						}
 						
 					}					
+
 				}
 			}
 		}
@@ -132,20 +131,7 @@ void CollisionManager::checkCollisionsWithEnemies()
 
 void CollisionManager::cleanUp()
 {	
-	m_pPlayer = NULL;
-	m_pGroundEnemy = NULL;
-	m_pFloatingEnemy = NULL;
+	m_pPlayer = NULL;	
 	m_vpLayers.clear();
 	m_vpEnemies.clear();
-}
-
-
-/*
-	On game over we call the game over scene
-*/
-void CollisionManager::gameOver()
-{
-	CCLOG("GameOver");
-	Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
 }
