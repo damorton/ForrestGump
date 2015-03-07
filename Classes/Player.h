@@ -31,12 +31,12 @@ public:
 	void setState(ECharacterState state){ m_eState = state; };
 	void setAction(EPlayerAction action){ m_ePlayerAction = action; };
 	void addDistance();
-	void addCoin();	
+	void addCoin();
 	void addItem();
 	void addBooster();
 	void addFood();
 	void addParticle();
-	void addParticleCoins();
+	void addParticlesGameObjects(std::string path, float a, float b, int totalPar, float duration);
 	void addParticleMuffins();
 	void addParticleBoosters();
 	void addParticleItems();
