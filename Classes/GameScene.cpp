@@ -74,19 +74,20 @@ bool GameScene::initializeGame()
 	return true;
 }
 
-<<<<<<< HEAD
+
 void GameScene::addScreenShake()
-{
-	auto jump = JumpBy::create(2.0, Point(10, 10), 10, 3);
+{	
+	auto jump = JumpBy::create(2.0, Point(300, 300), 0.5, 5);
 	auto reverse = jump->reverse();
+	
 	this->runAction(jump);
 	this->runAction(reverse);
+	
 	
 }
 
 
-=======
->>>>>>> 7637a88db55320ba18c3097020f29a5428389c8b
+
 void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	
