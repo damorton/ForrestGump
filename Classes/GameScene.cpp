@@ -73,11 +73,27 @@ bool GameScene::initializeGame()
 	this->scheduleUpdate();
 	return true;
 }
+<<<<<<< HEAD
+=======
+void GameScene::addScreenShake()
+{
+	auto jump = JumpBy::create(2.0, Point(10, 10), 10, 3);
+	auto reverse = jump->reverse();
+	this->runAction(jump);
+	this->runAction(reverse);
+	WorldManager::getInstance()->gameLayer()->setPosition(Vec2(this->getPosition().x, this->getPosition().y));
+}
+bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
+{
+	return true;
+}
+
+>>>>>>> georgina_screenShake
 
 void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	
-
+	
 		
 	CollisionManager::getInstance()->checkCollisions();
 	WorldManager::getInstance()->getPlayer()->update();
