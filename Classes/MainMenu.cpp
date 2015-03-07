@@ -22,26 +22,7 @@ bool MainMenu::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 
-	// particle testing  for high scores button
-	CCParticleSystem *ccEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
-	ccEmitter->setPosition(Point((visibleSize.width / 4) * 3, (visibleSize.height / 5) * 2));
-	ccEmitter->setEmissionRate(200.00);
-	ccEmitter->setTotalParticles(50);
-	this->addChild(ccEmitter);
 
-	// particle testing for play button
-	CCParticleSystem *ccEmitter2 = CCParticleSystemQuad::create("particles/Flower.plist");
-	ccEmitter2->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 8) * 2));
-	ccEmitter2->setEmissionRate(300.00);
-	ccEmitter2->setTotalParticles(50);
-	this->addChild(ccEmitter2);
-
-	// particle testing for settings button
-	CCParticleSystem *ccEmitter3 = CCParticleSystemQuad::create("particles/Flower.plist");
-	ccEmitter3->setPosition(Point(visibleSize.width / 4, (visibleSize.height / 5) * 2));
-	ccEmitter3->setEmissionRate(300.00);
-	ccEmitter3->setTotalParticles(50);
-	this->addChild(ccEmitter3);
 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/bgm_menu.wav", true);
 	
@@ -56,18 +37,9 @@ bool MainMenu::init()
 	
 	
 	// position the menu buttons on screen
-	playButton->setPosition(Point(0,0));
-	highscoresButton->setPosition(Point(0,0));
-	settingsButton->setPosition(Point(0,0));
-	
-
-	// create menu and add menu items
-	auto* menu = Menu::create(playButton, highscoresButton, settingsButton, NULL);
-	menu->setPosition(Vec2::ZERO);
-	this->addChild(menu);
-
-
-
+	//playButton->setPosition(Point(0,0));
+	//highscoresButton->setPosition(Point(0,0));
+	//settingsButton->setPosition(Point(0,0));
 
 	// creation of actions for tweening of main menu
 	auto ccPlayBtnAction = MoveBy::create(1, Point(visibleSize.width / 2, (visibleSize.height / 8) * 2));
@@ -92,6 +64,39 @@ bool MainMenu::init()
 
 	auto rotateAction3 = RotateBy::create(2.0f, 360.0f);
 	highscoresButton->runAction(rotateAction3);
+
+	// create menu and add menu items
+	auto* menu = Menu::create(playButton, highscoresButton, settingsButton, NULL);
+	menu->setPosition(Vec2::ZERO);
+	this->addChild(menu);
+
+	DelayTime *time = DelayTime::create(2.0);
+	this->runAction(time);
+
+	// particle testing  for high scores button
+	CCParticleSystem *ccEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
+	ccEmitter->setPosition(Point(highscoresButton->getContentSize().width / 2, highscoresButton->getContentSize().height / 2));
+	ccEmitter->setEmissionRate(200.00);
+	ccEmitter->setTotalParticles(50);
+	//this->addChild(ccEmitter);
+
+	// particle testing for play button
+	CCParticleSystem *ccEmitter2 = CCParticleSystemQuad::create("particles/Flower.plist");
+	ccEmitter2->setPosition(Point(playButton->getContentSize().width / 2, playButton->getContentSize().height / 2));
+	ccEmitter2->setEmissionRate(300.00);
+	ccEmitter2->setTotalParticles(50);
+	//this->addChild(ccEmitter2);
+
+	// particle testing for settings button
+	CCParticleSystem *ccEmitter3 = CCParticleSystemQuad::create("particles/Flower.plist");
+	ccEmitter3->setPosition(Point(settingsButton->getContentSize().width / 2, settingsButton->getContentSize().height / 2));
+	ccEmitter3->setEmissionRate(300.00);
+	ccEmitter3->setTotalParticles(50);
+	//this->addChild(ccEmitter3);
+
+	playButton->addChild(ccEmitter2);
+	settingsButton->addChild(ccEmitter3);
+	highscoresButton->addChild(ccEmitter);
 
     return true;
 }
