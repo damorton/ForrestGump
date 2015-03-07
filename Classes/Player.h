@@ -37,12 +37,6 @@ public:
 	void addFood();
 	void addParticle();
 	void addParticlesGameObjects(std::string path, float a, float b, int totalPar, float duration);
-	void addParticleMuffins();
-	void addParticleBoosters();
-	void addParticleItems();
-	void addParticleMuffins2();
-	void addCoinLossParticle();
-	//void addParticles(std::string filename, Point point = Point(0,0), float duration = 0.5f, int numberOfParticles = 5);
 	void endGame();
 	void resetCoins();
 
@@ -61,13 +55,8 @@ private:
 	int m_nNumberOfJumps;
 	std::string m_strUsername;
 	ParticleSystem *m_pEmitter;
-	ParticleSystem *m_pCoinEmitter;
-	ParticleSystem *m_pMuffinEmitter;
-	ParticleSystem *m_pMuffinEmitter2;
-	ParticleSystem *m_pBoosterEmitter;
-	ParticleSystem *m_pItemEmitter;
-	ParticleSystem *m_pCoinLossEmitter;
-
+	ParticleSystem* m_pGameObjectEmitter;
+	
 };
 
 #endif

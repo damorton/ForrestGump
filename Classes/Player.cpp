@@ -96,62 +96,13 @@ void Player::addParticle( )
 
 void Player::addParticlesGameObjects(std::string path, float a, float b, int totalPar, float duration)
 {
-	m_pCoinEmitter = CCParticleSystemQuad::create(path);
-	m_pCoinEmitter->setPosition(a,b);
-	m_pCoinEmitter->setTotalParticles(totalPar);
-	m_pCoinEmitter->setDuration(duration);
-	this->addChild(m_pCoinEmitter);
-	m_pCoinEmitter->setAutoRemoveOnFinish(true);
+	m_pGameObjectEmitter = CCParticleSystemQuad::create(path);
+	m_pGameObjectEmitter->setPosition(a, b);
+	m_pGameObjectEmitter->setTotalParticles(totalPar);
+	m_pGameObjectEmitter->setDuration(duration);
+	this->addChild(m_pGameObjectEmitter);
+	m_pGameObjectEmitter->setAutoRemoveOnFinish(true);
 }
-
-/*void Player::addParticleMuffins()
-{
-	m_pMuffinEmitter = CCParticleSystemQuad::create("particles/SplatterParticle2.plist");
-	m_pMuffinEmitter->setPosition(this->getContentSize().width / 2, this->getContentSize().height / 2);
-	m_pMuffinEmitter->setTotalParticles(2);
-	m_pMuffinEmitter->setDuration(0.1);
-	this->addChild(m_pMuffinEmitter);
-	m_pMuffinEmitter->setAutoRemoveOnFinish(true);
-}*/
-
-/*void Player::addParticleMuffins2()
-{
-	m_pMuffinEmitter2 = CCParticleSystemQuad::create("particles/Muffin.plist");
-	m_pMuffinEmitter2->setPosition(this->getContentSize().width/2, 0);
-	m_pMuffinEmitter2->setTotalParticles(1);
-	m_pMuffinEmitter2->setDuration(0.5);
-	this->addChild(m_pMuffinEmitter2);
-}*/
-
-/*void Player::addParticleBoosters()
-{
-	m_pBoosterEmitter = CCParticleSystemQuad::create("particles/booster.plist");
-	m_pBoosterEmitter->setPosition(this->getContentSize().width / 2, 0);
-	m_pBoosterEmitter->setTotalParticles(1);
-	m_pBoosterEmitter->setDuration(0.5);
-	this->addChild(m_pBoosterEmitter);
-	m_pBoosterEmitter->setAutoRemoveOnFinish(true);
-}*/
-
-/*void Player::addParticleItems()
-{
-	m_pItemEmitter = CCParticleSystemQuad::create("particles/DiamondPar3.plist");
-	m_pItemEmitter->setPosition(this->getContentSize().width, this->getContentSize().height);
-	m_pItemEmitter->setTotalParticles(1);
-	m_pItemEmitter->setDuration(0.5);
-	this->addChild(m_pItemEmitter);
-	m_pItemEmitter->setAutoRemoveOnFinish(true);
-}
-
-void Player::addCoinLossParticle()
-{
-	m_pCoinLossEmitter = CCParticleSystemQuad::create("particles/coinLoss2.plist");
-	m_pCoinLossEmitter->setPosition(this->getContentSize().width, this->getContentSize().height / 2);
-	m_pCoinLossEmitter->setTotalParticles(m_nCoins);
-	m_pCoinLossEmitter->setDuration(0.5);
-	this->addChild(m_pCoinLossEmitter);
-	m_pCoinLossEmitter->setAutoRemoveOnFinish(true);
-}*/
 
 void Player::resetCoins()
 {
