@@ -107,6 +107,7 @@ void CollisionManager::checkCollisionsWithEnemies()
 							m_pPlayer->addCoinLossParticle();
 							m_pPlayer->resetCoins();
 						}
+<<<<<<< HEAD
 
 
 						WorldManager::getInstance()->gameLayer()->addScreenShake();
@@ -123,6 +124,9 @@ void CollisionManager::checkCollisionsWithEnemies()
 						
 					}					
 
+=======
+					}
+>>>>>>> 7637a88db55320ba18c3097020f29a5428389c8b
 				}
 			}
 		}

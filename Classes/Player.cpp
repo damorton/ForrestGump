@@ -29,7 +29,7 @@ bool Player::init()
 	m_nItems = 0;
 	m_nNumberOfJumps = 0;
 	
-	this->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, (WorldManager::getInstance()->getFloorSprite()->getContentSize().height + this->getContentSize().height / 2) - 5));
+	this->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, SCREEN_ORIGIN.y + WorldManager::getInstance()->getFloorSprite()->getContentSize().height + this->getContentSize().height / 2));
 	auto playerPhysicsBody = PhysicsBody::createBox(Size(this->getContentSize().width, this->getContentSize().height - 5), PHYSICSBODY_MATERIAL_DEFAULT);	
 	playerPhysicsBody->setDynamic(true);
 	playerPhysicsBody->setGravityEnable(true);
@@ -39,6 +39,9 @@ bool Player::init()
 	//Start player walking
 	this->getAnimationWithFrames(1, 4, 1);
 	this->runAction(this->animate);
+
+	// add hint sprite
+
 
 	WorldManager::getInstance()->setPlayer(this);
 	CollisionManager::getInstance()->setPlayer(this);
@@ -182,14 +185,8 @@ void Player::jump()
 
 		//Create the Sequence of Animation
 		FiniteTimeAction* animationSequence = Sequence::create(animate2, animate3, nullptr);
-		this->runAction(animationSequence);
-
-		//NEW JUMP
-		//CCLOG("jump");
-		Vec2 impulse(0.0f, 0.0f);	
-		impulse.y = 80000.0f;
-		impulse.x = 0.0f;
-		this->getPhysicsBody()->applyImpulse(impulse);
+		this->runAction(animationSequence);		
+		this->getPhysicsBody()->applyImpulse(PLAYER_JUMP_VEL);
 	}
 }
 
@@ -199,12 +196,6 @@ void Player::update()
 	this->setPositionX(PLAYER_POSITION_IN_WINDOW);
 	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
 	{		
-
-		m_ePlayerAction = RUNNING;
-		m_pEmitter->setScale(2.0);
-		m_pEmitter->resume();
-		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/trashdropping.wav", false, 1.0f, 1.0f, 1.0f);
-
 		m_ePlayerAction = RUNNING;
 		m_pEmitter->setScale(2.0);
 		m_pEmitter->resume();
@@ -223,6 +214,7 @@ void Player::touch(const Point& location)
 	if (location.x < PLAYER_POSITION_IN_WINDOW) 
 	{
 		this->jump();
+		// if hint sprite touched, set visible false
 	}
 }
 
@@ -244,9 +236,7 @@ void Player::getAnimationWithFrames(int init, int end, int act){
 	while (i <= end)
 	{
 		if (act == 1)		//1 - Running
-		{
-			//sprintf(str, "sprites/walk%02d.png", i);
-			//auto frame = SpriteFrame::create(str, Rect(0, 0, 105, 135)); //we assume that the sprites' dimentions are 105*135 rectangles.
+		{		
 			sprintf(str, "sprites/walk%02dsmall.png", i);
 			auto frame = SpriteFrame::create(str, Rect(0, 0, 55, 69)); //we assume that the sprites' dimentions are 55*69 rectangles.
 			i++;

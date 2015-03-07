@@ -42,7 +42,6 @@ class Parallax : public cocos2d::LayerColor
 
 		// Update my background scrolling
 		void scrollBackground(Sprite* bck1, Sprite* bck2, float speed);		
-
 };
 
 #endif // __PARALLAX_H__

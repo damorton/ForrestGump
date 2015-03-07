@@ -13,6 +13,15 @@ bool Parallax::init()
 
 bool Parallax::addBackground(const std::string& filename1, const std::string& filename2, const std::string& filename3, const std::string& filename4, const std::string& filename5)
 {
+	// Floor
+	m_pSpriteFloor1 = CCSprite::create(filename5);
+	m_pSpriteFloor2 = CCSprite::create(filename5);
+	m_pSpriteFloor1->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH / 2, SCREEN_ORIGIN.y + m_pSpriteFloor1->getContentSize().height / 2));
+	m_pSpriteFloor2->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, SCREEN_ORIGIN.y + m_pSpriteFloor2->getContentSize().height / 2));
+	this->addChild(m_pSpriteFloor1, 5);
+	this->addChild(m_pSpriteFloor2, 5);
+	
+
 	// background 1 - Clouds
 	m_pSpriteBackgroundFirst = CCSprite::create(filename1);
 	m_pSpriteBackgroundFirst1 = CCSprite::create(filename1);
@@ -44,20 +53,12 @@ bool Parallax::addBackground(const std::string& filename1, const std::string& fi
 	m_pSpriteBackgroundFourth1->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, SCREEN_ORIGIN.y + VISIBLE_SIZE_HEIGHT / 2));
 	this->addChild(m_pSpriteBackgroundFourth, 1);
 	this->addChild(m_pSpriteBackgroundFourth1, 1);
-
-	// background 5 - floor
-	m_pSpriteFloor1 = CCSprite::create(filename5);
-	m_pSpriteFloor2 = CCSprite::create(filename5);
-	m_pSpriteFloor1->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH / 2, SCREEN_ORIGIN.y + m_pSpriteFloor1->getContentSize().height / 2));
-	m_pSpriteFloor2->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH + VISIBLE_SIZE_WIDTH / 2, SCREEN_ORIGIN.y + m_pSpriteFloor2->getContentSize().height / 2));
-	this->addChild(m_pSpriteFloor1, 4);
-	this->addChild(m_pSpriteFloor2, 4);
-		
+			
 	// Floor boundary
 	auto floorRect = CCSprite::create(filename5);
-	floorRect->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH / 2, SCREEN_ORIGIN.y + m_pSpriteFloor1->getContentSize().height / 2));
+	floorRect->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH / 2, SCREEN_ORIGIN.y + floorRect->getContentSize().height / 2));
 	this->addChild(floorRect);
-	auto floorEdgeBody = PhysicsBody::createEdgeBox(floorRect->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
+	auto floorEdgeBody = PhysicsBody::createEdgeBox(Size(floorRect->getContentSize().width * 3, floorRect->getContentSize().height - floorRect->getContentSize().height / 5), PHYSICSBODY_MATERIAL_DEFAULT, 1);
 	floorEdgeBody->setDynamic(false);
 	floorRect->setPhysicsBody(floorEdgeBody);		
 	WorldManager::getInstance()->setFloorSprite(floorRect);
@@ -66,14 +67,12 @@ bool Parallax::addBackground(const std::string& filename1, const std::string& fi
 }
 
 void Parallax::update()
-{
-	m_fSpeed = 5.0f;
-	
-	scrollBackground(m_pSpriteFloor1, m_pSpriteFloor2, m_fSpeed);
-	scrollBackground(m_pSpriteBackgroundFirst, m_pSpriteBackgroundFirst1, m_fSpeed);
-	scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, m_fSpeed / 2.0);	
-	scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, m_fSpeed / 3.0);
-	scrollBackground(m_pSpriteBackgroundFourth, m_pSpriteBackgroundFourth1, m_fSpeed / 5.0);
+{	
+	scrollBackground(m_pSpriteFloor1, m_pSpriteFloor2, WORLD_MOVEMENT_SPEED);
+	scrollBackground(m_pSpriteBackgroundFirst, m_pSpriteBackgroundFirst1, WORLD_MOVEMENT_SPEED / 2.0);
+	scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, WORLD_MOVEMENT_SPEED / 3.0);
+	scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, WORLD_MOVEMENT_SPEED / 4.0);
+	scrollBackground(m_pSpriteBackgroundFourth, m_pSpriteBackgroundFourth1, WORLD_MOVEMENT_SPEED / 5.0);
 }
 
 void Parallax::scrollBackground(CCSprite* bck1, CCSprite* bck2, float speed)
@@ -88,4 +87,3 @@ void Parallax::scrollBackground(CCSprite* bck1, CCSprite* bck2, float speed)
 		bck2->setPosition(Vec2(bck1->getPosition().x + bck1->getContentSize().width, bck2->getPosition().y));
 	}
 }
-
