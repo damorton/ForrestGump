@@ -17,6 +17,9 @@ typedef enum {
 	TAG_FOOD,
 } tags;
 
+
+#define PADDING 10
+
 // World
 #define GRAVITATIONAL_FORCE Vec2(0, -300)
 #define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)

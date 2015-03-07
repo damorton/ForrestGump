@@ -108,8 +108,13 @@ void CollisionManager::checkCollisionsWithEnemies()
 							m_pPlayer->resetCoins();
 						}
 <<<<<<< HEAD
+<<<<<<< HEAD
 					}
 =======
+=======
+
+
+>>>>>>> georgina_screenShake
 
 						WorldManager::getInstance()->gameLayer()->addScreenShake();
 						//CCLOG("Collision detected");
@@ -124,12 +129,19 @@ void CollisionManager::checkCollisionsWithEnemies()
 						}
 						
 					}					
+<<<<<<< HEAD
+>>>>>>> georgina_screenShake
+=======
+
+
+					}
+
 >>>>>>> georgina_screenShake
 				}
 			}
 		}
 	}
-}
+
 
 void CollisionManager::cleanUp()
 {	
