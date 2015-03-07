@@ -99,6 +99,7 @@ void CollisionManager::checkCollisionsWithEnemies()
 				{	
 					if (enemy->isVisible())
 					{
+
 						enemy->setVisible(false);
 						if (m_pPlayer->getCoins() < 1)
 						{
@@ -109,9 +110,12 @@ void CollisionManager::checkCollisionsWithEnemies()
 							m_pPlayer->addCoinLossParticle();
 							m_pPlayer->resetCoins();
 						}
+
+						WorldManager::getInstance()->gameLayer()->addScreenShake();
 						//CCLOG("Collision detected");
 						if (enemy->getName() == "ground")
 						{
+							WorldManager::getInstance()->gameLayer()->addScreenShake();
 							//gameOver();
 						}
 						else if (enemy->getName() == "floating")
