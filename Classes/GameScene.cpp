@@ -73,13 +73,7 @@ bool GameScene::initializeGame()
 	this->scheduleUpdate();
 	return true;
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
 
-
->>>>>>> georgina_screenShake
 void GameScene::addScreenShake()
 {	
 	auto jump = JumpBy::create(2.0, Point(300, 300), 0.5, 5);
@@ -90,12 +84,6 @@ void GameScene::addScreenShake()
 	
 	
 }
-
-<<<<<<< HEAD
->>>>>>> georgina_screenShake
-=======
-
->>>>>>> georgina_screenShake
 
 void GameScene::update(float delta)
 {
