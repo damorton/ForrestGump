@@ -37,11 +37,17 @@ bool Splash::init()
 	splashBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(splashBackground);	
 
+	auto player = Sprite::create("sprites/Playersmall.png");
+	player->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));
+	this->addChild(player);
+
+	auto scale = ScaleBy::create(50, 50);
+	player->runAction(scale);
+
 	// particle testing for splash screen
-	CCParticleSystem *ccEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
-	ccEmitter->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 8) * 2));
+	CCParticleSystem *ccEmitter = CCParticleSystemQuad::create("particles/BoingStar.plist");
+	ccEmitter->setPosition(Point(visibleSize.width/2, visibleSize.height/2));
 	ccEmitter->setTotalParticles(1000);
-	ccEmitter->setGravity(ccp(-100.00, 100.00));
 	this->addChild(ccEmitter);
 
 	this->scheduleOnce(schedule_selector(Splash::goToMainMenuScene), DISPLY_TIME_SPLASH_SCENCE);	
