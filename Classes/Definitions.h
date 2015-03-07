@@ -18,6 +18,7 @@ typedef enum {
 } tags;
 
 #define PADDING 10
+#define GRAVITATIONAL_FORCE Vec2(0, -300)
 #define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
 #define VISIBLE_SIZE_HEIGHT (Director::getInstance()->getVisibleSize().height)
 #define SCREEN_ORIGIN (Director::getInstance()->getVisibleOrigin())

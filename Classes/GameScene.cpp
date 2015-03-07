@@ -12,7 +12,7 @@ Scene* GameScene::createScene()
 {	
 	auto scene = Scene::createWithPhysics();
 	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);	
-	//scene->getPhysicsWorld()->setGravity(GRAVITATIONAL_FORCE);
+	scene->getPhysicsWorld()->setGravity(GRAVITATIONAL_FORCE);
 	scene->setTag(TAG_GAME_SCENE);
 
 	GameScene* gameLayer = GameScene::create();
@@ -80,7 +80,7 @@ void GameScene::addScreenShake()
 	auto reverse = jump->reverse();
 	this->runAction(jump);
 	this->runAction(reverse);
-	WorldManager::getInstance()->gameLayer()->setPosition(Vec2(this->getPosition().x, this->getPosition().y));
+	
 }
 
 
