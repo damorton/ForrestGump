@@ -74,10 +74,24 @@ bool GameScene::initializeGame()
 	return true;
 }
 
+
+void GameScene::addScreenShake()
+{	
+	auto jump = JumpBy::create(2.0, Point(300, 300), 0.5, 5);
+	auto reverse = jump->reverse();
+	
+	this->runAction(jump);
+	this->runAction(reverse);
+	
+	
+}
+
+
+
 void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	
-
+	
 		
 	CollisionManager::getInstance()->checkCollisions();
 	WorldManager::getInstance()->getPlayer()->update();

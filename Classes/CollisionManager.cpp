@@ -96,6 +96,7 @@ void CollisionManager::checkCollisionsWithEnemies()
 				{
 					if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
 					{
+
 						enemy->setVisible(false);
 						if (m_pPlayer->getCoins() < 1)
 						{
@@ -106,12 +107,31 @@ void CollisionManager::checkCollisionsWithEnemies()
 							m_pPlayer->addCoinLossParticle();
 							m_pPlayer->resetCoins();
 						}
+
+
+
+						WorldManager::getInstance()->gameLayer()->addScreenShake();
+						//CCLOG("Collision detected");
+						if (enemy->getName() == "ground")
+						{
+							WorldManager::getInstance()->gameLayer()->addScreenShake();
+							//gameOver();
+						}
+						else if (enemy->getName() == "floating")
+						{
+							//gameOver();
+						}
+						
+					}					
+
+
 					}
+
 				}
 			}
 		}
 	}
-}
+
 
 void CollisionManager::cleanUp()
 {	
