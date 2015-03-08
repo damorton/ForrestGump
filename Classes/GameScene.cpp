@@ -74,7 +74,6 @@ bool GameScene::initializeGame()
 	return true;
 }
 
-
 void GameScene::addScreenShake()
 {	
 	auto jump = JumpBy::create(2.0, Point(300, 300), 0.5, 5);
@@ -85,8 +84,6 @@ void GameScene::addScreenShake()
 	
 	
 }
-
-
 
 void GameScene::update(float delta)
 {

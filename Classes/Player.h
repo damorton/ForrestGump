@@ -33,18 +33,12 @@ public:
 	void setAction(EPlayerAction action){ m_ePlayerAction = action; };
 	void setBPAction(EBackpackAction bpAction){ m_eBackpackAction = bpAction; };
 	void addDistance();
-	void addCoin();	
+	void addCoin();
 	void addItem();
 	void addBooster();
 	void addFood();
 	void addParticle();
-	void addParticleCoins();
-	void addParticleMuffins();
-	void addParticleBoosters();
-	void addParticleItems();
-	void addParticleMuffins2();
-	void addCoinLossParticle();
-	//void addParticles(std::string filename, Point point = Point(0,0), float duration = 0.5f, int numberOfParticles = 5);
+	void addParticlesGameObjects(std::string path, float a, float b, int totalPar, float duration);
 	void endGame();
 	void resetCoins();
 
@@ -63,13 +57,8 @@ private:
 	int m_nNumberOfJumps;
 	std::string m_strUsername;
 	ParticleSystem *m_pEmitter;
-	ParticleSystem *m_pCoinEmitter;
-	ParticleSystem *m_pMuffinEmitter;
-	ParticleSystem *m_pMuffinEmitter2;
-	ParticleSystem *m_pBoosterEmitter;
-	ParticleSystem *m_pItemEmitter;
-	ParticleSystem *m_pCoinLossEmitter;
-
+	ParticleSystem* m_pGameObjectEmitter;
+	
 };
 
 #endif
