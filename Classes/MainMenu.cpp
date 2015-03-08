@@ -110,7 +110,8 @@ bool MainMenu::init()
 	// Buttons
 	auto backButton = MenuItemImage::create("buttons/back.png", "buttons/back.png", CC_CALLBACK_1(MainMenu::back, this));	
 	soundButton = MenuItemImage::create("buttons/soundON.png", "buttons/soundOFF.png", CC_CALLBACK_1(MainMenu::sound, this));
-	soundEnabled = true;	
+	WorldManager::getInstance()->soundEnabled = true;
+	//soundEnabled = true;	
 
 	// create menu and add menu items
 	auto* menuSettings = Menu::create(soundButton, backButton, NULL);
@@ -155,11 +156,11 @@ void MainMenu::back(CCObject* pSender)
 
 void MainMenu::sound(CCObject* pSender)
 {
-	if (soundEnabled){		
+	if (WorldManager::getInstance()->soundEnabled){
 		CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();		
 	}
 	else{		
 		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/bgm_menu.wav", true);
 	}
-	soundEnabled = !soundEnabled;
+	WorldManager::getInstance()->soundEnabled = !WorldManager::getInstance()->soundEnabled;
 }

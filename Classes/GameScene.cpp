@@ -14,7 +14,7 @@ Scene* GameScene::createScene()
 	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);	
 	scene->getPhysicsWorld()->setGravity((WorldManager::getInstance()->getGravity()));
 	scene->setTag(TAG_GAME_SCENE);
-		
+	
 	auto gameLayer = GameScene::create();
 	gameLayer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics		
 	scene->addChild(gameLayer, 0, TAG_GAME_LAYER);
@@ -37,7 +37,10 @@ bool GameScene::initializeGame()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/Ambler.wav", true);
+	if (WorldManager::getInstance()->soundEnabled){
+		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/Ambler.wav", true);
+	}
+		
 	
 	// HUD layer
 	m_HudLayer = HUD::create();
