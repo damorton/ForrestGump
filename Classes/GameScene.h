@@ -24,6 +24,7 @@ public:
 	void gameOver();
 	void pauseGame();
 	void addScreenShake();
+
 	CREATE_FUNC(GameScene);
 	
 private:

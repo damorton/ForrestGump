@@ -89,10 +89,10 @@ void GameScene::addScreenShake()
 void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	
-	
+
 	m_HudLayer->update();
 	WorldManager::getInstance()->getPlayer()->update();
-	m_pCollectableFactory->update();		
+	m_pCollectableFactory->update();
 	m_pParallax->update();
 	m_pSpawnManager->update();
 	CollisionManager::getInstance()->checkCollisions();
