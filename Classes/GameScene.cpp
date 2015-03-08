@@ -37,8 +37,13 @@ bool GameScene::initializeGame()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/Ambler.wav", true);
-	
+
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/8bitDungeonLevel.wav", true);
+
+	// game play layer
+	gamePlayLayer = Layer::create();
+	this->addChild(gamePlayLayer, 0, TAG_GAME_LAYER);
+
 	// HUD layer
 	m_HudLayer = HUD::create();
 	this->addChild(m_HudLayer, 1, TAG_HUD);
