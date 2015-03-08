@@ -12,7 +12,7 @@ Scene* GameScene::createScene()
 {	
 	auto scene = Scene::createWithPhysics();
 	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);	
-	scene->getPhysicsWorld()->setGravity(GRAVITATIONAL_FORCE);
+	scene->getPhysicsWorld()->setGravity((WorldManager::getInstance()->getGravity()));
 	scene->setTag(TAG_GAME_SCENE);
 		
 	auto gameLayer = GameScene::create();
@@ -87,13 +87,14 @@ void GameScene::addScreenShake()
 void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	
-		
+	
+	m_HudLayer->update();
 	WorldManager::getInstance()->getPlayer()->update();
 	m_pCollectableFactory->update();		
 	m_pParallax->update();
 	m_pSpawnManager->update();
 	CollisionManager::getInstance()->checkCollisions();
-	m_HudLayer->update();
+	
 
 	//CCLOG("-------------GAME LOOP END--------------");
 }
@@ -121,17 +122,19 @@ void GameScene::pauseGame()
 {
 	if (!m_bPaused)
 	{
-		m_bPaused = true;			
+		m_bPaused = true;
+		Director::getInstance()->getRunningScene()->pause();		
 		playerSprite->pauseSchedulerAndActions();
-		m_pSpawnManager->pauseSchedulerAndActions();		
+		m_pSpawnManager->pauseGame();
 		this->pauseSchedulerAndActions();			
 	}
 	else
 	{
 		m_bPaused = false;
+		Director::getInstance()->getRunningScene()->resume();		
 		playerSprite->resumeSchedulerAndActions();
-		m_pSpawnManager->resumeSchedulerAndActions();
-		this->resumeSchedulerAndActions();		
+		m_pSpawnManager->resumeGame();
+		this->resumeSchedulerAndActions();				
 	}
 }
 

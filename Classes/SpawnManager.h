@@ -24,6 +24,8 @@ public:
 	void resetEnemy(Enemy* enemy);
 	void createEnemies();
 	void createEnemy(std::string filename, std::string name, bool gravity, bool rotate);
+	void pauseGame();
+	void resumeGame();
 	CREATE_FUNC(SpawnManager);
 private:
 	Enemy* m_pGroundEnemy;
