@@ -30,19 +30,16 @@ bool Player::init()
 	m_nItems = 0;
 	m_nNumberOfJumps = 0;
 	
-	this->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, SCREEN_ORIGIN.y + WorldManager::getInstance()->getFloorSprite()->getContentSize().height + this->getContentSize().height / 2));
+	this->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, WorldManager::getInstance()->getFloorSprite()->getContentSize().height + this->getContentSize().height / 2));
 	auto playerPhysicsBody = PhysicsBody::createBox(Size(this->getContentSize().width, this->getContentSize().height - 5), PHYSICSBODY_MATERIAL_DEFAULT);	
 	playerPhysicsBody->setDynamic(true);
 	playerPhysicsBody->setGravityEnable(true);
 	playerPhysicsBody->setRotationEnable(false);
 	this->setPhysicsBody(playerPhysicsBody);
-
-	//Start player walking
-	this->getAnimationWithFrames(1, 4, 1);
-	this->runAction(this->animate);
-
+	
+	// Animate the player
+	this->getAnimationWithFrames("sprites/playerRunning%02d.png", 4);
 	// add hint sprite
-
 
 	WorldManager::getInstance()->setPlayer(this);
 	CollisionManager::getInstance()->setPlayer(this);
@@ -169,24 +166,10 @@ void Player::jump()
 {
 	if (m_ePlayerAction == RUNNING || m_nNumberOfJumps < MAX_NO_OF_JUMPS)
 	{
-		m_nNumberOfJumps++;
 		m_ePlayerAction = JUMPING;
+		this->getAnimationWithFrames("sprites/playerJumping%02d.png", 3);
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/jump3.wav", false, 1.0f, 1.0f, 1.0f);
-		
-		//Stop the Running animation Forever
-		this->stopAllActions();
-
-		//Create the Jump Animation
-		getAnimationWithFrames(1, 3, 2);		
-		Animate* animate2 = animate; //jumping
-
-		//Create the Running Animation
-		getAnimationWithFrames(1, 4, 1);
-		Animate* animate3 = animate; //running	
-
-		//Create the Sequence of Animation
-		FiniteTimeAction* animationSequence = Sequence::create(animate2, animate3, nullptr);
-		this->runAction(animationSequence);						
+		m_nNumberOfJumps++;				
 	}
 	
 	if (m_eBackpackAction == BP_UP)
@@ -206,23 +189,28 @@ void Player::update()
 	// reset player poisiton 
 	this->setPositionX(PLAYER_POSITION_IN_WINDOW);
 	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
-	{			
-		m_ePlayerAction = RUNNING;
+	{	
+		// Running animation		
+		if (m_ePlayerAction == JUMPING)
+		{			
+			this->getAnimationWithFrames("sprites/playerRunning%02d.png", 4);
+		}
+		m_ePlayerAction = RUNNING;			
 		setBPAction(BP_UP);
 		m_pEmitter->setScale(2.0);
 		m_pEmitter->resume();
 		m_nNumberOfJumps = 0;
 	}
 	else
-	{
-		m_ePlayerAction = JUMPING;
+	{				
 		m_pEmitter->setScale(0.0);
 		m_pEmitter->pause();
 	}		
+
 	if (this->getPositionY() > VISIBLE_SIZE_HEIGHT + this->getContentSize().height)
 	{
-		this->getPhysicsBody()->setVelocity(GRAVITATIONAL_FORCE);
-	}
+		setBPAction(BP_DOWN);
+	}	
 }
 
 void Player::touch(const Point& location)
@@ -234,39 +222,20 @@ void Player::cleanUp()
 {
 }
 
-/*
-Animation Function
-Return Animate object, parameters: 
-	init:	initial image, 
-	end:	end image, which animation image
-	act:	action, which animation
-*/
-void Player::getAnimationWithFrames(int init, int end, int act){
+// Create the Animation Sprites, return animate object
+void Player::getAnimationWithFrames(char* enemyAnimation, int frames){
+	
+	this->stopAllActions();
 	Vector<SpriteFrame*> animFrames(4);
 	char str[100] = { 0 };
-	int i = init;
-	while (i <= end)
+	for (int i = 1; i < frames; i++)
 	{
-		if (act == 1)		//1 - Running
-		{		
-			sprintf(str, "sprites/walk%02dsmall.png", i);
-			auto sprite = Sprite::create(str);
-			auto frame = SpriteFrame::create(str, Rect(0, 0, sprite->getContentSize().width, sprite->getContentSize().height)); //we assume that the sprites' dimentions are 55*69 rectangles.
-			i++;
-			animFrames.pushBack(frame);
-		}
-		else if (act == 2)	//2 - Jumping
-		{
-			sprintf(str, "sprites/jump%02dsmall.png", i);
-			auto frame = SpriteFrame::create(str, Rect(0, 0, 55, 69)); //we assume that the sprites' dimentions are 55*69 rectangles.
-			i++;
-			animFrames.pushBack(frame);
-		}
+		sprintf(str, enemyAnimation, i);
+		auto frame = SpriteFrame::create(str, Rect(0, 0, this->getContentSize().width, this->getContentSize().height)); //we assume that the sprites' dimentions are 40*40 rectangles.
+		animFrames.pushBack(frame);
 	}
-
-	//Define number of loops
 	auto animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
-		if(act == 2) animation->setLoops(2);
-		else if (act == 1) animation->setLoops(-1);
-	animate = Animate::create(animation);
+	auto animate = Animate::create(animation);
+	auto repeat = RepeatForever::create(animate);	
+	this->runAction(repeat);
 }

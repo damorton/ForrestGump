@@ -49,8 +49,7 @@ public:
 	void resetCoins();
 
 	//ANIMATION
-	void getAnimationWithFrames(int, int, int);
-	Animate* animate;	
+	void getAnimationWithFrames(char* enemyAnimation, int frames);
 	CREATE_FUNC(Player);	
 
 private:	

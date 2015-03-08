@@ -11,7 +11,7 @@ USING_NS_CC;
 Scene* GameScene::createScene()
 {	
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);	
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);	
 	scene->getPhysicsWorld()->setGravity(GRAVITATIONAL_FORCE);
 	scene->setTag(TAG_GAME_SCENE);
 
@@ -57,7 +57,7 @@ bool GameScene::initializeGame()
 	m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png", "background/backgroundFourth.png", "background/floorBoundaries.png");
 	
 	//Player
-	Player* playerSprite = Player::create("sprites/Playersmall.png");
+	Player* playerSprite = Player::create("sprites/playerRunning01.png");
 	gamePlayLayer->addChild(playerSprite, 1);
 
 	// Spawn manager
