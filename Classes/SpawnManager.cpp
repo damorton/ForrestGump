@@ -122,3 +122,34 @@ void SpawnManager::resetEnemy(Enemy* enemy)
 		enemySprite->setVisible(true);		
 	}
 }
+
+void SpawnManager::pauseGame()
+{
+	if (!CollisionManager::getInstance()->getEnemies().empty())
+	{
+		for (std::vector<Enemy*>::size_type it = 0; it < CollisionManager::getInstance()->getEnemies().size(); ++it)
+		{
+			auto enemy = CollisionManager::getInstance()->getEnemies().at(it);
+
+			if (enemy)
+			{
+				enemy->pauseSchedulerAndActions();
+			}
+		}
+	}
+}
+void SpawnManager::resumeGame()
+{
+	if (!CollisionManager::getInstance()->getEnemies().empty())
+	{
+		for (std::vector<Enemy*>::size_type it = 0; it < CollisionManager::getInstance()->getEnemies().size(); ++it)
+		{
+			auto enemy = CollisionManager::getInstance()->getEnemies().at(it);
+
+			if (enemy)
+			{
+				enemy->resumeSchedulerAndActions();
+			}
+		}
+	}
+}

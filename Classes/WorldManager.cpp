@@ -21,6 +21,7 @@ bool WorldManager::init()
 	this->createDAO();
 	m_fWorldSpeed = 5.0f;
 	m_fEnemyMovementSpeed = 6.0f;
+	m_GravitationalForce = Vec2(0, -500);
 	return true;
 }
 

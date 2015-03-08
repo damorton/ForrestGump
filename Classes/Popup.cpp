@@ -23,10 +23,6 @@ bool Popup::init()
 	if (!CCSprite::init()) {
 		return false;
 	}
-
-	//Be sure that no menu have created so far
-	cont = 0;
-
 	// Background Menu	
 	auto m = Sprite::create("buttons/menu.png");	
 
@@ -54,27 +50,11 @@ void Popup::show(bool shouldShow)
 	GameScene *g = WorldManager::gameLayer();
 
 	// Control actions allowed and not allowed
-	if (shouldShow) {
-		g->pauseSchedulerAndActions();
-	}
-	else {
-		g->resumeSchedulerAndActions();
-	}
-
-	// Stop all the nodes in action in execution (animation, parallax, HUD, etc)
-	for (int i = 0; i < g->getChildrenCount(); i++) {
-		CCNode *n = (CCNode *)g->getChildren().at(i);
-		if (shouldShow) {
-			n->pauseSchedulerAndActions();
-		}
-		else {
-			n->resumeSchedulerAndActions();
-		}
-	}
+	g->pauseGame();
 
 	// Set my Sprite Pause visible
 	this->setVisible(shouldShow);
-
+	
 	// Stop sound
 	if (shouldShow)
 	{
@@ -84,5 +64,6 @@ void Popup::show(bool shouldShow)
 	{
 		SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
 	}
+	
 }
 

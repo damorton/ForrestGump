@@ -19,6 +19,7 @@ public:
 	void mainMenu(CCObject* pSender);
 	void togglePause(bool paused);
 	Popup *popup;
+	
 	MenuItemImage *menu_item_pause;
 
 	void initLabelWithValue(Label* label, Vec2 position, Label* value);

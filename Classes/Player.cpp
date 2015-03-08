@@ -160,7 +160,7 @@ void Player::update()
 
 	if (this->getPositionY() > VISIBLE_SIZE_HEIGHT + this->getContentSize().height)
 	{
-		setBPAction(BP_DOWN);
+		this->setPositionY(VISIBLE_SIZE_HEIGHT + this->getContentSize().height);
 	}	
 }
 

@@ -55,6 +55,7 @@ bool HUD::init()
 	hudButtonsMenu->setPosition(Point(0, 0));
 	this->addChild(hudButtonsMenu);
 
+	
 	// Add Pause menu to HUD
 	popup = Popup::createPopup();
 	
@@ -73,7 +74,7 @@ bool HUD::init()
 	popup->addChild(menu, 2);
 	// Add pop menu to HUD Layer
 	this->addChild(popup, 1);
-
+	
 	return true;
 }
 
@@ -120,5 +121,5 @@ void HUD::togglePause(bool paused)
 {
 	popup->show(paused);
 	WorldManager::getInstance()->gameLayer()->setTouchEnabled(!paused);
-	menu_item_pause->setVisible(!paused);
+	menu_item_pause->setVisible(!paused);	
 }

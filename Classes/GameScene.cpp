@@ -12,13 +12,13 @@ Scene* GameScene::createScene()
 {	
 	auto scene = Scene::createWithPhysics();
 	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);	
-	scene->getPhysicsWorld()->setGravity(GRAVITATIONAL_FORCE);
+	scene->getPhysicsWorld()->setGravity((WorldManager::getInstance()->getGravity()));
 	scene->setTag(TAG_GAME_SCENE);
-
-	GameScene* gameLayer = GameScene::create();
+		
+	auto gameLayer = GameScene::create();
 	gameLayer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics		
-	
 	scene->addChild(gameLayer, 0, TAG_GAME_LAYER);
+
 	return scene;
 }
 
@@ -38,37 +38,36 @@ bool GameScene::initializeGame()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/Ambler.wav", true);
-
-	// game play layer
-	gamePlayLayer = Layer::create();
-	this->addChild(gamePlayLayer, 0, TAG_GAME_LAYER);
-
+	
 	// HUD layer
 	m_HudLayer = HUD::create();
-	gamePlayLayer->addChild(m_HudLayer, 1, TAG_HUD);
+	this->addChild(m_HudLayer, 1, TAG_HUD);
 
 	// segment spawns
 	m_pCollectableFactory = CollectableFactory::create();
-	gamePlayLayer->addChild(m_pCollectableFactory, 0, TAG_SEGMENT_MANAGER);
+	this->addChild(m_pCollectableFactory, 0, TAG_SEGMENT_MANAGER);
 
 	//Background
 	m_pParallax = Parallax::create();
-	gamePlayLayer->addChild(m_pParallax, -1, "parallax");
+	this->addChild(m_pParallax, -1, "parallax");
 	m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png", "background/backgroundFourth.png", "background/floorBoundaries.png");
 	
 	//Player
-	Player* playerSprite = Player::create("sprites/playerRunning01.png");
-	gamePlayLayer->addChild(playerSprite, 1);
+	playerSprite = Player::create("sprites/playerRunning01.png");
+	this->addChild(playerSprite, 1);
 
 	// Spawn manager
 	m_pSpawnManager = SpawnManager::create();
-	gamePlayLayer->addChild(m_pSpawnManager, 0);
+	this->addChild(m_pSpawnManager, 0);
 		
 	// touch controls
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->setSwallowTouches(true);
 	listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+
+	m_bPaused = false;
 
 	this->scheduleUpdate();
 	return true;
@@ -88,12 +87,14 @@ void GameScene::addScreenShake()
 void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	
-	CollisionManager::getInstance()->checkCollisions();
+
+	m_HudLayer->update();
 	WorldManager::getInstance()->getPlayer()->update();
 	m_pCollectableFactory->update();
 	m_pParallax->update();
 	m_pSpawnManager->update();
-	m_HudLayer->update();
+	CollisionManager::getInstance()->checkCollisions();
+	
 
 	//CCLOG("-------------GAME LOOP END--------------");
 }
@@ -111,10 +112,30 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 }
 
 void GameScene::gameOver()
-{
-	CCLOG("GameOver");	
+{	
+	this->pauseGame();
 	Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
+}
+
+void GameScene::pauseGame()
+{
+	if (!m_bPaused)
+	{
+		m_bPaused = true;
+		Director::getInstance()->getRunningScene()->pause();		
+		playerSprite->pauseSchedulerAndActions();
+		m_pSpawnManager->pauseGame();
+		this->pauseSchedulerAndActions();			
+	}
+	else
+	{
+		m_bPaused = false;
+		Director::getInstance()->getRunningScene()->resume();		
+		playerSprite->resumeSchedulerAndActions();
+		m_pSpawnManager->resumeGame();
+		this->resumeSchedulerAndActions();				
+	}
 }
 
 void GameScene::cleanup()

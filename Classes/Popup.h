@@ -10,8 +10,6 @@ public:
 	bool init();
 	static Popup* createPopup();
 	void show(bool shouldShow);
-	int cont;
-
 };
 
 #endif // __POPUP_SPRITE_H__
