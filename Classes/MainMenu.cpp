@@ -1,5 +1,6 @@
 #include "MainMenu.h"
 #include "GameScene.h"
+#include "WorldManager.h"
 
 USING_NS_CC;
 
@@ -108,9 +109,11 @@ bool MainMenu::init()
 	// Add botoes
 	// Buttons
 	auto backButton = MenuItemImage::create("buttons/back.png", "buttons/back.png", CC_CALLBACK_1(MainMenu::back, this));	
+	soundButton = MenuItemImage::create("buttons/soundON.png", "buttons/soundOFF.png", CC_CALLBACK_1(MainMenu::sound, this));
+	soundEnabled = true;	
 
 	// create menu and add menu items
-	auto* menuSettings = Menu::create(backButton, NULL);
+	auto* menuSettings = Menu::create(soundButton, backButton, NULL);
 	menuSettings->alignItemsVertically();
 
 	// Add botoes to pop menu
@@ -148,4 +151,15 @@ void MainMenu::settings(cocos2d::Ref *pSender)
 void MainMenu::back(CCObject* pSender)
 {
 	popupSettings->show(false, false);	
+}
+
+void MainMenu::sound(CCObject* pSender)
+{
+	if (soundEnabled){		
+		CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();		
+	}
+	else{		
+		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/bgm_menu.wav", true);
+	}
+	soundEnabled = !soundEnabled;
 }
