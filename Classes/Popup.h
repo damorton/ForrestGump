@@ -12,8 +12,6 @@ public:
 	void show(bool shouldShow);
 	int cont;
 
-	void pauseGame();
-	void mainMenu();
 };
 
 #endif // __POPUP_SPRITE_H__

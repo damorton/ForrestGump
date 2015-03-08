@@ -8,7 +8,6 @@ USING_NS_CC;
 //
 // Popup Sprite
 
-#include <iostream>
 #include "Popup.h"
 #include "GameScene.h"
 #include "Definitions.h"
@@ -28,11 +27,12 @@ bool Popup::init()
 	//Be sure that no menu have created so far
 	cont = 0;
 
-	// Background Menu
-	CCSprite *m = CCSprite::createWithSpriteFrameName("buttons/menu.png");
+	// Background Menu	
+	auto m = Sprite::create("buttons/menu.png");	
+
 	m->setPosition(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2);	
 	this->addChild(m, 1);
-
+	/*
 	// Buttons
 	// create the Pause menu items
 	auto resumeButton = MenuItemImage::create("buttons/btNotResumeGame.png", "buttons/btActResumeGame.png", CC_CALLBACK_1(Popup::resume, this));
@@ -46,21 +46,11 @@ bool Popup::init()
 	auto* menu = Menu::create(resumeButton, mainMenuButton, NULL);
 	menu->setPosition(Point(0, 0));
 	this->addChild(menu);
-
+	*/
 	// Add menu to my Sprite Pause menu
 	this->setVisible(false);
-
+	
 	return true;
-}
-
-void Popup::pauseGame()
-{
-	WorldManager::getInstance()->hudLayer()->pause;
-}
-
-void Popup::mainMenu()
-{
-	WorldManager::getInstance()->hudLayer()->mainMenu;
 }
 
 //Popup with title, insert text for parameter
