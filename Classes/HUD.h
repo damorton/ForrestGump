@@ -2,6 +2,7 @@
 #define	HUD_H_
 
 #include "cocos2d.h"
+#include "Popup.h"
 
 USING_NS_CC;
 
@@ -11,8 +12,16 @@ public:
 	virtual bool init();		
 	void addScore();
 	void update();
-	void gameOver(cocos2d::Ref *pSender);
-	void pauseGame(cocos2d::Ref *pSender);
+	
+	//Pause menu
+	void pause(CCObject* pSender);
+	void resume(CCObject* pSender);
+	void mainMenu(CCObject* pSender);
+	void togglePause(bool paused);
+	Popup *popup;
+	
+	MenuItemImage *menu_item_pause;
+
 	void initLabelWithValue(Label* label, Vec2 position, Label* value);
 	CREATE_FUNC(HUD);
 private:

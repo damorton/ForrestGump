@@ -1,6 +1,7 @@
 #include "HUD.h"
 #include "WorldManager.h"
 #include "Definitions.h"
+#include "MainMenu.h"
 
 bool HUD::init()
 {	
@@ -46,7 +47,7 @@ bool HUD::init()
 	this->addChild(m_pCoinsValueLabel);
 		
 	// Menu 
-	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(HUD::pauseGame, this));
+	menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(HUD::pause, this));
 	menu_item_pause->setPosition(Vec2(m_Origin.x + VISIBLE_SIZE_WIDTH - menu_item_pause->getContentSize().width / 2,
 		m_Origin.y + VISIBLE_SIZE_HEIGHT - menu_item_pause->getContentSize().height / 2));
 		
@@ -54,7 +55,26 @@ bool HUD::init()
 	hudButtonsMenu->setPosition(Point(0, 0));
 	this->addChild(hudButtonsMenu);
 
-	//CCLOG("HUD initialized");
+	
+	// Add Pause menu to HUD
+	popup = Popup::createPopup();
+	
+
+	// Add botoes
+	// Buttons
+	auto resumeButton = MenuItemImage::create("buttons/btNotResumeGame.png", "buttons/btActResumeGame.png", CC_CALLBACK_1(HUD::resume, this));
+	auto mainMenuButton = MenuItemImage::create("buttons/btNotMainGame.png", "buttons/btActMainGame.png", CC_CALLBACK_1(HUD::mainMenu, this));
+
+	// create menu and add menu items
+	auto* menu = Menu::create(resumeButton, mainMenuButton, NULL);
+	menu->setPosition(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2);
+	menu->alignItemsVertically();
+	
+	// Add botoes to pop menu
+	popup->addChild(menu, 2);
+	// Add pop menu to HUD Layer
+	this->addChild(popup, 1);
+	
 	return true;
 }
 
@@ -81,11 +101,25 @@ void HUD::update()
 	}
 }
 
-void HUD::gameOver(cocos2d::Ref *pSender)
+void HUD::pause(CCObject* pSender)
 {
-	WorldManager::getInstance()->gameLayer()->gameOver();
+	this->togglePause(true);
 }
-void HUD::pauseGame(cocos2d::Ref *pSender)
+
+void HUD::resume(CCObject* pSender)
 {
-	WorldManager::getInstance()->gameLayer()->pauseGame();
+	this->togglePause(false);
+}
+
+void HUD::mainMenu(CCObject* pSender)
+{
+	auto scene = MainMenu::createScene();
+	Director::getInstance()->replaceScene(TransitionFade::create(1, scene));
+}
+
+void HUD::togglePause(bool paused)
+{
+	popup->show(paused);
+	WorldManager::getInstance()->gameLayer()->setTouchEnabled(!paused);
+	menu_item_pause->setVisible(!paused);	
 }

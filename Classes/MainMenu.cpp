@@ -98,6 +98,27 @@ bool MainMenu::init()
 	settingsButton->addChild(ccEmitter3);
 	highscoresButton->addChild(ccEmitter);
 
+	/*
+	// Settings
+
+	// Add Pause menu to HUD
+	popupSettings = Popup::createPopup();
+
+
+	// Add botoes
+	// Buttons
+	auto backButton = MenuItemImage::create("buttons/btNotBack.png", "buttons/btBack.png", CC_CALLBACK_1(MainMenu::back, this));
+
+	// create menu and add menu items
+	auto* menu = Menu::create(backButton, NULL);
+	menu->setPosition(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2);
+	menu->alignItemsVertically();
+
+	// Add botoes to pop menu
+	popupSettings->addChild(menu, 2);
+	// Add pop menu to HUD Layer
+	this->addChild(popupSettings, 1);	
+	*/
     return true;
 }
 
@@ -121,5 +142,12 @@ void MainMenu::leaderboard(cocos2d::Ref *pSender)
 
 void MainMenu::settings(cocos2d::Ref *pSender)
 {		
+//	popupSettings->show(true);
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);	
 }
+/*
+void MainMenu::back(CCObject* pSender)
+{
+	popupSettings->show(false);	
+}
+*/
