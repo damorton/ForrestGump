@@ -57,14 +57,14 @@ void Player::addDistance()
 void Player::addCoin()
 {
 	m_nCoins++;
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Pickup_Coin.wav", false, 1.0f, 1.0f, 1.0f);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_25.wav", false, 1.0f, 1.0f, 1.0f);
 	this->addParticleCoins();
 }
 
 void Player::addBooster()
 {
 	m_nBoosters++;
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Boost.wav", false, 1.0f, 1.0f, 1.0f);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40Redone.wav", false, 1.0f, 1.0f, 1.0f);
 	this->addParticleBoosters();
 }
 
@@ -170,7 +170,7 @@ void Player::jump()
 	{
 		m_nNumberOfJumps++;
 		m_ePlayerAction = JUMPING;
-		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/jump3.wav", false, 1.0f, 1.0f, 1.0f);
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40.wav", false, 1.0f, 1.0f, 1.0f);
 		
 		//Stop the Running animation Forever
 		this->stopAllActions();
