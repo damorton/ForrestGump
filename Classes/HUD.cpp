@@ -61,19 +61,13 @@ bool HUD::init()
 
 	// Add botoes
 	// Buttons
-	// create the Pause menu items
 	auto resumeButton = MenuItemImage::create("buttons/btNotResumeGame.png", "buttons/btActResumeGame.png", CC_CALLBACK_1(HUD::resume, this));
 	auto mainMenuButton = MenuItemImage::create("buttons/btNotMainGame.png", "buttons/btActMainGame.png", CC_CALLBACK_1(HUD::mainMenu, this));
-
-	// position the menu buttons on screen
-	//resumeButton->setPosition(VISIBLE_SIZE_WIDTH / 2 + m_Origin.x, VISIBLE_SIZE_HEIGHT / 2 + m_Origin.y);
-	//mainMenuButton->setPosition(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2);
 
 	// create menu and add menu items
 	auto* menu = Menu::create(resumeButton, mainMenuButton, NULL);
 	menu->setPosition(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2);
 	menu->alignItemsVertically();
-	
 	
 	// Add botoes to pop menu
 	popup->addChild(menu, 2);
@@ -120,7 +114,6 @@ void HUD::mainMenu(CCObject* pSender)
 {
 	auto scene = MainMenu::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(1, scene));
-	//WorldManager::getInstance()->gameLayer()->mainGame;
 }
 
 void HUD::togglePause(bool paused)
