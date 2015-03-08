@@ -45,25 +45,26 @@ Popup* Popup::createPopup()
 }
 
 //Shows up a popup screen
-void Popup::show(bool shouldShow)
+void Popup::show(bool shouldShow, bool sel)
 {
-	GameScene *g = WorldManager::gameLayer();
+	if (sel)
+	{
+		GameScene *g = WorldManager::gameLayer();
 
-	// Control actions allowed and not allowed
-	g->pauseGame();
+		// Control actions allowed and not allowed
+		g->pauseGame();
 
+		// Stop sound
+		if (shouldShow)
+		{
+			SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+		}
+		else
+		{
+			SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+		}
+	}
 	// Set my Sprite Pause visible
 	this->setVisible(shouldShow);
 	
-	// Stop sound
-	if (shouldShow)
-	{
-		SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
-	}
-	else
-	{
-		SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
-	}
-	
 }
-

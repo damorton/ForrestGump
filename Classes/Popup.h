@@ -9,7 +9,7 @@ class Popup : public cocos2d::Sprite
 public:
 	bool init();
 	static Popup* createPopup();
-	void show(bool shouldShow);
+	void show(bool shouldShow, bool);
 };
 
 #endif // __POPUP_SPRITE_H__

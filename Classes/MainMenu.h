@@ -4,6 +4,8 @@
 #include "cocos2d.h"
 #include "Popup.h"
 
+USING_NS_CC;
+
 class MainMenu : public cocos2d::Layer
 {
 public:
@@ -14,7 +16,7 @@ public:
 	void playGame(Ref *pSender);
 	void leaderboard(Ref *pSender);
 	void settings(Ref *pSender);	
-//	void back(CCObject* pSender);
+	void back(CCObject* pSender);
 	
 	Popup *popupSettings;
 	CREATE_FUNC(MainMenu);
