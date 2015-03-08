@@ -15,13 +15,17 @@ public:
 	virtual ~SpawnManager(){};
 	void update();
 	bool spawnEnemy();
+	int getRandomHeight();
+	int getRandomXPos();
 	int getEnemyCount();
 	bool addEnemyToActiveVector(Enemy* enemy);
 	void resetSprite(Node* sender, void* enemy);
 	void moveSprites();
 	void resetEnemy(Enemy* enemy);
 	void createEnemies();
-	void createEnemy(std::string filename, std::string name, Vec2 position, bool gravity, bool rotate);
+	void createEnemy(std::string filename, std::string name, bool gravity, bool rotate);
+	void pauseGame();
+	void resumeGame();
 	CREATE_FUNC(SpawnManager);
 private:
 	Enemy* m_pGroundEnemy;

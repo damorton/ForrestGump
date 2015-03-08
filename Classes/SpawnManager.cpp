@@ -17,54 +17,57 @@ bool SpawnManager::init()
 
 void SpawnManager::createEnemies()
 {
-	for (int i = 0; i < 10; i++)
-	{
-		int enemyType;
-		enemyType = (rand() % 3);
-		switch (enemyType)
-		{
-		case 0:
-			this->createEnemy("sprites/walk05.png",
-				"ground",
-				Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH * 1.2, SCREEN_ORIGIN.y + (WorldManager::getInstance()->getFloorSprite()->getContentSize().height * 2)), true, false);
-			break;
-		case 1:
-			this->createEnemy("sprites/Enemy.png",
-				"floating",
-				Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH * 1.2, SCREEN_ORIGIN.y + 100), false, false);
-			break;
-		case 2:
-			this->createEnemy("sprites/Enemy3.png",
-				"rotating",
-				Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH * 1.2, SCREEN_ORIGIN.y + VISIBLE_SIZE_HEIGHT / 3), true , false);
-			break;
-		default:
-			CCLOG("unknown enemy type");
-		}
-
-	}
+	// Ground Enemy
+	this->createEnemy("sprites/ground01.png", "ground", true, false);
+	this->createEnemy("sprites/ground01.png", "ground", true, false);
+	this->createEnemy("sprites/ground01.png", "ground", true, false);
+	// Floating Enemies
+	this->createEnemy("sprites/floating01.png", "floating", false, false);		
+	this->createEnemy("sprites/floating01.png", "floating", false, false);
+	this->createEnemy("sprites/floating01.png", "floating", false, false);
+	this->createEnemy("sprites/floating01.png", "floating", false, false);
+	this->createEnemy("sprites/floating01.png", "floating", false, false);
+	this->createEnemy("sprites/floating01.png", "floating", false, false);
 }
 
-void SpawnManager::createEnemy(std::string filename, std::string name, Vec2 position, bool gravity, bool rotate)
+int SpawnManager::getRandomHeight()
+{	
+	int min = (int)WorldManager::getInstance()->getFloorSprite()->getContentSize().height * 2;
+	int max = (int)VISIBLE_SIZE_HEIGHT;	
+	return (rand() % max + min);
+}
+
+int SpawnManager::getRandomXPos()
+{		
+	int min = (int)VISIBLE_SIZE_WIDTH * 1.2;
+	int max = (int)VISIBLE_SIZE_WIDTH * 2;
+	return (rand() % max + min);
+}
+
+void SpawnManager::createEnemy(std::string filename, std::string name, bool gravity, bool rotate)
 {
 	auto enemy = Enemy::create(filename);
-	enemy->setName(name);
-	enemy->setPosition(position);
-	auto physicsBody = PhysicsBody::createBox(enemy->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-	enemy->setPhysicsBody(physicsBody);
-	enemy->getPhysicsBody()->setGravityEnable(gravity);
-	enemy->getPhysicsBody()->setRotationEnable(rotate);
+	enemy->setName(name);	
+	if (name == "floating")
+	{
+		enemy->setPosition(Vec2(this->getRandomXPos(), this->getRandomHeight()));
+	}
+	else if (name == "ground")
+	{
+		enemy->setPosition(Vec2(this->getRandomXPos(), WorldManager::getInstance()->getFloorSprite()->getContentSize().height + enemy->getContentSize().height / 2));
+	}	
+	enemy->setVisible(true);
 	enemy->animateEnemy();
-	enemy->setVisible(false);
 	this->addChild(enemy);
 	CollisionManager::getInstance()->addEnemy(enemy);
+
 }
 
 bool SpawnManager::spawnEnemy()
-{
+{	
 	int randomnumber;
 	int numberOfEnemies = CollisionManager::getInstance()->getEnemies().size();	
-	randomnumber = (rand() % numberOfEnemies);
+	randomnumber = (rand() % numberOfEnemies);	
 	this->addEnemyToActiveVector(CollisionManager::getInstance()->getEnemies().at(randomnumber));	
 	m_bIsSpawned = true;
 	return true;
@@ -77,41 +80,18 @@ bool SpawnManager::addEnemyToActiveVector(Enemy* enemy)
 	return true;
 }
 
-/*
-void SpawnManager::resetSprite(Node* sender, void* enemyRef)
-{
-	if (enemyRef != NULL)
-	{
-		Enemy* enemy = static_cast<Enemy*>(enemyRef);
-		enemy->stopAllActions();
-		enemy->setPosition(Vec2(enemy->getPositionX() + (VISIBLE_SIZE_WIDTH * 2), enemy->getPositionY()));
-		enemy->setVisible(true);
-		enemy->setState(Enemy::ALIVE);
-		m_bIsSpawned = false;
-	}
-}
-*/
-
 void SpawnManager::update()
-{
-	if (m_vpActiveEnemies.empty())
-	{
-		m_bIsSpawned = false;
-	}
-	if (!m_bIsSpawned)
-	{
-		this->spawnEnemy();
-	}
+{	
 	this->moveSprites();
 }
 
 void SpawnManager::moveSprites()
 {
-	if (!m_vpActiveEnemies.empty())
+	if (!CollisionManager::getInstance()->getEnemies().empty())
 	{
-		for (std::vector<Enemy*>::size_type it = 0; it < m_vpActiveEnemies.size(); ++it)
+		for (std::vector<Enemy*>::size_type it = 0; it < CollisionManager::getInstance()->getEnemies().size(); ++it)
 		{
-			auto enemy = m_vpActiveEnemies.at(it);
+			auto enemy = CollisionManager::getInstance()->getEnemies().at(it);
 
 			if (enemy)
 			{
@@ -130,17 +110,46 @@ void SpawnManager::resetEnemy(Enemy* enemy)
 {
 	if (enemy != NULL)
 	{
-		Enemy* tile = static_cast<Enemy*>(enemy);
-		if (tile->getName() == "floating")
+		Enemy* enemySprite = static_cast<Enemy*>(enemy);
+		if (enemySprite->getName() == "floating")
 		{
-			tile->setPosition(Vec2(tile->getPositionX() + (VISIBLE_SIZE_WIDTH * 2), 200));
+			enemySprite->setPosition(Vec2(this->getRandomXPos(), getRandomHeight()));
 		}
-		else
+		else if (enemySprite->getName() == "ground")
 		{
-			tile->setPosition(Vec2(tile->getPositionX() + (VISIBLE_SIZE_WIDTH * 2), tile->getPositionY()));
+			enemySprite->setPosition(Vec2(this->getRandomXPos(), enemySprite->getPositionY()));
 		}
-		tile->setVisible(false);
-		enemy->stopAllActions();
-		m_vpActiveEnemies.clear();
+		enemySprite->setVisible(true);		
+	}
+}
+
+void SpawnManager::pauseGame()
+{
+	if (!CollisionManager::getInstance()->getEnemies().empty())
+	{
+		for (std::vector<Enemy*>::size_type it = 0; it < CollisionManager::getInstance()->getEnemies().size(); ++it)
+		{
+			auto enemy = CollisionManager::getInstance()->getEnemies().at(it);
+
+			if (enemy)
+			{
+				enemy->pauseSchedulerAndActions();
+			}
+		}
+	}
+}
+void SpawnManager::resumeGame()
+{
+	if (!CollisionManager::getInstance()->getEnemies().empty())
+	{
+		for (std::vector<Enemy*>::size_type it = 0; it < CollisionManager::getInstance()->getEnemies().size(); ++it)
+		{
+			auto enemy = CollisionManager::getInstance()->getEnemies().at(it);
+
+			if (enemy)
+			{
+				enemy->resumeSchedulerAndActions();
+			}
+		}
 	}
 }

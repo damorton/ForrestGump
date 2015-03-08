@@ -38,6 +38,8 @@ public:
 	void setEnemyMovementSpeed(float speed){ m_fEnemyMovementSpeed = speed; };
 	float getGameWorldSpeed(){ return m_fWorldSpeed; };
 	float getEnemyMovementSpeed(){ return m_fEnemyMovementSpeed; };
+	Vec2 getGravity(){ return m_GravitationalForce; };
+	void setGravity(Vec2 gravity){m_GravitationalForce = gravity; };
 private:	
 	WorldManager(){ this->init(); };  
 	~WorldManager(){ this->cleanUp(); }; 
@@ -48,6 +50,7 @@ private:
 	cocos2d::Sprite* m_pFloorSprite;
 	float m_fWorldSpeed;
 	float m_fEnemyMovementSpeed;
+	Vec2 m_GravitationalForce;
 };
 
 

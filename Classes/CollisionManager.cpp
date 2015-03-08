@@ -96,7 +96,6 @@ void CollisionManager::checkCollisionsWithEnemies()
 				{
 					if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
 					{
-
 						enemy->setVisible(false);
 						if (m_pPlayer->getCoins() < 1)
 						{
@@ -104,7 +103,8 @@ void CollisionManager::checkCollisionsWithEnemies()
 						}
 						else
 						{
-							m_pPlayer->addCoinLossParticle();
+
+							m_pPlayer->addParticlesGameObjects("particles/CoinLoss2", m_pPlayer->getContentSize().width, m_pPlayer->getContentSize().height, m_pPlayer->getCoins(), 0.5);
 							m_pPlayer->resetCoins();
 							CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/CoinDrop.wav", false, 0.5,0.5,0.5);
 						}
@@ -116,22 +116,17 @@ void CollisionManager::checkCollisionsWithEnemies()
 						//CCLOG("Collision detected");
 						if (enemy->getName() == "ground")
 						{
+
 							WorldManager::getInstance()->gameLayer()->addScreenShake();
-							//gameOver();
+							m_pPlayer->addParticlesGameObjects("particles/coinLoss2.plist", m_pPlayer->getContentSize().width, m_pPlayer->getContentSize().height / 2, m_pPlayer->getCoins(), 0.5);
+							m_pPlayer->resetCoins();
 						}
-						else if (enemy->getName() == "floating")
-						{
-							//gameOver();
-						}
-						
-					}				
-
-
 					}
 				}
 			}
 		}
 	}
+}
 
 
 void CollisionManager::cleanUp()

@@ -22,6 +22,7 @@ public:
 	void update(float delta);	
 	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event * event);	
 	void gameOver();
+	void pauseGame();
 	void addScreenShake();
 	CREATE_FUNC(GameScene);
 	
@@ -32,11 +33,12 @@ private:
 	PhysicsWorld* m_pSceneWorld;			
 	HUD* m_HudLayer;
 	Parallax* m_pParallax;
-	Layer* gamePlayLayer;
+	Layer* gamePlayLayer;	
 	Player* playerSprite;
 	CollectableFactory* m_pCollectableFactory;
 	SpawnManager* m_pSpawnManager;
 	Enemy m_enemey;	
+	bool m_bPaused;
 };
 
 #endif // __GAMESCENE_SCENE_H__

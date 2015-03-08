@@ -22,7 +22,7 @@ Enemy* Enemy::create(const std::string& filename)
 
 bool Enemy::init()
 {
-	setType(ENEMY);
+	setType(ENEMY);	
 	return true;
 }
 
@@ -33,11 +33,11 @@ void Enemy::runAI()
 
 void Enemy::update()
 {
-	CCLOG("Updating Enemy");
+	
 }
 
 void Enemy::cleanUp()
-{	CCLOG("Enemy::cleanUp()");
+{	
 
 }
 
@@ -45,45 +45,27 @@ void Enemy::cleanUp()
 void Enemy::animateEnemy(){
 	if (this->getName() == "ground")
 	{
-		this->getAnimationWithFrames(5, 8, 0);
-		this->runAction(animate);
+		this->getAnimationWithFrames("sprites/ground%02d.png", 4);
 	}
 	else if (this->getName() == "floating")
 	{
-		this->getAnimationWithFrames(9, 12, 1);
-		this->runAction(animate);
-	}
-	else if (this->getName() == "rotating")
-	{
-		this->getAnimationWithFrames(14, 17, 2);
-		this->runAction(animate);
-	}
-	else
-	{
-		// no animation
-	}
+		this->getAnimationWithFrames("sprites/floating%02d.png", 4);
+	}	
 }
 
 // Create the Animation Sprites, return animate object
-void Enemy::getAnimationWithFrames(int init, int end, int act){
+void Enemy::getAnimationWithFrames(char* enemyAnimation, int frames){
 
 	Vector<SpriteFrame*> animFrames(4);
-	char str[100] = { 0 };
-	int i = init;
-	while (i <= end)
+	char str[100] = { 0 };	
+	for (int i = 1; i < frames; i++)
 	{
-		sprintf(str, "sprites/walk%02dsmall.png", i);
-		auto frame = SpriteFrame::create(str, Rect(0, 0, 55, 69)); //we assume that the sprites' dimentions are 55*69 rectangles.
-		i++;
+		sprintf(str, enemyAnimation, i);		
+		auto frame = SpriteFrame::create(str, Rect(0, 0, this->getContentSize().width, this->getContentSize().height)); //we assume that the sprites' dimentions are 40*40 rectangles.
 		animFrames.pushBack(frame);
-	}
-
-	//Define number of loops
-	auto animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
-	if (act == 1) {
-		animation->setLoops(2);
-		animation->setDelayPerUnit(1);
-	}
-	else animation->setLoops(-1);
-	animate = Animate::create(animation);
+	}	
+	auto animation = Animation::createWithSpriteFrames(animFrames, 0.2f);	
+	auto animate = Animate::create(animation);	
+	auto repeat = RepeatForever::create(animate);
+	this->runAction(repeat);
 }

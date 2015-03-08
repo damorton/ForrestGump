@@ -32,6 +32,7 @@ bool CollectableFactory::init()
 
 bool CollectableFactory::initTilePositions(TMXLayer* layer, std::string name)
 {
+	layer->setPosition(Vec2::ZERO);
 	Size layerSize = layer->getLayerSize();
 	for (int i = 0; i < layerSize.height; i++)
 	{
@@ -41,7 +42,7 @@ bool CollectableFactory::initTilePositions(TMXLayer* layer, std::string name)
 			if (tileSprite)
 			{
 				tileSprite->setName(name);
-				tileSprite->setPosition(Vec2(SCREEN_ORIGIN.x + tileSprite->getPositionX() + VISIBLE_SIZE_WIDTH, SCREEN_ORIGIN.y + tileSprite->getPositionY()));
+				tileSprite->setPosition(Vec2(tileSprite->getPositionX() + VISIBLE_SIZE_WIDTH, tileSprite->getPositionY()));
 				tileSprite->setVisible(false);
 			}
 		}
@@ -115,33 +116,6 @@ bool CollectableFactory::addPhysicsToTiles(TMXLayer* layer)
 	return true;
 }
 
-/*
-void CollectableFactory::addSpriteBehaviour(Sprite* tileSprite)
-{
-	if (tileSprite != NULL)
-	{
-		auto reset = CCCallFuncND::create(this, callfuncND_selector(CollectableFactory::resetSprite), (void*)tileSprite);
-		auto tileSpriteBehaviour = Sequence::create(
-			MoveBy::create(WORLD_MOVEMENT_SPEED, Point(-(VISIBLE_SIZE_WIDTH * 2), 0)),
-			reset,
-			NULL);
-		tileSprite->runAction(tileSpriteBehaviour);
-	}
-}
-
-void CollectableFactory::resetSprite(Node* sender, void* tileSprite)
-{
-	if (tileSprite != NULL)
-	{
-		Sprite* tile = static_cast<Sprite*>(tileSprite);
-		tile->stopAllActions();				
-		tile->setPosition(Vec2(tile->getPositionX() + (VISIBLE_SIZE_WIDTH * 2), tile->getPositionY()));
-		tile->setVisible(true);		
-		m_bIsSpawned = false;
-	}	
-}
-*/
-
 void CollectableFactory::resetItem(Sprite* item)
 {	
 	if(item != NULL)
@@ -169,7 +143,6 @@ void CollectableFactory::removeLayer(Node* sender, void* layer)
 bool CollectableFactory::addTMXTileMap(const std::string& filename)
 {	
 	m_pTileMap = TMXTiledMap::create(filename);
-	m_pTileMap->setPosition(SCREEN_ORIGIN);
 	this->addChild(m_pTileMap);
 	return true;
 }
@@ -191,7 +164,7 @@ void CollectableFactory::moveSprites()
 			if (item)
 			{
 				item->setPosition(Vec2(item->getPosition().x - WORLD_MOVEMENT_SPEED, item->getPosition().y));
-				if (item->getPosition().x < SCREEN_ORIGIN.x - item->getContentSize().width / 2){
+				if (item->getPosition().x < -item->getContentSize().width / 2){
 					this->resetItem(item);					
 				}
 			}
