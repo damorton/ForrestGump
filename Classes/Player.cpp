@@ -66,25 +66,16 @@ void Player::addDistance()
 void Player::addCoin()
 {
 	m_nCoins++;
-<<<<<<< HEAD
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_25.wav", false, 1.0f, 1.0f, 1.0f);
-	this->addParticleCoins();
-=======
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Pickup_Coin.wav", false, 1.0f, 1.0f, 1.0f);
 	this->addParticlesGameObjects("particles/coin.plist", this->getContentSize().width, this->getContentSize().height, 1, 0.5);
->>>>>>> fb0096623b1b558f034674a4c72f17b64e2f1882
 }
 
 void Player::addBooster()
 {
 	m_nBoosters++;
-<<<<<<< HEAD
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40Redone.wav", false, 1.0f, 1.0f, 1.0f);
-	this->addParticleBoosters();
-=======
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Boost.wav", false, 1.0f, 1.0f, 1.0f);
 	this->addParticlesGameObjects("particles/booster.plist", this->getContentSize().width / 2, 0, 1, 0.5);
->>>>>>> fb0096623b1b558f034674a4c72f17b64e2f1882
+
 }
 
 void Player::addFood()
@@ -139,27 +130,8 @@ void Player::jump()
 	if (m_ePlayerAction == RUNNING || m_nNumberOfJumps < MAX_NO_OF_JUMPS)
 	{
 		m_ePlayerAction = JUMPING;
-<<<<<<< HEAD
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40.wav", false, 1.0f, 1.0f, 1.0f);
-		
-		//Stop the Running animation Forever
-		this->stopAllActions();
-
-		//Create the Jump Animation
-		getAnimationWithFrames(1, 3, 2);		
-		Animate* animate2 = animate; //jumping
-
-		//Create the Running Animation
-		getAnimationWithFrames(1, 4, 1);
-		Animate* animate3 = animate; //running	
-
-		//Create the Sequence of Animation
-		FiniteTimeAction* animationSequence = Sequence::create(animate2, animate3, nullptr);
-		this->runAction(animationSequence);		
-		this->getPhysicsBody()->applyImpulse(PLAYER_JUMP_VEL);
-=======
 		this->getAnimationWithFrames("sprites/playerJumping%02d.png", 3);
-		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/jump3.wav", false, 1.0f, 1.0f, 1.0f);
 		m_nNumberOfJumps++;				
 	}
 	
@@ -174,7 +146,6 @@ void Player::jump()
 		m_pJetpack->setSpriteFrame(SpriteFrame::create("sprites/jetpackUp.png", Rect(0, 0, m_pJetpack->getContentSize().width, m_pJetpack->getContentSize().height)));
 		this->getPhysicsBody()->setVelocity(-PLAYER_JUMP_VEL);
 		setBPAction(BP_UP);
->>>>>>> fb0096623b1b558f034674a4c72f17b64e2f1882
 	}
 }
 
