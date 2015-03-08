@@ -37,7 +37,7 @@ bool Splash::init()
 	splashBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(splashBackground);	
 
-	auto player = Sprite::create("sprites/Playersmall.png");
+	auto player = Sprite::create("sprites/playerRunning01.png");
 	player->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));
 	this->addChild(player);
 
@@ -45,7 +45,7 @@ bool Splash::init()
 	player->runAction(scale);
 
 	// particle testing for splash screen
-	CCParticleSystem *ccEmitter = CCParticleSystemQuad::create("particles/BoingStar.plist");
+	CCParticleSystem *ccEmitter = CCParticleSystemQuad::create("particles/Flower.plist");
 	ccEmitter->setPosition(Point(visibleSize.width/2, visibleSize.height/2));
 	ccEmitter->setTotalParticles(1000);
 	this->addChild(ccEmitter);
