@@ -76,12 +76,9 @@ bool GameScene::initializeGame()
 void GameScene::addScreenShake()
 {	
 	auto jump = JumpBy::create(2.0, Point(300, 300), 0.5, 5);
-	auto reverse = jump->reverse();
-	
+	auto reverse = jump->reverse();	
 	this->runAction(jump);
-	this->runAction(reverse);
-	
-	
+	this->runAction(reverse);	
 }
 
 void GameScene::update(float delta)
