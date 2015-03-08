@@ -12,7 +12,7 @@ Scene* GameScene::createScene()
 {	
 	auto scene = Scene::createWithPhysics();
 	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);	
-	scene->getPhysicsWorld()->setGravity(Vec2(0, -300));
+	scene->getPhysicsWorld()->setGravity(GRAVITATIONAL_FORCE);
 	scene->setTag(TAG_GAME_SCENE);
 
 	GameScene* gameLayer = GameScene::create();
@@ -38,7 +38,7 @@ bool GameScene::initializeGame()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/Ambler.wav", true);
-	paused = false;
+
 	// game play layer
 	gamePlayLayer = Layer::create();
 	this->addChild(gamePlayLayer, 0, TAG_GAME_LAYER);
@@ -57,7 +57,7 @@ bool GameScene::initializeGame()
 	m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png", "background/backgroundFourth.png", "background/floorBoundaries.png");
 	
 	//Player
-	Player* playerSprite = Player::create("sprites/Playersmall.png");
+	Player* playerSprite = Player::create("sprites/playerRunning01.png");
 	gamePlayLayer->addChild(playerSprite, 1);
 
 	// Spawn manager
@@ -74,9 +74,15 @@ bool GameScene::initializeGame()
 	return true;
 }
 
-bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
-{
-	return true;
+void GameScene::addScreenShake()
+{	
+	auto jump = JumpBy::create(2.0, Point(300, 300), 0.5, 5);
+	auto reverse = jump->reverse();
+	
+	this->runAction(jump);
+	this->runAction(reverse);
+	
+	
 }
 
 void GameScene::update(float delta)
@@ -87,9 +93,6 @@ void GameScene::update(float delta)
 	m_pCollectableFactory->update();
 	m_pParallax->update();
 	m_pSpawnManager->update();
-
-	CollisionManager::getInstance()->checkCollisions();
-
 	m_HudLayer->update();
 
 	//CCLOG("-------------GAME LOOP END--------------");
@@ -113,38 +116,6 @@ void GameScene::gameOver()
 	Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
 }
-/*
-void GameScene::pauseGame()
-{
-	CCLOG("Pause");
-	auto scene = Pause::createScene();
-	Director::getInstance()->pushScene(TransitionFade::create(1, scene));
-	
-	// to play sound effect if button is pressed 
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("button-21.wav", false, 1.0f, 1.0f, 1.0f);
-}
-
-void GameScene::resumeGame()
-{
-	CCLOG("ResumeGame");	
-	auto scene = GameScene::createScene();
-	Director::getInstance()->popScene();
-	CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
-}
-
-void GameScene::mainGame(cocos2d::Ref *pSender)
-{
-	CCLOG("MainGame");	
-	auto scene = MainMenu::createScene();
-	Director::getInstance()->replaceScene(TransitionFlipX::create(1, scene));
-}
-
-void GameScene::exit(cocos2d::Ref *pSender)
-{
-	//exit game
-	Director::sharedDirector()->end();
-}
-*/
 
 void GameScene::cleanup()
 {

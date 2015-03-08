@@ -17,38 +17,32 @@ typedef enum {
 	TAG_FOOD,
 } tags;
 
+
 #define PADDING 10
+
+// World
+#define GRAVITATIONAL_FORCE Vec2(0, -500)
 #define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
 #define VISIBLE_SIZE_HEIGHT (Director::getInstance()->getVisibleSize().height)
 #define SCREEN_ORIGIN (Director::getInstance()->getVisibleOrigin())
 
-// Sprites; coins, items, powerups
-#define SPRITE_MOVEMENT_SPEED 0.005f
+// Movement speeds
+#define WORLD_MOVEMENT_SPEED (WorldManager::getInstance()->getGameWorldSpeed())
+#define ENEMY_MOVEMENT_SPEED (WorldManager::getInstance()->getEnemyMovementSpeed())
 
-// scenes
+// Scenes
 #define DISPLY_TIME_SPLASH_SCENCE 2
 #define TRANSITION_TIME 0.5
 
-// player
-#define PLAYER_POSITION_IN_WINDOW ((Director::getInstance()->getVisibleSize().width / 3) * 1)
-#define JUMP_SPEED 0.75F
-#define MAX_NO_OF_JUMPS 2
+// Player
+#define PLAYER_POSITION_IN_WINDOW ((Director::getInstance()->getVisibleSize().width / 7) * 1)
+#define PLAYER_JUMP_VEL Vec2(0.0f, 500.0f)
+#define MAX_NO_OF_JUMPS 1
 #define JUMP_HEIGHT (Director::getInstance()->getVisibleSize().height * .75)
 
-// enemy spawns
-#define ENEMY_SPAWN_FREQ_LEVEL_1 0.00929
-#define ENEMY_SPAWN_FREQ_LEVEL_2 0.00629
-#define ENEMY_SPAWN_FREQ_LEVEL_3 0.00429f
-#define ENEMY_SPAWN_FREQ_LEVEL_4 0.00229f
-#define ENEMY_SPAWN_FREQ_LEVEL_5 0.00109f
-#define ENEMY_SPAWN_FREQ_LEVEL_6 0.00099f
-#define ENEMY_SPAWN_FREQ_LEVEL_7 0.00088f
-#define ENEMY_MOVEMENT_SPEED 0.008f
-
+// Labels
 #define LABEL_FONT "fonts/go3v2.ttf"
 #define LABEL_FONT_SIZE (cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize().width / Director::getInstance()->getVisibleSize().width * 32)
+#define PADDING 10
 
-// spawn manager
-#define ENEMY_SPAWN_COUNT 5
-
-#endif // DEFINITIONS_H__
+#endif 

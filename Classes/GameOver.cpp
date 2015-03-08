@@ -41,20 +41,11 @@ bool GameOver::initializeGameOverScene()
 	gameOverBackground->setPosition(Vec2(m_Size.width / 2 + m_Origin.x, m_Size.height / 2 + m_Origin.y));
 	this->addChild(gameOverBackground, -50);
 
-	// create the GameOver menu items
-	//auto resumeButton = MenuItemImage::create("buttons/resume.png", "buttons/resume_clicked.png", CC_CALLBACK_1(GameOver::resume, this));
-	//auto mainMenuButton = MenuItemImage::create("buttons/menu.png", "buttons/menu_clicked.png", CC_CALLBACK_1(GameOver::mainMenu, this));
-	//auto exitButton = MenuItemImage::create("buttons/exit.png", "buttons/exit_clicked.png", CC_CALLBACK_1(GameOver::exit, this));
-
+	// create the GameOver menu items	
 	auto playAgainButton = MenuItemImage::create("buttons/PlayAgainNormal.png", "buttons/PlayAgainClicked.png", CC_CALLBACK_1(GameOver::playAgain, this));
-	// position the menu buttons on screen
-	//resumeButton->setPosition(Point(m_Size.width / 2, (m_Size.height / 3) + 150));
-	//mainMenuButton->setPosition(Point(m_Size.width / 2, (m_Size.height / 3)));
-	//exitButton->setPosition(Point(m_Size.width - 50, (m_Size.height / 3)-100));
+	// position the menu buttons on screen	
 	playAgainButton->setPosition(Point((m_Size.width * 0.75), m_Origin.y + PADDING + playAgainButton->getContentSize().height / 2));
-
 	// create menu and add menu items
-	//auto* menu = Menu::create(resumeButton, mainMenuButton, exitButton, NULL);
 	auto* menu = Menu::create(playAgainButton, NULL);
 	menu->setPosition(Vec2::ZERO);
 
@@ -185,9 +176,8 @@ void GameOver::resume(cocos2d::Ref *pSender)
 
 void GameOver::mainMenu(cocos2d::Ref *pSender)
 {
-	//Director::getInstance()->popScene();
     auto scene = MainMenu::createScene();    
-	Director::getInstance()->replaceScene(TransitionFlipX::create(1, scene));
+	Director::getInstance()->replaceScene(TransitionFlipX::create(0,scene));
 }
 
 void GameOver::exit(cocos2d::Ref *pSender)

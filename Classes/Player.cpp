@@ -22,6 +22,7 @@ bool Player::init()
 	setType(PLAYER);
 	setAction(RUNNING);
 	setState(ALIVE);
+	setBPAction(BP_UP);
 	m_nDistance = 0;
 	m_nCoins = 0;
 	m_nBoosters = 0;
@@ -29,16 +30,16 @@ bool Player::init()
 	m_nItems = 0;
 	m_nNumberOfJumps = 0;
 	
-	this->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, (WorldManager::getInstance()->getFloorSprite()->getContentSize().height + this->getContentSize().height / 2) - 5));
+	this->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, WorldManager::getInstance()->getFloorSprite()->getContentSize().height + this->getContentSize().height / 2));
 	auto playerPhysicsBody = PhysicsBody::createBox(Size(this->getContentSize().width, this->getContentSize().height - 5), PHYSICSBODY_MATERIAL_DEFAULT);	
 	playerPhysicsBody->setDynamic(true);
 	playerPhysicsBody->setGravityEnable(true);
 	playerPhysicsBody->setRotationEnable(false);
 	this->setPhysicsBody(playerPhysicsBody);
-
-	//Start player walking
-	this->getAnimationWithFrames(1, 4, 1);
-	this->runAction(this->animate);
+	
+	// Animate the player
+	this->getAnimationWithFrames("sprites/playerRunning%02d.png", 4);
+	// add hint sprite
 
 	WorldManager::getInstance()->setPlayer(this);
 	CollisionManager::getInstance()->setPlayer(this);
@@ -55,99 +56,50 @@ void Player::addCoin()
 {
 	m_nCoins++;
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Pickup_Coin.wav", false, 1.0f, 1.0f, 1.0f);
-	this->addParticleCoins();
+	this->addParticlesGameObjects("particles/coin.plist", this->getContentSize().width, this->getContentSize().height, 1, 0.5);
 }
 
 void Player::addBooster()
 {
 	m_nBoosters++;
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Boost.wav", false, 1.0f, 1.0f, 1.0f);
-	this->addParticleBoosters();
+	this->addParticlesGameObjects("particles/booster.plist", this->getContentSize().width / 2, 0, 1, 0.5);
 }
 
 void Player::addFood()
 {
 	m_nFood++;
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Crunch_DavidYoung.wav", false, 1.0f, 1.0f, 1.0f);
-	this->addParticleMuffins();
-	this->addParticleMuffins2();
+	this->addParticlesGameObjects("particles/SplatterParticle2.plist", this->getContentSize().width / 2, this->getContentSize().height / 2, 2, 0.1);
+	this->addParticlesGameObjects("particles/Muffin.plist", this->getContentSize().width / 2, 0, 1, 0.5);
 }
 
 void Player::addItem()
 {
 	m_nItems++;
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Pickup_Coin.wav", false, 1.0f, 1.0f, 1.0f);
-	this->addParticleItems();
+	this->addParticlesGameObjects("particles/DiamondPar3.plist", this->getContentSize().width, this->getContentSize().height, 1, 0.5);
 }
 
-void Player::addParticle()
+void Player::addParticle( )
 {
-	m_pEmitter = CCParticleSystemQuad::create("particles/Shadow.plist");
-	m_pEmitter->setPosition(this->getContentSize().width / 2, 0);
-	m_pEmitter->setEmissionRate(20.00);
+	m_pEmitter = CCParticleSystemQuad::create("particles/shadow.plist");
+	m_pEmitter->setPosition(this->getContentSize().width/2, 0);
+	m_pEmitter->setEmissionRate(20);
 	m_pEmitter->setTotalParticles(100);
 	this->addChild(m_pEmitter);
 	m_pEmitter->setAutoRemoveOnFinish(true);
 	
 }
 
-void Player::addParticleCoins()
+void Player::addParticlesGameObjects(std::string path, float a, float b, int totalPar, float duration)
 {
-	m_pCoinEmitter = CCParticleSystemQuad::create("particles/coin.plist");
-	m_pCoinEmitter->setPosition(this->getContentSize().width, this->getContentSize().height);
-	m_pCoinEmitter->setTotalParticles(1);
-	m_pCoinEmitter->setDuration(0.5);
-	this->addChild(m_pCoinEmitter);
-	m_pCoinEmitter->setAutoRemoveOnFinish(true);
-}
-
-void Player::addParticleMuffins()
-{
-	m_pMuffinEmitter = CCParticleSystemQuad::create("particles/SplatterParticle2.plist");
-	m_pMuffinEmitter->setPosition(this->getContentSize().width / 2, this->getContentSize().height / 2);
-	m_pMuffinEmitter->setTotalParticles(2);
-	m_pMuffinEmitter->setDuration(0.1);
-	this->addChild(m_pMuffinEmitter);
-	m_pMuffinEmitter->setAutoRemoveOnFinish(true);
-}
-
-void Player::addParticleMuffins2()
-{
-	m_pMuffinEmitter2 = CCParticleSystemQuad::create("particles/Muffin.plist");
-	m_pMuffinEmitter2->setPosition(this->getContentSize().width/2, 0);
-	m_pMuffinEmitter2->setTotalParticles(1);
-	m_pMuffinEmitter2->setDuration(0.5);
-	this->addChild(m_pMuffinEmitter2);
-}
-
-void Player::addParticleBoosters()
-{
-	m_pBoosterEmitter = CCParticleSystemQuad::create("particles/booster.plist");
-	m_pBoosterEmitter->setPosition(this->getContentSize().width / 2, 0);
-	m_pBoosterEmitter->setTotalParticles(1);
-	m_pBoosterEmitter->setDuration(0.5);
-	this->addChild(m_pBoosterEmitter);
-	m_pBoosterEmitter->setAutoRemoveOnFinish(true);
-}
-
-void Player::addParticleItems()
-{
-	m_pItemEmitter = CCParticleSystemQuad::create("particles/DiamondPar3.plist");
-	m_pItemEmitter->setPosition(this->getContentSize().width, this->getContentSize().height);
-	m_pItemEmitter->setTotalParticles(1);
-	m_pItemEmitter->setDuration(0.5);
-	this->addChild(m_pItemEmitter);
-	m_pItemEmitter->setAutoRemoveOnFinish(true);
-}
-
-void Player::addCoinLossParticle()
-{
-	m_pCoinLossEmitter = CCParticleSystemQuad::create("particles/coinLoss2.plist");
-	m_pCoinLossEmitter->setPosition(this->getContentSize().width, this->getContentSize().height / 2);
-	m_pCoinLossEmitter->setTotalParticles(m_nCoins);
-	m_pCoinLossEmitter->setDuration(0.5);
-	this->addChild(m_pCoinLossEmitter);
-	m_pCoinLossEmitter->setAutoRemoveOnFinish(true);
+	m_pGameObjectEmitter = CCParticleSystemQuad::create(path);
+	m_pGameObjectEmitter->setPosition(a, b);
+	m_pGameObjectEmitter->setTotalParticles(totalPar);
+	m_pGameObjectEmitter->setDuration(duration);
+	this->addChild(m_pGameObjectEmitter);
+	m_pGameObjectEmitter->setAutoRemoveOnFinish(true);
 }
 
 void Player::resetCoins()
@@ -165,31 +117,21 @@ void Player::jump()
 {
 	if (m_ePlayerAction == RUNNING || m_nNumberOfJumps < MAX_NO_OF_JUMPS)
 	{
-		m_nNumberOfJumps++;
 		m_ePlayerAction = JUMPING;
+		this->getAnimationWithFrames("sprites/playerJumping%02d.png", 3);
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/jump3.wav", false, 1.0f, 1.0f, 1.0f);
-		
-		//Stop the Running animation Forever
-		this->stopAllActions();
-
-		//Create the Jump Animation
-		getAnimationWithFrames(1, 3, 2);		
-		Animate* animate2 = animate; //jumping
-
-		//Create the Running Animation
-		getAnimationWithFrames(1, 4, 1);
-		Animate* animate3 = animate; //running	
-
-		//Create the Sequence of Animation
-		FiniteTimeAction* animationSequence = Sequence::create(animate2, animate3, nullptr);
-		this->runAction(animationSequence);
-
-		//NEW JUMP
-		//CCLOG("jump");
-		Vec2 impulse(0.0f, 0.0f);	
-		impulse.y = 80000.0f;
-		impulse.x = 0.0f;
-		this->getPhysicsBody()->applyImpulse(impulse);
+		m_nNumberOfJumps++;				
+	}
+	
+	if (m_eBackpackAction == BP_UP)
+	{
+		this->getPhysicsBody()->setVelocity(PLAYER_JUMP_VEL);
+		setBPAction(BP_DOWN);
+	}
+	else if (m_eBackpackAction == BP_DOWN)
+	{
+		this->getPhysicsBody()->setVelocity(-PLAYER_JUMP_VEL);
+		setBPAction(BP_UP);
 	}
 }
 
@@ -198,70 +140,53 @@ void Player::update()
 	// reset player poisiton 
 	this->setPositionX(PLAYER_POSITION_IN_WINDOW);
 	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
-	{		
-
-		m_ePlayerAction = RUNNING;
-		m_pEmitter->setScale(2.0);
-		m_pEmitter->resume();
-		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/trashdropping.wav", false, 1.0f, 1.0f, 1.0f);
-
-		m_ePlayerAction = RUNNING;
+	{	
+		// Running animation		
+		if (m_ePlayerAction == JUMPING)
+		{			
+			this->getAnimationWithFrames("sprites/playerRunning%02d.png", 4);
+		}
+		m_ePlayerAction = RUNNING;			
+		setBPAction(BP_UP);
 		m_pEmitter->setScale(2.0);
 		m_pEmitter->resume();
 		m_nNumberOfJumps = 0;
 	}
 	else
-	{
-		m_ePlayerAction = JUMPING;
+	{				
 		m_pEmitter->setScale(0.0);
 		m_pEmitter->pause();
 	}		
+
+	if (this->getPositionY() > VISIBLE_SIZE_HEIGHT + this->getContentSize().height)
+	{
+		setBPAction(BP_DOWN);
+	}	
 }
 
 void Player::touch(const Point& location)
-{
-	if (location.x < PLAYER_POSITION_IN_WINDOW) 
-	{
-		this->jump();
-	}
+{	
+	this->jump();	
 }
 
 void Player::cleanUp()
 {
 }
 
-/*
-Animation Function
-Return Animate object, parameters: 
-	init:	initial image, 
-	end:	end image, which animation image
-	act:	action, which animation
-*/
-void Player::getAnimationWithFrames(int init, int end, int act){
+// Create the Animation Sprites, return animate object
+void Player::getAnimationWithFrames(char* enemyAnimation, int frames){
+	
+	this->stopAllActions();
 	Vector<SpriteFrame*> animFrames(4);
 	char str[100] = { 0 };
-	int i = init;
-	while (i <= end)
+	for (int i = 1; i < frames; i++)
 	{
-		if (act == 1)		//1 - Running
-		{		
-			sprintf(str, "sprites/walk%02dsmall.png", i);
-			auto frame = SpriteFrame::create(str, Rect(0, 0, 55, 69)); //we assume that the sprites' dimentions are 55*69 rectangles.
-			i++;
-			animFrames.pushBack(frame);
-		}
-		else if (act == 2)	//2 - Jumping
-		{
-			sprintf(str, "sprites/jump%02dsmall.png", i);
-			auto frame = SpriteFrame::create(str, Rect(0, 0, 55, 69)); //we assume that the sprites' dimentions are 55*69 rectangles.
-			i++;
-			animFrames.pushBack(frame);
-		}
+		sprintf(str, enemyAnimation, i);
+		auto frame = SpriteFrame::create(str, Rect(0, 0, this->getContentSize().width, this->getContentSize().height)); //we assume that the sprites' dimentions are 40*40 rectangles.
+		animFrames.pushBack(frame);
 	}
-
-	//Define number of loops
 	auto animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
-		if(act == 2) animation->setLoops(4);
-		else if (act == 1) animation->setLoops(-1);
-	animate = Animate::create(animation);
+	auto animate = Animate::create(animation);
+	auto repeat = RepeatForever::create(animate);	
+	this->runAction(repeat);
 }

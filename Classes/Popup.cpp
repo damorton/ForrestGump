@@ -32,21 +32,7 @@ bool Popup::init()
 
 	m->setPosition(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2);	
 	this->addChild(m, 1);
-	/*
-	// Buttons
-	// create the Pause menu items
-	auto resumeButton = MenuItemImage::create("buttons/btNotResumeGame.png", "buttons/btActResumeGame.png", CC_CALLBACK_1(Popup::resume, this));
-	auto mainMenuButton = MenuItemImage::create("buttons/btNotMainGame.png", "buttons/btActMainGame.png", CC_CALLBACK_1(Popup::mainMenu, this));
-
-	// position the menu buttons on screen
-	resumeButton->setPosition(VISIBLE_SIZE_WIDTH / 2, (VISIBLE_SIZE_HEIGHT / 3) + 150);
-	mainMenuButton->setPosition(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2);
-
-	// create menu and add menu items
-	auto* menu = Menu::create(resumeButton, mainMenuButton, NULL);
-	menu->setPosition(Point(0, 0));
-	this->addChild(menu);
-	*/
+	
 	// Add menu to my Sprite Pause menu
 	this->setVisible(false);
 	

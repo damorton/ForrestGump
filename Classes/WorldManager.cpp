@@ -16,6 +16,14 @@ WorldManager* WorldManager::getInstance()
 	return m_pInstance;
 }
 
+bool WorldManager::init()
+{
+	this->createDAO();
+	m_fWorldSpeed = 5.0f;
+	m_fEnemyMovementSpeed = 6.0f;
+	return true;
+}
+
 GameScene* WorldManager::gameLayer()
 {
 	return (GameScene*)WorldManager::layerWithTag(TAG_GAME_LAYER);
@@ -41,11 +49,7 @@ Layer* WorldManager::layerWithTag(int tag)
 	return NULL;
 }
 
-bool WorldManager::init()
-{				
-	this->createDAO();		
-	return true;
-}
+
 
 void WorldManager::createDAO()
 {
