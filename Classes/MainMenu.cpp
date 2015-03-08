@@ -116,5 +116,6 @@ void MainMenu::leaderboard(cocos2d::Ref *pSender)
 
 void MainMenu::settings(cocos2d::Ref *pSender)
 {		
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);	
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
+
 }

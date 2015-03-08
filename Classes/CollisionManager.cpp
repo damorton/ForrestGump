@@ -106,6 +106,7 @@ void CollisionManager::checkCollisionsWithEnemies()
 						{
 							m_pPlayer->addCoinLossParticle();
 							m_pPlayer->resetCoins();
+							CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/CoinDrop.wav", false, 0.5,0.5,0.5);
 						}
 
 					
