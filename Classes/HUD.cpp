@@ -1,7 +1,7 @@
 #include "HUD.h"
 #include "WorldManager.h"
 #include "Definitions.h"
-#include "Pause.h"
+#include "MainMenu.h"
 
 bool HUD::init()
 {	
@@ -47,7 +47,7 @@ bool HUD::init()
 	this->addChild(m_pCoinsValueLabel);
 		
 	// Menu 
-	auto menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(HUD::pauseGame, this));
+	menu_item_pause = MenuItemImage::create("buttons/PauseNormal.png", "buttons/PauseSelected.png", CC_CALLBACK_1(HUD::pause, this));
 	menu_item_pause->setPosition(Vec2(m_Origin.x + VISIBLE_SIZE_WIDTH - menu_item_pause->getContentSize().width / 2,
 		m_Origin.y + VISIBLE_SIZE_HEIGHT - menu_item_pause->getContentSize().height / 2));
 		
@@ -55,7 +55,10 @@ bool HUD::init()
 	hudButtonsMenu->setPosition(Point(0, 0));
 	this->addChild(hudButtonsMenu);
 
-	//CCLOG("HUD initialized");
+	// Add Pause menu to HUD
+	popup = Popup::createPopup();
+	this->addChild(popup, 1);
+
 	return true;
 }
 
@@ -82,19 +85,26 @@ void HUD::update()
 	}
 }
 
-void HUD::gameOver(cocos2d::Ref *pSender)
+void HUD::pause(CCObject* pSender)
 {
-	WorldManager::getInstance()->gameLayer()->gameOver();
+	this->togglePause(true);
 }
 
-void HUD::pauseGame(cocos2d::Ref *pSender)
+void HUD::resume(CCObject* pSender)
 {
-	WorldManager::getInstance()->gameLayer()->pauseGame();
-	//auto scene = Pause::createScene();
-	//Director::getInstance()->pushScene(TransitionFade::create(TRANSITION_TIME, scene));
+	this->togglePause(false);
 }
 
-void HUD::resumeGame(cocos2d::Ref *pSender)
+void HUD::mainMenu(CCObject* pSender)
 {
-//	WorldManager::getInstance()->gameLayer()->resumeGame();
+	auto scene = MainMenu::createScene();
+	Director::getInstance()->replaceScene(TransitionFade::create(1, scene));
+	//WorldManager::getInstance()->gameLayer()->mainGame;
+}
+
+void HUD::togglePause(bool paused)
+{
+	popup->show(paused);
+	WorldManager::getInstance()->gameLayer()->setTouchEnabled(!paused);
+	menu_item_pause->setVisible(!paused);
 }

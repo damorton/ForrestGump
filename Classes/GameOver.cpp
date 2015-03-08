@@ -185,7 +185,7 @@ void GameOver::resume(cocos2d::Ref *pSender)
 
 void GameOver::mainMenu(cocos2d::Ref *pSender)
 {
-	Director::getInstance()->popScene();
+	//Director::getInstance()->popScene();
     auto scene = MainMenu::createScene();    
 	Director::getInstance()->replaceScene(TransitionFlipX::create(1, scene));
 }

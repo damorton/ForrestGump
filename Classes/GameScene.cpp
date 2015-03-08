@@ -5,7 +5,6 @@
 #include "MainMenu.h"
 #include "GameOver.h"
 #include "Player.h"
-#include "Pause.h"
 
 USING_NS_CC;
 
@@ -83,19 +82,16 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
 void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	
-	if (!paused)
-	{
+	CollisionManager::getInstance()->checkCollisions();
+	WorldManager::getInstance()->getPlayer()->update();
+	m_pCollectableFactory->update();
+	m_pParallax->update();
+	m_pSpawnManager->update();
 
-		CollisionManager::getInstance()->checkCollisions();
-		WorldManager::getInstance()->getPlayer()->update();
-		m_pCollectableFactory->update();
-		m_pParallax->update();
-		m_pSpawnManager->update();
+	CollisionManager::getInstance()->checkCollisions();
 
-		CollisionManager::getInstance()->checkCollisions();
+	m_HudLayer->update();
 
-		m_HudLayer->update();
-	}
 	//CCLOG("-------------GAME LOOP END--------------");
 }
 
@@ -117,53 +113,28 @@ void GameScene::gameOver()
 	Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
 }
-
+/*
 void GameScene::pauseGame()
 {
-	paused = true;
-	Director::getInstance()->stopAnimation();
-	gamePlayLayer->pauseSchedulerAndActions();
-	// create a sprite that says simply 'Paused'
-	pausedSprite = CCSprite::create("background/pause2.png"); // sprite image
-	// create the paused sprite and paused menu buttons off screen
-	pausedSprite->setPosition(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2);
-	// add the Paused sprite and menu to the current layer
-	this->addChild(pausedSprite, 100);
-
-	auto resumeButton = MenuItemImage::create("buttons/btNotResumeGame.png", "buttons/btActResumeGame.png", CC_CALLBACK_1(GameScene::resumeGame, this));
-	auto mainMenuButton = MenuItemImage::create("buttons/btNotMainGame.png", "buttons/btActMainGame.png", CC_CALLBACK_1(GameScene::mainGame, this));
-	auto exitButton = MenuItemImage::create("buttons/exit.png", "buttons/exit_clicked.png", CC_CALLBACK_1(GameScene::exit, this));
-
-	// create menu and add menu items
-	pausedMenu = Menu::create(resumeButton, mainMenuButton, exitButton, NULL);	
-	pausedMenu->alignItemsVertically();
-	pausedSprite->addChild(pausedMenu, 3);
-
-	/*
 	CCLOG("Pause");
 	auto scene = Pause::createScene();
 	Director::getInstance()->pushScene(TransitionFade::create(1, scene));
-
+	
 	// to play sound effect if button is pressed 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("button-21.wav", false, 1.0f, 1.0f, 1.0f);
-	*/
 }
 
-void GameScene::resumeGame(cocos2d::Ref *pSender)
+void GameScene::resumeGame()
 {
 	CCLOG("ResumeGame");	
-	//auto scene = GameScene::createScene();
-	//Director::getInstance()->popScene();
-	Director::getInstance()->startAnimation();
-	gamePlayLayer->resumeSchedulerAndActions();
+	auto scene = GameScene::createScene();
 	Director::getInstance()->popScene();
-	//Director::getInstance()->popScene();
+	CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }
 
 void GameScene::mainGame(cocos2d::Ref *pSender)
 {
-	CCLOG("MainGame");
-	Director::getInstance()->popScene();
+	CCLOG("MainGame");	
 	auto scene = MainMenu::createScene();
 	Director::getInstance()->replaceScene(TransitionFlipX::create(1, scene));
 }
@@ -173,6 +144,7 @@ void GameScene::exit(cocos2d::Ref *pSender)
 	//exit game
 	Director::sharedDirector()->end();
 }
+*/
 
 void GameScene::cleanup()
 {

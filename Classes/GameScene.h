@@ -24,7 +24,7 @@ public:
 	bool onContactBegin(cocos2d::PhysicsContact& contact);
 	void gameOver();
 	void pauseGame();
-	void resumeGame(cocos2d::Ref *pSender);
+	void resumeGame();
 	void mainGame(cocos2d::Ref *pSender);
 	void exit(cocos2d::Ref *pSender);
 

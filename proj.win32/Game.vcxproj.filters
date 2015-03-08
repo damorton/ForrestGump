@@ -78,7 +78,7 @@
     <ClCompile Include="..\Classes\GameOver.cpp">
       <Filter>Classes\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Pause.cpp">
+    <ClCompile Include="..\Classes\Popup.cpp">
       <Filter>Classes\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -149,7 +149,7 @@
     <ClInclude Include="..\Classes\GameOver.h">
       <Filter>Classes\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Pause.h">
+    <ClInclude Include="..\Classes\Popup.h">
       <Filter>Classes\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
