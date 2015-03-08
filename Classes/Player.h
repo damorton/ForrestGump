@@ -10,6 +10,7 @@ class Player : public Sprite, public Character
 {
 public:		
 	typedef enum { BOOSTING, JUMPING, RUNNING } EPlayerAction;
+	typedef enum { BP_UP, BP_DOWN } EBackpackAction;
 	static Player* create(const std::string& filename);
 	virtual ~Player(){};
 	bool init();
@@ -30,6 +31,7 @@ public:
 	void setType(EGameOjectType type){ m_eType = type; };
 	void setState(ECharacterState state){ m_eState = state; };
 	void setAction(EPlayerAction action){ m_ePlayerAction = action; };
+	void setBPAction(EBackpackAction bpAction){ m_eBackpackAction = bpAction; };
 	void addDistance();
 	void addCoin();	
 	void addItem();
@@ -53,6 +55,7 @@ public:
 
 private:	
 	EPlayerAction m_ePlayerAction;
+	EBackpackAction m_eBackpackAction;
 	int m_nDistance;
 	int m_nCoins;
 	int m_nBoosters;

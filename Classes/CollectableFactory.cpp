@@ -32,6 +32,7 @@ bool CollectableFactory::init()
 
 bool CollectableFactory::initTilePositions(TMXLayer* layer, std::string name)
 {
+	layer->setPosition(SCREEN_ORIGIN);
 	Size layerSize = layer->getLayerSize();
 	for (int i = 0; i < layerSize.height; i++)
 	{
@@ -41,7 +42,7 @@ bool CollectableFactory::initTilePositions(TMXLayer* layer, std::string name)
 			if (tileSprite)
 			{
 				tileSprite->setName(name);
-				tileSprite->setPosition(Vec2(SCREEN_ORIGIN.x + tileSprite->getPositionX() + VISIBLE_SIZE_WIDTH, SCREEN_ORIGIN.y + tileSprite->getPositionY()));
+				tileSprite->setPosition(Vec2(SCREEN_ORIGIN.x + tileSprite->getPositionX() + VISIBLE_SIZE_WIDTH, tileSprite->getPositionY()));
 				tileSprite->setVisible(false);
 			}
 		}

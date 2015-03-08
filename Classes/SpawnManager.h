@@ -15,6 +15,7 @@ public:
 	virtual ~SpawnManager(){};
 	void update();
 	bool spawnEnemy();
+	int getRandomHeight();
 	int getEnemyCount();
 	bool addEnemyToActiveVector(Enemy* enemy);
 	void resetSprite(Node* sender, void* enemy);

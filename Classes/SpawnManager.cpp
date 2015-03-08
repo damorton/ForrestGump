@@ -17,43 +17,32 @@ bool SpawnManager::init()
 
 void SpawnManager::createEnemies()
 {
-	for (int i = 0; i < 10; i++)
-	{
-		int enemyType;
-		enemyType = (rand() % 3);
-		switch (enemyType)
-		{
-		case 0:
-			this->createEnemy("sprites/walk05.png",
-				"ground",
-				Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH * 1.2, SCREEN_ORIGIN.y + (WorldManager::getInstance()->getFloorSprite()->getContentSize().height * 2)), true, false);
-			break;
-		case 1:
-			this->createEnemy("sprites/Enemy.png",
-				"floating",
-				Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH * 1.2, SCREEN_ORIGIN.y + 100), false, false);
-			break;
-		case 2:
-			this->createEnemy("sprites/Enemy3.png",
-				"rotating",
-				Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH * 1.2, SCREEN_ORIGIN.y + VISIBLE_SIZE_HEIGHT / 3), true , false);
-			break;
-		default:
-			CCLOG("unknown enemy type");
-		}
+	// Ground Enemy
+	this->createEnemy("sprites/walk05.png", "ground", Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH * 1.2, SCREEN_ORIGIN.y + (WorldManager::getInstance()->getFloorSprite()->getContentSize().height * 2)), true, false);
+		
+	// Floating Enemies
+	this->createEnemy("sprites/walk09small.png", "floating", Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH * 1.2, SCREEN_ORIGIN.y + getRandomHeight()), false, false);	
+}
 
-	}
+int SpawnManager::getRandomHeight()
+{
+	int height;
+	height = (rand() % (int)VISIBLE_SIZE_HEIGHT - (int)WorldManager::getInstance()->getFloorSprite()->getContentSize().height) + (int)WorldManager::getInstance()->getFloorSprite()->getContentSize().height;
+	return height;
 }
 
 void SpawnManager::createEnemy(std::string filename, std::string name, Vec2 position, bool gravity, bool rotate)
 {
 	auto enemy = Enemy::create(filename);
 	enemy->setName(name);
-	enemy->setPosition(position);
-	auto physicsBody = PhysicsBody::createBox(enemy->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-	enemy->setPhysicsBody(physicsBody);
-	enemy->getPhysicsBody()->setGravityEnable(gravity);
-	enemy->getPhysicsBody()->setRotationEnable(rotate);
+	enemy->setPosition(position);	
+	if (enemy->getName() == "ground")
+	{
+		auto physicsBody = PhysicsBody::createBox(enemy->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+		enemy->setPhysicsBody(physicsBody);
+		enemy->getPhysicsBody()->setGravityEnable(gravity);
+		enemy->getPhysicsBody()->setRotationEnable(rotate);
+	}	
 	enemy->animateEnemy();
 	enemy->setVisible(false);
 	this->addChild(enemy);
@@ -133,7 +122,7 @@ void SpawnManager::resetEnemy(Enemy* enemy)
 		Enemy* tile = static_cast<Enemy*>(enemy);
 		if (tile->getName() == "floating")
 		{
-			tile->setPosition(Vec2(tile->getPositionX() + (VISIBLE_SIZE_WIDTH * 2), 200));
+			tile->setPosition(Vec2(tile->getPositionX() + (VISIBLE_SIZE_WIDTH * 2), getRandomHeight()));
 		}
 		else
 		{

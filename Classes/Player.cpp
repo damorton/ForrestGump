@@ -22,6 +22,7 @@ bool Player::init()
 	setType(PLAYER);
 	setAction(RUNNING);
 	setState(ALIVE);
+	setBPAction(BP_UP);
 	m_nDistance = 0;
 	m_nCoins = 0;
 	m_nBoosters = 0;
@@ -185,8 +186,18 @@ void Player::jump()
 
 		//Create the Sequence of Animation
 		FiniteTimeAction* animationSequence = Sequence::create(animate2, animate3, nullptr);
-		this->runAction(animationSequence);		
-		this->getPhysicsBody()->applyImpulse(PLAYER_JUMP_VEL);
+		this->runAction(animationSequence);						
+	}
+	
+	if (m_eBackpackAction == BP_UP)
+	{
+		this->getPhysicsBody()->setVelocity(PLAYER_JUMP_VEL);
+		setBPAction(BP_DOWN);
+	}
+	else if (m_eBackpackAction == BP_DOWN)
+	{
+		this->getPhysicsBody()->setVelocity(-PLAYER_JUMP_VEL);
+		setBPAction(BP_UP);
 	}
 }
 
@@ -195,8 +206,9 @@ void Player::update()
 	// reset player poisiton 
 	this->setPositionX(PLAYER_POSITION_IN_WINDOW);
 	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
-	{		
+	{			
 		m_ePlayerAction = RUNNING;
+		setBPAction(BP_UP);
 		m_pEmitter->setScale(2.0);
 		m_pEmitter->resume();
 		m_nNumberOfJumps = 0;
@@ -207,15 +219,15 @@ void Player::update()
 		m_pEmitter->setScale(0.0);
 		m_pEmitter->pause();
 	}		
+	if (this->getPositionY() > VISIBLE_SIZE_HEIGHT + this->getContentSize().height)
+	{
+		this->getPhysicsBody()->setVelocity(GRAVITATIONAL_FORCE);
+	}
 }
 
 void Player::touch(const Point& location)
-{
-	if (location.x < PLAYER_POSITION_IN_WINDOW) 
-	{
-		this->jump();
-		// if hint sprite touched, set visible false
-	}
+{	
+	this->jump();	
 }
 
 void Player::cleanUp()
@@ -238,7 +250,8 @@ void Player::getAnimationWithFrames(int init, int end, int act){
 		if (act == 1)		//1 - Running
 		{		
 			sprintf(str, "sprites/walk%02dsmall.png", i);
-			auto frame = SpriteFrame::create(str, Rect(0, 0, 55, 69)); //we assume that the sprites' dimentions are 55*69 rectangles.
+			auto sprite = Sprite::create(str);
+			auto frame = SpriteFrame::create(str, Rect(0, 0, sprite->getContentSize().width, sprite->getContentSize().height)); //we assume that the sprites' dimentions are 55*69 rectangles.
 			i++;
 			animFrames.pushBack(frame);
 		}
@@ -253,7 +266,7 @@ void Player::getAnimationWithFrames(int init, int end, int act){
 
 	//Define number of loops
 	auto animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
-		if(act == 2) animation->setLoops(4);
+		if(act == 2) animation->setLoops(2);
 		else if (act == 1) animation->setLoops(-1);
 	animate = Animate::create(animation);
 }

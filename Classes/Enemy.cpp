@@ -52,16 +52,7 @@ void Enemy::animateEnemy(){
 	{
 		this->getAnimationWithFrames(9, 12, 1);
 		this->runAction(animate);
-	}
-	else if (this->getName() == "rotating")
-	{
-		this->getAnimationWithFrames(14, 17, 2);
-		this->runAction(animate);
-	}
-	else
-	{
-		// no animation
-	}
+	}	
 }
 
 // Create the Animation Sprites, return animate object

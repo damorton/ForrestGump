@@ -18,7 +18,7 @@ typedef enum {
 } tags;
 
 // World
-#define GRAVITATIONAL_FORCE Vec2(0, -300)
+#define GRAVITATIONAL_FORCE Vec2(0, -500)
 #define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
 #define VISIBLE_SIZE_HEIGHT (Director::getInstance()->getVisibleSize().height)
 #define SCREEN_ORIGIN (Director::getInstance()->getVisibleOrigin())
@@ -33,13 +33,9 @@ typedef enum {
 
 // Player
 #define PLAYER_POSITION_IN_WINDOW ((Director::getInstance()->getVisibleSize().width / 7) * 1)
-#define JUMP_SPEED 0.75F
-#define PLAYER_JUMP_VEL Vec2(0.0f, 80000.0f)
-#define MAX_NO_OF_JUMPS 2
+#define PLAYER_JUMP_VEL Vec2(0.0f, 500.0f)
+#define MAX_NO_OF_JUMPS 1
 #define JUMP_HEIGHT (Director::getInstance()->getVisibleSize().height * .75)
-
-// Enemies
-#define ENEMY_SPAWN_COUNT 5
 
 // Labels
 #define LABEL_FONT "fonts/go3v2.ttf"
