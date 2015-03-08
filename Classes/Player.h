@@ -58,6 +58,7 @@ private:
 	std::string m_strUsername;
 	ParticleSystem *m_pEmitter;
 	ParticleSystem* m_pGameObjectEmitter;
+	Sprite* m_pJetpack;
 	
 };
 

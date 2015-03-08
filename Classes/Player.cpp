@@ -41,6 +41,17 @@ bool Player::init()
 	this->getAnimationWithFrames("sprites/playerRunning%02d.png", 4);
 	// add hint sprite
 
+	m_pJetpack = Sprite::create("sprites/jetpackUp.png");
+	m_pJetpack->setPositionY(this->getPositionY() / 2);	
+	this->addChild(m_pJetpack, -1);
+	
+	auto jetpackFire = CCParticleSystemQuad::create("particles/Flower.plist");	
+	jetpackFire->setEmissionRate(5);
+	jetpackFire->setTotalParticles(50);		
+	jetpackFire->setAutoRemoveOnFinish(true);
+	jetpackFire->setPosition(Vec2(m_pJetpack->getPositionX(), m_pJetpack->getPositionY()));
+	m_pJetpack->addChild(jetpackFire);
+
 	WorldManager::getInstance()->setPlayer(this);
 	CollisionManager::getInstance()->setPlayer(this);
 	this->addParticle();
@@ -125,11 +136,13 @@ void Player::jump()
 	
 	if (m_eBackpackAction == BP_UP)
 	{
+		m_pJetpack->setSpriteFrame(SpriteFrame::create("sprites/jetpackDown.png", Rect(0, 0, m_pJetpack->getContentSize().width, m_pJetpack->getContentSize().height)));
 		this->getPhysicsBody()->setVelocity(PLAYER_JUMP_VEL);
 		setBPAction(BP_DOWN);
 	}
 	else if (m_eBackpackAction == BP_DOWN)
 	{
+		m_pJetpack->setSpriteFrame(SpriteFrame::create("sprites/jetpackUp.png", Rect(0, 0, m_pJetpack->getContentSize().width, m_pJetpack->getContentSize().height)));
 		this->getPhysicsBody()->setVelocity(-PLAYER_JUMP_VEL);
 		setBPAction(BP_UP);
 	}
@@ -145,6 +158,7 @@ void Player::update()
 		if (m_ePlayerAction == JUMPING)
 		{			
 			this->getAnimationWithFrames("sprites/playerRunning%02d.png", 4);
+			m_pJetpack->setSpriteFrame(SpriteFrame::create("sprites/jetpackUp.png", Rect(0, 0, m_pJetpack->getContentSize().width, m_pJetpack->getContentSize().height)));
 		}
 		m_ePlayerAction = RUNNING;			
 		setBPAction(BP_UP);
