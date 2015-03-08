@@ -60,18 +60,8 @@ void Enemy::getAnimationWithFrames(char* enemyAnimation, int frames){
 	char str[100] = { 0 };	
 	for (int i = 1; i < frames; i++)
 	{
-		/*
-<<<<<<< HEAD
-		sprintf(str, "sprites/walk%02dsmall.png", i);
-		auto tempSprite = Sprite::create(str);
-		
-		auto frame = SpriteFrame::create(str, Rect(0, 0, tempSprite->getContentSize().width, tempSprite->getContentSize().height)); //we assume that the sprites' dimentions are 55*69 rectangles.
-		i++;
-=======
-*/
 		sprintf(str, enemyAnimation, i);		
 		auto frame = SpriteFrame::create(str, Rect(0, 0, this->getContentSize().width, this->getContentSize().height)); //we assume that the sprites' dimentions are 40*40 rectangles.
-//>>>>>>> 8b756a99b26c5845adcae831aaa65284f4048b17
 		animFrames.pushBack(frame);
 	}	
 	auto animation = Animation::createWithSpriteFrames(animFrames, 0.2f);	

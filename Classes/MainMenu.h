@@ -2,6 +2,7 @@
 #define MAINMENU_H_
 
 #include "cocos2d.h"
+#include "Popup.h"
 
 class MainMenu : public cocos2d::Layer
 {
@@ -12,7 +13,10 @@ public:
 
 	void playGame(Ref *pSender);
 	void leaderboard(Ref *pSender);
-	void settings(Ref *pSender);		
+	void settings(Ref *pSender);	
+//	void back(CCObject* pSender);
+	
+	Popup *popupSettings;
 	CREATE_FUNC(MainMenu);
 
 };
