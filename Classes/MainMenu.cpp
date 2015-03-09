@@ -22,10 +22,7 @@ bool MainMenu::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-
-
-
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/bgm_menu.wav", true);
+    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/bgm_menu.wav", true);
 	
 	auto mainMenuBackground = Sprite::create("background/MainMenuBackground.png");
 	mainMenuBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
@@ -35,12 +32,7 @@ bool MainMenu::init()
 	auto playButton = MenuItemImage::create("buttons/PlayNormal.png", "buttons/PlaySelected.png", CC_CALLBACK_1(MainMenu::playGame, this));
 	auto highscoresButton = MenuItemImage::create("buttons/TrophyNormal.png", "buttons/TrophySelected.png", CC_CALLBACK_1(MainMenu::leaderboard, this));
 	auto settingsButton = MenuItemImage::create("buttons/settings2.png", "buttons/settings2.png", CC_CALLBACK_1(MainMenu::settings, this));
-	
-	
-	// position the menu buttons on screen
-	//playButton->setPosition(Point(0,0));
-	//highscoresButton->setPosition(Point(0,0));
-	//settingsButton->setPosition(Point(0,0));
+
 
 	// creation of actions for tweening of main menu
 	auto ccPlayBtnAction = MoveBy::create(1, Point(visibleSize.width / 2, (visibleSize.height / 8) * 2));
@@ -70,9 +62,6 @@ bool MainMenu::init()
 	auto* menu = Menu::create(playButton, highscoresButton, settingsButton, NULL);
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu);
-
-	DelayTime *time = DelayTime::create(2.0);
-	this->runAction(time);
 
 	// particle testing  for high scores button
 	CCParticleSystem *ccEmitter = CCParticleSystemQuad::create("particles/Flower.plist");

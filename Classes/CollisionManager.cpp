@@ -103,6 +103,20 @@ void CollisionManager::checkCollisionsWithEnemies()
 						}
 						else
 						{
+
+							m_pPlayer->addParticlesGameObjects("particles/CoinLoss2.plist",m_pPlayer->getContentSize().width, m_pPlayer->getContentSize().height, m_pPlayer->getCoins(), 0.5);
+							m_pPlayer->resetCoins();
+							CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/CoinDrop.wav", false, 0.5,0.5,0.5);
+						}
+
+					
+
+
+						WorldManager::getInstance()->gameLayer()->addScreenShake();
+						//CCLOG("Collision detected");
+						if (enemy->getName() == "ground")
+						{
+
 							WorldManager::getInstance()->gameLayer()->addScreenShake();
 							m_pPlayer->addParticlesGameObjects("particles/coinLoss2.plist", m_pPlayer->getContentSize().width, m_pPlayer->getContentSize().height / 2, m_pPlayer->getCoins(), 0.5);
 							m_pPlayer->resetCoins();
