@@ -145,11 +145,13 @@ void MainMenu::back(CCObject* pSender)
 
 void MainMenu::sound(CCObject* pSender)
 {
-	if (WorldManager::getInstance()->soundEnabled){
+	if (WorldManager::getInstance()->soundEnabled){		
 		CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();		
+		WorldManager::getInstance()->soundEnabled = false;
 	}
 	else{		
 		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/bgm_menu.wav", true);
+		WorldManager::getInstance()->soundEnabled = true;
 	}
-	WorldManager::getInstance()->soundEnabled = !WorldManager::getInstance()->soundEnabled;
+	 
 }

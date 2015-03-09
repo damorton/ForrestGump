@@ -46,28 +46,28 @@ bool GameScene::initializeGame()
 	// game play layer
 	gamePlayLayer = Layer::create();
 	this->addChild(gamePlayLayer, 0, TAG_GAME_LAYER);
-
-	// HUD layer
-	m_HudLayer = HUD::create();
-	this->addChild(m_HudLayer, 1, TAG_HUD);
-
-	// segment spawns
-	m_pCollectableFactory = CollectableFactory::create();
-	this->addChild(m_pCollectableFactory, 0, TAG_SEGMENT_MANAGER);
-
+	
 	//Background
 	m_pParallax = Parallax::create();
 	this->addChild(m_pParallax, -1, "parallax");
 	m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png", "background/backgroundFourth.png", "background/floorBoundaries.png");
-	
+
 	//Player
 	playerSprite = Player::create("sprites/playerRunning01.png");
 	this->addChild(playerSprite, 1);
-
+	
 	// Spawn manager
 	m_pSpawnManager = SpawnManager::create();
 	this->addChild(m_pSpawnManager, 0);
 		
+	// HUD layer
+	m_HudLayer = HUD::create();
+	this->addChild(m_HudLayer, 1, TAG_HUD);
+
+	// Collectables
+	m_pCollectableFactory = CollectableFactory::create();
+	this->addChild(m_pCollectableFactory, 0, TAG_SEGMENT_MANAGER);
+
 	// touch controls
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->setSwallowTouches(true);
@@ -83,7 +83,7 @@ bool GameScene::initializeGame()
 
 void GameScene::addScreenShake()
 {	
-	auto jump = JumpBy::create(2.0, Point(300, 300), 0.5, 5);
+	auto jump = JumpBy::create(1, Point(1000, 1000), 0.5, 5);
 	auto reverse = jump->reverse();	
 	this->runAction(jump);
 	this->runAction(reverse);	
@@ -99,6 +99,14 @@ void GameScene::update(float delta)
 	m_pParallax->update();
 	m_pSpawnManager->update();
 	CollisionManager::getInstance()->checkCollisions();
+	
+	// Game world speed
+	if (WorldManager::getInstance()->getPlayer()->getDistance() < 6000 && WorldManager::getInstance()->getPlayer()->getDistance() % 500 == 0)
+	{		
+		WorldManager::getInstance()->increaseGameWorldSpeed();
+		WorldManager::getInstance()->increaseEnemyMovementSpeed();				
+	}
+	
 	
 
 	//CCLOG("-------------GAME LOOP END--------------");

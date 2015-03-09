@@ -29,6 +29,7 @@ bool Player::init()
 	m_nFood = 0;
 	m_nItems = 0;
 	m_nNumberOfJumps = 0;
+	m_bGodMode = true;
 	
 	this->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, WorldManager::getInstance()->getFloorSprite()->getContentSize().height + this->getContentSize().height / 2));
 	auto playerPhysicsBody = PhysicsBody::createBox(Size(this->getContentSize().width, this->getContentSize().height - 5), PHYSICSBODY_MATERIAL_DEFAULT);	
@@ -176,7 +177,7 @@ void Player::update()
 	if (this->getPositionY() > VISIBLE_SIZE_HEIGHT + this->getContentSize().height)
 	{
 		this->setPositionY(VISIBLE_SIZE_HEIGHT + this->getContentSize().height);
-	}	
+	}		
 }
 
 void Player::touch(const Point& location)

@@ -29,59 +29,53 @@ void CollisionManager::checkCollisions()
 
 void CollisionManager::checkCollisionsWithItems()
 {
-	if (!m_vpLayers.empty())
+	if (!m_vpItems.empty())
 	{
-		for (std::deque<TMXLayer*>::size_type it = 0; it < m_vpLayers.size(); ++it)
+		for (std::vector<Sprite*>::size_type it = 0; it < m_vpItems.size(); ++it)
 		{
-			Size layerSize = m_vpLayers.at(it)->getLayerSize();
-			for (int i = 0; i < layerSize.height; i++)
+			auto tileSprite = m_vpItems.at(it);
+			if (tileSprite)
 			{
-				for (int j = 0; j < layerSize.width; j++)
+				if (tileSprite->isVisible())
 				{
-					auto tileSprite = m_vpLayers.at(it)->tileAt(Vec2(i, j));
-					if (tileSprite)
+					if (m_pPlayer->getBoundingBox().intersectsRect(tileSprite->getBoundingBox()))
 					{
-						if (tileSprite->isVisible())
+						if (tileSprite->getName() == "coins")
 						{
-							if (m_pPlayer->getBoundingBox().intersectsRect(tileSprite->getBoundingBox()))
+							WorldManager::getInstance()->getPlayer()->addCoin();
+						}
+						else if (tileSprite->getName() == "items")
+						{
+							WorldManager::getInstance()->getPlayer()->addItem();
+						}
+						else if (tileSprite->getName() == "boosters")
+						{
+							WorldManager::getInstance()->getPlayer()->addBooster();
+
+							// Scale player down
+							if (WorldManager::getInstance()->getPlayer()->getScale() > 0.5)
 							{
-								if (tileSprite->getName() == "coins")
-								{
-									WorldManager::getInstance()->getPlayer()->addCoin();
-								}
-								else if (tileSprite->getName() == "items")
-								{
-									WorldManager::getInstance()->getPlayer()->addItem();
-								}
-								else if (tileSprite->getName() == "boosters")
-								{
-									WorldManager::getInstance()->getPlayer()->addBooster();
-
-									// Scale player down
-									if (WorldManager::getInstance()->getPlayer()->getScale() > 0.5)
-									{
-										WorldManager::getInstance()->getPlayer()->setScale(WorldManager::getInstance()->getPlayer()->getScale() - 0.01);
-									}
-								}
-								else if (tileSprite->getName() == "food")
-								{
-									WorldManager::getInstance()->getPlayer()->addFood();
-
-									// Scale player up
-									if (WorldManager::getInstance()->getPlayer()->getScale() < 2.0)
-									{
-										WorldManager::getInstance()->getPlayer()->setScale(WorldManager::getInstance()->getPlayer()->getScale() + 0.01);
-									}
-								}
-								tileSprite->setVisible(false);
+								WorldManager::getInstance()->getPlayer()->setScale(WorldManager::getInstance()->getPlayer()->getScale() - 0.01);
 							}
 						}
-					}					
+						else if (tileSprite->getName() == "food")
+						{
+							WorldManager::getInstance()->getPlayer()->addFood();
+
+							// Scale player up
+							if (WorldManager::getInstance()->getPlayer()->getScale() < 2.0)
+							{
+								WorldManager::getInstance()->getPlayer()->setScale(WorldManager::getInstance()->getPlayer()->getScale() + 0.01);
+							}
+						}
+						tileSprite->setVisible(false);
+					}
 				}
 			}
 		}
 	}
-}
+}	
+
 
 void CollisionManager::checkCollisionsWithEnemies()
 {
@@ -96,32 +90,26 @@ void CollisionManager::checkCollisionsWithEnemies()
 				{
 					if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
 					{
-						enemy->setVisible(false);
-						if (m_pPlayer->getCoins() < 1)
+						if (m_pPlayer->isGod())
 						{
-							WorldManager::getInstance()->gameLayer()->gameOver();
+							// Woo! I'm invincible!
 						}
 						else
 						{
-
-							m_pPlayer->addParticlesGameObjects("particles/CoinLoss2.plist",m_pPlayer->getContentSize().width, m_pPlayer->getContentSize().height, m_pPlayer->getCoins(), 0.5);
-							m_pPlayer->resetCoins();
-							CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/CoinDrop.wav", false, 0.5,0.5,0.5);
-						}
-
-					
-
-
-						WorldManager::getInstance()->gameLayer()->addScreenShake();
-						//CCLOG("Collision detected");
-						if (enemy->getName() == "ground")
-						{
-
-							WorldManager::getInstance()->gameLayer()->addScreenShake();
-							m_pPlayer->addParticlesGameObjects("particles/coinLoss2.plist", m_pPlayer->getContentSize().width, m_pPlayer->getContentSize().height / 2, m_pPlayer->getCoins(), 0.5);
-							m_pPlayer->resetCoins();
-						}								
-					}				
+							enemy->setVisible(false);
+							if (m_pPlayer->getCoins() < 1)
+							{
+								WorldManager::getInstance()->gameLayer()->gameOver();
+							}
+							else
+							{
+								WorldManager::getInstance()->gameLayer()->addScreenShake();
+								m_pPlayer->addParticlesGameObjects("particles/CoinLoss2.plist", m_pPlayer->getContentSize().width, m_pPlayer->getContentSize().height, m_pPlayer->getCoins(), 0.5);
+								CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/CoinDrop.wav", false, 0.5, 0.5, 0.5);
+								m_pPlayer->resetCoins();
+							}
+						}						
+					}						
 				}
 			}
 		}
@@ -132,6 +120,5 @@ void CollisionManager::checkCollisionsWithEnemies()
 void CollisionManager::cleanUp()
 {	
 	m_pPlayer = NULL;	
-	m_vpLayers.clear();
 	m_vpEnemies.clear();
 }

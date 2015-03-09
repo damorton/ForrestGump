@@ -25,24 +25,29 @@ public:
 	void addUser(std::string username);
 	bool isXMLFileExist();
 	bool soundEnabled;
-	
+	void increaseGameWorldSpeed(){ m_fWorldSpeed *= GAME_SPEED_INC; };
+	void decreaseGameWorldSpeed(){ m_fWorldSpeed /= GAME_SPEED_DEC; };
+	void increaseEnemyMovementSpeed(){ m_fEnemyMovementSpeed *= GAME_SPEED_INC; };
+	void decreaseEnemyMovementSpeed(){ m_fEnemyMovementSpeed /= GAME_SPEED_DEC; };
 
 	Player* getPlayer(){ return m_pPlayer; };
 	std::vector<std::shared_ptr<Enemy>> getEnemies(){ return m_vpEnemies; };
 	cocos2d::Sprite* getFloorSprite(){ return m_pFloorSprite; };
 	std::string getPlayerHighscore();
 	std::string getPlayerUsername();
-	std::shared_ptr<IGameDAO> getDAO(){ return m_DataAccessObject; };
+	std::shared_ptr<IGameDAO> getDAO(){ return m_DataAccessObject; };			
+	float getGameWorldSpeed(){ return m_fWorldSpeed; };
+	float getEnemyMovementSpeed(){ return m_fEnemyMovementSpeed; };
+	Vec2 getGravity(){ return m_GravitationalForce; };
+
+	void setGameWorldSpeed(float speed){ m_fWorldSpeed = speed; };
+	void setEnemyMovementSpeed(float speed){ m_fEnemyMovementSpeed = speed; };
+	void setGravity(Vec2 gravity){m_GravitationalForce = gravity; };
 	void setPlayer(Player* player){ m_pPlayer = player; };
 	void setVectorOfEnemies(std::vector<std::shared_ptr<Enemy>> vectorOfEnemies){ m_vpEnemies = vectorOfEnemies; };
 	void setFloorSprite(cocos2d::Sprite* floor){ m_pFloorSprite = floor; };
 	void setPlayerHighscore(std::string highscore);
-	void setGameWorldSpeed(float speed){ m_fWorldSpeed = speed; };
-	void setEnemyMovementSpeed(float speed){ m_fEnemyMovementSpeed = speed; };
-	float getGameWorldSpeed(){ return m_fWorldSpeed; };
-	float getEnemyMovementSpeed(){ return m_fEnemyMovementSpeed; };
-	Vec2 getGravity(){ return m_GravitationalForce; };
-	void setGravity(Vec2 gravity){m_GravitationalForce = gravity; };
+	
 private:	
 	WorldManager(){ this->init(); };  
 	~WorldManager(){ this->cleanUp(); }; 

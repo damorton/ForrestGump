@@ -11,19 +11,19 @@ class CollectableFactory : public cocos2d::Layer
 public:		
 	virtual bool init();
 	virtual ~CollectableFactory(){ this->cleanup(); };
-	void cleanup();
-	bool addPhysicsEdgeBox();
-	bool addPhysicsToTiles(TMXLayer* layer);	
-	bool addItemsToActiveVector(TMXLayer* layer);
 	bool addTMXTileMap(const std::string& filename);
-	void setTileMap(TMXTiledMap* tilemap){ m_pTileMap = tilemap; };		
-	void removeLayer(Node* sender, void* layer);
+	bool initTilePositions(TMXLayer* layer, std::string name);
 	bool spawnSprites();
-	//void resetSprite(Node* sender, void* tileSprite);		
+	bool activateItems(std::string name);
+	void cleanup();
+
+
+	
+	
+	void setTileMap(TMXTiledMap* tilemap){ m_pTileMap = tilemap; };		
 	bool isSpawned(){ return m_bIsSpawned; };
 	void update();	
-	bool initTilePositions(TMXLayer* layer, std::string name);
-	//void addSpriteBehaviour(Sprite* tileSprite);	
+	
 	void moveSprites();
 	void resetItem(Sprite* item);
 	CREATE_FUNC(CollectableFactory);
@@ -34,8 +34,9 @@ private:
 	TMXLayer* m_pBoosterLayer;
 	TMXLayer* m_pFoodLayer;
 	bool m_bIsSpawned;
-	std::vector<Sprite*> m_vpActiveItems;
-	int m_nNumberOfActiveItems;
+	std::vector<Sprite*> m_vpItems;
+	std::deque<Sprite*> m_vpActiveItems;
+	int m_cActiveItems;
 };
 
 #endif

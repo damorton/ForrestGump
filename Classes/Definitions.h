@@ -25,10 +25,9 @@ typedef enum {
 #define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
 #define VISIBLE_SIZE_HEIGHT (Director::getInstance()->getVisibleSize().height)
 #define SCREEN_ORIGIN (Director::getInstance()->getVisibleOrigin())
-
-// Movement speeds
+#define GAME_SPEED_INC (float)1.05
+#define GAME_SPEED_DEC (float)1.05
 #define WORLD_MOVEMENT_SPEED (WorldManager::getInstance()->getGameWorldSpeed())
-#define ENEMY_MOVEMENT_SPEED (WorldManager::getInstance()->getEnemyMovementSpeed())
 
 // Scenes
 #define DISPLY_TIME_SPLASH_SCENCE 2
@@ -42,7 +41,7 @@ typedef enum {
 
 // Labels
 #define LABEL_FONT "fonts/go3v2.ttf"
-#define LABEL_FONT_SIZE (cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize().width / Director::getInstance()->getVisibleSize().width * 32)
+#define LABEL_FONT_SIZE (Director::getInstance()->getOpenGLView()->getDesignResolutionSize().width / Director::getInstance()->getVisibleSize().width * 32)
 #define PADDING 10
 
 #endif 
