@@ -22,7 +22,8 @@ public:
 	void update(float delta);	
 	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event * event);
 	void gameOver();
-	void pauseGame();
+	void mainMenu();
+	void pauseGame();	
 	void addScreenShake();
 
 	CREATE_FUNC(GameScene);

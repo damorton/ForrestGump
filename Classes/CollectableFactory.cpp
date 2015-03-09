@@ -9,24 +9,23 @@ bool CollectableFactory::init()
 	{
 		return false;
 	}			
-	this->addTMXTileMap("maps/SpawnManagerMap.tmx");
-	
-	m_pCoinLayer = m_pTileMap->getLayer("coins");	
-	this->initTilePositions(m_pCoinLayer, "coins");
-
-	m_pItemLayer = m_pTileMap->getLayer("items");
-	this->initTilePositions(m_pItemLayer, "items");
-
-	m_pBoosterLayer = m_pTileMap->getLayer("boosters");
-	this->initTilePositions(m_pBoosterLayer, "boosters");
-
-	m_pFoodLayer = m_pTileMap->getLayer("food");
-	this->initTilePositions(m_pFoodLayer, "food");
-
+	this->addTMXTileMap("maps/SpawnManagerMap.tmx");	
+	this->addItemLayer("introCoins");
+	this->addItemLayer("coins");
+	this->addItemLayer("items");
+	this->addItemLayer("boosters");
+	this->addItemLayer("food");
 	srand(time(NULL));
 	m_bIsSpawned = false;	
 	m_cActiveItems = 0;
+	this->activateItems("introCoins");
 	return true;
+}
+
+void CollectableFactory::addItemLayer(std::string layerName)
+{
+	auto layer = m_pTileMap->getLayer(layerName);
+	this->initTilePositions(layer, layerName);
 }
 
 bool CollectableFactory::addTMXTileMap(const std::string& filename)
@@ -134,15 +133,6 @@ void CollectableFactory::moveSprites()
 	}	
 }
 
-void CollectableFactory::cleanup()
-{
-	m_pTileMap = NULL;
-	m_pCoinLayer = NULL;
-	m_pItemLayer = NULL;
-	m_pBoosterLayer = NULL;
-	m_pFoodLayer = NULL;
-}
-
 void CollectableFactory::update()
 {	
 	if (m_vpActiveItems.empty())
@@ -151,3 +141,15 @@ void CollectableFactory::update()
 	}
 	this->moveSprites();
 }
+
+void CollectableFactory::cleanup()
+{
+	m_pTileMap = NULL;
+	m_pCoinLayer = NULL;
+	m_pItemLayer = NULL;
+	m_pBoosterLayer = NULL;
+	m_pFoodLayer = NULL;
+	m_vpItems.clear();
+	m_vpActiveItems.clear();	
+}
+

@@ -113,8 +113,7 @@ void HUD::resume(CCObject* pSender)
 
 void HUD::mainMenu(CCObject* pSender)
 {
-	auto scene = MainMenu::createScene();
-	Director::getInstance()->replaceScene(TransitionFade::create(1, scene));
+	WorldManager::getInstance()->gameLayer()->mainMenu();
 }
 
 void HUD::togglePause(bool paused)

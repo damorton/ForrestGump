@@ -55,10 +55,6 @@ bool GameScene::initializeGame()
 	//Player
 	playerSprite = Player::create("sprites/playerRunning01.png");
 	this->addChild(playerSprite, 1);
-	
-	// Spawn manager
-	m_pSpawnManager = SpawnManager::create();
-	this->addChild(m_pSpawnManager, 0);
 		
 	// HUD layer
 	m_HudLayer = HUD::create();
@@ -68,6 +64,10 @@ bool GameScene::initializeGame()
 	m_pCollectableFactory = CollectableFactory::create();
 	this->addChild(m_pCollectableFactory, 0, TAG_SEGMENT_MANAGER);
 
+	// Spawn manager
+	m_pSpawnManager = SpawnManager::create();
+	this->addChild(m_pSpawnManager, 0);
+	
 	// touch controls
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->setSwallowTouches(true);
@@ -92,12 +92,12 @@ void GameScene::addScreenShake()
 void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	
-
+		
 	m_HudLayer->update();
 	WorldManager::getInstance()->getPlayer()->update();
 	m_pCollectableFactory->update();
 	m_pParallax->update();
-	m_pSpawnManager->update();
+	m_pSpawnManager->update();	
 	CollisionManager::getInstance()->checkCollisions();
 	
 	// Game world speed
@@ -127,7 +127,15 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 void GameScene::gameOver()
 {	
 	this->pauseGame();
+	// Death sequence here!!
 	Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
+}
+
+void GameScene::mainMenu()
+{
+	this->pauseGame();
+	Director::getInstance()->replaceScene(TransitionFade::create(1, MainMenu::createScene()));
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
 }
 

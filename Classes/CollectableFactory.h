@@ -11,15 +11,13 @@ class CollectableFactory : public cocos2d::Layer
 public:		
 	virtual bool init();
 	virtual ~CollectableFactory(){ this->cleanup(); };
+	void addItemLayer(std::string layerName);
 	bool addTMXTileMap(const std::string& filename);
 	bool initTilePositions(TMXLayer* layer, std::string name);
 	bool spawnSprites();
 	bool activateItems(std::string name);
 	void cleanup();
 
-
-	
-	
 	void setTileMap(TMXTiledMap* tilemap){ m_pTileMap = tilemap; };		
 	bool isSpawned(){ return m_bIsSpawned; };
 	void update();	
@@ -29,6 +27,7 @@ public:
 	CREATE_FUNC(CollectableFactory);
 private:
 	TMXTiledMap* m_pTileMap;
+	TMXLayer* m_pIntroCoinLayer;
 	TMXLayer* m_pCoinLayer;
 	TMXLayer* m_pItemLayer;
 	TMXLayer* m_pBoosterLayer;

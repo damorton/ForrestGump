@@ -40,7 +40,11 @@ void CollisionManager::checkCollisionsWithItems()
 				{
 					if (m_pPlayer->getBoundingBox().intersectsRect(tileSprite->getBoundingBox()))
 					{
-						if (tileSprite->getName() == "coins")
+						if (tileSprite->getName() == "introCoins")
+						{
+							WorldManager::getInstance()->getPlayer()->addCoin();
+						}
+						else if (tileSprite->getName() == "coins")
 						{
 							WorldManager::getInstance()->getPlayer()->addCoin();
 						}
@@ -90,16 +94,20 @@ void CollisionManager::checkCollisionsWithEnemies()
 				{
 					if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
 					{
+						enemy->setVisible(false);
 						if (m_pPlayer->isGod())
 						{
 							// Woo! I'm invincible!
 						}
 						else
-						{
-							enemy->setVisible(false);
+						{							
+							WorldManager::getInstance()->gameLayer()->gameOver();
+							
+							// need to collect coins and not lose them?
+							/*
 							if (m_pPlayer->getCoins() < 1)
 							{
-								WorldManager::getInstance()->gameLayer()->gameOver();
+								
 							}
 							else
 							{
@@ -108,6 +116,7 @@ void CollisionManager::checkCollisionsWithEnemies()
 								CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/CoinDrop.wav", false, 0.5, 0.5, 0.5);
 								m_pPlayer->resetCoins();
 							}
+							*/
 						}						
 					}						
 				}
@@ -116,9 +125,9 @@ void CollisionManager::checkCollisionsWithEnemies()
 	}
 }
 
-
 void CollisionManager::cleanUp()
 {	
 	m_pPlayer = NULL;	
 	m_vpEnemies.clear();
+	m_vpItems.clear();
 }
