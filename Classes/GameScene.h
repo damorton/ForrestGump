@@ -20,7 +20,7 @@ public:
 	void cleanup();
 	bool initializeGame();
 	void update(float delta);	
-	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event * event);	
+	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event * event);
 	void gameOver();
 	void pauseGame();
 	void addScreenShake();

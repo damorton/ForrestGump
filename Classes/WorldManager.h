@@ -24,6 +24,9 @@ public:
 	void createDAO();
 	void addUser(std::string username);
 	bool isXMLFileExist();
+	bool soundEnabled;
+	
+
 	Player* getPlayer(){ return m_pPlayer; };
 	std::vector<std::shared_ptr<Enemy>> getEnemies(){ return m_vpEnemies; };
 	cocos2d::Sprite* getFloorSprite(){ return m_pFloorSprite; };

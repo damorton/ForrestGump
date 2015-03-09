@@ -119,7 +119,7 @@ void HUD::mainMenu(CCObject* pSender)
 
 void HUD::togglePause(bool paused)
 {
-	popup->show(paused);
+	popup->show(paused, true);
 	WorldManager::getInstance()->gameLayer()->setTouchEnabled(!paused);
 	menu_item_pause->setVisible(!paused);	
 }
