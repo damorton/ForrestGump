@@ -32,6 +32,7 @@ private:
 	TMXLayer* m_pItemLayer;
 	TMXLayer* m_pBoosterLayer;
 	TMXLayer* m_pFoodLayer;
+	TMXLayer* m_pShield;
 	bool m_bIsSpawned;
 	std::vector<Sprite*> m_vpItems;
 	std::deque<Sprite*> m_vpActiveItems;

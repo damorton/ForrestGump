@@ -82,13 +82,13 @@ bool GameScene::initializeGame()
 	return true;
 }
 
-void GameScene::addScreenShake()
+/*void GameScene::addScreenShake()
 {	
 	auto jump = JumpBy::create(1, Point(1000, 1000), 0.5, 5);
 	auto reverse = jump->reverse();	
 	this->runAction(jump);
 	this->runAction(reverse);	
-}
+}*/
 
 void GameScene::update(float delta)
 {

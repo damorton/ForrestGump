@@ -10,6 +10,7 @@ bool CollectableFactory::init()
 		return false;
 	}			
 	this->addTMXTileMap("maps/SpawnManagerMap.tmx");	
+	this->addItemLayer("Shield");
 	this->addItemLayer("introCoins");
 	this->addItemLayer("coins");
 	this->addItemLayer("items");
@@ -58,7 +59,7 @@ bool CollectableFactory::initTilePositions(TMXLayer* layer, std::string name)
 bool CollectableFactory::spawnSprites()
 {		
 	int randomnumber;
-	int numberOfLayers = 4;	
+	int numberOfLayers = 5;	
 	randomnumber = (rand() % numberOfLayers);
 		
 	switch (randomnumber)
@@ -74,6 +75,9 @@ bool CollectableFactory::spawnSprites()
 		break;
 	case 3:
 		this->activateItems("food");
+		break;
+	case 4:
+		this->activateItems("Shield");
 		break;
 	default:
 		CCLOG("segment spawn random number unknown");
@@ -149,6 +153,7 @@ void CollectableFactory::cleanup()
 	m_pItemLayer = NULL;
 	m_pBoosterLayer = NULL;
 	m_pFoodLayer = NULL;
+	m_pShield = NULL;
 	m_vpItems.clear();
 	m_vpActiveItems.clear();	
 }
