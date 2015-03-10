@@ -28,6 +28,7 @@ public:
 	void setFloorSprite(cocos2d::Sprite* floor){ m_pFloorSprite = floor; };
 	bool isSoundEnabled(){ return m_bSoundEnabled; };
 	void setSoundEnabled(bool sound){ m_bSoundEnabled = sound; };
+	void resetGameWorld();
 
 	// Game World
 	void increaseGameWorldSpeed(){ m_fWorldSpeed *= GAME_SPEED_INC; };

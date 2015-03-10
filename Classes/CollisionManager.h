@@ -16,10 +16,13 @@ class CollisionManager
 {
 public:
 	virtual bool init();
-	static CollisionManager* getInstance();	
+	virtual void collisionManagerCleanup();
+	static CollisionManager* getInstance();
+
 	void checkCollisions();
 	void checkCollisionsWithItems();
 	void checkCollisionsWithEnemies();
+	void resetCollisionManager();
 
 	void setPlayer(Player* player){ m_pPlayer = player; };
 	void addItem(Sprite* item){ m_vpItems.push_back(item); };
@@ -32,15 +35,12 @@ public:
 	void removeItem(){ m_vpItems.pop_front(); };
 	void removeEnemy(){ m_vpEnemies.pop_back(); };
 	
-	void cleanUp();
-
-	
 	
 
 private:	
 	static CollisionManager* m_Instance;
 	CollisionManager(){ this->init(); }; 
-	~CollisionManager(){ this->cleanUp(); }; 
+	virtual ~CollisionManager(){ this->collisionManagerCleanup(); };
 	Player* m_pPlayer;
 	std::vector<Enemy*> m_vpEnemies;
 	std::deque<Sprite*> m_vpItems;

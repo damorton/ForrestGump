@@ -20,6 +20,7 @@ bool CollectableFactory::init()
 	m_bIsSpawned = false;	
 	m_cActiveItems = 0;
 	this->activateItems("introCoins");
+	CCLOG("Collectable factory init");
 	return true;
 }
 
@@ -146,15 +147,17 @@ void CollectableFactory::update()
 	this->moveSprites();
 }
 
-void CollectableFactory::cleanup()
+void CollectableFactory::collectableFactoryCleanup()
 {
 	m_pTileMap = NULL;
 	m_pCoinLayer = NULL;
+	m_pIntroCoinLayer = NULL;
 	m_pItemLayer = NULL;
 	m_pBoosterLayer = NULL;
 	m_pFoodLayer = NULL;
 	m_pShield = NULL;
 	m_vpItems.clear();
 	m_vpActiveItems.clear();	
+	CCLOG("Collectable Factory cleanup");
 }
 

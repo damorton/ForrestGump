@@ -11,6 +11,6 @@ spEnemy EnemyFactory::createEnemy()
 	return spEnemy(new Enemy());
 }
 
-void EnemyFactory::cleanUp()
+void EnemyFactory::enemyFactoryCleanp()
 {
 }

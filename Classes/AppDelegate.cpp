@@ -44,10 +44,16 @@ bool AppDelegate::applicationDidFinishLaunching() {
 		resourceDir.push_back("ipadhd");		
 		glview->setDesignResolutionSize(2048, 1536, ResolutionPolicy::NO_BORDER);
 	}
+	/*else if (screenSize.height >= 1080)
+	{
+		CCLOG("using galaxyS4 1920x1080");
+		resourceDir.push_back("galaxyS4");
+		glview->setDesignResolutionSize(1920, 1080, ResolutionPolicy::NO_BORDER);
+	}*/
 	else if (screenSize.height >= 768)
 	{
-		CCLOG("using ipad 1024x768");
-		resourceDir.push_back("ipad");		
+		CCLOG("using nexus7 1024x768");
+		resourceDir.push_back("nexus7");
 		glview->setDesignResolutionSize(1024, 768, ResolutionPolicy::NO_BORDER);
 	}
 	else if (screenSize.height >= 640)
@@ -77,14 +83,12 @@ bool AppDelegate::applicationDidFinishLaunching() {
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
 void AppDelegate::applicationDidEnterBackground() {
 	Director::getInstance()->stopAnimation();
-
-	 SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+	SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 }
 
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground() {
 	Director::getInstance()->startAnimation();
-
 	// if you use SimpleAudioEngine, it must resume here
-	 SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+	SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }

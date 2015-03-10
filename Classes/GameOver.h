@@ -10,6 +10,8 @@ class GameOver : public cocos2d::Layer
 public:
 	static cocos2d::Scene* createScene();
 	virtual bool init();	
+	CREATE_FUNC(GameOver);
+
 	bool initializeGameOverScene();	
 	void displayPlayerStatistics();
 	void initLabelWithValue(Label* label, Label* value, Label* statsLabel);
@@ -19,7 +21,7 @@ public:
 	void mainMenu(Ref *pSender);
 	void exit(Ref *pSender);
 	void playAgain(Ref *pSender);
-	CREATE_FUNC(GameOver);
+	
 private:
 	Size m_Size;
 	Vec2 m_Origin;

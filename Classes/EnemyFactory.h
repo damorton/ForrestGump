@@ -11,16 +11,16 @@ class IEnemyFactory
 public:
 	virtual bool init() = 0;
 	virtual spEnemy createEnemy() = 0;
-	virtual void cleanUp() = 0;
+	virtual void enemyFactoryCleanp() = 0;
 };
 
 class EnemyFactory : public IEnemyFactory
 {
 public:
 	EnemyFactory(){ this->init(); };
-	~EnemyFactory(){ this->cleanUp(); };
+	virtual ~EnemyFactory(){ this->enemyFactoryCleanp(); };
 	bool init();	
-	void cleanUp();
+	void enemyFactoryCleanp();
 	spEnemy createEnemy();
 };
 #endif

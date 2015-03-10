@@ -50,9 +50,9 @@ void Enemy::update()
 	
 }
 
-void Enemy::cleanUp()
+void Enemy::enemyCleanUp()
 {	
-
+	CCLOG("Enemy cleanup");
 }
 
 // Get Enemy by name and animate

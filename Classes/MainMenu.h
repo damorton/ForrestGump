@@ -11,14 +11,16 @@ class MainMenu : public cocos2d::Layer
 public:
     static cocos2d::Scene* createScene();
     virtual bool init();    
-	static void mainMenu();
+	virtual ~MainMenu(){ this->mainMenuCleanup(); };
+	CREATE_FUNC(MainMenu);
+
 	void playGame(Ref *pSender);
 	void leaderboard(Ref *pSender);
 	void settings(Ref *pSender);	
 	void back(CCObject* pSender);
 	void sound(CCObject* pSender);
 	void addParticlesToButtons(MenuItemImage* button);
-	CREATE_FUNC(MainMenu);
+	void mainMenuCleanup();
 private:
 	MenuItemImage* soundButton;
 	bool soundEnabled;

@@ -10,9 +10,11 @@ class Enemy : public Sprite, public Character
 {
 public:		
 	static Enemy* create(const std::string& filename);
-	virtual ~Enemy(){};
-	bool init(); // initialize the enemy		
-	void cleanUp(); // house keeping 
+	virtual ~Enemy(){ this->enemyCleanUp(); };
+	virtual bool init(); 	
+	virtual void enemyCleanUp(); 
+
+
 	void runAI(); // run Enemy AI
 	void update(); // update the Enemy
 	EGameOjectType getType(){ return m_eType; };

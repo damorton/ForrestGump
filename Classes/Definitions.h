@@ -21,12 +21,12 @@ typedef enum {
 #define PADDING 10
 
 // World
-#define GRAVITATIONAL_FORCE Vec2(0, -500)
 #define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
 #define VISIBLE_SIZE_HEIGHT (Director::getInstance()->getVisibleSize().height)
 #define SCREEN_ORIGIN (Director::getInstance()->getVisibleOrigin())
 #define GAME_SPEED_INC (float)1.05
 #define GAME_SPEED_DEC (float)1.05
+#define GRAVITATIONAL_FORCE Vec2(0, -500)
 #define WORLD_MOVEMENT_SPEED 6.0f
 #define ENEMY_MOVEMENT_SPEED 7.0f
 

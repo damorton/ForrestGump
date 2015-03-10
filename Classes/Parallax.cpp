@@ -88,3 +88,8 @@ void Parallax::scrollBackground(CCSprite* bck1, CCSprite* bck2, float speed)
 		bck2->setPosition(Vec2(bck1->getPosition().x + bck1->getContentSize().width, bck2->getPosition().y));
 	}
 }
+
+void Parallax::parallaxCleanup()
+{
+	CCLOG("Parallax cleanup");
+}

@@ -9,12 +9,15 @@ USING_NS_CC;
 class Player : public Sprite, public Character
 {
 public:		
+	CREATE_FUNC(Player);
+	virtual ~Player(){ this->playerCleanup(); };
+	virtual bool init();
+	void playerCleanup();
+
 	typedef enum { BOOSTING, JUMPING, RUNNING } EPlayerAction;
 	typedef enum { BP_UP, BP_DOWN } EBackpackAction;
 	static Player* create(const std::string& filename);
-	virtual ~Player(){};
-	bool init();
-	void cleanUp();	
+	
 	void jump();
 	void touch(const Point& location);	
 	void update();
@@ -39,13 +42,11 @@ public:
 	void addFood();
 	void addParticle();
 	void addParticlesGameObjects(std::string path, float a, float b, int totalPar, float duration);
-	void endGame();
 	void resetCoins();
 	bool isGod(){ return m_bGodMode; };
 
 	//ANIMATION
 	void getAnimationWithFrames(char* enemyAnimation, int frames);
-	CREATE_FUNC(Player);	
 
 private:	
 	EPlayerAction m_ePlayerAction;

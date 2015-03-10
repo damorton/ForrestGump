@@ -40,13 +40,13 @@ bool Player::init()
 	
 	// Animate the player
 	this->getAnimationWithFrames("sprites/playerRunning%02d.png", 4);
-	// add hint sprite
+
 
 	m_pJetpack = Sprite::create("sprites/jetpackUp.png");
 	m_pJetpack->setPosition(Vec2(0, this->getContentSize().height / 2));
 	this->addChild(m_pJetpack, -1);
 	
-	auto jetpackFire = CCParticleSystemQuad::create("particles/jetpackFire.plist");		
+	auto jetpackFire = ParticleSystemQuad::create("particles/jetpackFire.plist");		
 	jetpackFire->setPosition(Vec2::ZERO);
 	jetpackFire->setAutoRemoveOnFinish(true);	
 	m_pJetpack->addChild(jetpackFire, 0, "jetpack");
@@ -72,7 +72,7 @@ void Player::addCoin()
 void Player::addBooster()
 {
 	m_nBoosters++;
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40Redone.wav", false, 1.0f, 1.0f, 1.0f);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40.wav", false, 1.0f, 1.0f, 1.0f);
 	this->addParticlesGameObjects("particles/booster.plist", this->getContentSize().width / 2, 0, 1, 0.5);
 
 }
@@ -94,7 +94,7 @@ void Player::addItem()
 
 void Player::addParticle()
 {
-	m_pEmitter = CCParticleSystemQuad::create("particles/shadow.plist");
+	m_pEmitter = CCParticleSystemQuad::create("particles/Shadow.plist");
 	m_pEmitter->setPosition(this->getContentSize().width/2, 0);
 	m_pEmitter->setEmissionRate(20);
 	m_pEmitter->setTotalParticles(100);
@@ -118,11 +118,6 @@ void Player::resetCoins()
 	m_nCoins = 0;
 }
 
-void Player::endGame()
-{
-	CCLOG("Called");
-	Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));
-}
 
 void Player::jump()
 {
@@ -185,8 +180,9 @@ void Player::touch(const Point& location)
 	this->jump();	
 }
 
-void Player::cleanUp()
+void Player::playerCleanup()
 {
+	CCLOG("Player cleanup");
 }
 
 // Create the Animation Sprites, return animate object

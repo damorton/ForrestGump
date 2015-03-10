@@ -40,9 +40,9 @@ bool GameScene::initializeGame()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	if (WorldManager::getInstance()->isSoundEnabled()){
-		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/8bitDungeonLevel.wav", true);
-	}		
+	
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/8bitDungeonLevel.wav", true);
+		
 
 	// game play layer
 	gamePlayLayer = Layer::create();
@@ -79,6 +79,7 @@ bool GameScene::initializeGame()
 	m_bPaused = false;
 
 	this->scheduleUpdate();
+	CCLOG("Game scene initialized");
 	return true;
 }
 
@@ -93,22 +94,20 @@ bool GameScene::initializeGame()
 void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	
-		
-	m_HudLayer->update();
-	WorldManager::getInstance()->getPlayer()->update();
-	m_pCollectableFactory->update();
-	m_pParallax->update();
-	m_pSpawnManager->update();	
-	CollisionManager::getInstance()->checkCollisions();
-	
 	// Game world speed
 	if (WorldManager::getInstance()->getPlayer()->getDistance() < 6000 && WorldManager::getInstance()->getPlayer()->getDistance() % 500 == 0)
-	{		
+	{
 		WorldManager::getInstance()->increaseGameWorldSpeed();
-		WorldManager::getInstance()->increaseEnemyMovementSpeed();				
+		WorldManager::getInstance()->increaseEnemyMovementSpeed();
 	}
+
+	WorldManager::getInstance()->getPlayer()->update();
+	m_pSpawnManager->update();
+	m_pCollectableFactory->update();
+	m_pParallax->update();
+	m_HudLayer->update();
 	
-	
+	CollisionManager::getInstance()->checkCollisions();
 
 	//CCLOG("-------------GAME LOOP END--------------");
 }
@@ -127,21 +126,24 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 
 void GameScene::gameOver()
 {	
-	this->pauseGame();
+	CCLOG("Game Scene: Game over called");
+	this->pauseGame();	
 	// Death sequence here!!
 	Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);	
 }
 
 void GameScene::mainMenu()
 {
-	this->pauseGame();
+	CCLOG("Game Scene: Main menu called");
+	this->pauseGame();	
 	Director::getInstance()->replaceScene(TransitionFade::create(1, MainMenu::createScene()));
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);	
 }
 
 void GameScene::pauseGame()
 {
+	CCLOG("Game Scene: Pause game called");
 	if (!m_bPaused)
 	{
 		m_bPaused = true;
@@ -158,11 +160,4 @@ void GameScene::pauseGame()
 		m_pSpawnManager->resumeGame();
 		this->resumeSchedulerAndActions();				
 	}
-}
-
-void GameScene::cleanup()
-{	
-	CollisionManager::getInstance()->cleanUp();
-	WorldManager::getInstance()->cleanUp();
-	CCLOG("Game Scene cleaned up");
 }

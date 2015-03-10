@@ -12,7 +12,16 @@ bool SpawnManager::init()
 	this->createEnemies();	
 	srand(time(NULL));
 	m_bIsSpawned = false;
+	CCLOG("Spawn Manager init");
 	return true;
+}
+
+void SpawnManager::spawnManagerCleanup()
+{
+	m_pPlayer = NULL;
+	m_vpEnemies.clear();
+	m_vpActiveEnemies.clear();
+	CCLOG("Spawn Manager cleanup");
 }
 
 void SpawnManager::createEnemies()

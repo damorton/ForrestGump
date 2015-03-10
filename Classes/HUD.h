@@ -9,21 +9,18 @@ USING_NS_CC;
 class HUD : public cocos2d::Layer
 {
 public:		
-	virtual bool init();		
+	virtual bool init();
+	virtual ~HUD(){ this->hudCleanup(); };
+	CREATE_FUNC(HUD);
+
 	void addScore();
-	void update();
-	
-	//Pause menu
+	void update();	
 	void pause(CCObject* pSender);
 	void resume(CCObject* pSender);
 	void mainMenu(CCObject* pSender);
 	void togglePause(bool paused);
-	Popup *popup;
-	
-	MenuItemImage *menu_item_pause;
-
-	void initLabelWithValue(Label* label, Vec2 position, Label* value);
-	CREATE_FUNC(HUD);
+	void initLabelWithValue(Label* label, Vec2 position, Label* value);	
+	void hudCleanup();
 private:
 	Size m_Size;
 	Vec2 m_Origin;	
@@ -38,6 +35,8 @@ private:
 	Label* m_pItemsValueLabel;
 	Label* m_pBoostersValueLabel;
 	Label* m_pFoodValueLabel;
+	Popup* popup;
+	MenuItemImage *menu_item_pause;
 };
 
 #endif
