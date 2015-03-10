@@ -136,7 +136,6 @@ void GameScene::gameOver()
 void GameScene::mainMenu()
 {
 	CCLOG("Game Scene: Main menu called");
-	this->pauseGame();	
 	Director::getInstance()->replaceScene(TransitionFade::create(1, MainMenu::createScene()));
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);	
 }
