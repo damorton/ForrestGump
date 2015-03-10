@@ -22,7 +22,7 @@ bool CollectableFactory::init()
 	srand(time(NULL));
 	m_bIsSpawned = false;	
 	m_cActiveItems = 0;
-	this->activateItems("introCoins");
+	this->activateItems("shield");
 	CCLOG("Collectable factory init");
 	return true;
 }

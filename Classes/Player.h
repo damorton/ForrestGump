@@ -30,6 +30,7 @@ public:
 	int getItems(){ return m_nItems; };
 	int getBoosters(){ return m_nBoosters; };
 	int getFood(){ return m_nFood; };
+	Sprite* getShield(){ return m_pShield; };
 
 	
 	void setType(EGameOjectType type){ m_eType = type; };

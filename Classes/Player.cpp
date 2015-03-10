@@ -55,7 +55,6 @@ bool Player::init()
 
 	WorldManager::getInstance()->setPlayer(this);
 	CollisionManager::getInstance()->setPlayer(this);
-	CollisionManager::getInstance()->addItem(m_pShield);
 	this->addParticle();
 
 	return true;
@@ -114,7 +113,7 @@ void Player::addShield()
 }
 void Player::setGodMode()
 {
-	
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Powerup_32.wav", false, 1.0, 1.0, 1.0);
 	m_bGodMode = true;
 	m_nCount = 0;
 	this->addShield();
