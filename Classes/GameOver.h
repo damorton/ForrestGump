@@ -30,12 +30,14 @@ private:
 	int m_nItems;
 	int m_nBoosters;
 	int m_nFood;
-	Label* m_pDistanceValueLabel;
+	int m_nTotalScore;
 	Label* m_pCoinsValueLabel;
 	Label* m_pItemsValueLabel;
 	Label* m_pBoostersValueLabel;
 	Label* m_pFoodValueLabel;
 	Label* m_newHighscore;
+	Label* m_pDistanceValueLabel;
+	
 };
 
 #endif 

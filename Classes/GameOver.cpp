@@ -58,22 +58,31 @@ bool GameOver::initializeGameOverScene()
 
 void GameOver::displayPlayerStatistics()
 {
+	int coins = WorldManager::getInstance()->getPlayer()->getCoins();
+	int items = WorldManager::getInstance()->getPlayer()->getItems();
+	int boosters = WorldManager::getInstance()->getPlayer()->getBoosters();
+	int food = WorldManager::getInstance()->getPlayer()->getFood();
+	int distance = WorldManager::getInstance()->getPlayer()->getDistance();
+
+	m_nTotalScore = coins + items + boosters + food + distance;
+
 	// Distance
-	auto distanceLabel = Label::createWithTTF(WorldManager::getInstance()->getPlayerUsername() + " YOU RAN", LABEL_FONT, LABEL_FONT_SIZE* 1.5);
-	distanceLabel->setPosition(Vec2((m_Size.width * 0.25), m_Origin.y + (VISIBLE_SIZE_HEIGHT / 4 )*3 - distanceLabel->getContentSize().height / 2));
-	distanceLabel->setColor(Color3B(255, 255, 255));
-	distanceLabel->enableGlow(Color4B(255, 255, 51, 255));
-	distanceLabel->setRotation(-6.0f);
-	this->addChild(distanceLabel);
-	auto distanceValue = Label::createWithTTF(std::to_string(WorldManager::getInstance()->getPlayer()->getDistance()) + "m", LABEL_FONT, LABEL_FONT_SIZE * 4);
-	distanceValue->setPosition(Vec2(distanceLabel->getPositionX(), distanceLabel->getPositionY() - PADDING - distanceValue->getContentSize().height / 2));
-	distanceValue->setColor(Color3B(255, 255, 64));
-	distanceValue->enableGlow(Color4B(255, 255, 51, 255));
-	distanceValue->setRotation(-6.0f);
-	this->addChild(distanceValue);
+	//auto totalScoreLabel = Label::createWithTTF(WorldManager::getInstance()->getPlayerUsername() + " YOU RAN", LABEL_FONT, LABEL_FONT_SIZE* 1.5);
+	auto totalScoreLabel = Label::createWithTTF("TOTAL SCORE", LABEL_FONT, LABEL_FONT_SIZE* 1.5);
+	totalScoreLabel->setPosition(Vec2((m_Size.width * 0.25), m_Origin.y + (VISIBLE_SIZE_HEIGHT / 4 )*3 - totalScoreLabel->getContentSize().height / 2));
+	totalScoreLabel->setColor(Color3B(255, 255, 255));
+	totalScoreLabel->enableGlow(Color4B(255, 255, 51, 255));
+	totalScoreLabel->setRotation(-6.0f);
+	this->addChild(totalScoreLabel);
+	auto totalScoreValue = Label::createWithTTF(std::to_string(m_nTotalScore), LABEL_FONT, LABEL_FONT_SIZE * 4);
+	totalScoreValue->setPosition(Vec2(totalScoreLabel->getPositionX(), totalScoreLabel->getPositionY() - PADDING - totalScoreValue->getContentSize().height / 2));
+	totalScoreValue->setColor(Color3B(255, 255, 64));
+	totalScoreValue->enableGlow(Color4B(255, 255, 51, 255));
+	totalScoreValue->setRotation(-6.0f);
+	this->addChild(totalScoreValue);
 	
 	auto newHighscore = Label::createWithTTF("NEW HIGHSCORE!", LABEL_FONT, LABEL_FONT_SIZE);
-	newHighscore->setPosition(Vec2(distanceLabel->getPositionX(), distanceValue->getPositionY() - PADDING - distanceValue->getContentSize().height / 2 - newHighscore->getContentSize().height / 2));
+	newHighscore->setPosition(Vec2(totalScoreValue->getPositionX(), totalScoreValue->getPositionY() - PADDING - totalScoreValue->getContentSize().height / 2 - newHighscore->getContentSize().height / 2));
 	newHighscore->setColor(Color3B(255, 0, 0));
 	newHighscore->enableGlow(Color4B(255, 255, 51, 255));
 	newHighscore->setRotation(-6.0f);
@@ -101,18 +110,22 @@ void GameOver::displayPlayerStatistics()
 	statsLabel->enableOutline(Color4B(0, 0, 0, 255));
 	statsLabel->enableGlow(Color4B(0, 0, 0, 255));
 	this->addChild(statsLabel);
+	
+	// Distance
+	auto distanceLabel = Label::createWithTTF("Distance ", LABEL_FONT, LABEL_FONT_SIZE);
+	m_pDistanceValueLabel = Label::createWithTTF(std::to_string(WorldManager::getInstance()->getPlayer()->getDistance()), LABEL_FONT, LABEL_FONT_SIZE);
+	this->initLabelWithValue(distanceLabel, m_pDistanceValueLabel, statsLabel);		
 
 	// Coins
 	auto coinsLabel = Label::createWithTTF("Coins ", LABEL_FONT, LABEL_FONT_SIZE);		
 	m_pCoinsValueLabel = Label::createWithTTF(std::to_string(WorldManager::getInstance()->getPlayer()->getCoins()), LABEL_FONT, LABEL_FONT_SIZE);
-	this->initLabelWithValue(coinsLabel, m_pCoinsValueLabel, statsLabel);
+	this->initLabelWithValue(coinsLabel, m_pCoinsValueLabel, distanceLabel);
 	
 	// Items
 	auto itemsLabel = Label::createWithTTF("Items ", LABEL_FONT, LABEL_FONT_SIZE);
 	m_pItemsValueLabel = Label::createWithTTF(std::to_string(WorldManager::getInstance()->getPlayer()->getItems()), LABEL_FONT, LABEL_FONT_SIZE);
 	this->initLabelWithValue(itemsLabel, m_pItemsValueLabel, coinsLabel);
-
-
+	
 	// Boosters
 	auto boostersLabel = Label::createWithTTF("Boosters ", LABEL_FONT, LABEL_FONT_SIZE);
 	m_pBoostersValueLabel = Label::createWithTTF(std::to_string(WorldManager::getInstance()->getPlayer()->getBoosters()), LABEL_FONT, LABEL_FONT_SIZE);
@@ -122,6 +135,7 @@ void GameOver::displayPlayerStatistics()
 	auto foodLabel = Label::createWithTTF("Food ", LABEL_FONT, LABEL_FONT_SIZE);
 	m_pFoodValueLabel = Label::createWithTTF(std::to_string(WorldManager::getInstance()->getPlayer()->getFood()), LABEL_FONT, LABEL_FONT_SIZE);
 	this->initLabelWithValue(foodLabel, m_pFoodValueLabel, boostersLabel);
+		
 
 	// Duration of session
 	// Number of jumps
@@ -147,7 +161,7 @@ void GameOver::initLabelWithValue(Label* label, Label* value, Label* labelAbove)
 
 void GameOver::storeHighscore()
 {
-	WorldManager::getInstance()->setPlayerHighscore(std::to_string(WorldManager::getInstance()->getPlayer()->getDistance()));
+	WorldManager::getInstance()->setPlayerHighscore(std::to_string(m_nTotalScore));
 }
 
 void GameOver::displayLeaderboard()
