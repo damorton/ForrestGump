@@ -12,6 +12,7 @@ bool SpawnManager::init()
 	this->createEnemies();	
 	srand(time(NULL));
 	m_bIsSpawned = false;
+	CCLOG("Spawn Manager init");
 	return true;
 }
 

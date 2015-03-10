@@ -19,6 +19,7 @@ bool CollectableFactory::init()
 	m_bIsSpawned = false;	
 	m_cActiveItems = 0;
 	this->activateItems("introCoins");
+	CCLOG("Collectable factory init");
 	return true;
 }
 

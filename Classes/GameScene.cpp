@@ -94,22 +94,20 @@ void GameScene::addScreenShake()
 void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	
-		
-	m_HudLayer->update();
-	WorldManager::getInstance()->getPlayer()->update();
-	m_pCollectableFactory->update();
-	m_pParallax->update();
-	m_pSpawnManager->update();	
-	CollisionManager::getInstance()->checkCollisions();
-	
 	// Game world speed
 	if (WorldManager::getInstance()->getPlayer()->getDistance() < 6000 && WorldManager::getInstance()->getPlayer()->getDistance() % 500 == 0)
-	{		
+	{
 		WorldManager::getInstance()->increaseGameWorldSpeed();
-		WorldManager::getInstance()->increaseEnemyMovementSpeed();				
+		WorldManager::getInstance()->increaseEnemyMovementSpeed();
 	}
+
+	WorldManager::getInstance()->getPlayer()->update();
+	m_pSpawnManager->update();
+	m_pCollectableFactory->update();
+	m_pParallax->update();
+	m_HudLayer->update();
 	
-	
+	CollisionManager::getInstance()->checkCollisions();
 
 	//CCLOG("-------------GAME LOOP END--------------");
 }
