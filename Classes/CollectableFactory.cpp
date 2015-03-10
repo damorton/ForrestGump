@@ -10,7 +10,7 @@ bool CollectableFactory::init()
 		return false;
 	}			
 	this->addTMXTileMap("maps/SpawnManagerMap.tmx");	
-	this->addItemLayer("Shield");
+	this->addItemLayer("shield");
 	this->addItemLayer("introCoins");
 	this->addItemLayer("coins");
 	this->addItemLayer("coinsA");
@@ -22,7 +22,7 @@ bool CollectableFactory::init()
 	srand(time(NULL));
 	m_bIsSpawned = false;	
 	m_cActiveItems = 0;
-	this->activateItems("introCoins");
+	this->activateItems("shield");
 	CCLOG("Collectable factory init");
 	return true;
 }
@@ -90,7 +90,7 @@ bool CollectableFactory::spawnSprites()
 		this->activateItems("food");
 		break;
 	case 7:
-		this->activateItems("Shield");
+		this->activateItems("shield");
 		break;
 	default:
 		CCLOG("segment spawn random number unknown");

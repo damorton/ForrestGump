@@ -43,6 +43,8 @@ public:
 	void addParticle();
 	void addParticlesGameObjects(std::string path, float a, float b, int totalPar, float duration);
 	void resetCoins();
+	void setGodMode(){ m_bGodMode = true; };
+	void unsetGodMode(){ m_bGodMode = false; };
 	bool isGod(){ return m_bGodMode; };
 
 	//ANIMATION

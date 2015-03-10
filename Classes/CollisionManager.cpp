@@ -84,6 +84,11 @@ void CollisionManager::checkCollisionsWithItems()
 								WorldManager::getInstance()->getPlayer()->setScale(WorldManager::getInstance()->getPlayer()->getScale() + 0.01);
 							}
 						}
+						else if (tileSprite->getName() == "shield")
+						{
+							WorldManager::getInstance()->getPlayer()->setGodMode();
+						
+						}
 						tileSprite->setVisible(false);
 					}
 				}

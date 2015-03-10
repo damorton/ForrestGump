@@ -118,7 +118,6 @@ void Player::resetCoins()
 	m_nCoins = 0;
 }
 
-
 void Player::jump()
 {
 	if (m_ePlayerAction == RUNNING)
