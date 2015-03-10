@@ -27,14 +27,15 @@ typedef enum {
 #define SCREEN_ORIGIN (Director::getInstance()->getVisibleOrigin())
 #define GAME_SPEED_INC (float)1.05
 #define GAME_SPEED_DEC (float)1.05
-#define WORLD_MOVEMENT_SPEED (WorldManager::getInstance()->getGameWorldSpeed())
+#define WORLD_MOVEMENT_SPEED 6.0f
+#define ENEMY_MOVEMENT_SPEED 7.0f
 
 // Scenes
 #define DISPLY_TIME_SPLASH_SCENCE 2
 #define TRANSITION_TIME 0.5
 
 // Player
-#define PLAYER_POSITION_IN_WINDOW ((Director::getInstance()->getVisibleSize().width / 7) * 1)
+#define PLAYER_POSITION_IN_WINDOW ((Director::getInstance()->getVisibleSize().width / 10) * 2)
 #define PLAYER_JUMP_VEL Vec2(0.0f, 500.0f)
 #define MAX_NO_OF_JUMPS 1
 #define JUMP_HEIGHT (Director::getInstance()->getVisibleSize().height * .75)

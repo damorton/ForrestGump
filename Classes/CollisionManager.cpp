@@ -130,4 +130,5 @@ void CollisionManager::cleanUp()
 	m_pPlayer = NULL;	
 	m_vpEnemies.clear();
 	m_vpItems.clear();
+	CCLOG("Collision Manager cleaned up");
 }

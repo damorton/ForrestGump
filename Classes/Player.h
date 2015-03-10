@@ -60,8 +60,7 @@ private:
 	ParticleSystem *m_pEmitter;
 	ParticleSystem* m_pGameObjectEmitter;
 	Sprite* m_pJetpack;
-	bool m_bGodMode;
-	
+	bool m_bGodMode;	
 };
 
 #endif

@@ -19,11 +19,14 @@ public:
 	int getState(){ return m_eState; };
 	void setType(EGameOjectType type){ m_eType = type; };
 	void setState(ECharacterState state){ m_eState = state; };
+	void getRandomSpeed();
+	int getSpeed(){ return m_nSpeed; };
 
 	//ANIMATION
 	void getAnimationWithFrames(char* enemyAnimation, int frames);
 	void animateEnemy();
 	Animate* animate;
+	int m_nSpeed;
 
 };
 

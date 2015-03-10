@@ -124,7 +124,7 @@ void CollectableFactory::moveSprites()
 			auto item = m_vpActiveItems.at(it);
 			if (item)
 			{
-				item->setPosition(Vec2(item->getPosition().x - WORLD_MOVEMENT_SPEED, item->getPosition().y));
+				item->setPosition(Vec2(item->getPosition().x - WorldManager::getInstance()->getGameWorldSpeed(), item->getPosition().y));
 				if (item->getPosition().x < -item->getParent()->getContentSize().width){
 					this->resetItem(item);
 				}

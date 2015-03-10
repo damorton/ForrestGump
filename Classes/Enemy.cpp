@@ -23,7 +23,21 @@ Enemy* Enemy::create(const std::string& filename)
 bool Enemy::init()
 {
 	setType(ENEMY);	
+	/*
+	auto movementParticle = CCParticleSystemQuad::create("particles/enemyMovement.plist");
+	movementParticle->setPosition(this->getPosition());
+	movementParticle->setAutoRemoveOnFinish(true);
+	this->addChild(movementParticle, 0, "movement");
+	*/
+	this->getRandomSpeed();
 	return true;
+}
+
+void Enemy::getRandomSpeed()
+{
+	int max = 3;
+	int min = 0;
+	m_nSpeed = (rand() % max + min);	
 }
 
 void Enemy::runAI()

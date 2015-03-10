@@ -15,8 +15,8 @@ class GameScene : public cocos2d::Layer
 {
 public:    
     static cocos2d::Scene* createScene();   
-    virtual bool init();  
-	virtual ~GameScene(){ this->cleanup(); };
+    bool init();  
+	~GameScene(){ this->cleanup(); };
 	void cleanup();
 	bool initializeGame();
 	void update(float delta);	
@@ -31,7 +31,6 @@ public:
 private:
 	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
 	int spawnSegmentTimer;
-
 	PhysicsWorld* m_pSceneWorld;			
 	HUD* m_HudLayer;
 	Parallax* m_pParallax;

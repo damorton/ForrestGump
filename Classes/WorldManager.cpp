@@ -12,16 +12,16 @@ WorldManager* WorldManager::getInstance()
 	if (m_pInstance == 0)
 	{
 		m_pInstance = new WorldManager();
-	}
+	}	
 	return m_pInstance;
 }
 
 bool WorldManager::init()
 {
 	this->createDAO();
-	m_fWorldSpeed = 5.0f;
-	m_fEnemyMovementSpeed = 6.0f;
-	m_GravitationalForce = Vec2(0, -500);
+	m_fWorldSpeed = WORLD_MOVEMENT_SPEED;
+	m_fEnemyMovementSpeed = ENEMY_MOVEMENT_SPEED;
+	m_GravitationalForce = GRAVITATIONAL_FORCE;
 	return true;
 }
 
@@ -112,7 +112,10 @@ void WorldManager::setPlayerHighscore(std::string highscore)
 }
 
 void WorldManager::cleanUp()
-{		
-	m_pFloorSprite = NULL;
-	m_pPlayer = NULL;			
+{
+	m_pPlayer = NULL;
+	m_pFloorSprite = NULL;	
+	m_fWorldSpeed = 0.0f;
+	m_fEnemyMovementSpeed = 0.0f;	
+	CCLOG("World Manager cleaned up");
 }

@@ -46,12 +46,10 @@ bool Player::init()
 	m_pJetpack->setPosition(Vec2(0, this->getContentSize().height / 2));
 	this->addChild(m_pJetpack, -1);
 	
-	auto jetpackFire = CCParticleSystemQuad::create("particles/Flower.plist");	
-	jetpackFire->setEmissionRate(5);
-	jetpackFire->setTotalParticles(50);		
-	jetpackFire->setAutoRemoveOnFinish(true);
-	jetpackFire->setPosition(Vec2(this->getPositionX(), this->getPositionY()));
-	m_pJetpack->addChild(jetpackFire);
+	auto jetpackFire = CCParticleSystemQuad::create("particles/jetpackFire.plist");		
+	jetpackFire->setPosition(Vec2::ZERO);
+	jetpackFire->setAutoRemoveOnFinish(true);	
+	m_pJetpack->addChild(jetpackFire, 0, "jetpack");
 
 	WorldManager::getInstance()->setPlayer(this);
 	CollisionManager::getInstance()->setPlayer(this);
@@ -94,7 +92,7 @@ void Player::addItem()
 	this->addParticlesGameObjects("particles/DiamondPar3.plist", this->getContentSize().width, this->getContentSize().height, 1, 0.5);
 }
 
-void Player::addParticle( )
+void Player::addParticle()
 {
 	m_pEmitter = CCParticleSystemQuad::create("particles/shadow.plist");
 	m_pEmitter->setPosition(this->getContentSize().width/2, 0);
@@ -128,7 +126,7 @@ void Player::endGame()
 
 void Player::jump()
 {
-	if (m_ePlayerAction == RUNNING || m_nNumberOfJumps < MAX_NO_OF_JUMPS)
+	if (m_ePlayerAction == RUNNING)
 	{
 		m_ePlayerAction = JUMPING;
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40.wav", false, 1.0f, 1.0f, 1.0f);
@@ -139,12 +137,14 @@ void Player::jump()
 	if (m_eBackpackAction == BP_UP)
 	{
 		m_pJetpack->setSpriteFrame(SpriteFrame::create("sprites/jetpackDown.png", Rect(0, 0, m_pJetpack->getContentSize().width, m_pJetpack->getContentSize().height)));
+		m_pJetpack->getChildByName("jetpack")->setPosition(Vec2(0, m_pJetpack->getContentSize().height));		
 		this->getPhysicsBody()->setVelocity(PLAYER_JUMP_VEL);
 		setBPAction(BP_DOWN);
 	}
 	else if (m_eBackpackAction == BP_DOWN)
 	{
 		m_pJetpack->setSpriteFrame(SpriteFrame::create("sprites/jetpackUp.png", Rect(0, 0, m_pJetpack->getContentSize().width, m_pJetpack->getContentSize().height)));
+		m_pJetpack->getChildByName("jetpack")->setPosition(Vec2::ZERO);		
 		this->getPhysicsBody()->setVelocity(-PLAYER_JUMP_VEL);
 		setBPAction(BP_UP);
 	}

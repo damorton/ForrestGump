@@ -34,14 +34,15 @@ bool GameScene::init()
 
 bool GameScene::initializeGame()
 {	
+	WorldManager::getInstance()->setGameWorldSpeed(WORLD_MOVEMENT_SPEED);
+	WorldManager::getInstance()->setEnemyMovementSpeed(ENEMY_MOVEMENT_SPEED);
+	WorldManager::getInstance()->setGravity(GRAVITATIONAL_FORCE);
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	if (WorldManager::getInstance()->soundEnabled){
-//		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/Ambler.wav", true);
+	if (WorldManager::getInstance()->isSoundEnabled()){
 		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/8bitDungeonLevel.wav", true);
-	}
-		
+	}		
 
 	// game play layer
 	gamePlayLayer = Layer::create();
@@ -160,6 +161,8 @@ void GameScene::pauseGame()
 }
 
 void GameScene::cleanup()
-{
+{	
 	CollisionManager::getInstance()->cleanUp();
+	WorldManager::getInstance()->cleanUp();
+	CCLOG("Game Scene cleaned up");
 }

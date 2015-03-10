@@ -69,11 +69,11 @@ bool Parallax::addBackground(const std::string& filename1, const std::string& fi
 
 void Parallax::update()
 {	
-	scrollBackground(m_pSpriteFloor1, m_pSpriteFloor2, WORLD_MOVEMENT_SPEED);
-	scrollBackground(m_pSpriteBackgroundFirst, m_pSpriteBackgroundFirst1, WORLD_MOVEMENT_SPEED / 2.0);
-	scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, WORLD_MOVEMENT_SPEED / 3.0);
-	scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, WORLD_MOVEMENT_SPEED / 4.0);
-	scrollBackground(m_pSpriteBackgroundFourth, m_pSpriteBackgroundFourth1, WORLD_MOVEMENT_SPEED / 5.0);
+	scrollBackground(m_pSpriteFloor1, m_pSpriteFloor2, WorldManager::getInstance()->getGameWorldSpeed());
+	scrollBackground(m_pSpriteBackgroundFirst, m_pSpriteBackgroundFirst1, WorldManager::getInstance()->getGameWorldSpeed() / 2.0);
+	scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, WorldManager::getInstance()->getGameWorldSpeed() / 3.0);
+	scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, WorldManager::getInstance()->getGameWorldSpeed() / 4.0);
+	scrollBackground(m_pSpriteBackgroundFourth, m_pSpriteBackgroundFourth1, WorldManager::getInstance()->getGameWorldSpeed() / 5.0);
 }
 
 void Parallax::scrollBackground(CCSprite* bck1, CCSprite* bck2, float speed)

@@ -25,12 +25,14 @@ void SpawnManager::createEnemies()
 	this->createEnemy("sprites/floating01.png", "floating", false, false);		
 	this->createEnemy("sprites/floating01.png", "floating", false, false);
 	this->createEnemy("sprites/floating01.png", "floating", false, false);	
+	this->createEnemy("sprites/floating01.png", "floating", false, false);
+	this->createEnemy("sprites/floating01.png", "floating", false, false);
 }
 
 int SpawnManager::getRandomHeight()
 {	
 	int max = (int)SCREEN_ORIGIN.y + VISIBLE_SIZE_HEIGHT * .80;
-	int min = (int)SCREEN_ORIGIN.y + WorldManager::getInstance()->getFloorSprite()->getContentSize().height;	
+	int min = (int)SCREEN_ORIGIN.y + WorldManager::getInstance()->getFloorSprite()->getContentSize().height * 2;	
 	return (rand() % max + min);
 }
 
@@ -93,7 +95,7 @@ void SpawnManager::moveSprites()
 			if (enemy)
 			{
 				// move by individual enemy speeds
-				enemy->setPosition(Vec2(enemy->getPosition().x - WorldManager::getInstance()->getEnemyMovementSpeed(), enemy->getPosition().y));
+				enemy->setPosition(Vec2(enemy->getPosition().x - (enemy->getSpeed() + WorldManager::getInstance()->getEnemyMovementSpeed()), enemy->getPosition().y));
 
 				if (enemy->getPosition().x < SCREEN_ORIGIN.x - enemy->getContentSize().width / 2){
 					this->resetEnemy(enemy);
@@ -110,13 +112,14 @@ void SpawnManager::resetEnemy(Enemy* enemy)
 		Enemy* enemySprite = static_cast<Enemy*>(enemy);
 		if (enemySprite->getName() == "floating")
 		{
-			enemySprite->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH * 1.2, getRandomHeight()));
+			enemySprite->setPosition(Vec2(this->getRandomXPos(), getRandomHeight()));
 		}
 		else if (enemySprite->getName() == "ground")
 		{
-			enemySprite->setPosition(Vec2(this->getRandomXPos(), enemySprite->getPositionY()));
+			enemySprite->setPosition(Vec2(this->getRandomXPos(), enemySprite->getPositionY()));			
 		}
 		enemySprite->setVisible(true);		
+		enemySprite->getRandomSpeed();
 	}
 }
 
