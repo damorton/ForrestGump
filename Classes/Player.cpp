@@ -72,7 +72,7 @@ void Player::addCoin()
 void Player::addBooster()
 {
 	m_nBoosters++;
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40Redone.wav", false, 1.0f, 1.0f, 1.0f);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40.wav", false, 1.0f, 1.0f, 1.0f);
 	this->addParticlesGameObjects("particles/booster.plist", this->getContentSize().width / 2, 0, 1, 0.5);
 
 }
@@ -94,7 +94,7 @@ void Player::addItem()
 
 void Player::addParticle()
 {
-	m_pEmitter = CCParticleSystemQuad::create("particles/shadow.plist");
+	m_pEmitter = CCParticleSystemQuad::create("particles/Shadow.plist");
 	m_pEmitter->setPosition(this->getContentSize().width/2, 0);
 	m_pEmitter->setEmissionRate(20);
 	m_pEmitter->setTotalParticles(100);
