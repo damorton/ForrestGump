@@ -13,6 +13,9 @@ bool CollectableFactory::init()
 	this->addItemLayer("Shield");
 	this->addItemLayer("introCoins");
 	this->addItemLayer("coins");
+	this->addItemLayer("coinsA");
+	this->addItemLayer("coinsB");
+	this->addItemLayer("coinsC");
 	this->addItemLayer("items");
 	this->addItemLayer("boosters");
 	this->addItemLayer("food");
@@ -60,7 +63,7 @@ bool CollectableFactory::initTilePositions(TMXLayer* layer, std::string name)
 bool CollectableFactory::spawnSprites()
 {		
 	int randomnumber;
-	int numberOfLayers = 5;	
+	int numberOfLayers = 8;	
 	randomnumber = (rand() % numberOfLayers);
 		
 	switch (randomnumber)
@@ -69,15 +72,24 @@ bool CollectableFactory::spawnSprites()
 		this->activateItems("coins");
 		break;
 	case 1:
-		this->activateItems("items");
+		this->activateItems("coinsA");
 		break;
 	case 2:
-		this->activateItems("boosters");
+		this->activateItems("coinsB");
 		break;
 	case 3:
-		this->activateItems("food");
+		this->activateItems("coinsC");
 		break;
 	case 4:
+		this->activateItems("items");
+		break;
+	case 5:
+		this->activateItems("boosters");
+		break;
+	case 6:
+		this->activateItems("food");
+		break;
+	case 7:
 		this->activateItems("Shield");
 		break;
 	default:

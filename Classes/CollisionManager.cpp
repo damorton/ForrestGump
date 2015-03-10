@@ -48,6 +48,18 @@ void CollisionManager::checkCollisionsWithItems()
 						{
 							WorldManager::getInstance()->getPlayer()->addCoin();
 						}
+						else if (tileSprite->getName() == "coinsA")
+						{
+							WorldManager::getInstance()->getPlayer()->addCoin();
+						}
+						else if (tileSprite->getName() == "coinsB")
+						{
+							WorldManager::getInstance()->getPlayer()->addCoin();
+						}
+						else if (tileSprite->getName() == "coinsC")
+						{
+							WorldManager::getInstance()->getPlayer()->addCoin();
+						}
 						else if (tileSprite->getName() == "items")
 						{
 							WorldManager::getInstance()->getPlayer()->addItem();
