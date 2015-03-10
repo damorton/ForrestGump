@@ -52,6 +52,7 @@ bool Player::init()
 	jetpackFire->setAutoRemoveOnFinish(true);	
 	m_pJetpack->addChild(jetpackFire, 0, "jetpack");
 
+
 	WorldManager::getInstance()->setPlayer(this);
 	CollisionManager::getInstance()->setPlayer(this);
 	this->addParticle();
@@ -103,12 +104,28 @@ void Player::addParticle()
 	m_pEmitter->setAutoRemoveOnFinish(true);
 	
 }
+
+void Player::addShield()
+{
+	m_pShield = Sprite::create("sprites/shield.png");
+	m_pShield->setPosition(this->getContentSize().width / 2, this->getContentSize().height / 2);
+	this->addChild(m_pShield);
+}
 void Player::setGodMode()
 {
+	
 	m_bGodMode = true;
 	m_nCount = 0;
+	this->addShield();
 
 }
+
+void Player::unsetGodMode()
+{
+	m_bGodMode = false;
+	this->removeChild(m_pShield, true);
+}
+
 void Player::addParticlesGameObjects(std::string path, float a, float b, int totalPar, float duration)
 {
 	m_pGameObjectEmitter = CCParticleSystemQuad::create(path);
@@ -167,7 +184,6 @@ void Player::update()
 		m_pEmitter->setScale(2.0);
 		m_pEmitter->resume();
 		m_nNumberOfJumps = 0;
-		//m_nCount++;
 
 		if (isGod())
 		{

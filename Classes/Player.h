@@ -44,9 +44,10 @@ public:
 	void addParticle();
 	void addParticlesGameObjects(std::string path, float a, float b, int totalPar, float duration);
 	void resetCoins();
-	void setGodMode();// { m_bGodMode = true; };
-	void unsetGodMode(){ m_bGodMode = false; };
+	void setGodMode();
+	void unsetGodMode();
 	bool isGod(){ return m_bGodMode; };
+	void addShield();
 
 	//ANIMATION
 	void getAnimationWithFrames(char* enemyAnimation, int frames);
@@ -65,7 +66,8 @@ private:
 	ParticleSystem *m_pEmitter;
 	ParticleSystem* m_pGameObjectEmitter;
 	Sprite* m_pJetpack;
-	bool m_bGodMode;	
+	bool m_bGodMode;
+	Sprite* m_pShield;
 };
 
 #endif
