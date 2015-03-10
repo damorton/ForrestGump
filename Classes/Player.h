@@ -30,6 +30,7 @@ public:
 	int getItems(){ return m_nItems; };
 	int getBoosters(){ return m_nBoosters; };
 	int getFood(){ return m_nFood; };
+
 	
 	void setType(EGameOjectType type){ m_eType = type; };
 	void setState(ECharacterState state){ m_eState = state; };
@@ -43,7 +44,7 @@ public:
 	void addParticle();
 	void addParticlesGameObjects(std::string path, float a, float b, int totalPar, float duration);
 	void resetCoins();
-	void setGodMode(){ m_bGodMode = true; };
+	void setGodMode();// { m_bGodMode = true; };
 	void unsetGodMode(){ m_bGodMode = false; };
 	bool isGod(){ return m_bGodMode; };
 
@@ -59,6 +60,7 @@ private:
 	int m_nFood;
 	int m_nItems;		
 	int m_nNumberOfJumps;
+	int m_nCount;
 	std::string m_strUsername;
 	ParticleSystem *m_pEmitter;
 	ParticleSystem* m_pGameObjectEmitter;

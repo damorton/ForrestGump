@@ -86,8 +86,8 @@ void CollisionManager::checkCollisionsWithItems()
 						}
 						else if (tileSprite->getName() == "shield")
 						{
-							WorldManager::getInstance()->getPlayer()->setGodMode();
-						
+					
+								WorldManager::getInstance()->getPlayer()->setGodMode();
 						}
 						tileSprite->setVisible(false);
 					}
@@ -114,6 +114,7 @@ void CollisionManager::checkCollisionsWithEnemies()
 						enemy->setVisible(false);
 						if (m_pPlayer->isGod())
 						{
+						
 							// Woo! I'm invincible!
 						}
 						else

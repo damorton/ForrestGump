@@ -30,6 +30,7 @@ bool Player::init()
 	m_nItems = 0;
 	m_nNumberOfJumps = 0;
 	m_bGodMode = false;
+	//m_nCount = 0;
 	
 	this->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, SCREEN_ORIGIN.y + WorldManager::getInstance()->getFloorSprite()->getContentSize().height + this->getContentSize().height / 2));
 	auto playerPhysicsBody = PhysicsBody::createBox(Size(this->getContentSize().width, this->getContentSize().height - 5), PHYSICSBODY_MATERIAL_DEFAULT);	
@@ -102,7 +103,12 @@ void Player::addParticle()
 	m_pEmitter->setAutoRemoveOnFinish(true);
 	
 }
+void Player::setGodMode()
+{
+	m_bGodMode = true;
+	m_nCount = 0;
 
+}
 void Player::addParticlesGameObjects(std::string path, float a, float b, int totalPar, float duration)
 {
 	m_pGameObjectEmitter = CCParticleSystemQuad::create(path);
@@ -161,6 +167,21 @@ void Player::update()
 		m_pEmitter->setScale(2.0);
 		m_pEmitter->resume();
 		m_nNumberOfJumps = 0;
+		//m_nCount++;
+
+		if (isGod())
+		{
+			if (m_nCount == 500)
+			{
+				this->unsetGodMode();
+				m_nCount == 0;
+			}
+			else
+			{
+				m_nCount++;
+			}
+		}
+
 	}
 	else
 	{				
