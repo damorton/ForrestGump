@@ -40,9 +40,9 @@ bool GameScene::initializeGame()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	if (WorldManager::getInstance()->isSoundEnabled()){
-		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/8bitDungeonLevel.wav", true);
-	}		
+	
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/8bitDungeonLevel.wav", true);
+		
 
 	// game play layer
 	gamePlayLayer = Layer::create();
@@ -130,9 +130,7 @@ void GameScene::gameOver()
 	this->pauseGame();	
 	// Death sequence here!!
 	Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
-	WorldManager::getInstance()->resetGameWorld();
-	CollisionManager::getInstance()->resetCollisionManager();
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);	
 }
 
 void GameScene::mainMenu()
@@ -140,9 +138,7 @@ void GameScene::mainMenu()
 	CCLOG("Game Scene: Main menu called");
 	this->pauseGame();	
 	Director::getInstance()->replaceScene(TransitionFade::create(1, MainMenu::createScene()));
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
-	WorldManager::getInstance()->resetGameWorld();
-	CollisionManager::getInstance()->resetCollisionManager();
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);	
 }
 
 void GameScene::pauseGame()

@@ -51,6 +51,7 @@ bool GameOver::initializeGameOverScene()
 
 	this->displayPlayerStatistics();
 	this->addChild(menu);
+
 	CCLOG("Game Over initialized");
 	return success;
 }
@@ -165,6 +166,8 @@ void GameOver::displayLeaderboard()
 
 void GameOver::playAgain(cocos2d::Ref *pSender)
 {
+	WorldManager::getInstance()->resetGameWorld();
+	CollisionManager::getInstance()->resetCollisionManager();
 	Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::createScene()));
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
 }

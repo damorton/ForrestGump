@@ -40,13 +40,13 @@ bool Player::init()
 	
 	// Animate the player
 	this->getAnimationWithFrames("sprites/playerRunning%02d.png", 4);
-	// add hint sprite
+
 
 	m_pJetpack = Sprite::create("sprites/jetpackUp.png");
 	m_pJetpack->setPosition(Vec2(0, this->getContentSize().height / 2));
 	this->addChild(m_pJetpack, -1);
 	
-	auto jetpackFire = CCParticleSystemQuad::create("particles/jetpackFire.plist");		
+	auto jetpackFire = ParticleSystemQuad::create("particles/jetpackFire.plist");		
 	jetpackFire->setPosition(Vec2::ZERO);
 	jetpackFire->setAutoRemoveOnFinish(true);	
 	m_pJetpack->addChild(jetpackFire, 0, "jetpack");
@@ -118,11 +118,6 @@ void Player::resetCoins()
 	m_nCoins = 0;
 }
 
-void Player::endGame()
-{
-	CCLOG("Called");
-	Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));
-}
 
 void Player::jump()
 {

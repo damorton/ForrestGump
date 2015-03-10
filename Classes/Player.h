@@ -42,7 +42,6 @@ public:
 	void addFood();
 	void addParticle();
 	void addParticlesGameObjects(std::string path, float a, float b, int totalPar, float duration);
-	void endGame();
 	void resetCoins();
 	bool isGod(){ return m_bGodMode; };
 

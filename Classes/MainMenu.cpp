@@ -73,9 +73,10 @@ void MainMenu::addParticlesToButtons(MenuItemImage* button)
 
 void MainMenu::playGame(cocos2d::Ref *pSender)
 {
+	WorldManager::getInstance()->resetGameWorld();
+	CollisionManager::getInstance()->resetCollisionManager();
 	Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::createScene()));
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);	
-	
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);		
 }
 
 void MainMenu::leaderboard(cocos2d::Ref *pSender)
