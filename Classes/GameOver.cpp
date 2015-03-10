@@ -135,8 +135,12 @@ void GameOver::displayPlayerStatistics()
 	auto foodLabel = Label::createWithTTF("Food ", LABEL_FONT, LABEL_FONT_SIZE);
 	m_pFoodValueLabel = Label::createWithTTF(std::to_string(WorldManager::getInstance()->getPlayer()->getFood()), LABEL_FONT, LABEL_FONT_SIZE);
 	this->initLabelWithValue(foodLabel, m_pFoodValueLabel, boostersLabel);
-		
-
+	
+	// Highscore
+	auto highScoreLabel = Label::createWithTTF("Highscore ", LABEL_FONT, LABEL_FONT_SIZE);
+	auto highScoreValueLabel = Label::createWithTTF(std::to_string(previousHighscore), LABEL_FONT, LABEL_FONT_SIZE);
+	this->initLabelWithValue(highScoreLabel, highScoreValueLabel, foodLabel);		
+	
 	// Duration of session
 	// Number of jumps
 	// Time on foot
