@@ -29,9 +29,11 @@ bool HUD::init()
 	distanceLabel->enableGlow(Color4B(255, 255, 51, 255));
 	this->addChild(distanceLabel);
 	m_pDistanceValueLabel = Label::createWithTTF(std::to_string(m_nDistance) + "m", LABEL_FONT, LABEL_FONT_SIZE);
-	m_pDistanceValueLabel->setPosition(Vec2(distanceLabel->getPositionX() + distanceLabel->getContentSize().width / 2 + PADDING + m_pDistanceValueLabel->getContentSize().width/2, distanceLabel->getPositionY()));
-	m_pDistanceValueLabel->setColor(Color3B(255, 255, 64));
-	m_pDistanceValueLabel->enableGlow(Color4B(255, 255, 51, 255));
+	//m_pDistanceValueLabel->setPosition(Vec2(distanceLabel->getPositionX() + distanceLabel->getContentSize().width / 2 + PADDING + m_pDistanceValueLabel->getContentSize().width/2, distanceLabel->getPositionY()));
+	m_pDistanceValueLabel->setPosition(Vec2((m_Size.width / 3.5) - PADDING - m_pDistanceValueLabel->getContentSize().width / 2, distanceLabel->getPositionY()));	
+	m_pDistanceValueLabel->setColor(Color3B(DISTANCE_VALUE_LABEL_COLOR));
+	m_pDistanceValueLabel->enableOutline(Color4B(255, 255, 255, 255));
+	m_pDistanceValueLabel->enableGlow(Color4B(255, 255, 255, 255));
 	this->addChild(m_pDistanceValueLabel);
 	
 	// Coins
@@ -41,7 +43,8 @@ bool HUD::init()
 	coinsLabel->enableGlow(Color4B(255, 255, 51, 255));
 	this->addChild(coinsLabel);
 	m_pCoinsValueLabel = Label::createWithTTF(std::to_string(m_nCoins), LABEL_FONT, LABEL_FONT_SIZE);
-	m_pCoinsValueLabel->setPosition(Vec2(coinsLabel->getPositionX() + coinsLabel->getContentSize().width / 2 + PADDING + m_pCoinsValueLabel->getContentSize().width / 2, coinsLabel->getPositionY()));
+	//m_pCoinsValueLabel->setPosition(Vec2(coinsLabel->getPositionX() + coinsLabel->getContentSize().width / 2 + PADDING + m_pCoinsValueLabel->getContentSize().width / 2, coinsLabel->getPositionY()));
+	m_pCoinsValueLabel->setPosition(Vec2((m_Size.width / 3.5) - PADDING - m_pCoinsValueLabel->getContentSize().width / 2, coinsLabel->getPositionY()));
 	m_pCoinsValueLabel->setColor(Color3B(255, 255, 64));
 	m_pCoinsValueLabel->enableGlow(Color4B(255, 255, 51, 255));
 	this->addChild(m_pCoinsValueLabel);

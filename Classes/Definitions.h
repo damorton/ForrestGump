@@ -20,6 +20,8 @@ typedef enum {
 
 #define PADDING 10
 
+#define DISTANCE_VALUE_LABEL_COLOR 255, 0, 127 
+
 // World
 #define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
 #define VISIBLE_SIZE_HEIGHT (Director::getInstance()->getVisibleSize().height)
