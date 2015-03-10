@@ -51,7 +51,7 @@ void SpawnManager::createEnemy(std::string filename, std::string name, bool grav
 	}
 	else if (name == "ground")
 	{
-		enemy->setPosition(Vec2(this->getRandomXPos(), WorldManager::getInstance()->getFloorSprite()->getContentSize().height + enemy->getContentSize().height / 2));
+		enemy->setPosition(Vec2(this->getRandomXPos(), SCREEN_ORIGIN.y + WorldManager::getInstance()->getFloorSprite()->getContentSize().height + enemy->getContentSize().height / 2));
 	}	
 	enemy->setVisible(true);
 	enemy->animateEnemy();

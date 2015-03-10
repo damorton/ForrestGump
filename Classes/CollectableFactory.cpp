@@ -46,7 +46,7 @@ bool CollectableFactory::initTilePositions(TMXLayer* layer, std::string name)
 			if (item)
 			{
 				item->setName(name);
-				item->setPosition(Vec2(item->getPositionX() + VISIBLE_SIZE_WIDTH, WorldManager::getInstance()->getFloorSprite()->getContentSize().height + item->getPositionY()));
+				item->setPosition(Vec2(item->getPositionX() + VISIBLE_SIZE_WIDTH, SCREEN_ORIGIN.y + WorldManager::getInstance()->getFloorSprite()->getContentSize().height + item->getPositionY()));
 				item->setVisible(true);
 				m_vpItems.push_back(item);				
 			}

@@ -21,7 +21,7 @@ public:
 	void back(CCObject* pSender);
 	void sound(CCObject* pSender);
 	
-	Popup *popupSettings;
+	Popup* popupSettings;
 	CREATE_FUNC(MainMenu);
 
 };

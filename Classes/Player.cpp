@@ -31,7 +31,7 @@ bool Player::init()
 	m_nNumberOfJumps = 0;
 	m_bGodMode = false;
 	
-	this->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, WorldManager::getInstance()->getFloorSprite()->getContentSize().height + this->getContentSize().height / 2));
+	this->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, SCREEN_ORIGIN.y + WorldManager::getInstance()->getFloorSprite()->getContentSize().height + this->getContentSize().height / 2));
 	auto playerPhysicsBody = PhysicsBody::createBox(Size(this->getContentSize().width, this->getContentSize().height - 5), PHYSICSBODY_MATERIAL_DEFAULT);	
 	playerPhysicsBody->setDynamic(true);
 	playerPhysicsBody->setGravityEnable(true);
@@ -43,14 +43,14 @@ bool Player::init()
 	// add hint sprite
 
 	m_pJetpack = Sprite::create("sprites/jetpackUp.png");
-	m_pJetpack->setPositionY(this->getPositionY() / 2);	
+	m_pJetpack->setPosition(Vec2(0, this->getContentSize().height / 2));
 	this->addChild(m_pJetpack, -1);
 	
 	auto jetpackFire = CCParticleSystemQuad::create("particles/Flower.plist");	
 	jetpackFire->setEmissionRate(5);
 	jetpackFire->setTotalParticles(50);		
 	jetpackFire->setAutoRemoveOnFinish(true);
-	jetpackFire->setPosition(Vec2(m_pJetpack->getPositionX(), m_pJetpack->getPositionY()));
+	jetpackFire->setPosition(Vec2(this->getPositionX(), this->getPositionY()));
 	m_pJetpack->addChild(jetpackFire);
 
 	WorldManager::getInstance()->setPlayer(this);
