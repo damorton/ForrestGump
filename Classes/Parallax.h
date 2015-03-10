@@ -34,11 +34,15 @@ class Parallax : public cocos2d::LayerColor
 		//Initialize the Parallax class		
 		virtual bool init();
 
+		virtual ~Parallax(){ this->parallaxCleanup(); };
+
 		//Add a background to the parallax layer		
 		bool addBackground(const std::string& filename1, const std::string& filename2, const std::string& filename3, const std::string& filename4, const std::string& filename5);
 		
 		// Call the scroll function passing the background images
 		void update();
+
+		void parallaxCleanup();
 
 		// Update my background scrolling
 		void scrollBackground(Sprite* bck1, Sprite* bck2, float speed);		

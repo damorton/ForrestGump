@@ -142,14 +142,16 @@ void CollectableFactory::update()
 	this->moveSprites();
 }
 
-void CollectableFactory::cleanup()
+void CollectableFactory::collectableFactoryCleanup()
 {
 	m_pTileMap = NULL;
 	m_pCoinLayer = NULL;
+	m_pIntroCoinLayer = NULL;
 	m_pItemLayer = NULL;
 	m_pBoosterLayer = NULL;
 	m_pFoodLayer = NULL;
 	m_vpItems.clear();
 	m_vpActiveItems.clear();	
+	CCLOG("Collectable Factory cleanup");
 }
 

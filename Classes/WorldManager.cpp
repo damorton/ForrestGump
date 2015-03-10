@@ -50,8 +50,6 @@ Layer* WorldManager::layerWithTag(int tag)
 	return NULL;
 }
 
-
-
 void WorldManager::createDAO()
 {
 	m_DataAccessObject = std::shared_ptr<IGameDAO>(new GameDAO());		
@@ -111,11 +109,19 @@ void WorldManager::setPlayerHighscore(std::string highscore)
 	m_DataAccessObject->update(users);
 }
 
-void WorldManager::cleanUp()
+void WorldManager::resetGameWorld()
 {
+	m_fWorldSpeed = WORLD_MOVEMENT_SPEED;
+	m_fEnemyMovementSpeed = ENEMY_MOVEMENT_SPEED;
+	m_GravitationalForce = GRAVITATIONAL_FORCE;
+	CCLOG("World Manager reset");
+}
+
+void WorldManager::cleanUp()
+{		
 	m_pPlayer = NULL;
-	m_pFloorSprite = NULL;	
-	m_fWorldSpeed = 0.0f;
-	m_fEnemyMovementSpeed = 0.0f;	
-	CCLOG("World Manager cleaned up");
+	m_pFloorSprite = NULL;
+	m_DataAccessObject = NULL; // shared pointer
+	delete m_pInstance;
+	m_pInstance = NULL;
 }

@@ -185,8 +185,9 @@ void Player::touch(const Point& location)
 	this->jump();	
 }
 
-void Player::cleanUp()
+void Player::playerCleanup()
 {
+	CCLOG("Player cleanup");
 }
 
 // Create the Animation Sprites, return animate object

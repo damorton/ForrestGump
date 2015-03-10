@@ -15,6 +15,14 @@ bool SpawnManager::init()
 	return true;
 }
 
+void SpawnManager::spawnManagerCleanup()
+{
+	m_pPlayer = NULL;
+	m_vpEnemies.clear();
+	m_vpActiveEnemies.clear();
+	CCLOG("Spawn Manager cleanup");
+}
+
 void SpawnManager::createEnemies()
 {
 	// Ground Enemy

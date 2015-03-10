@@ -56,7 +56,8 @@ bool MainMenu::init()
 	auto* menuSettings = Menu::create(soundButton, backButton, NULL);
 	menuSettings->alignItemsVertically();
 	popupSettings->addChild(menuSettings, 2);
-	this->addChild(popupSettings, 1);		
+	this->addChild(popupSettings, 1);	
+	CCLOG("MainMenu initialized");
     return true;
 }
 
@@ -68,12 +69,6 @@ void MainMenu::addParticlesToButtons(MenuItemImage* button)
 	emitter->setTotalParticles(50);
 	emitter->setAutoRemoveOnFinish(true);
 	button->addChild(emitter);
-}
-
-void MainMenu::mainMenu()
-{
-	Director::getInstance()->replaceScene(TransitionFade::create(1, MainMenu::createScene()));
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);		
 }
 
 void MainMenu::playGame(cocos2d::Ref *pSender)
@@ -110,4 +105,9 @@ void MainMenu::sound(CCObject* pSender)
 		WorldManager::getInstance()->setSoundEnabled(true);
 	}
 	 
+}
+
+void MainMenu::mainMenuCleanup()
+{
+	CCLOG("Main menu cleanup");
 }

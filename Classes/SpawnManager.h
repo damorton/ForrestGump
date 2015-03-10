@@ -11,8 +11,10 @@
 class SpawnManager : public cocos2d::Layer
 {
 public:	
-	virtual bool init();
-	virtual ~SpawnManager(){};
+	bool init();
+	virtual ~SpawnManager(){ this->spawnManagerCleanup(); };
+	virtual void spawnManagerCleanup();
+
 	void update();
 	bool spawnEnemy();
 	int getRandomHeight();
@@ -26,11 +28,9 @@ public:
 	void createEnemy(std::string filename, std::string name, bool gravity, bool rotate);
 	void pauseGame();
 	void resumeGame();
+
 	CREATE_FUNC(SpawnManager);
-private:
-	Enemy* m_pGroundEnemy;
-	Enemy* m_pFloatingEnemy;
-	Enemy* m_pRotatingEnemy;
+private:	
 	Player* m_pPlayer;
 	std::vector<Enemy*> m_vpEnemies;	
 	std::vector<Enemy*> m_vpActiveEnemies;

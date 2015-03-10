@@ -125,10 +125,19 @@ void CollisionManager::checkCollisionsWithEnemies()
 	}
 }
 
-void CollisionManager::cleanUp()
+void CollisionManager::resetCollisionManager()
+{
+	m_vpEnemies.clear();
+	m_vpItems.clear();	
+	CCLOG("Collision Manager reset");
+}
+
+void CollisionManager::collisionManagerCleanup()
 {	
-	m_pPlayer = NULL;	
+	m_pPlayer = NULL;
 	m_vpEnemies.clear();
 	m_vpItems.clear();
-	CCLOG("Collision Manager cleaned up");
+	delete m_Instance;
+	m_Instance = NULL;
+	CCLOG("Collision Manager cleanup");
 }

@@ -79,6 +79,7 @@ bool GameScene::initializeGame()
 	m_bPaused = false;
 
 	this->scheduleUpdate();
+	CCLOG("Game scene initialized");
 	return true;
 }
 
@@ -127,21 +128,28 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 
 void GameScene::gameOver()
 {	
-	this->pauseGame();
+	CCLOG("Game Scene: Game over called");
+	this->pauseGame();	
 	// Death sequence here!!
 	Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
+	WorldManager::getInstance()->resetGameWorld();
+	CollisionManager::getInstance()->resetCollisionManager();
 }
 
 void GameScene::mainMenu()
 {
-	this->pauseGame();
+	CCLOG("Game Scene: Main menu called");
+	this->pauseGame();	
 	Director::getInstance()->replaceScene(TransitionFade::create(1, MainMenu::createScene()));
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);
+	WorldManager::getInstance()->resetGameWorld();
+	CollisionManager::getInstance()->resetCollisionManager();
 }
 
 void GameScene::pauseGame()
 {
+	CCLOG("Game Scene: Pause game called");
 	if (!m_bPaused)
 	{
 		m_bPaused = true;
@@ -158,11 +166,4 @@ void GameScene::pauseGame()
 		m_pSpawnManager->resumeGame();
 		this->resumeSchedulerAndActions();				
 	}
-}
-
-void GameScene::cleanup()
-{	
-	CollisionManager::getInstance()->cleanUp();
-	WorldManager::getInstance()->cleanUp();
-	CCLOG("Game Scene cleaned up");
 }

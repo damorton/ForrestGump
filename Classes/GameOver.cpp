@@ -51,7 +51,7 @@ bool GameOver::initializeGameOverScene()
 
 	this->displayPlayerStatistics();
 	this->addChild(menu);
-	
+	CCLOG("Game Over initialized");
 	return success;
 }
 

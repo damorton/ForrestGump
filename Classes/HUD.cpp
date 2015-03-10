@@ -122,3 +122,8 @@ void HUD::togglePause(bool paused)
 	WorldManager::getInstance()->gameLayer()->setTouchEnabled(!paused);
 	menu_item_pause->setVisible(!paused);	
 }
+
+void HUD::hudCleanup()
+{
+	CCLOG("HUD Cleanup");
+}

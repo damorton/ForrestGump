@@ -14,19 +14,17 @@ USING_NS_CC;
 class GameScene : public cocos2d::Layer
 {
 public:    
-    static cocos2d::Scene* createScene();   
-    bool init();  
-	~GameScene(){ this->cleanup(); };
-	void cleanup();
+    static Scene* createScene();   
+    virtual bool init();  
+	CREATE_FUNC(GameScene);
+
 	bool initializeGame();
 	void update(float delta);	
 	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event * event);
 	void gameOver();
 	void mainMenu();
 	void pauseGame();	
-	void addScreenShake();
-
-	CREATE_FUNC(GameScene);
+	void addScreenShake();	
 	
 private:
 	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
