@@ -55,6 +55,7 @@ bool Player::init()
 
 	WorldManager::getInstance()->setPlayer(this);
 	CollisionManager::getInstance()->setPlayer(this);
+	CollisionManager::getInstance()->addItem(m_pShield);
 	this->addParticle();
 
 	return true;

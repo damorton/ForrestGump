@@ -61,6 +61,7 @@ private:
 	static WorldManager* m_pInstance;
 	std::shared_ptr<IGameDAO> m_DataAccessObject;
 	Player* m_pPlayer;
+	Sprite* m_pShield;
 	Sprite* m_pFloorSprite;
 	float m_fWorldSpeed;
 	float m_fEnemyMovementSpeed;

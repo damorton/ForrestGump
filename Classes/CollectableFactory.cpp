@@ -10,7 +10,6 @@ bool CollectableFactory::init()
 		return false;
 	}			
 	this->addTMXTileMap("maps/SpawnManagerMap.tmx");	
-	this->addItemLayer("shield");
 	this->addItemLayer("introCoins");
 	this->addItemLayer("coins");
 	this->addItemLayer("coinsA");
@@ -19,10 +18,11 @@ bool CollectableFactory::init()
 	this->addItemLayer("items");
 	this->addItemLayer("boosters");
 	this->addItemLayer("food");
+	this->addItemLayer("shield");
 	srand(time(NULL));
 	m_bIsSpawned = false;	
 	m_cActiveItems = 0;
-	this->activateItems("shield");
+	this->activateItems("introCoins");
 	CCLOG("Collectable factory init");
 	return true;
 }
