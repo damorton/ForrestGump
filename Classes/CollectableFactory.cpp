@@ -19,6 +19,7 @@ bool CollectableFactory::init()
 	this->addItemLayer("boosters");
 	this->addItemLayer("food");
 	this->addItemLayer("shield");
+	this->addItemLayer("shieldA");
 	srand(time(NULL));
 	m_bIsSpawned = false;	
 	m_cActiveItems = 0;
@@ -73,15 +74,18 @@ bool CollectableFactory::spawnSprites()
 		break;
 	case 1:
 		this->activateItems("coinsA");
+		this->activateItems("shieldA");
 		break;
 	case 2:
 		this->activateItems("coinsB");
 		break;
 	case 3:
-		this->activateItems("coinsC");
+		this->activateItems("coinsC");		
 		break;
 	case 4:
 		this->activateItems("items");
+		this->activateItems("shield");
+
 		break;
 	case 5:
 		this->activateItems("boosters");

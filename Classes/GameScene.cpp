@@ -78,7 +78,7 @@ bool GameScene::initializeGame()
 
 	m_bPaused = false;
 
-	this->scheduleUpdate();
+	this->scheduleUpdate();	
 	CCLOG("Game scene initialized");
 	return true;
 }

@@ -84,7 +84,7 @@ void CollisionManager::checkCollisionsWithItems()
 								WorldManager::getInstance()->getPlayer()->setScale(WorldManager::getInstance()->getPlayer()->getScale() + 0.01);
 							}
 						}
-						else if (tileSprite->getName() == "shield")
+						else if (tileSprite->getName() == "shield" || tileSprite->getName() == "shieldA")
 						{
 							WorldManager::getInstance()->getPlayer()->setGodMode();
 						}
