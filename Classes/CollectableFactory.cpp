@@ -22,7 +22,7 @@ bool CollectableFactory::init()
 	m_bIsSpawned = false;	
 	m_cActiveItems = 0;
 	this->activateItems("introCoins");
-	CCLOG("Collectable factory init");
+	//CCLOG("Collectable factory init");
 	return true;
 }
 
@@ -165,6 +165,6 @@ void CollectableFactory::collectableFactoryCleanup()
 	m_pFoodLayer = NULL;
 	m_vpItems.clear();
 	m_vpActiveItems.clear();	
-	CCLOG("Collectable Factory cleanup");
+	//CCLOG("Collectable Factory cleanup");
 }
 
