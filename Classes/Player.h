@@ -48,7 +48,6 @@ public:
 	void setGodMode();
 	void unsetGodMode();
 	bool isGod(){ return m_bGodMode; };
-	void addShield();
 
 	//ANIMATION
 	void getAnimationWithFrames(char* enemyAnimation, int frames);
