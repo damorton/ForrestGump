@@ -25,4 +25,4 @@ proj.wp8-xaml/
 *.opensdf
 *.cocos-project.json
 CMakeLists.txt
-temp/
+
