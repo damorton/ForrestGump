@@ -38,7 +38,7 @@ bool HUD::init()
 	
 	// Coins
 	auto coinsLabel = Label::createWithTTF("Coins ", LABEL_FONT, LABEL_FONT_SIZE);
-	coinsLabel->setPosition(Vec2(m_Origin.x + PADDING + coinsLabel->getContentSize().width / 2, distanceLabel->getPositionY() - distanceLabel->getContentSize().height / 2));
+	coinsLabel->setPosition(Vec2(m_Origin.x + PADDING + coinsLabel->getContentSize().width / 2, distanceLabel->getPositionY() - PADDING - distanceLabel->getContentSize().height / 2));
 	coinsLabel->setColor(Color3B(255, 255, 255));
 	coinsLabel->enableGlow(Color4B(255, 255, 51, 255));
 	this->addChild(coinsLabel);

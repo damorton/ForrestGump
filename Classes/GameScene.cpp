@@ -96,7 +96,7 @@ void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	
 	// Game world speed
-	if (WorldManager::getInstance()->getPlayer()->getDistance() < 6000 && WorldManager::getInstance()->getPlayer()->getDistance() % 500 == 0)
+	if (WorldManager::getInstance()->getGameWorldSpeed() < MAX_GAME_SPEED && WorldManager::getInstance()->getPlayer()->getDistance() % 200 == 0)
 	{
 		WorldManager::getInstance()->increaseGameWorldSpeed();
 		WorldManager::getInstance()->increaseEnemyMovementSpeed();

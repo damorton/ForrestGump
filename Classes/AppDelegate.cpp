@@ -3,6 +3,7 @@
 #include "Splash.h"
 #include <string>
 #include "SimpleAudioEngine.h"
+#include <iostream>
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -41,37 +42,36 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	// a bug in DirectX 11 level9-x on the device prevents ResolutionPolicy::NO_BORDER from working correctly
 	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::SHOW_ALL);
 #else
-	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
+	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::FIXED_WIDTH);
 #endif
-
 	Size frameSize = glview->getFrameSize();
 
 	std::vector<std::string> searchPath;
 	
 	if (frameSize.height > mediumResource.size.height)
-	{
+	{		
 		CCLOG("Using large resources");
 		searchPath.push_back(largeResource.directory);
-		director->setContentScaleFactor(MIN(largeResource.size.height / designResolutionSize.height, largeResource.size.width / designResolutionSize.width));
+		director->setContentScaleFactor(largeResource.size.height / designResolutionSize.height);		
 	}
 	else if (frameSize.height > smallResource.size.height)
 	{
 		CCLOG("Using medium resources");
 		searchPath.push_back(mediumResource.directory);
-		director->setContentScaleFactor(MIN(mediumResource.size.height / designResolutionSize.height, mediumResource.size.width / designResolutionSize.width));
+		director->setContentScaleFactor(mediumResource.size.height / designResolutionSize.height);
 	}
 	else
 	{
 		CCLOG("Using small resources");
 		searchPath.push_back(smallResource.directory);
-		director->setContentScaleFactor(MIN(smallResource.size.height / designResolutionSize.height, smallResource.size.width / designResolutionSize.width));
+		director->setContentScaleFactor(smallResource.size.height / designResolutionSize.height);
 	}
 	
 	// set searching path
 	FileUtils::getInstance()->setSearchPaths(searchPath);
 
 	// turn on display FPS
-	director->setDisplayStats(true);
+	//director->setDisplayStats(true);
 
 	// set FPS. the default value is 1.0/60 if you don't call this
 	director->setAnimationInterval(1.0 / 60);

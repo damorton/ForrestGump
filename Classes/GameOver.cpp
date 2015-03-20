@@ -70,7 +70,7 @@ void GameOver::displayPlayerStatistics()
 
 	// Distance
 	//auto totalScoreLabel = Label::createWithTTF(WorldManager::getInstance()->getPlayerUsername() + " YOU RAN", LABEL_FONT, LABEL_FONT_SIZE* 1.5);
-	auto totalScoreLabel = Label::createWithTTF("TOTAL SCORE", LABEL_FONT, LABEL_FONT_SIZE* 1.5);
+	auto totalScoreLabel = Label::createWithTTF("YOUR SCORE", LABEL_FONT, LABEL_FONT_SIZE* 1.5);
 	totalScoreLabel->setPosition(Vec2((m_Size.width * 0.25), m_Origin.y + (VISIBLE_SIZE_HEIGHT / 4 )*3 - totalScoreLabel->getContentSize().height / 2));
 	totalScoreLabel->setColor(Color3B(255, 255, 255));
 	totalScoreLabel->enableGlow(Color4B(255, 255, 51, 255));
@@ -106,7 +106,7 @@ void GameOver::displayPlayerStatistics()
 		this->storeHighscore();
 	}
 		
-	auto statsLabel = Label::createWithTTF("STATISTICS", LABEL_FONT, LABEL_FONT_SIZE * 1.5);	
+	auto statsLabel = Label::createWithTTF("STATISTICS", LABEL_FONT, LABEL_FONT_SIZE);	
 	statsLabel->setPosition(Point((m_Size.width * 0.75), m_Origin.y + m_Size.height - PADDING - statsLabel->getContentSize().height / 2));
 	statsLabel->setColor(Color3B(255, 255, 255));
 	statsLabel->enableOutline(Color4B(0, 0, 0, 255));
@@ -181,7 +181,7 @@ void GameOver::onHttpRequestCompleted(cocos2d::network::HttpClient *sender, coco
 
 void GameOver::initLabelWithValue(Label* label, Label* value, Label* labelAbove)
 {	
-	label->setPosition(Vec2((m_Size.width / 2) + PADDING + label->getContentSize().width / 2, labelAbove->getPositionY() - labelAbove->getContentSize().height / 2));
+	label->setPosition(Vec2((m_Size.width / 2) + PADDING + label->getContentSize().width / 2, labelAbove->getPositionY() - PADDING - labelAbove->getContentSize().height / 2));
 	label->setColor(Color3B(200, 200, 200));
 	label->enableOutline(Color4B(0, 0, 0, 255));
 	label->enableGlow(Color4B(0, 0, 0, 255));

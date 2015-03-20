@@ -28,11 +28,12 @@ typedef enum {
 #define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
 #define VISIBLE_SIZE_HEIGHT (Director::getInstance()->getVisibleSize().height)
 #define SCREEN_ORIGIN (Director::getInstance()->getVisibleOrigin())
-#define GAME_SPEED_INC (float)1.05
-#define GAME_SPEED_DEC (float)1.05
+#define GAME_SPEED_INC (float)1.015
+#define GAME_SPEED_DEC (float)1.015
 #define GRAVITATIONAL_FORCE Vec2(0, -200)
-#define WORLD_MOVEMENT_SPEED 3.0f
-#define ENEMY_MOVEMENT_SPEED 4.0f
+#define WORLD_MOVEMENT_SPEED 2.5f
+#define ENEMY_MOVEMENT_SPEED 3.0f
+#define MAX_GAME_SPEED 6.0f
 
 // Scenes
 #define DISPLY_TIME_SPLASH_SCENCE 2
@@ -48,6 +49,7 @@ typedef enum {
 // Labels
 #define LABEL_FONT "fonts/go3v2.ttf"
 #define LABEL_FONT_SIZE (cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize().width / cocos2d::Director::getInstance()->getVisibleSize().width * 16)
+//#define LABEL_FONT_SIZE (18 * (VISIBLE_SIZE_HEIGHT / VISIBLE_SIZE_WIDTH))
 #define PADDING 10
 
 // New design resolution
@@ -66,14 +68,14 @@ typedef struct tagResource
 
 static Resource smallResource = { cocos2d::Size(480, 320), "resolutions/small" };
 static Resource mediumResource = { cocos2d::Size(1024, 768), "resolutions/medium" };
-static Resource largeResource = { cocos2d::Size(2048, 1536), "resolutions/large" };
+static Resource largeResource = { cocos2d::Size(1920, 1080), "resolutions/large" };
 
 #if (TARGET_DESIGN_RESOLUTION_SIZE == DESIGN_RESOLUTION_480X320)
 static cocos2d::Size designResolutionSize = cocos2d::Size(480, 320);
 #elif (TARGET_DESIGN_RESOLUTION_SIZE == DESIGN_RESOLUTION_1024X768)
 static cocos2d::Size designResolutionSize = cocos2d::Size(1024, 768);
-#elif (TARGET_DESIGN_RESOLUTION_SIZE == DESIGN_RESOLUTION_2048X1536)
-static cocos2d::Size designResolutionSize = cocos2d::Size(2048, 1536);
+#elif (TARGET_DESIGN_RESOLUTION_SIZE == DESIGN_RESOLUTION_1920X1080)
+static cocos2d::Size designResolutionSize = cocos2d::Size(1920, 1080);
 #else
 #error unknown target design resolution!
 #endif
