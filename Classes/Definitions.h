@@ -68,14 +68,14 @@ typedef struct tagResource
 
 static Resource smallResource = { cocos2d::Size(480, 320), "resolutions/small" };
 static Resource mediumResource = { cocos2d::Size(1024, 768), "resolutions/medium" };
-static Resource largeResource = { cocos2d::Size(1920, 1080), "resolutions/large" };
+static Resource largeResource = { cocos2d::Size(2048, 1536), "resolutions/large" };
 
 #if (TARGET_DESIGN_RESOLUTION_SIZE == DESIGN_RESOLUTION_480X320)
 static cocos2d::Size designResolutionSize = cocos2d::Size(480, 320);
 #elif (TARGET_DESIGN_RESOLUTION_SIZE == DESIGN_RESOLUTION_1024X768)
 static cocos2d::Size designResolutionSize = cocos2d::Size(1024, 768);
-#elif (TARGET_DESIGN_RESOLUTION_SIZE == DESIGN_RESOLUTION_1920X1080)
-static cocos2d::Size designResolutionSize = cocos2d::Size(1920, 1080);
+#elif (TARGET_DESIGN_RESOLUTION_SIZE == DESIGN_RESOLUTION_2048X1536)
+static cocos2d::Size designResolutionSize = cocos2d::Size(2048, 1536);
 #else
 #error unknown target design resolution!
 #endif
