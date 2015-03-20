@@ -92,12 +92,12 @@ void GameOver::displayPlayerStatistics()
 	this->addChild(newHighscore);
 
 	int previousHighscore = std::atoi(WorldManager::getInstance()->getPlayerHighscore().c_str());
-	CCLOG("previous %d", previousHighscore);
+	//CCLOG("previous %d", previousHighscore);
 	int currentScore = WorldManager::getInstance()->getPlayer()->getDistance();
-	CCLOG("current %d", currentScore);
+	//CCLOG("current %d", currentScore);
 	if (currentScore > previousHighscore)
 	{
-		CCLOG("New higscore recorded!");
+		//CCLOG("New higscore recorded!");
 		newHighscore->setVisible(true);
 		auto scaleUp = ScaleBy::create(.5, 2.0);
 		auto scaleDown = ScaleBy::create(.5, 0.5);
@@ -151,24 +151,23 @@ void GameOver::displayPlayerStatistics()
 	// Enemies killed	
 	
 	cocos2d::network::HttpRequest* request = new (std::nothrow) cocos2d::network::HttpRequest();
-	request->setUrl("http://192.168.43.222/test.php");
+	request->setUrl("http://grandtheftmuffins.esy.es/test.php/");
 	request->setRequestType(cocos2d::network::HttpRequest::Type::POST);
 	request->setResponseCallback(CC_CALLBACK_2(GameOver::onHttpRequestCompleted, this));
 
 	// write the post data
-	String *data = String::create("visitor=cocos2d&TestSuite=Extensions Test/NetworkTest");	
+	String *data = String::createWithFormat("username=David&score=%s", std::to_string(m_nTotalScore).c_str());
 	request->setRequestData(data->getCString(), data->length());
 	request->setTag("myData");
 	cocos2d::network::HttpClient::getInstance()->send(request);
 	request->release();
 	
-	CCLOG("display player stats");
-
+	//CCLOG("display player stats");
 }
 
 void GameOver::onHttpRequestCompleted(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response)
 {
-	CCLOG("http request completed");	
+	//CCLOG("http request completed");	
 	if (response && response->getResponseCode() == 200 && response->getResponseData()) {
 		std::vector<char> *data = response->getResponseData();
 		std::string ret(&(data->front()), data->size());

@@ -48,34 +48,21 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 	std::vector<std::string> searchPath;
 
-	// In this demo, we select resource according to the frame's height.
-	// If the resource size is different from design resolution size, you need to set contentScaleFactor.
-	// We use the ratio of resource's height to the height of design resolution,
-	// this can make sure that the resource's height could fit for the height of design resolution.
-
-	// if the frame's height is larger than the height of medium resource size, select large resource.
-	if (frameSize.height > galaxyS4Resource.size.height)
+	if (frameSize.height > mediumResource.size.height)
 	{
-		CCLOG("Using large resources");
+		//CCLOG("Using large resources");
 		searchPath.push_back(largeResource.directory);
-		director->setContentScaleFactor(MIN(largeResource.size.height / designResolutionSize.height, largeResource.size.width / designResolutionSize.width));	}
-	else if (frameSize.height > mediumResource.size.height)
-	{
-		CCLOG("Using galaxys4 resources");
-		searchPath.push_back(galaxyS4Resource.directory);
-		director->setContentScaleFactor(MIN(galaxyS4Resource.size.height / designResolutionSize.height, galaxyS4Resource.size.width / designResolutionSize.width));
-	}
-	// if the frame's height is larger than the height of small resource size, select medium resource.
+		director->setContentScaleFactor(MIN(largeResource.size.height / designResolutionSize.height, largeResource.size.width / designResolutionSize.width));	
+	}	
 	else if (frameSize.height > smallResource.size.height)
 	{
-		CCLOG("Using medium resources");
+		//CCLOG("Using medium resources");
 		searchPath.push_back(mediumResource.directory);
 		director->setContentScaleFactor(MIN(mediumResource.size.height / designResolutionSize.height, mediumResource.size.width / designResolutionSize.width));
-	}
-	// if the frame's height is smaller than the height of medium resource size, select small resource.
+	}	
 	else
 	{
-		CCLOG("Using small resources");
+		//CCLOG("Using small resources");
 		searchPath.push_back(smallResource.directory);
 		director->setContentScaleFactor(MIN(smallResource.size.height / designResolutionSize.height, smallResource.size.width / designResolutionSize.width));
 	}
