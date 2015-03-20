@@ -47,26 +47,26 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	Size frameSize = glview->getFrameSize();
 
 	std::vector<std::string> searchPath;
-
+	
 	if (frameSize.height > mediumResource.size.height)
 	{
 		CCLOG("Using large resources");
 		searchPath.push_back(largeResource.directory);
-		director->setContentScaleFactor(MIN(largeResource.size.height / designResolutionSize.height, largeResource.size.width / designResolutionSize.width));	
-	}	
-	else if (frameSize.width > smallResource.size.width)
+		director->setContentScaleFactor(MIN(largeResource.size.height / designResolutionSize.height, largeResource.size.width / designResolutionSize.width));
+	}
+	else if (frameSize.height > smallResource.size.height)
 	{
 		CCLOG("Using medium resources");
 		searchPath.push_back(mediumResource.directory);
-		director->setContentScaleFactor(MIN(mediumResource.size.width / designResolutionSize.width, mediumResource.size.height / designResolutionSize.height));
-	}	
+		director->setContentScaleFactor(MIN(mediumResource.size.height / designResolutionSize.height, mediumResource.size.width / designResolutionSize.width));
+	}
 	else
 	{
 		CCLOG("Using small resources");
 		searchPath.push_back(smallResource.directory);
 		director->setContentScaleFactor(MIN(smallResource.size.height / designResolutionSize.height, smallResource.size.width / designResolutionSize.width));
 	}
-
+	
 	// set searching path
 	FileUtils::getInstance()->setSearchPaths(searchPath);
 
