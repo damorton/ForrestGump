@@ -26,3 +26,4 @@ proj.wp8-xaml/
 *.cocos-project.json
 CMakeLists.txt
 temp/
+old/
