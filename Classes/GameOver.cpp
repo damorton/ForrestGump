@@ -3,7 +3,8 @@
 #include "GameScene.h"
 #include "Definitions.h"
 #include "WorldManager.h"
-USING_NS_CC;
+
+using namespace cocos2d::network;
 
 Scene* GameOver::createScene()
 {
@@ -139,14 +140,69 @@ void GameOver::displayPlayerStatistics()
 	// Highscore
 	auto highScoreLabel = Label::createWithTTF("Highscore ", LABEL_FONT, LABEL_FONT_SIZE);
 	auto highScoreValueLabel = Label::createWithTTF(std::to_string(previousHighscore), LABEL_FONT, LABEL_FONT_SIZE);
-	this->initLabelWithValue(highScoreLabel, highScoreValueLabel, foodLabel);		
-	
+	this->initLabelWithValue(highScoreLabel, highScoreValueLabel, foodLabel);
+
 	// Duration of session
 	// Number of jumps
 	// Time on foot
 	// Time jumping
 	// Enemies dodged
 	// Enemies killed	
+
+	
+	cocos2d::network::HttpRequest* request = new (std::nothrow) cocos2d::network::HttpRequest();
+	request->setUrl("http://192.168.43.222/test.php");
+	request->setRequestType(cocos2d::network::HttpRequest::Type::POST);
+	request->setResponseCallback(CC_CALLBACK_2(GameOver::onHttpRequestCompleted, this));
+
+	// write the post data
+	const char* postData = "visitor=cocos2d&TestSuite=Extensions Test/NetworkTest";
+	request->setRequestData(postData, strlen(postData));
+	request->setTag("POST immediate test1");
+	HttpClient::getInstance()->send(request);
+	request->release();	
+	
+
+}
+
+void GameOver::onHttpRequestCompleted(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response)
+{
+	if (!response)
+	{
+		return;
+	}
+
+	// You can get original request type from: response->request->reqType
+	if (0 != strlen(response->getHttpRequest()->getTag()))
+	{
+		log("%s completed", response->getHttpRequest()->getTag());
+	}
+
+	long statusCode = response->getResponseCode();
+	char statusString[64] = {};
+	sprintf(statusString, "HTTP Status Code: %ld, tag = %s", statusCode, response->getHttpRequest()->getTag());
+
+	log("response code: %ld", statusCode);
+
+	if (!response->isSucceed())
+	{
+		log("response failed");
+		log("error buffer: %s", response->getErrorBuffer());
+		return;
+	}
+
+	// dump data
+	std::vector<char> *buffer = response->getResponseData();
+	log("Http Test, dump data: ");
+	for (unsigned int i = 0; i < buffer->size(); i++)
+	{
+		log("%c", (*buffer)[i]);
+	}
+	log("\n");
+	if (response->getHttpRequest()->getReferenceCount() != 2)
+	{
+		log("request ref count not 2, is %d", response->getHttpRequest()->getReferenceCount());
+	}
 }
 
 void GameOver::initLabelWithValue(Label* label, Label* value, Label* labelAbove)

@@ -79,9 +79,14 @@ bool GameScene::initializeGame()
 	m_bPaused = false;
 
 	this->scheduleUpdate();
+
+	
+
 	CCLOG("Game scene initialized");
 	return true;
 }
+
+
 
 void GameScene::addScreenShake()
 {	
