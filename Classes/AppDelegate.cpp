@@ -43,28 +43,28 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::SHOW_ALL);
 #else
 	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
-#endif
+#endif	
 	Size frameSize = glview->getFrameSize();
 
 	std::vector<std::string> searchPath;
 	
-	if (frameSize.height > mediumResource.size.height)
+	if (frameSize.width > mediumResource.size.width)
 	{		
 		CCLOG("Using large resources");
 		searchPath.push_back(largeResource.directory);
-		director->setContentScaleFactor(largeResource.size.height / designResolutionSize.height);		
+		director->setContentScaleFactor(largeResource.size.width / designResolutionSize.width);
 	}
-	else if (frameSize.height > smallResource.size.height)
+	else if (frameSize.width > smallResource.size.width)
 	{
 		CCLOG("Using medium resources");
 		searchPath.push_back(mediumResource.directory);
-		director->setContentScaleFactor(mediumResource.size.height / designResolutionSize.height);
+		director->setContentScaleFactor(mediumResource.size.width / designResolutionSize.width);
 	}
 	else
 	{
 		CCLOG("Using small resources");
 		searchPath.push_back(smallResource.directory);
-		director->setContentScaleFactor(smallResource.size.height / designResolutionSize.height);
+		director->setContentScaleFactor(smallResource.size.width / designResolutionSize.width);
 	}
 	
 	// set searching path

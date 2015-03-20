@@ -72,8 +72,7 @@ void CollisionManager::checkCollisionsWithItems()
 							if (WorldManager::getInstance()->getPlayer()->getScale() > 0.5)
 							{
 								WorldManager::getInstance()->getPlayer()->setScale(WorldManager::getInstance()->getPlayer()->getScale() - 0.01);
-								WorldManager::getInstance()->increaseGameWorldSpeed();
-								WorldManager::getInstance()->increaseEnemyMovementSpeed();
+								
 							}
 						}
 						else if (tileSprite->getName() == "food")
@@ -84,8 +83,7 @@ void CollisionManager::checkCollisionsWithItems()
 							if (WorldManager::getInstance()->getPlayer()->getScale() < 2.0)
 							{
 								WorldManager::getInstance()->getPlayer()->setScale(WorldManager::getInstance()->getPlayer()->getScale() + 0.01);
-								WorldManager::getInstance()->decreaseGameWorldSpeed();
-								WorldManager::getInstance()->decreaseEnemyMovementSpeed();
+								
 							}
 						}
 						else if (tileSprite->getName() == "shield" || tileSprite->getName() == "shieldA")

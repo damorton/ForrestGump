@@ -64,6 +64,7 @@ bool WorldManager::isXMLFileExist()
 {
 	std::string filepath = cocos2d::FileUtils::getInstance()->getWritablePath();
 	filepath.append(XMLDOC);
+	CCLOG("%s", filepath.c_str());
 	FILE *fp = fopen(filepath.c_str(), "r");
 	bool bRet = false;
 
