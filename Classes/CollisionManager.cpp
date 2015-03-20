@@ -116,8 +116,7 @@ void CollisionManager::checkCollisionsWithEnemies()
 						{
 							if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
 							{   
-							CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/orc_die.wav", false, 1.0, 1.0, 1.0);
-							// Woo! I'm invincible!
+								// Woo! I'm invincible!
 						    }
 						}
 						else
