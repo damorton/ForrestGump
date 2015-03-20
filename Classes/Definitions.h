@@ -40,7 +40,8 @@ typedef enum {
 
 // Player
 #define PLAYER_POSITION_IN_WINDOW ((Director::getInstance()->getVisibleSize().width / 10) * 2)
-#define PLAYER_JUMP_VEL Vec2(0.0f, 200.0f)
+#define MAX_PLAYER_VEL 200.0f
+#define PLAYER_JUMP_VEL Vec2(0.0f, MAX_PLAYER_VEL)
 #define MAX_NO_OF_JUMPS 1
 #define JUMP_HEIGHT (Director::getInstance()->getVisibleSize().height * .75)
 
@@ -52,7 +53,6 @@ typedef enum {
 // New design resolution
 #define DESIGN_RESOLUTION_480X320    0
 #define DESIGN_RESOLUTION_1024X768   1
-#define DESIGN_RESOLUTION_1920X1080  2
 #define DESIGN_RESOLUTION_2048X1536  3
 
 /* If you want to switch design resolution, change next line */
