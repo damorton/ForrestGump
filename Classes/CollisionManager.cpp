@@ -84,6 +84,10 @@ void CollisionManager::checkCollisionsWithItems()
 								WorldManager::getInstance()->getPlayer()->setScale(WorldManager::getInstance()->getPlayer()->getScale() + 0.01);
 							}
 						}
+						else if (tileSprite->getName() == "shield" || tileSprite->getName() == "shieldA")
+						{
+							WorldManager::getInstance()->getPlayer()->setGodMode();
+						}
 						tileSprite->setVisible(false);
 					}
 				}
@@ -106,10 +110,15 @@ void CollisionManager::checkCollisionsWithEnemies()
 				{
 					if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
 					{
+						
 						enemy->setVisible(false);
 						if (m_pPlayer->isGod())
 						{
+							if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
+							{   
+							CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/orc_die.wav", false, 1.0, 1.0, 1.0);
 							// Woo! I'm invincible!
+						    }
 						}
 						else
 						{							

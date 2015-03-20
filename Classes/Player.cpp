@@ -30,6 +30,7 @@ bool Player::init()
 	m_nFood = 0;
 	m_nItems = 0;
 	m_bGodMode = false;
+	m_nCount = 0;
 	
 	this->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, SCREEN_ORIGIN.y + WorldManager::getInstance()->getFloorSprite()->getContentSize().height + this->getContentSize().height / 2));
 	auto playerPhysicsBody = PhysicsBody::createBox(Size(this->getContentSize().width, this->getContentSize().height * .80), PHYSICSBODY_MATERIAL_DEFAULT);	
@@ -50,6 +51,11 @@ bool Player::init()
 	jetpackFire->setPosition(Vec2::ZERO);
 	jetpackFire->setAutoRemoveOnFinish(true);	
 	m_pJetpack->addChild(jetpackFire, 0, "jetpack");
+
+	m_pShield = Sprite::create("sprites/shield.png");
+	m_pShield->setPosition(this->getContentSize().width / 2, this->getContentSize().height / 2);
+	m_pShield->setVisible(false);
+	this->addChild(m_pShield);
 
 	WorldManager::getInstance()->setPlayer(this);
 	CollisionManager::getInstance()->setPlayer(this);
@@ -103,6 +109,21 @@ void Player::addParticle()
 	
 }
 
+void Player::setGodMode()
+{
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Powerup_32.wav", false, 1.0, 1.0, 1.0);
+	m_bGodMode = true;
+	m_nCount = 0;	
+	m_pShield->setVisible(true);	
+}
+
+void Player::unsetGodMode()
+{
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Powerup_32.wav", false, 1.0, 1.0, 1.0);
+	m_bGodMode = false;
+	m_pShield->setVisible(false);
+}
+
 void Player::addParticlesGameObjects(std::string path, float a, float b, int totalPar, float duration)
 {
 	m_pGameObjectEmitter = CCParticleSystemQuad::create(path);
@@ -117,7 +138,6 @@ void Player::resetCoins()
 {
 	m_nCoins = 0;
 }
-
 
 void Player::jump()
 {
@@ -146,12 +166,28 @@ void Player::jump()
 }
 
 void Player::update()
-{		
-	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()) && m_ePlayerAction == JUMPING)
+{	
+	if (isGod())
 	{
-		m_ePlayerAction = RUNNING;
-		this->getAnimationWithFrames("sprites/playerRunning%02d.png", 4);
-		m_pJetpack->setSpriteFrame(SpriteFrame::create("sprites/jetpackUp.png", Rect(0, 0, m_pJetpack->getContentSize().width, m_pJetpack->getContentSize().height)));
+		m_nCount++;
+		if (m_nCount > 500)
+		{
+			this->unsetGodMode();
+			m_nCount == 0;
+		}		
+	}
+
+	// reset player poisiton 
+	this->setPositionX(PLAYER_POSITION_IN_WINDOW);
+	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
+	{	
+		// Running animation		
+		if (m_ePlayerAction == JUMPING)
+		{			
+			this->getAnimationWithFrames("sprites/playerRunning%02d.png", 4);
+			m_pJetpack->setSpriteFrame(SpriteFrame::create("sprites/jetpackUp.png", Rect(0, 0, m_pJetpack->getContentSize().width, m_pJetpack->getContentSize().height)));
+		}
+		m_ePlayerAction = RUNNING;			
 		setBPAction(BP_UP);
 		m_pEmitter->setScale(1.0);
 		m_pEmitter->resume();
