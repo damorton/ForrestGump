@@ -96,7 +96,7 @@ void Player::addFood()
 void Player::addItem()
 {
 	m_nItems++;
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Pickup_Coin.wav", false, 1.0f, 1.0f, 1.0f);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40.wav", false, 1.0f, 1.0f, 1.0f);
 	this->addParticlesGameObjects("particles/DiamondPar3.plist", this->getContentSize().width, this->getContentSize().height, 1, 0.5);
 }
 
@@ -175,7 +175,7 @@ void Player::update()
 			this->unsetGodMode();
 			m_nCount == 0;
 		}		
-	}
+	}	
 
 	// reset player poisiton 
 	this->setPositionX(PLAYER_POSITION_IN_WINDOW);
