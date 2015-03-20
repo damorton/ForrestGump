@@ -33,10 +33,11 @@ bool Player::init()
 	m_nCount = 0;
 	
 	this->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, SCREEN_ORIGIN.y + WorldManager::getInstance()->getFloorSprite()->getContentSize().height + this->getContentSize().height / 2));
-	auto playerPhysicsBody = PhysicsBody::createBox(Size(this->getContentSize().width, this->getContentSize().height * .80), PHYSICSBODY_MATERIAL_DEFAULT);	
+	auto playerPhysicsBody = PhysicsBody::createBox(Size(this->getContentSize().width, this->getContentSize().height -1), PHYSICSBODY_MATERIAL_DEFAULT);	
 	playerPhysicsBody->setDynamic(true);
 	playerPhysicsBody->setGravityEnable(true);
 	playerPhysicsBody->setRotationEnable(false);
+	playerPhysicsBody->setVelocityLimit(MAX_PLAYER_VEL);
 	this->setPhysicsBody(playerPhysicsBody);
 	
 	// Animate the player
@@ -50,7 +51,8 @@ bool Player::init()
 	auto jetpackFire = ParticleSystemQuad::create("particles/jetpackFire.plist");		
 	jetpackFire->setPosition(Vec2::ZERO);
 	jetpackFire->setAutoRemoveOnFinish(true);	
-	m_pJetpack->addChild(jetpackFire, 0, "jetpack");
+	jetpackFire->setScale(0.5);
+	m_pJetpack->addChild(jetpackFire, 0, "jetpackFire");
 
 	m_pShield = Sprite::create("sprites/shield.png");
 	m_pShield->setPosition(this->getContentSize().width / 2, this->getContentSize().height / 2);
@@ -140,27 +142,25 @@ void Player::resetCoins()
 }
 
 void Player::jump()
-{
+{	
 	if (m_ePlayerAction == RUNNING)
 	{
-		m_ePlayerAction = JUMPING;
-		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40.wav", false, 1.0f, 1.0f, 1.0f);
-		this->getAnimationWithFrames("sprites/playerJumping%02d.png", 3);
-	}
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40.wav", false, 1.0f, 1.0f, 1.0f);		
+	}	
 	
 	if (m_eBackpackAction == BP_UP)
 	{
 		m_pJetpack->setSpriteFrame(SpriteFrame::create("sprites/jetpackDown.png", Rect(0, 0, m_pJetpack->getContentSize().width, m_pJetpack->getContentSize().height)));
-		m_pJetpack->getChildByName("jetpack")->setPosition(Vec2(0, m_pJetpack->getContentSize().height));				
+		m_pJetpack->getChildByName("jetpackFire")->setPosition(Vec2(0, m_pJetpack->getContentSize().height));				
 		setBPAction(BP_DOWN);
-		this->getPhysicsBody()->setVelocity(-PLAYER_JUMP_VEL);
+		this->getPhysicsBody()->setVelocity(PLAYER_JUMP_VEL);
 	}
 	else if (m_eBackpackAction == BP_DOWN)
 	{
 		m_pJetpack->setSpriteFrame(SpriteFrame::create("sprites/jetpackUp.png", Rect(0, 0, m_pJetpack->getContentSize().width, m_pJetpack->getContentSize().height)));
-		m_pJetpack->getChildByName("jetpack")->setPosition(Vec2::ZERO);			
+		m_pJetpack->getChildByName("jetpackFire")->setPosition(Vec2::ZERO);			
 		setBPAction(BP_UP);
-		this->getPhysicsBody()->setVelocity(PLAYER_JUMP_VEL);
+		this->getPhysicsBody()->setVelocity(-PLAYER_JUMP_VEL);
 	
 	}
 }
@@ -186,25 +186,30 @@ void Player::update()
 		{			
 			this->getAnimationWithFrames("sprites/playerRunning%02d.png", 4);
 			m_pJetpack->setSpriteFrame(SpriteFrame::create("sprites/jetpackUp.png", Rect(0, 0, m_pJetpack->getContentSize().width, m_pJetpack->getContentSize().height)));
-		}
-		m_ePlayerAction = RUNNING;			
-		setBPAction(BP_UP);
-		m_pEmitter->setScale(1.0);
-		m_pEmitter->resume();
+			m_pJetpack->getChildByName("jetpackFire")->setPosition(Vec2::ZERO);
+			m_ePlayerAction = RUNNING;
+			m_pEmitter->setScale(1.0);
+			m_pEmitter->resume();
+		}		
 	}
 	else
 	{
-		m_pEmitter->setScale(0.0);
-		m_pEmitter->pause();
+		if (m_ePlayerAction == RUNNING)
+		{			
+			this->getAnimationWithFrames("sprites/playerJumping%02d.png", 3);
+			m_ePlayerAction = JUMPING;
+			m_pEmitter->setScale(0.0);
+			m_pEmitter->pause();
+		}		
 	}
 
 	// reset player poisiton 
 	this->setPositionX(PLAYER_POSITION_IN_WINDOW);
 			
 
-	if (this->getPositionY() > VISIBLE_SIZE_HEIGHT + this->getContentSize().height)
+	if (this->getPositionY() > VISIBLE_SIZE_HEIGHT - this->getContentSize().height)
 	{
-		this->setPositionY(VISIBLE_SIZE_HEIGHT + this->getContentSize().height);
+		this->setPositionY(VISIBLE_SIZE_HEIGHT - this->getContentSize().height);
 	}		
 }
 
