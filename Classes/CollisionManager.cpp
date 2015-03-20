@@ -5,7 +5,7 @@
 #include "Enemy.h"
 #include "GameScene.h"
 #include "GameOver.h"
-
+#include "audio/include/SimpleAudioEngine.h"
 
 CollisionManager* CollisionManager::m_Instance = 0;
 
@@ -114,7 +114,7 @@ void CollisionManager::checkCollisionsWithEnemies()
 				{
 					if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
 					{
-						
+						CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Powerup_32.wav", false, 1.0, 1.0, 1.0);
 						enemy->setVisible(false);
 						if (m_pPlayer->isGod())
 						{
@@ -124,7 +124,8 @@ void CollisionManager::checkCollisionsWithEnemies()
 						    }
 						}
 						else
-						{							
+						{					
+							
 							WorldManager::getInstance()->gameLayer()->gameOver();
 							
 							// need to collect coins and not lose them?
