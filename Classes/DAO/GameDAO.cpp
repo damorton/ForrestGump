@@ -26,7 +26,7 @@ std::shared_ptr<std::vector<User>> GameDAO::read()
 	writePath.append(XMLDOC);
 	//CCLOG("filename %s", filename.c_str());
 	//CCLOG("writepath %s", writePath.c_str());
-	tinyxml2::XMLDocument doc;
+	tinyxml2::XMLDocument doc;	
 	//doc.LoadFile(filename.c_str());
 	doc.LoadFile(writePath.c_str());
 		

@@ -1,15 +1,25 @@
 #cocos2d
 cocos2d/*
 
-#win32
-proj.win32/Debug.win32/
-proj.win32/*.sdf
-proj.win32/*.opensdf
-
 #android
 proj.android/.settings/*
 proj.android/obj/*
 proj.android/bin/*
+
+#IOS
+proj.ios_mac/*
+
+#Linux
+proj.linux/*
+
+#Windows Universal App
+proj.win8.1-universal/Debug/*
+proj.win8.1-universal/ipch/*
+
+#win32
+proj.win32/Debug.win32/*
+proj.win32/*.sdf
+proj.win32/*.opensdf
 
 #windows phone 8
 proj.wp8-xaml/*

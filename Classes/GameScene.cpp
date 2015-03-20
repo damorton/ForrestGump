@@ -5,13 +5,14 @@
 #include "MainMenu.h"
 #include "GameOver.h"
 #include "Player.h"
+#include "audio/include/SimpleAudioEngine.h"
 
 USING_NS_CC;
 
 Scene* GameScene::createScene()
 {	
 	auto scene = Scene::createWithPhysics();
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);	
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);	
 	scene->getPhysicsWorld()->setGravity((WorldManager::getInstance()->getGravity()));
 	scene->setTag(TAG_GAME_SCENE);
 	
@@ -79,14 +80,9 @@ bool GameScene::initializeGame()
 	m_bPaused = false;
 
 	this->scheduleUpdate();
-
-	
-
 	CCLOG("Game scene initialized");
 	return true;
 }
-
-
 
 void GameScene::addScreenShake()
 {	

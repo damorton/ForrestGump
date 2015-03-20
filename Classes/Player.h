@@ -56,7 +56,6 @@ private:
 	int m_nBoosters;
 	int m_nFood;
 	int m_nItems;		
-	int m_nNumberOfJumps;
 	std::string m_strUsername;
 	ParticleSystem *m_pEmitter;
 	ParticleSystem* m_pGameObjectEmitter;

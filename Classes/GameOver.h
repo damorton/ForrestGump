@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "network/HttpClient.h"
 
+
 USING_NS_CC;
 
 class GameOver : public cocos2d::Layer
@@ -22,9 +23,10 @@ public:
 	void mainMenu(Ref *pSender);
 	void exit(Ref *pSender);
 	void playAgain(Ref *pSender);
-	//Http Response Callback
+
 	void onHttpRequestCompleted(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response);
 
+	
 private:
 	Size m_Size;
 	Vec2 m_Origin;

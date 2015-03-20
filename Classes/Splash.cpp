@@ -2,6 +2,7 @@
 #include "MainMenu.h"
 #include "Definitions.h"
 #include "WorldManager.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 

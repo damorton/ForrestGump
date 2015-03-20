@@ -2,6 +2,7 @@
 #include "WorldManager.h"
 #include "Player.h"
 #include "GameOver.h"
+#include "audio/include/SimpleAudioEngine.h"
 
 Player* Player::create(const std::string& filename)
 {
@@ -28,11 +29,10 @@ bool Player::init()
 	m_nBoosters = 0;
 	m_nFood = 0;
 	m_nItems = 0;
-	m_nNumberOfJumps = 0;
 	m_bGodMode = false;
 	
 	this->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, SCREEN_ORIGIN.y + WorldManager::getInstance()->getFloorSprite()->getContentSize().height + this->getContentSize().height / 2));
-	auto playerPhysicsBody = PhysicsBody::createBox(Size(this->getContentSize().width, this->getContentSize().height - 5), PHYSICSBODY_MATERIAL_DEFAULT);	
+	auto playerPhysicsBody = PhysicsBody::createBox(Size(this->getContentSize().width, this->getContentSize().height * .80), PHYSICSBODY_MATERIAL_DEFAULT);	
 	playerPhysicsBody->setDynamic(true);
 	playerPhysicsBody->setGravityEnable(true);
 	playerPhysicsBody->setRotationEnable(false);
@@ -126,48 +126,45 @@ void Player::jump()
 		m_ePlayerAction = JUMPING;
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40.wav", false, 1.0f, 1.0f, 1.0f);
 		this->getAnimationWithFrames("sprites/playerJumping%02d.png", 3);
-		m_nNumberOfJumps++;				
 	}
 	
 	if (m_eBackpackAction == BP_UP)
 	{
 		m_pJetpack->setSpriteFrame(SpriteFrame::create("sprites/jetpackDown.png", Rect(0, 0, m_pJetpack->getContentSize().width, m_pJetpack->getContentSize().height)));
-		m_pJetpack->getChildByName("jetpack")->setPosition(Vec2(0, m_pJetpack->getContentSize().height));		
-		this->getPhysicsBody()->setVelocity(PLAYER_JUMP_VEL);
+		m_pJetpack->getChildByName("jetpack")->setPosition(Vec2(0, m_pJetpack->getContentSize().height));				
 		setBPAction(BP_DOWN);
+		this->getPhysicsBody()->setVelocity(-PLAYER_JUMP_VEL);
 	}
 	else if (m_eBackpackAction == BP_DOWN)
 	{
 		m_pJetpack->setSpriteFrame(SpriteFrame::create("sprites/jetpackUp.png", Rect(0, 0, m_pJetpack->getContentSize().width, m_pJetpack->getContentSize().height)));
-		m_pJetpack->getChildByName("jetpack")->setPosition(Vec2::ZERO);		
-		this->getPhysicsBody()->setVelocity(-PLAYER_JUMP_VEL);
+		m_pJetpack->getChildByName("jetpack")->setPosition(Vec2::ZERO);			
 		setBPAction(BP_UP);
+		this->getPhysicsBody()->setVelocity(PLAYER_JUMP_VEL);
+	
 	}
 }
 
 void Player::update()
 {		
-	// reset player poisiton 
-	this->setPositionX(PLAYER_POSITION_IN_WINDOW);
-	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
-	{	
-		// Running animation		
-		if (m_ePlayerAction == JUMPING)
-		{			
-			this->getAnimationWithFrames("sprites/playerRunning%02d.png", 4);
-			m_pJetpack->setSpriteFrame(SpriteFrame::create("sprites/jetpackUp.png", Rect(0, 0, m_pJetpack->getContentSize().width, m_pJetpack->getContentSize().height)));
-		}
-		m_ePlayerAction = RUNNING;			
+	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()) && m_ePlayerAction == JUMPING)
+	{
+		m_ePlayerAction = RUNNING;
+		this->getAnimationWithFrames("sprites/playerRunning%02d.png", 4);
+		m_pJetpack->setSpriteFrame(SpriteFrame::create("sprites/jetpackUp.png", Rect(0, 0, m_pJetpack->getContentSize().width, m_pJetpack->getContentSize().height)));
 		setBPAction(BP_UP);
-		m_pEmitter->setScale(2.0);
+		m_pEmitter->setScale(1.0);
 		m_pEmitter->resume();
-		m_nNumberOfJumps = 0;
 	}
 	else
-	{				
+	{
 		m_pEmitter->setScale(0.0);
 		m_pEmitter->pause();
-	}		
+	}
+
+	// reset player poisiton 
+	this->setPositionX(PLAYER_POSITION_IN_WINDOW);
+			
 
 	if (this->getPositionY() > VISIBLE_SIZE_HEIGHT + this->getContentSize().height)
 	{

@@ -1,21 +1,13 @@
 #include "Popup.h"
 #include "HUD.h"
-
-USING_NS_CC;
-
-//  Created by Tiago Oliveira on 27/11/14.
-//  Copyright Tiago Oliveira 2014. All rights reserved.
-//
-// Popup Sprite
-
 #include "Popup.h"
 #include "GameScene.h"
 #include "Definitions.h"
 #include "MainMenu.h"
 #include "WorldManager.h"
+#include "audio/include/SimpleAudioEngine.h"
 
-using namespace cocos2d;
-using namespace CocosDenshion;
+USING_NS_CC;
 
 //init create popup element with text
 bool Popup::init()
@@ -57,11 +49,11 @@ void Popup::show(bool shouldShow, bool sel)
 		// Stop sound
 		if (shouldShow)
 		{
-			SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+			CocosDenshion::SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 		}
 		else
 		{
-			SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+			CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 		}
 	}
 	// Set my Sprite Pause visible

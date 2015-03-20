@@ -56,10 +56,10 @@ bool Parallax::addBackground(const std::string& filename1, const std::string& fi
 			
 	// Floor boundary
 	auto floorRect = CCSprite::create();
-	floorRect->setContentSize(Size(m_pSpriteFloor1->getContentSize().width * 3, m_pSpriteFloor1->getContentSize().height - m_pSpriteFloor1->getContentSize().height / 5));
+	floorRect->setContentSize(Size(m_pSpriteFloor1->getContentSize().width * 3, m_pSpriteFloor1->getContentSize().height * .80));
 	floorRect->setPosition(Vec2(SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH / 2, SCREEN_ORIGIN.y + floorRect->getContentSize().height / 2));
 	this->addChild(floorRect);
-	auto floorEdgeBody = PhysicsBody::createEdgeBox(floorRect->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 1);
+	auto floorEdgeBody = PhysicsBody::createBox(floorRect->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 	floorEdgeBody->setDynamic(false);
 	floorRect->setPhysicsBody(floorEdgeBody);		
 	WorldManager::getInstance()->setFloorSprite(floorRect);

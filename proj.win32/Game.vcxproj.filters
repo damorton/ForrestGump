@@ -4,153 +4,147 @@
     <Filter Include="win32">
       <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Classes">
-      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
-    </Filter>
     <Filter Include="resource">
       <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Classes\Header Files">
-      <UniqueIdentifier>{bfcf8f68-9391-4a59-9594-39c6f56f8daa}</UniqueIdentifier>
+    <Filter Include="src">
+      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Classes\Source Files">
-      <UniqueIdentifier>{36ba602e-d019-43f9-9330-d155dc15b05e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Classes\DAO">
-      <UniqueIdentifier>{ba3e70ee-610a-4f9d-a59a-6a58ce04a808}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Classes\DAO\Header Files">
-      <UniqueIdentifier>{04206cf9-47a1-4018-a477-55b8c15c4217}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Classes\DAO\Source Files">
-      <UniqueIdentifier>{16875cf4-7d5d-4dbb-a46b-741a45a77642}</UniqueIdentifier>
+    <Filter Include="src\DAO">
+      <UniqueIdentifier>{a8a52825-7da7-49e3-a30a-877d06a1f635}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>Classes\Source Files</Filter>
+    <ClCompile Include="..\Classes\AnimationMoves.cpp">
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\CollectableFactory.cpp">
-      <Filter>Classes\Source Files</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\CollisionManager.cpp">
-      <Filter>Classes\Source Files</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Enemy.cpp">
-      <Filter>Classes\Source Files</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\EnemyFactory.cpp">
-      <Filter>Classes\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GameScene.cpp">
-      <Filter>Classes\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\HUD.cpp">
-      <Filter>Classes\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MainMenu.cpp">
-      <Filter>Classes\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Parallax.cpp">
-      <Filter>Classes\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Player.cpp">
-      <Filter>Classes\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\SpawnManager.cpp">
-      <Filter>Classes\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Splash.cpp">
-      <Filter>Classes\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\WorldManager.cpp">
-      <Filter>Classes\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\DAO\GameDAO.cpp">
-      <Filter>Classes\DAO\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\DAO\User.cpp">
-      <Filter>Classes\DAO\Source Files</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GameOver.cpp">
-      <Filter>Classes\Source Files</Filter>
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HUD.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MainMenu.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Parallax.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Player.cpp">
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Popup.cpp">
-      <Filter>Classes\Source Files</Filter>
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SpawnManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Splash.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\WorldManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DAO\GameDAO.cpp">
+      <Filter>src\DAO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DAO\User.cpp">
+      <Filter>src\DAO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\WorldManager.h">
-      <Filter>Classes\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>Classes\Header Files</Filter>
+    <ClInclude Include="..\Classes\AnimationMoves.h">
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Character.h">
-      <Filter>Classes\Header Files</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\CollectableFactory.h">
-      <Filter>Classes\Header Files</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\CollisionManager.h">
-      <Filter>Classes\Header Files</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Definitions.h">
-      <Filter>Classes\Header Files</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Enemy.h">
-      <Filter>Classes\Header Files</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\EnemyFactory.h">
-      <Filter>Classes\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameScene.h">
-      <Filter>Classes\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\HUD.h">
-      <Filter>Classes\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MainMenu.h">
-      <Filter>Classes\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Parallax.h">
-      <Filter>Classes\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Player.h">
-      <Filter>Classes\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SpawnManager.h">
-      <Filter>Classes\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Splash.h">
-      <Filter>Classes\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\DAO\GameDAO.h">
-      <Filter>Classes\DAO\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\DAO\Score.h">
-      <Filter>Classes\DAO\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\DAO\TextItem.h">
-      <Filter>Classes\DAO\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\DAO\User.h">
-      <Filter>Classes\DAO\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\DAO\Username.h">
-      <Filter>Classes\DAO\Header Files</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameOver.h">
-      <Filter>Classes\Header Files</Filter>
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HUD.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MainMenu.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Parallax.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Player.h">
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Popup.h">
-      <Filter>Classes\Header Files</Filter>
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SpawnManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Splash.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\WorldManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DAO\GameDAO.h">
+      <Filter>src\DAO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DAO\Score.h">
+      <Filter>src\DAO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DAO\TextItem.h">
+      <Filter>src\DAO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DAO\User.h">
+      <Filter>src\DAO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DAO\Username.h">
+      <Filter>src\DAO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

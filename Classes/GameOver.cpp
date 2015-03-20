@@ -3,8 +3,9 @@
 #include "GameScene.h"
 #include "Definitions.h"
 #include "WorldManager.h"
+#include "audio/include/SimpleAudioEngine.h"
 
-using namespace cocos2d::network;
+USING_NS_CC;
 
 Scene* GameOver::createScene()
 {
@@ -148,7 +149,6 @@ void GameOver::displayPlayerStatistics()
 	// Time jumping
 	// Enemies dodged
 	// Enemies killed	
-
 	
 	cocos2d::network::HttpRequest* request = new (std::nothrow) cocos2d::network::HttpRequest();
 	request->setUrl("http://192.168.43.222/test.php");
@@ -156,52 +156,27 @@ void GameOver::displayPlayerStatistics()
 	request->setResponseCallback(CC_CALLBACK_2(GameOver::onHttpRequestCompleted, this));
 
 	// write the post data
-	const char* postData = "visitor=cocos2d&TestSuite=Extensions Test/NetworkTest";
-	request->setRequestData(postData, strlen(postData));
-	request->setTag("POST immediate test1");
-	HttpClient::getInstance()->send(request);
-	request->release();	
+	String *data = String::create("visitor=cocos2d&TestSuite=Extensions Test/NetworkTest");	
+	request->setRequestData(data->getCString(), data->length());
+	request->setTag("myData");
+	cocos2d::network::HttpClient::getInstance()->send(request);
+	request->release();
 	
+	CCLOG("display player stats");
 
 }
 
 void GameOver::onHttpRequestCompleted(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response)
 {
-	if (!response)
-	{
-		return;
+	CCLOG("http request completed");	
+	if (response && response->getResponseCode() == 200 && response->getResponseData()) {
+		std::vector<char> *data = response->getResponseData();
+		std::string ret(&(data->front()), data->size());
+		CCLOG("%s", ("Response message: " + ret).c_str());
 	}
-
-	// You can get original request type from: response->request->reqType
-	if (0 != strlen(response->getHttpRequest()->getTag()))
+	else 
 	{
-		log("%s completed", response->getHttpRequest()->getTag());
-	}
-
-	long statusCode = response->getResponseCode();
-	char statusString[64] = {};
-	sprintf(statusString, "HTTP Status Code: %ld, tag = %s", statusCode, response->getHttpRequest()->getTag());
-
-	log("response code: %ld", statusCode);
-
-	if (!response->isSucceed())
-	{
-		log("response failed");
-		log("error buffer: %s", response->getErrorBuffer());
-		return;
-	}
-
-	// dump data
-	std::vector<char> *buffer = response->getResponseData();
-	log("Http Test, dump data: ");
-	for (unsigned int i = 0; i < buffer->size(); i++)
-	{
-		log("%c", (*buffer)[i]);
-	}
-	log("\n");
-	if (response->getHttpRequest()->getReferenceCount() != 2)
-	{
-		log("request ref count not 2, is %d", response->getHttpRequest()->getReferenceCount());
+		CCLOG("%s", ("Error " + std::to_string(response->getResponseCode()) + " in request").c_str()); //error
 	}
 }
 
