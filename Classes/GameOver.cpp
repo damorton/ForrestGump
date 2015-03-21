@@ -150,33 +150,8 @@ void GameOver::displayPlayerStatistics()
 	// Enemies dodged
 	// Enemies killed	
 	
-	cocos2d::network::HttpRequest* request = new (std::nothrow) cocos2d::network::HttpRequest();
-	request->setUrl("http://grandtheftmuffins.esy.es/test.php/");
-	request->setRequestType(cocos2d::network::HttpRequest::Type::POST);
-	request->setResponseCallback(CC_CALLBACK_2(GameOver::onHttpRequestCompleted, this));
-
-	// write the post data
-	String *data = String::createWithFormat("username=David&score=%s", std::to_string(m_nTotalScore).c_str());
-	request->setRequestData(data->getCString(), data->length());
-	request->setTag("myData");
-	cocos2d::network::HttpClient::getInstance()->send(request);
-	request->release();
 	
 	//CCLOG("display player stats");
-}
-
-void GameOver::onHttpRequestCompleted(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response)
-{
-	//CCLOG("http request completed");	
-	if (response && response->getResponseCode() == 200 && response->getResponseData()) {
-		std::vector<char> *data = response->getResponseData();
-		std::string ret(&(data->front()), data->size());
-		CCLOG("%s", ("Response message: " + ret).c_str());
-	}
-	else 
-	{
-		CCLOG("%s", ("Error " + std::to_string(response->getResponseCode()) + " in request").c_str()); //error
-	}
 }
 
 void GameOver::initLabelWithValue(Label* label, Label* value, Label* labelAbove)
