@@ -51,7 +51,7 @@ bool Player::init()
 	auto jetpackFire = ParticleSystemQuad::create("particles/jetpackFire.plist");		
 	jetpackFire->setPosition(Vec2::ZERO);
 	jetpackFire->setAutoRemoveOnFinish(true);	
-	jetpackFire->setScale(0.5);
+	jetpackFire->setScale(0.4);
 	m_pJetpack->addChild(jetpackFire, 0, "jetpackFire");
 
 	m_pShield = Sprite::create("sprites/shield.png");
@@ -88,7 +88,7 @@ void Player::addBooster()
 void Player::addFood()
 {
 	m_nFood++;
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Crunch_DavidYoung.wav", false, 1.0f, 1.0f, 1.0f);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40.wav", false, 1.0f, 1.0f, 1.0f);
 	this->addParticlesGameObjects("particles/SplatterParticle2.plist", this->getContentSize().width / 2, this->getContentSize().height / 2, 2, 0.1);
 	this->addParticlesGameObjects("particles/Muffin.plist", this->getContentSize().width / 2, 0, 1, 0.5);
 }
@@ -188,6 +188,7 @@ void Player::update()
 			m_pJetpack->setSpriteFrame(SpriteFrame::create("sprites/jetpackUp.png", Rect(0, 0, m_pJetpack->getContentSize().width, m_pJetpack->getContentSize().height)));
 			m_pJetpack->getChildByName("jetpackFire")->setPosition(Vec2::ZERO);
 			m_ePlayerAction = RUNNING;
+			setBPAction(BP_UP);
 			m_pEmitter->setScale(1.0);
 			m_pEmitter->resume();
 		}		
