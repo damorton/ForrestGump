@@ -161,6 +161,7 @@ void GameOver::displayPlayerStatistics()
 	request->setTag("myData");
 	cocos2d::network::HttpClient::getInstance()->send(request);
 	request->release();
+
 	
 	//CCLOG("display player stats");
 }
