@@ -28,3 +28,44 @@ private:
 };
 
 #endif 
+
+class KeyboardNotificationLayer : public Layer, public IMEDelegate
+{
+public:
+	KeyboardNotificationLayer();
+	virtual std::string subtitle() const = 0;
+	virtual void keyboadWillShow(IMEKeyboardNotificationInfo& info);
+
+	// Layer 
+	bool onTouchBegan(Touch *touch, Event *event);
+	void onTouchEnded(Touch *touch, Event *event);
+
+protected:
+	Vec2 m_beginPos;
+};
+
+class TextFieldTTFAction : public KeyboardNotificationLayer, public TextFieldDelegate
+{
+	TextFieldTTF *m_pTextField;
+	Action *m_pTextFieldAction;
+	bool m_bAction;
+	int m_nCharLimit;
+
+public:
+	void callBackRemoveNodeWhenDidAction(Node* node);
+
+	// KeyboardNotificatioLayer
+	virtual std::string subtitle() const override;
+
+	// Layer 
+	virtual void onEnter() override;
+	virtual void onExit() override;
+
+	// TextFieldDelegate
+	virtual bool onTextFieldAttachWithIME(TextFieldTTF *sender) override;
+	virtual bool onTextFieldDetachWithIME(TextFieldTTF *sender) override;
+	virtual bool onTextFieldInsertText(TextFieldTTF *sender, const char *text, size_t nLen) override;
+	virtual bool onTextFieldDeleteBackward(TextFieldTTF *sender, const char *delText, size_t nLen) override;
+	virtual bool onDraw(TextFieldTTF * sender);
+
+};
