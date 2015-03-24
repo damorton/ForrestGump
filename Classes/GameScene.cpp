@@ -75,8 +75,12 @@ bool GameScene::initializeGame()
 	listener->setSwallowTouches(true);
 	listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-
-
+	
+	// Game session timer
+	m_nGameTime = 0;
+	WorldManager::getInstance()->setTimePlayedSeconds(m_nGameTime);
+	this->schedule(schedule_selector(GameScene::updateTimer), 1.0f);	
+	
 	m_bPaused = false;
 
 	this->scheduleUpdate();	
@@ -84,13 +88,10 @@ bool GameScene::initializeGame()
 	return true;
 }
 
-/*void GameScene::addScreenShake()
-{	
-	auto jump = JumpBy::create(1, Point(1000, 1000), 0.5, 5);
-	auto reverse = jump->reverse();	
-	this->runAction(jump);
-	this->runAction(reverse);	
-}*/
+void GameScene::updateTimer(float dt)
+{
+	m_nGameTime++;
+}
 
 void GameScene::update(float delta)
 {
@@ -102,14 +103,14 @@ void GameScene::update(float delta)
 		WorldManager::getInstance()->increaseEnemyMovementSpeed();
 	}
 
-	WorldManager::getInstance()->getPlayer()->update();
+	WorldManager::getInstance()->getPlayer()->update();	
 	m_pSpawnManager->update();
 	m_pCollectableFactory->update();
 	m_pParallax->update();
 	m_HudLayer->update();
 	
 	CollisionManager::getInstance()->checkCollisions();
-
+	
 	//CCLOG("-------------GAME LOOP END--------------");
 }
 
@@ -129,6 +130,12 @@ void GameScene::gameOver()
 {	
 	CCLOG("Game Scene: Game over called");
 	this->pauseGame();	
+
+	// Time played in game
+	this->unschedule(schedule_selector(GameScene::updateTimer));
+	WorldManager::getInstance()->setTimePlayedSeconds(m_nGameTime);
+
+
 	// Death sequence here!!
 	Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);	

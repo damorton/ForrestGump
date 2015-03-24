@@ -6,7 +6,7 @@ class Username : public TextItem
 {
 public:
 	Username(){}
-	Username(std::string thisText){setText(thisText.c_str());}
+	Username(std::string thisText){ setText(thisText.c_str()); setName(""); }
 	~Username(){}	
 private:
 };

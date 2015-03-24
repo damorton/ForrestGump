@@ -25,6 +25,7 @@ public:
 	void mainMenu();
 	void pauseGame();	
 	void addScreenShake();	
+	void updateTimer(float dt);
 	
 private:
 	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
@@ -38,6 +39,8 @@ private:
 	SpawnManager* m_pSpawnManager;
 	Enemy m_enemey;	
 	bool m_bPaused;
+
+	float m_nGameTime;
 };
 
 #endif // __GAMESCENE_SCENE_H__

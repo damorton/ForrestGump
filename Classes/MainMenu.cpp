@@ -58,6 +58,16 @@ bool MainMenu::init()
 	menuSettings->alignItemsVertically();
 	popupSettings->addChild(menuSettings, 2);
 	this->addChild(popupSettings, 1);	
+
+	// Register Touch Event
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->onTouchBegan = CC_CALLBACK_2(MainMenu::onTouchBegan, this);
+	listener->onTouchEnded = CC_CALLBACK_2(MainMenu::onTouchEnded, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+	// TextField
+	createTF();
+
 	CCLOG("MainMenu initialized");
     return true;
 }
@@ -112,4 +122,155 @@ void MainMenu::sound(CCObject* pSender)
 void MainMenu::mainMenuCleanup()
 {
 	CCLOG("Main menu cleanup");
+}
+
+void MainMenu::createTF()
+{
+	m_pTextField = TextFieldTTF::textFieldWithPlaceHolder("ENTER USERNAME", LABEL_FONT, LABEL_FONT_SIZE);	
+	m_pTextField->setColor(Color3B::MAGENTA);	
+	m_nCharLimit = 12;
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)    
+	// on android, TextFieldTTF cannot auto adjust its position when soft-keyboard pop up
+	// so we had to set a higher position
+	m_pTextField->setPosition(Vec2(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2 + 50));
+#else
+	m_pTextField->setPosition(Vec2(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT * .90));
+#endif	
+	m_pTextField->setDelegate(this);
+	m_pTextField->attachWithIME();
+	this->addChild(m_pTextField);	
+}
+
+bool MainMenu::onTouchBegan(Touch *pTouch, Event *pEvent)
+{
+	m_beginPos = pTouch->getLocation();
+	return true;
+}
+
+void MainMenu::onTouchEnded(Touch *pTouch, Event *pEvent)
+{
+	
+}
+
+
+bool MainMenu::onTextFieldAttachWithIME(TextFieldTTF * pSender)
+{
+
+	return false;
+
+}
+
+bool MainMenu::onTextFieldDetachWithIME(TextFieldTTF * pSender)
+{
+	return false;
+}
+
+bool MainMenu::onTextFieldInsertText(TextFieldTTF *pSender, const char *text, size_t nLen)
+{	
+	// if insert enter, treat as default to detach with ime
+	if ('\n' == *text)
+	{
+		CCLOG("Enter hit");
+		return false;
+	}
+
+	// if the textfield's char count more than _charLimit, doesn't insert text anymore.
+	if (pSender->getCharCount() >= m_nCharLimit)
+	{
+		return true;
+	}
+
+	// create a insert text sprite and do some action
+	auto label = Label::createWithSystemFont(text, LABEL_FONT, LABEL_FONT_SIZE);
+	this->addChild(label);
+	Color3B color(226, 121, 7);
+	label->setColor(color);
+
+	// move the sprite from top to position
+	auto endPos = pSender->getPosition();
+	if (pSender->getCharCount())
+	{
+		endPos.x += pSender->getContentSize().width / 2;
+	}
+	auto inputTextSize = label->getContentSize();
+	Vec2 beginPos(endPos.x, Director::getInstance()->getWinSize().height - inputTextSize.height * 2);
+
+	float duration = 0.5;
+	label->setPosition(beginPos);
+	label->setScale(8);
+
+	auto seq = Sequence::create(
+		Spawn::create(
+		MoveTo::create(duration, endPos),
+		ScaleTo::create(duration, 1),
+		FadeOut::create(duration),
+		nullptr),
+		CallFuncN::create(CC_CALLBACK_1(MainMenu::callbackRemoveNodeWhenDidAction, this)),
+		nullptr);
+	label->runAction(seq);
+	return false;
+}
+
+void MainMenu::callbackRemoveNodeWhenDidAction(Node * node)
+{
+	this->removeChild(node, true);
+}
+
+bool MainMenu::onTextFieldDeleteBackward(TextFieldTTF *pSender, const char *delText, size_t nLen)
+{
+	// create a delete text sprite and do some action
+	auto label = Label::createWithSystemFont(delText, LABEL_FONT, LABEL_FONT_SIZE);
+	this->addChild(label);
+
+	// move the sprite to fly out
+	auto beginPos = pSender->getPosition();
+	auto textfieldSize = pSender->getContentSize();
+	auto labelSize = label->getContentSize();
+	beginPos.x += (textfieldSize.width - labelSize.width) / 2.0f;
+
+	auto winSize = Director::getInstance()->getWinSize();
+	Vec2 endPos(-winSize.width / 4.0f, winSize.height * (0.5 + (float)rand() / (2.0f * RAND_MAX)));
+
+	float duration = 1;
+	float rotateDuration = 0.2f;
+	int repeatTime = 5;
+	label->setPosition(beginPos);
+
+	auto seq = Sequence::create(
+		Spawn::create(
+		MoveTo::create(duration, endPos),
+		Repeat::create(
+		RotateBy::create(rotateDuration, (rand() % 2) ? 360 : -360),
+		repeatTime),
+		FadeOut::create(duration),
+		nullptr),
+		CallFuncN::create(CC_CALLBACK_1(MainMenu::callbackRemoveNodeWhenDidAction, this)),
+		nullptr);
+	label->runAction(seq);
+	return false;
+}
+
+bool MainMenu::onDraw(TextFieldTTF * pSender)
+{
+	return false;
+}
+
+static Rect getRect(Node * node)
+{
+	Rect rc;
+	rc.origin = node->getPosition();
+	rc.size = node->getContentSize();
+	rc.origin.x -= rc.size.width / 2;
+	rc.origin.y -= rc.size.height / 2;
+	return rc;
+}
+
+void MainMenu::keyboardWillShow(IMEKeyboardNotificationInfo &info)
+{
+	
+}
+
+void MainMenu::keyboardWillHide(IMEKeyboardNotificationInfo &info)
+{
+	
 }

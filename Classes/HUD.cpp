@@ -98,7 +98,6 @@ void HUD::update()
 {
 	if (WorldManager::getInstance()->getPlayer() != NULL)
 	{
-		WorldManager::getInstance()->getPlayer()->addDistance();		
 		m_pDistanceValueLabel->setString(std::to_string(WorldManager::getInstance()->getPlayer()->getDistance()) + "m");
 		m_pCoinsValueLabel->setString(std::to_string(WorldManager::getInstance()->getPlayer()->getCoins()));		
 	}
