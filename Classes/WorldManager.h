@@ -10,6 +10,7 @@
 #include "Enemy.h"
 #include "DAO/GameDAO.h"
 #include <memory>
+#include "network\HttpClient.h"
 
 class WorldManager
 {
@@ -52,6 +53,7 @@ public:
 	std::shared_ptr<IGameDAO> getDAOMySQL(){ return m_DataAccessObjectMySQL; };
 
 	void updateDAO();
+	void onHttpRequestCompleted(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response);
 
 	// Enemies
 	void increaseEnemyMovementSpeed(){ m_fEnemyMovementSpeed *= GAME_SPEED_INC; };
@@ -61,6 +63,8 @@ public:
 
 	void setTimePlayedSeconds(int secondsPerGame){ m_nTimePlayedSeconds = secondsPerGame; };
 	int getTimePlayedSeconds(){ return m_nTimePlayedSeconds; };
+
+	void setUsername(std::string username){ m_strInputUsername = username; };
 
 private:	
 	WorldManager(){ this->init(); };  
@@ -78,6 +82,8 @@ private:
 	bool m_bSoundEnabled;
 
 	int m_nTimePlayedSeconds;
+
+	std::string m_strInputUsername;
 	
 };
 
