@@ -40,7 +40,10 @@ bool Player::init()
 	m_bGodMode = false;
 	m_nCount = 0;
 	
+	// Set the player position
 	this->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, SCREEN_ORIGIN.y + WorldManager::getInstance()->getFloorSprite()->getContentSize().height + this->getContentSize().height / 2));
+	
+	// set physics for the player
 	auto playerPhysicsBody = PhysicsBody::createBox(Size(this->getContentSize().width, this->getContentSize().height -1), PHYSICSBODY_MATERIAL_DEFAULT);	
 	playerPhysicsBody->setDynamic(true);
 	playerPhysicsBody->setGravityEnable(true);
@@ -51,17 +54,19 @@ bool Player::init()
 	// Animate the player
 	this->getAnimationWithFrames("sprites/playerRunning%02d.png", 4);
 
-
+	// create jetpack for the player
 	m_pJetpack = Sprite::create("sprites/jetpackUp.png");
 	m_pJetpack->setPosition(Vec2(0, this->getContentSize().height / 2));
 	this->addChild(m_pJetpack, -1);
 	
+	// create particles for the players jetpack
 	auto jetpackFire = ParticleSystemQuad::create("particles/jetpackFire.plist");		
 	jetpackFire->setPosition(Vec2::ZERO);
 	jetpackFire->setAutoRemoveOnFinish(true);	
 	jetpackFire->setScale(0.4);
 	m_pJetpack->addChild(jetpackFire, 0, "jetpackFire");
 
+	// create the force field shield for the player
 	m_pShield = Sprite::create("sprites/shield.png");
 	m_pShield->setPosition(this->getContentSize().width / 2, this->getContentSize().height / 2);
 	m_pShield->setVisible(false);
@@ -79,6 +84,7 @@ void Player::addDistance()
 	
 }
 
+// adds coins to the count when player collects coins
 void Player::addCoin()
 {
 	m_nCoins++;
@@ -149,14 +155,16 @@ void Player::resetCoins()
 {
 	m_nCoins = 0;
 }
-
+// Player jump method
 void Player::jump()
 {	
+	// if player is running when jump is called
 	if (m_ePlayerAction == RUNNING)
 	{
+		// Play a jump sound effect
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40.wav", false, 1.0f, 1.0f, 1.0f);		
 	}	
-	
+	// if back pack action = BP_UP
 	if (m_eBackpackAction == BP_UP)
 	{
 		m_pJetpack->setSpriteFrame(SpriteFrame::create("sprites/jetpackDown.png", Rect(0, 0, m_pJetpack->getContentSize().width, m_pJetpack->getContentSize().height)));
@@ -176,14 +184,20 @@ void Player::jump()
 
 void Player::update()
 {			
+	// increase distance
 	m_nDistance++;
 
+	// if player is god
 	if (isGod())
 	{
+		// increase count
 		m_nCount++;
+		// if count is greater than 500
 		if (m_nCount > 500)
 		{
+			// turn off god mode
 			this->unsetGodMode();
+			// reset count
 			m_nCount == 0;
 		}		
 	}	
