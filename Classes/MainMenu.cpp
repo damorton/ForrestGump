@@ -86,12 +86,12 @@ void MainMenu::addParticlesToButtons(MenuItemImage* button)
 }
 
 void MainMenu::playGame(cocos2d::Ref *pSender)
-{
+{		
 	if (!WorldManager::getInstance()->isXMLFileExist())
-	{
-		WorldManager::getInstance()->setUsername(m_pTextField->getString());
-		WorldManager::getInstance()->addUser(m_pTextField->getString());
-	}
+	{			
+		WorldManager::getInstance()->setUsername(m_pTextField->getString());			
+	}	
+	WorldManager::getInstance()->createDAO();
 	WorldManager::getInstance()->resetGameWorld();
 	CollisionManager::getInstance()->resetCollisionManager();
 	Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::createScene()));
