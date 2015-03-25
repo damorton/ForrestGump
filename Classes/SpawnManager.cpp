@@ -9,9 +9,11 @@ bool SpawnManager::init()
 	{
 		return false;
 	}
-	this->createEnemies();	
+	this->createEnemies();
+	this->createShields();
 	srand(time(NULL));
 	m_bIsSpawned = false;
+	m_bIsShieldSpawned = false;
 	CCLOG("Spawn Manager init");
 	return true;
 }
@@ -21,6 +23,8 @@ void SpawnManager::spawnManagerCleanup()
 	m_pPlayer = NULL;
 	m_vpEnemies.clear();
 	m_vpActiveEnemies.clear();
+	m_vpShields.clear();
+	m_vpActiveShields.clear();
 	CCLOG("Spawn Manager cleanup");
 }
 
@@ -91,6 +95,7 @@ bool SpawnManager::addEnemyToActiveVector(Enemy* enemy)
 void SpawnManager::update()
 {	
 	this->moveSprites();
+	this->moveShields();
 }
 
 void SpawnManager::moveSprites()
@@ -160,5 +165,72 @@ void SpawnManager::resumeGame()
 				enemy->resumeSchedulerAndActions();
 			}
 		}
+	}
+}
+
+void SpawnManager::createShield(std::string filename, bool gravity, bool rotate)
+{
+	auto shield = Shield::create(filename);
+	shield->setPosition(Vec2(this->getRandomXPos(), this->getRandomHeight()));
+	this->addChild(shield);
+	CollisionManager::getInstance()->addShield(shield);
+}
+
+void SpawnManager::createShields()
+{
+	this->createShield("sprites/shieldWithSwords.png", true, false);
+	this->createShield("sprites/shieldWithSwords.png", true, false);
+	this->createShield("sprites/shieldWithSwords.png", true, false);
+}
+
+bool SpawnManager::spawnShield()
+{
+	int randomnumber;
+	int numberOfShields = CollisionManager::getInstance()->getShields().size();
+	randomnumber = (rand() % numberOfShields);
+	this->addShieldToActiveVector(CollisionManager::getInstance()->getShields().at(randomnumber));
+	m_bIsShieldSpawned = true;
+	return true;
+}
+
+bool SpawnManager::addShieldToActiveVector(Shield* shield)
+{
+	shield->setVisible(true);
+	m_vpActiveShields.push_back(shield);
+	return true;
+}
+
+void SpawnManager::moveShields()
+{
+	if (!CollisionManager::getInstance()->getShields().empty())
+	{
+		for (std::vector<Enemy*>::size_type it = 0; it < CollisionManager::getInstance()->getShields().size(); ++it)
+		{
+			auto shield = CollisionManager::getInstance()->getShields().at(it);
+
+			if (shield)
+			{
+				// move by individual enemy speeds
+			shield->setPosition(Vec2(shield->getPosition().x - (WorldManager::getInstance()->getEnemyMovementSpeed()), shield->getPosition().y));
+
+				if (shield->getPosition().x < SCREEN_ORIGIN.x - shield->getContentSize().width / 2){
+					this->resetShield(shield);
+				}
+			}
+		}
+	}
+}
+
+void SpawnManager::resetShield(Shield* shield)
+{
+	if (shield != NULL)
+	{
+		Shield* shieldSprite = static_cast<Shield*>(shield);
+		
+			shieldSprite->setPosition(Vec2(this->getRandomXPos(), getRandomHeight()));
+		
+		
+		
+		shieldSprite->setVisible(true);
 	}
 }

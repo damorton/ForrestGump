@@ -7,6 +7,7 @@
 #include "CollisionManager.h"
 #include "Player.h"
 #include <iostream>
+#include "Shield.h"
 
 class SpawnManager : public cocos2d::Layer
 {
@@ -29,12 +30,25 @@ public:
 	void pauseGame();
 	void resumeGame();
 
+	bool spawnShield();
+	void createShields();
+	void createShield(std::string filename, bool gravity, bool rotate);
+	bool addShieldToActiveVector(Shield* shield);
+	void moveShields();
+	void resetShield(Shield* shield);
+
+
+
+
 	CREATE_FUNC(SpawnManager);
 private:	
 	Player* m_pPlayer;
 	std::vector<Enemy*> m_vpEnemies;	
 	std::vector<Enemy*> m_vpActiveEnemies;
 	bool m_bIsSpawned;
+	bool m_bIsShieldSpawned;
+	std::vector<Shield*> m_vpShields;
+	std::vector<Shield*> m_vpActiveShields;
 };
 
 #endif
