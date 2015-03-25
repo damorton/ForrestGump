@@ -82,7 +82,7 @@ void Player::addDistance()
 void Player::addCoin()
 {
 	m_nCoins++;
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_25.wav", false, 1.0f, 1.0f, 1.0f);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Pickup_Coin28.wav", false, 1.0f, 1.0f, 1.0f);
 	this->addParticlesGameObjects("particles/coin.plist", this->getContentSize().width, this->getContentSize().height, 1, 0.5);
 }
 
@@ -97,7 +97,7 @@ void Player::addBooster()
 void Player::addFood()
 {
 	m_nFood++;
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40.wav", false, 1.0f, 1.0f, 1.0f);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Crunch_DavidYoungShorter.wav", false, 1.0f, 1.0f, 1.0f);
 	this->addParticlesGameObjects("particles/SplatterParticle2.plist", this->getContentSize().width / 2, this->getContentSize().height / 2, 2, 0.1);
 	this->addParticlesGameObjects("particles/Muffin.plist", this->getContentSize().width / 2, 0, 1, 0.5);
 }

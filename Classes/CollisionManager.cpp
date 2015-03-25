@@ -112,7 +112,7 @@ void CollisionManager::checkCollisionsWithEnemies()
 				{
 					if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
 					{
-						CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Powerup_32.wav", false, 1.0, 1.0, 1.0);
+						CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/orc_dieShorter.wav", false, 1.0, 1.0, 1.0);
 						enemy->setVisible(false);
 						if (m_pPlayer->isGod())
 						{
