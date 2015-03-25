@@ -1,7 +1,8 @@
 <?php	
 
+
 // Read the values in the post
-$playerUsername = isset($_POST['playerUsername']) ? $_POST['playerUsername'] : 'unknown';
+$playerUsername = isset($_POST['playerUsername']) ? $_POST['playerUsername'] : NULL;
 $playerHighscore = isset($_POST['playerHighscore']) ? $_POST['playerHighscore'] : '0';	
 $playerDistance = isset($_POST['playerDistance']) ? $_POST['playerDistance'] : '0';	
 $playerCoins = isset($_POST['playerCoins']) ? $_POST['playerCoins'] : '0';	
@@ -11,15 +12,36 @@ $timePlayed = isset($_POST['timePlayed']) ? $_POST['timePlayed'] : '0';
 $numberOfGamesPlayed = isset($_POST['numberOfGamesPlayed']) ? $_POST['numberOfGamesPlayed'] : '0';
 $deaths = isset($_POST['numberOfDeaths']) ? $_POST['numberOfDeaths'] : '0';
 
-//echo $playerScore;	
+// Connect to the database
 include 'connect.php';
 $conn = connect();
 
 // CHECK IF THE USER IS IN THE DATABASE
-// IF NOT INSERT THEM
+// IF NOT INSERT THEN
 // UPDATE PLAYER
 
-/// print whats in the database
+//include 'create_user.php';
+// First, prevent sql injection with mysql_real_escape_string
+//$string = mysql_real_escape_string($string);
+
+//$playerUsername = mysql_real_escape_string($playerUsername);  // SECURITY!
+$searchResult = $conn->query("SELECT player_username FROM Player WHERE player_username = '$playerUsername' LIMIT 1");
+if ($searchResult->num_rows) {
+	//echo 'User exists in database';
+	// do nothing
+}
+else
+{
+	//echo 'User does not exist';
+	// Insert user into database if not unknown
+	if($playerUsername != NULL)
+	{
+		$conn->query("INSERT INTO Player (player_username) VALUES ('$playerUsername')");	
+	}
+}
+$searchResult->free();
+
+/// Grab data from the database for the player
 $query = "SELECT * FROM Player WHERE player_username = '$playerUsername' ";
 $result = $conn->query($query);					
 
@@ -58,6 +80,8 @@ else
 	$playerHighscoreDB = isset($playerHighscoreDB) ? $playerHighscoreDB : '0';
 }
 
+// reset highscore
+//$playerHighscoreDB = isset($playerHighscore) ? $playerHighscore : '0';	
 
 $playerDistanceDB = isset($playerDistanceDB) ? $playerDistanceDB : '0'; 
 $playerCoinsDB = isset($playerCoinsDB) ? $playerCoinsDB : '0'; 

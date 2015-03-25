@@ -10,8 +10,7 @@ function connect()
 
 	if($conn->connect_errno)
 	{
-		printf("Connection failed: ", $conn->connect_errno);
-		exit();
+		die("Connection failed: " . $conn->connect_error);
 	}
 	return $conn;
 }
