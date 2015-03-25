@@ -16,7 +16,7 @@ public:
 	void displayPlayerStatistics();
 	void initLabelWithValue(Label* label, Label* value, Label* statsLabel);
 	void displayLeaderboard();
-	void storeHighscore();
+	void updateLocalDB();
 	void resume(Ref *pSender);
 	void mainMenu(Ref *pSender);
 	void exit(Ref *pSender);

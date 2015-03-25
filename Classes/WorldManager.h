@@ -13,18 +13,18 @@
 
 class WorldManager
 {
-public:	
+public:
 	// World Manager
-	virtual bool init();	
-	virtual void cleanUp(); 	
-	static WorldManager* getInstance(); 
+	virtual bool init();
+	virtual void cleanUp();
+	static WorldManager* getInstance();
 	static Layer* layerWithTag(int tag);
 	static HUD* hudLayer();
 	static CollectableFactory* CollectableFactoryLayer();
-	static GameScene* gameLayer();	
+	static GameScene* gameLayer();
 	void createDAO();
 	void addUser(std::string username);
-	bool isXMLFileExist();	
+	bool isXMLFileExist();
 	void setFloorSprite(cocos2d::Sprite* floor){ m_pFloorSprite = floor; };
 	bool isSoundEnabled(){ return m_bSoundEnabled; };
 	void setSoundEnabled(bool sound){ m_bSoundEnabled = sound; };
@@ -37,17 +37,21 @@ public:
 	void setGameWorldSpeed(float speed){ m_fWorldSpeed = speed; };
 	Vec2 getGravity(){ return m_GravitationalForce; };
 	void setGravity(Vec2 gravity){ m_GravitationalForce = gravity; };
-		
+
 	// Player
 	Player* getPlayer(){ return m_pPlayer; };
 	cocos2d::Sprite* getFloorSprite(){ return m_pFloorSprite; };
-	std::string getPlayerHighscore();
 	std::string getPlayerUsername();
-	void setPlayer(Player* player){ m_pPlayer = player; };		
+	std::string getPlayerHighscore(); // vector index 0
+	std::string getNumberOfGamesPlayed(); // vector index 9
+
+	void setPlayer(Player* player){ m_pPlayer = player; };
 
 	// DAO
-	std::shared_ptr<IGameDAO> getDAO(){ return m_DataAccessObject; };			
-	void setPlayerHighscore(std::string highscore);
+	std::shared_ptr<IGameDAO> getDAO(){ return m_DataAccessObject; };
+	std::shared_ptr<IGameDAO> getDAOMySQL(){ return m_DataAccessObjectMySQL; };
+
+	void updateDAO();
 
 	// Enemies
 	void increaseEnemyMovementSpeed(){ m_fEnemyMovementSpeed *= GAME_SPEED_INC; };
@@ -55,11 +59,16 @@ public:
 	float getEnemyMovementSpeed(){ return m_fEnemyMovementSpeed; };
 	void setEnemyMovementSpeed(float speed){ m_fEnemyMovementSpeed = speed; };
 
+	void setTimePlayedSeconds(int secondsPerGame){ m_nTimePlayedSeconds = secondsPerGame; };
+	int getTimePlayedSeconds(){ return m_nTimePlayedSeconds; };
+
 private:	
 	WorldManager(){ this->init(); };  
 	~WorldManager(){ this->cleanUp(); }; 
 	static WorldManager* m_pInstance;
 	std::shared_ptr<IGameDAO> m_DataAccessObject;
+	std::shared_ptr<IGameDAO> m_DataAccessObjectMySQL;
+
 	Player* m_pPlayer;
 	Sprite* m_pShield;
 	Sprite* m_pFloorSprite;
@@ -67,6 +76,9 @@ private:
 	float m_fEnemyMovementSpeed;
 	Vec2 m_GravitationalForce;
 	bool m_bSoundEnabled;
+
+	int m_nTimePlayedSeconds;
+	
 };
 
 

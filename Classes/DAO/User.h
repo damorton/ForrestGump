@@ -11,9 +11,9 @@ class User
 public:
 	User();
 	~User();
-	void setUsername(const char* name);
-	void addScore(const char* value);
-	void addDistanceScore(const char* value);
+	void setUsername(const char* name){ m_spUsername->setText(name); };
+	void addScore(const char* value, const char* name){ m_vpScores->push_back(Score(std::string(value), std::string(name))); };	
+
 	std::shared_ptr<Username> getUsername();
 	std::shared_ptr<std::vector<Score>> getScores();
 

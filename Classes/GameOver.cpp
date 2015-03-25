@@ -33,11 +33,11 @@ bool GameOver::initializeGameOverScene()
 	m_Size = Director::getInstance()->getVisibleSize();
 	m_Origin = Director::getInstance()->getVisibleOrigin();
 
-	m_nDistance = 56754;
-	m_nCoins = 234;
-	m_nItems = 23;
-	m_nBoosters = 6;
-	m_nFood = 8906;
+	m_nDistance = 0;
+	m_nCoins = 0;
+	m_nItems = 0;
+	m_nBoosters = 0;
+	m_nFood = 0;
 
 	auto gameOverBackground = Sprite::create("background/GameOverBackground.png");
 	gameOverBackground->setPosition(Vec2(m_Size.width / 2 + m_Origin.x, m_Size.height / 2 + m_Origin.y));
@@ -92,10 +92,7 @@ void GameOver::displayPlayerStatistics()
 	this->addChild(newHighscore);
 
 	int previousHighscore = std::atoi(WorldManager::getInstance()->getPlayerHighscore().c_str());
-	//CCLOG("previous %d", previousHighscore);
-	int currentScore = WorldManager::getInstance()->getPlayer()->getDistance();
-	//CCLOG("current %d", currentScore);
-	if (currentScore > previousHighscore)
+	if (m_nTotalScore > previousHighscore)
 	{
 		//CCLOG("New higscore recorded!");
 		newHighscore->setVisible(true);
@@ -103,7 +100,7 @@ void GameOver::displayPlayerStatistics()
 		auto scaleDown = ScaleBy::create(.5, 0.5);
 		auto scaling = Sequence::create(scaleUp, scaleDown, NULL);
 		newHighscore->runAction(scaling);
-		this->storeHighscore();
+		WorldManager::getInstance()->getPlayer()->setHighscore(m_nTotalScore);
 	}
 		
 	auto statsLabel = Label::createWithTTF("STATISTICS", LABEL_FONT, LABEL_FONT_SIZE);	
@@ -142,16 +139,9 @@ void GameOver::displayPlayerStatistics()
 	auto highScoreLabel = Label::createWithTTF("Highscore ", LABEL_FONT, LABEL_FONT_SIZE);
 	auto highScoreValueLabel = Label::createWithTTF(std::to_string(previousHighscore), LABEL_FONT, LABEL_FONT_SIZE);
 	this->initLabelWithValue(highScoreLabel, highScoreValueLabel, foodLabel);
-
 	
-	// Duration of session
-	// Number of jumps
-	// Time on foot
-	// Time jumping
-	// Enemies dodged
-	// Enemies killed	
-		
-	//CCLOG("display player stats");
+	// Update the local DB
+	this->updateLocalDB();
 }
 
 void GameOver::initLabelWithValue(Label* label, Label* value, Label* labelAbove)
@@ -168,9 +158,10 @@ void GameOver::initLabelWithValue(Label* label, Label* value, Label* labelAbove)
 	this->addChild(value);
 }
 
-void GameOver::storeHighscore()
+void GameOver::updateLocalDB()
 {
-	WorldManager::getInstance()->setPlayerHighscore(std::to_string(m_nTotalScore));
+	// Write player info to the local DB
+	WorldManager::getInstance()->updateDAO();
 }
 
 void GameOver::displayLeaderboard()

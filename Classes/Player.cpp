@@ -18,17 +18,25 @@ Player* Player::create(const std::string& filename)
 }
 
 bool Player::init()
-{	
-	m_strUsername = "David";
+{		
 	setType(PLAYER);
 	setAction(RUNNING);
 	setState(ALIVE);
 	setBPAction(BP_UP);
+		
+	// Player statistics from local DB
+	m_strUsername = WorldManager::getInstance()->getPlayerUsername();
+	m_nHighscore = std::atoi(WorldManager::getInstance()->getPlayerHighscore().c_str());
+	
+	// Player statistics per game
 	m_nDistance = 0;
 	m_nCoins = 0;
 	m_nBoosters = 0;
 	m_nFood = 0;
 	m_nItems = 0;
+	m_nEnemiesKilled = 0;		
+	
+	// God mode
 	m_bGodMode = false;
 	m_nCount = 0;
 	
@@ -65,9 +73,10 @@ bool Player::init()
 
 	return true;
 }
+
 void Player::addDistance()
 {
-	m_nDistance++;
+	
 }
 
 void Player::addCoin()
@@ -166,7 +175,9 @@ void Player::jump()
 }
 
 void Player::update()
-{	
+{			
+	m_nDistance++;
+
 	if (isGod())
 	{
 		m_nCount++;
