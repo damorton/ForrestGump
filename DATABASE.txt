@@ -1,0 +1,24 @@
+Database instructions
+=====================
+
+WINDOWS 32
+	- Open WorldManager.cpp 
+	- In the createDAO function change the name in this->addUser("YOUR_NAME");
+	- Change the name in the xml file C:\Users\YOUR_NAME\AppData\Local\Game.xml to YOUR_NAME
+	- open the url http://grandtheftmuffins.esy.es/display_stats.php
+	- Run the game
+	- Refresh the webpage after every death to check score
+
+WINDOWS 8.1 UNIVERSAL APP	
+	- Open WorldManager.cpp 
+	- In the createDAO function change the name in this->addUser("YOUR_NAME");	
+	- IMPORTANT!! The Universal App will save data to a .xml file. To change usernames uninstall the app first to delete the .xml file.
+	- open the url http://grandtheftmuffins.esy.es/display_stats.php
+	- Run the game
+	- Refresh the webpage after every death to check score
+	
+WINDOWS PHONE
+	- NOT TESTED
+	
+ANDROID
+	- NOT TESTED
