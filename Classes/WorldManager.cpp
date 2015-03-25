@@ -18,7 +18,7 @@ WorldManager* WorldManager::getInstance()
 
 bool WorldManager::init()
 {
-	//this->createDAO();
+	this->createDAO();
 	m_fWorldSpeed = WORLD_MOVEMENT_SPEED;
 	m_fEnemyMovementSpeed = ENEMY_MOVEMENT_SPEED;
 	m_GravitationalForce = GRAVITATIONAL_FORCE;	
@@ -56,8 +56,7 @@ void WorldManager::createDAO()
 	m_DataAccessObject = std::shared_ptr<IGameDAO>(new GameDAO());	
 	if (!this->isXMLFileExist())
 	{		
-		m_DataAccessObject->create();	
-		this->addUser(m_strInputUsername);
+		m_DataAccessObject->create();			
 	}
 
 	m_DataAccessObjectMySQL = std::shared_ptr<IGameDAO>(new GameDAOMySQL());	

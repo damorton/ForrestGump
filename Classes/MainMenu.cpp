@@ -68,7 +68,6 @@ bool MainMenu::init()
 	if (!WorldManager::getInstance()->isXMLFileExist())
 	{
 		// TextField
-
 		createTF();
 	}
 
@@ -91,7 +90,7 @@ void MainMenu::playGame(cocos2d::Ref *pSender)
 	if (!WorldManager::getInstance()->isXMLFileExist())
 	{
 		WorldManager::getInstance()->setUsername(m_pTextField->getString());
-		WorldManager::getInstance()->createDAO();
+		WorldManager::getInstance()->addUser(m_pTextField->getString());
 	}
 	WorldManager::getInstance()->resetGameWorld();
 	CollisionManager::getInstance()->resetCollisionManager();
