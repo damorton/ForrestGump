@@ -38,6 +38,7 @@ bool GameOver::initializeGameOverScene()
 	m_nItems = 0;
 	m_nBoosters = 0;
 	m_nFood = 0;
+	m_pPlayer = WorldManager::getInstance()->getPlayer();
 
 	auto gameOverBackground = Sprite::create("background/GameOverBackground.png");
 	gameOverBackground->setPosition(Vec2(m_Size.width / 2 + m_Origin.x, m_Size.height / 2 + m_Origin.y));
@@ -60,11 +61,11 @@ bool GameOver::initializeGameOverScene()
 
 void GameOver::displayPlayerStatistics()
 {
-	int coins = WorldManager::getInstance()->getPlayer()->getCoins();
-	int items = WorldManager::getInstance()->getPlayer()->getItems();
-	int boosters = WorldManager::getInstance()->getPlayer()->getBoosters();
-	int food = WorldManager::getInstance()->getPlayer()->getFood();
-	int distance = WorldManager::getInstance()->getPlayer()->getDistance();
+	int coins = m_pPlayer->getCoins();
+	int items = m_pPlayer->getItems();
+	int boosters = m_pPlayer->getBoosters();
+	int food = m_pPlayer->getFood();
+	int distance = m_pPlayer->getDistance();
 
 	m_nTotalScore = coins + items + boosters + food + distance;
 
@@ -100,7 +101,7 @@ void GameOver::displayPlayerStatistics()
 		auto scaleDown = ScaleBy::create(.5, 0.5);
 		auto scaling = Sequence::create(scaleUp, scaleDown, NULL);
 		newHighscore->runAction(scaling);
-		WorldManager::getInstance()->getPlayer()->setHighscore(m_nTotalScore);
+		m_pPlayer->setHighscore(m_nTotalScore);
 	}
 		
 	auto statsLabel = Label::createWithTTF("STATISTICS", LABEL_FONT, LABEL_FONT_SIZE);	
@@ -112,27 +113,27 @@ void GameOver::displayPlayerStatistics()
 	
 	// Distance
 	auto distanceLabel = Label::createWithTTF("Distance ", LABEL_FONT, LABEL_FONT_SIZE);
-	m_pDistanceValueLabel = Label::createWithTTF(std::to_string(WorldManager::getInstance()->getPlayer()->getDistance()), LABEL_FONT, LABEL_FONT_SIZE);
+	m_pDistanceValueLabel = Label::createWithTTF(std::to_string(m_pPlayer->getDistance()), LABEL_FONT, LABEL_FONT_SIZE);
 	this->initLabelWithValue(distanceLabel, m_pDistanceValueLabel, statsLabel);		
 
 	// Coins
 	auto coinsLabel = Label::createWithTTF("Coins ", LABEL_FONT, LABEL_FONT_SIZE);		
-	m_pCoinsValueLabel = Label::createWithTTF(std::to_string(WorldManager::getInstance()->getPlayer()->getCoins()), LABEL_FONT, LABEL_FONT_SIZE);
+	m_pCoinsValueLabel = Label::createWithTTF(std::to_string(m_pPlayer->getCoins()), LABEL_FONT, LABEL_FONT_SIZE);
 	this->initLabelWithValue(coinsLabel, m_pCoinsValueLabel, distanceLabel);
 	
 	// Items
 	auto itemsLabel = Label::createWithTTF("Items ", LABEL_FONT, LABEL_FONT_SIZE);
-	m_pItemsValueLabel = Label::createWithTTF(std::to_string(WorldManager::getInstance()->getPlayer()->getItems()), LABEL_FONT, LABEL_FONT_SIZE);
+	m_pItemsValueLabel = Label::createWithTTF(std::to_string(m_pPlayer->getItems()), LABEL_FONT, LABEL_FONT_SIZE);
 	this->initLabelWithValue(itemsLabel, m_pItemsValueLabel, coinsLabel);
 	
 	// Boosters
 	auto boostersLabel = Label::createWithTTF("Boosters ", LABEL_FONT, LABEL_FONT_SIZE);
-	m_pBoostersValueLabel = Label::createWithTTF(std::to_string(WorldManager::getInstance()->getPlayer()->getBoosters()), LABEL_FONT, LABEL_FONT_SIZE);
+	m_pBoostersValueLabel = Label::createWithTTF(std::to_string(m_pPlayer->getBoosters()), LABEL_FONT, LABEL_FONT_SIZE);
 	this->initLabelWithValue(boostersLabel, m_pBoostersValueLabel, itemsLabel);
 
 	// Food
 	auto foodLabel = Label::createWithTTF("Food ", LABEL_FONT, LABEL_FONT_SIZE);
-	m_pFoodValueLabel = Label::createWithTTF(std::to_string(WorldManager::getInstance()->getPlayer()->getFood()), LABEL_FONT, LABEL_FONT_SIZE);
+	m_pFoodValueLabel = Label::createWithTTF(std::to_string(m_pPlayer->getFood()), LABEL_FONT, LABEL_FONT_SIZE);
 	this->initLabelWithValue(foodLabel, m_pFoodValueLabel, boostersLabel);
 	
 	// Highscore

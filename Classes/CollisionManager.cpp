@@ -18,6 +18,7 @@ CollisionManager* CollisionManager::getInstance()
 
 bool CollisionManager::init()
 {	
+	m_pPlayer = WorldManager::getInstance()->getPlayer();
 	return true;
 }
 
@@ -43,53 +44,49 @@ void CollisionManager::checkCollisionsWithItems()
 					{
 						if (tileSprite->getName() == "introCoins")
 						{
-							WorldManager::getInstance()->getPlayer()->addCoin();
+							m_pPlayer->addCoin();
 						}
 						else if (tileSprite->getName() == "coins")
 						{
-							WorldManager::getInstance()->getPlayer()->addCoin();
+							m_pPlayer->addCoin();
 						}
 						else if (tileSprite->getName() == "coinsA")
 						{
-							WorldManager::getInstance()->getPlayer()->addCoin();
+							m_pPlayer->addCoin();
 						}
 						else if (tileSprite->getName() == "coinsB")
 						{
-							WorldManager::getInstance()->getPlayer()->addCoin();
+							m_pPlayer->addCoin();
 						}
 						else if (tileSprite->getName() == "coinsC")
 						{
-							WorldManager::getInstance()->getPlayer()->addCoin();
+							m_pPlayer->addCoin();
 						}
 						else if (tileSprite->getName() == "items")
 						{
-							WorldManager::getInstance()->getPlayer()->addItem();
+							m_pPlayer->addItem();
 						}
 						else if (tileSprite->getName() == "boosters")
 						{
-							WorldManager::getInstance()->getPlayer()->addBooster();
+							m_pPlayer->addBooster();
 
 							// Scale player down
-							if (WorldManager::getInstance()->getPlayer()->getScale() > 0.5)
+							if (m_pPlayer->getScale() > 0.5)
 							{
-								WorldManager::getInstance()->getPlayer()->setScale(WorldManager::getInstance()->getPlayer()->getScale() - 0.01);
+								m_pPlayer->setScale(m_pPlayer->getScale() - 0.01);
 								
 							}
 						}
 						else if (tileSprite->getName() == "food")
 						{
-							WorldManager::getInstance()->getPlayer()->addFood();
+							m_pPlayer->addFood();
 
 							// Scale player up
-							if (WorldManager::getInstance()->getPlayer()->getScale() < 2.0)
+							if (m_pPlayer->getScale() < 2.0)
 							{
-								WorldManager::getInstance()->getPlayer()->setScale(WorldManager::getInstance()->getPlayer()->getScale() + 0.01);
+								m_pPlayer->setScale(m_pPlayer->getScale() + 0.01);
 								
 							}
-						}
-						else if (tileSprite->getName() == "shield" || tileSprite->getName() == "shieldA")
-						{
-							//WorldManager::getInstance()->getPlayer()->setGodMode();
 						}
 						tileSprite->setVisible(false);
 					}
@@ -122,6 +119,7 @@ void CollisionManager::checkCollisionsWithEnemies()
 								CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/orc_dieShorter.wav", false, 1.0, 1.0, 1.0);
 								m_pPlayer->addEnemyDeathParticle();
 								// Woo! I'm invincible!
+								m_pPlayer->addEnemiesKilled();
 						    }
 						}
 						else

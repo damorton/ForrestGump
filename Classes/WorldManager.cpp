@@ -17,8 +17,7 @@ WorldManager* WorldManager::getInstance()
 }
 
 bool WorldManager::init()
-{
-	this->createDAO();
+{	
 	m_fWorldSpeed = WORLD_MOVEMENT_SPEED;
 	m_fEnemyMovementSpeed = ENEMY_MOVEMENT_SPEED;
 	m_GravitationalForce = GRAVITATIONAL_FORCE;	
@@ -56,10 +55,9 @@ void WorldManager::createDAO()
 	m_DataAccessObject = std::shared_ptr<IGameDAO>(new GameDAO());	
 	if (!this->isXMLFileExist())
 	{		
-		m_DataAccessObject->create();	
-		this->addUser("David");
+		m_DataAccessObject->create();
+		this->addUser(m_strInputUsername);
 	}
-
 	m_DataAccessObjectMySQL = std::shared_ptr<IGameDAO>(new GameDAOMySQL());	
 }
 
@@ -106,16 +104,15 @@ void WorldManager::updateDAO()
 {
 	// XML
 	// Read DAO
-	std::shared_ptr<std::vector<User>> users = m_DataAccessObject->read();
-	
+	std::shared_ptr<std::vector<User>> users = m_DataAccessObject->read();	
 	
 	// Update DB	
 	users->at(0).getScores()->at(0).setText(std::to_string(m_pPlayer->getHighScore()).c_str());
 	users->at(0).getScores()->at(1).setText(std::to_string(m_pPlayer->getDistance()).c_str());
 	users->at(0).getScores()->at(2).setText(std::to_string(m_pPlayer->getCoins()).c_str());
 	users->at(0).getScores()->at(3).setText(std::to_string(m_pPlayer->getItems()).c_str());
-	users->at(0).getScores()->at(4).setText(std::to_string(m_pPlayer->getBoosters()).c_str());
-	users->at(0).getScores()->at(5).setText(std::to_string(m_pPlayer->getFood()).c_str());
+	users->at(0).getScores()->at(4).setText(std::to_string(m_pPlayer->getBoosters()).c_str()); // not recorded in remote db
+	users->at(0).getScores()->at(5).setText(std::to_string(m_pPlayer->getFood()).c_str()); // not recorded
 	users->at(0).getScores()->at(6).setText(std::to_string(m_pPlayer->getEnemiesKilled()).c_str());
 	users->at(0).getScores()->at(7).setText(std::to_string(m_nTimePlayedSeconds).c_str());
 	
@@ -134,7 +131,49 @@ void WorldManager::updateDAO()
 	m_DataAccessObject->update(users);
 
 	// Update Remote MySQL DB		
+	// remote server
+	cocos2d::network::HttpRequest* remoteRequest = new (std::nothrow) cocos2d::network::HttpRequest();
+	remoteRequest->setUrl("http://grandtheftmuffins.esy.es/update_db.php/");
+	remoteRequest->setRequestType(cocos2d::network::HttpRequest::Type::POST);
+	remoteRequest->setResponseCallback(CC_CALLBACK_2(WorldManager::onHttpRequestCompleted, this));
+
+	// write the post data
+	// read the string from the xml file??
+	String *remoteData = String::createWithFormat("playerUsername=%s&playerHighscore=%s&playerDistance=%s&playerCoins=%s&enemiesKilled=%s&itemsCollected=%s&timePlayed=%s&numberOfGamesPlayed=1&numberOfDeaths=1", 
+		WorldManager::getInstance()->getPlayerUsername().c_str(), 
+		std::to_string(m_pPlayer->getHighScore()).c_str(),
+		std::to_string(m_pPlayer->getDistance()).c_str(),
+		std::to_string(m_pPlayer->getCoins()).c_str(),
+		std::to_string(m_pPlayer->getEnemiesKilled()).c_str(),
+		std::to_string(m_pPlayer->getItems()).c_str(),
+		std::to_string(m_nTimePlayedSeconds).c_str()
+		);
+
+	CCLOG("%s", remoteData->getCString());
+
+	remoteRequest->setRequestData(remoteData->getCString(), remoteData->length());
+	cocos2d::network::HttpClient::getInstance()->send(remoteRequest);
+	remoteRequest->release();
+
 }
+
+void WorldManager::onHttpRequestCompleted(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response)
+{
+	/*
+	//CCLOG("http request completed");
+	if (response && response->getResponseCode() == 200 && response->getResponseData()) {
+	std::vector<char> *data = response->getResponseData();
+	std::string ret(&(data->front()), data->size());
+	CCLOG("%s", ("Response message: " + ret).c_str());
+	}
+	else
+	{
+	CCLOG("%s", ("Error " + std::to_string(response->getResponseCode()) + " in request").c_str()); //error
+	}
+	*/
+
+}
+
 
 std::string WorldManager::getPlayerUsername()
 {

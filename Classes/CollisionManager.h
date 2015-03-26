@@ -50,6 +50,7 @@ private:
 	std::vector<Enemy*> m_vpEnemies;
 	std::deque<Sprite*> m_vpItems;
 	std::vector<Shield*> m_vpShields;
+
 };
 
 #endif

@@ -21,6 +21,8 @@ public:
 	void jump();
 	void touch(const Point& location);	
 	void update();
+	void pausePlayer();
+	void resumePlayer();
 
 	EGameOjectType getType(){ return m_eType; };
 	int getState(){ return m_eState; };
@@ -32,8 +34,7 @@ public:
 	int getItems(){ return m_nItems; };
 	int getBoosters(){ return m_nBoosters; };
 	int getFood(){ return m_nFood; };
-	int getEnemiesKilled(){ return m_nEnemiesKilled; };
-	
+	int getEnemiesKilled(){ return m_nEnemiesKilled; };	
 
 	Sprite* getShield(){ return m_pShield; };
 
@@ -49,6 +50,7 @@ public:
 	void addItem();
 	void addBooster();
 	void addFood();
+	void addEnemiesKilled(){ m_nEnemiesKilled++; }
 	
 	void addParticle();
 	void addParticlesGameObjects(std::string path, float a, float b, int totalPar, float duration);

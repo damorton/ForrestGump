@@ -95,6 +95,7 @@ void Player::addCoin()
 void Player::addBooster()
 {
 	m_nBoosters++;
+	m_nItems++;
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40.wav", false, 1.0f, 1.0f, 1.0f);
 	this->addParticlesGameObjects("particles/booster.plist", this->getContentSize().width / 2, 0, 1, 0.5);
 
@@ -104,7 +105,8 @@ void Player::addFood()
 {
 	m_nFood++;
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Crunch_DavidYoungShorter.wav", false, 1.0f, 1.0f, 1.0f);
-	this->addParticlesGameObjects("particles/SplatterParticle2.plist", this->getContentSize().width / 2, this->getContentSize().height / 2, 2, 0.1);
+	m_nItems++;
+   this->addParticlesGameObjects("particles/SplatterParticle2.plist", this->getContentSize().width / 2, this->getContentSize().height / 2, 2, 0.1);
 	this->addParticlesGameObjects("particles/Muffin.plist", this->getContentSize().width / 2, 0, 1, 0.5);
 }
 
@@ -184,7 +186,9 @@ void Player::jump()
 
 void Player::update()
 {			
+
 	// increase distance
+	CCLOG("-------------UPDATING PLAYER--------------");
 	m_nDistance++;
 
 	// if player is god
@@ -233,9 +237,9 @@ void Player::update()
 	this->setPositionX(PLAYER_POSITION_IN_WINDOW);
 			
 
-	if (this->getPositionY() > VISIBLE_SIZE_HEIGHT - this->getContentSize().height)
+	if (this->getPositionY() > VISIBLE_SIZE_HEIGHT - this->getContentSize().height / 2)
 	{
-		this->setPositionY(VISIBLE_SIZE_HEIGHT - this->getContentSize().height);
+		this->setPositionY(VISIBLE_SIZE_HEIGHT - this->getContentSize().height / 2);
 	}		
 }
 
@@ -275,3 +279,16 @@ void Player::addEnemyDeathParticle()
 	EnemyDeathParticle->setScale(0.2);
 	this->addChild(EnemyDeathParticle);
 }
+void Player::pausePlayer()
+{
+	// Pause the player
+	m_pJetpack->getChildByName("jetpackFire")->pause();
+	this->pause();	
+}
+
+void Player::resumePlayer()
+{
+	m_pJetpack->getChildByName("jetpackFire")->resume();
+	this->resume();	
+}
+

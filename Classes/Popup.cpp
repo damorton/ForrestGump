@@ -41,22 +41,24 @@ void Popup::show(bool shouldShow, bool sel)
 {
 	if (sel)
 	{
-		GameScene *g = WorldManager::gameLayer();
-
-		// Control actions allowed and not allowed
-		g->pauseGame();
+		//GameScene *g = WorldManager::gameLayer();
+		//g->pauseGame();
+		//auto gameLayer = Director::getInstance()->getRunningScene()->getChildByTag(TAG_GAME_LAYER);		
 
 		// Stop sound
 		if (shouldShow)
-		{
-			CocosDenshion::SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+		{			
+			//CocosDenshion::SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+			//gameLayer->pause();
+			//WorldManager::getInstance()->layerWithTag(TAG_GAME_LAYER)->pause();			
 		}
 		else
 		{
-			CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+			//CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+			//gameLayer->resume();
+			//WorldManager::getInstance()->layerWithTag(TAG_GAME_LAYER)->resume();						
 		}
 	}
 	// Set my Sprite Pause visible
-	this->setVisible(shouldShow);
-	
+	this->setVisible(shouldShow);	
 }

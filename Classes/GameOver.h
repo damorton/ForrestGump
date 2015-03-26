@@ -2,6 +2,7 @@
 #define GAMEOVER_H
 
 #include "cocos2d.h"
+#include "Player.h"
 
 USING_NS_CC;
 
@@ -37,6 +38,7 @@ private:
 	Label* m_pFoodValueLabel;
 	Label* m_newHighscore;
 	Label* m_pDistanceValueLabel;
+	Player *m_pPlayer;
 	
 };
 

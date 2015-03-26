@@ -34,7 +34,7 @@ private:
 	HUD* m_HudLayer;
 	Parallax* m_pParallax;
 	Layer* gamePlayLayer;	
-	Player* playerSprite;
+	Player* m_pPlayer;
 	CollectableFactory* m_pCollectableFactory;
 	SpawnManager* m_pSpawnManager;
 	Enemy m_enemey;	
