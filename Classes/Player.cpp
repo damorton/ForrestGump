@@ -272,6 +272,6 @@ void Player::addEnemyDeathParticle()
 	auto EnemyDeathParticle = ParticleSystemQuad::create("particles/enemyDeath.plist");
 	EnemyDeathParticle->setPosition(this->getContentSize().width, this->getContentSize().height);
 	EnemyDeathParticle->setAutoRemoveOnFinish(true);
-	EnemyDeathParticle->setScale(0.4);
+	EnemyDeathParticle->setScale(0.2);
 	this->addChild(EnemyDeathParticle);
 }

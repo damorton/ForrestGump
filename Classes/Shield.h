@@ -14,6 +14,8 @@ public:
 	EPowerUpsType getType(){ return m_eType; };
 	void setType(EPowerUpsType type){ m_eType = type; };
 	void moveSprite();
+	void addParticle();
+	void addSprite();
 
 
 };

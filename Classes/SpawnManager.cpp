@@ -178,7 +178,7 @@ void SpawnManager::createShield(std::string filename, bool gravity, bool rotate)
 
 void SpawnManager::createShields()
 {
-	this->createShield("sprites/shieldWithSwords.png", true, false);
+	this->createShield("sprites/shieldSmaller.png", true, false);
 }
 
 bool SpawnManager::spawnShield()
