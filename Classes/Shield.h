@@ -16,6 +16,7 @@ public:
 	void moveSprite();
 	void addParticle();
 	void addSprite();
+	void update();
 
 
 };

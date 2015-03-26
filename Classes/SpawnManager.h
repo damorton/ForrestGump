@@ -40,6 +40,7 @@ public:
 
 
 
+
 	CREATE_FUNC(SpawnManager);
 private:	
 	Player* m_pPlayer;

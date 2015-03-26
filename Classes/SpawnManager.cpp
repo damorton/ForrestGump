@@ -1,6 +1,6 @@
 #include "SpawnManager.h"
 #include "WorldManager.h"
-
+#include "Shield.h"
 USING_NS_CC;
 
 bool SpawnManager::init()
@@ -96,6 +96,7 @@ void SpawnManager::update()
 {	
 	this->moveSprites();
 	this->moveShields();
+	
 }
 
 void SpawnManager::moveSprites()
@@ -171,8 +172,9 @@ void SpawnManager::resumeGame()
 void SpawnManager::createShield(std::string filename, bool gravity, bool rotate)
 {
 	auto shield = Shield::create(filename);
-	shield->setPosition(Vec2(this->getRandomXPos(), VISIBLE_SIZE_HEIGHT / 2));
+	shield->setPosition(Vec2(VISIBLE_SIZE_WIDTH, VISIBLE_SIZE_HEIGHT/2));
 	this->addChild(shield);
+	
 	CollisionManager::getInstance()->addShield(shield);
 }
 
@@ -208,8 +210,9 @@ void SpawnManager::moveShields()
 
 			if (shield)
 			{
+				
 				// move by individual enemy speeds
-				shield->setPosition(Vec2(shield->getPosition().x - WorldManager::getInstance()->getEnemyMovementSpeed(), shield->getPosition().y));
+				shield->setPosition(Point(shield->getPosition().x - WorldManager::getInstance()->getEnemyMovementSpeed(), shield->getPosition().y));
 
 				if (shield->getPosition().x < SCREEN_ORIGIN.x - shield->getContentSize().width / 2){
 					this->resetShield(shield);
