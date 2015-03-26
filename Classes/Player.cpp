@@ -178,6 +178,7 @@ void Player::jump()
 
 void Player::update()
 {			
+	CCLOG("-------------UPDATING PLAYER--------------");
 	m_nDistance++;
 
 	if (isGod())
@@ -221,9 +222,9 @@ void Player::update()
 	this->setPositionX(PLAYER_POSITION_IN_WINDOW);
 			
 
-	if (this->getPositionY() > VISIBLE_SIZE_HEIGHT - this->getContentSize().height)
+	if (this->getPositionY() > VISIBLE_SIZE_HEIGHT - this->getContentSize().height / 2)
 	{
-		this->setPositionY(VISIBLE_SIZE_HEIGHT - this->getContentSize().height);
+		this->setPositionY(VISIBLE_SIZE_HEIGHT - this->getContentSize().height / 2);
 	}		
 }
 
@@ -254,3 +255,17 @@ void Player::getAnimationWithFrames(char* enemyAnimation, int frames){
 	auto repeat = RepeatForever::create(animate);	
 	this->runAction(repeat);
 }
+
+void Player::pausePlayer()
+{
+	// Pause the player
+	m_pJetpack->getChildByName("jetpackFire")->pause();
+	this->pause();	
+}
+
+void Player::resumePlayer()
+{
+	m_pJetpack->getChildByName("jetpackFire")->resume();
+	this->resume();	
+}
+

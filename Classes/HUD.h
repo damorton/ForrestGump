@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "Popup.h"
+#include "Player.h"
 
 USING_NS_CC;
 
@@ -37,6 +38,7 @@ private:
 	Label* m_pFoodValueLabel;
 	Popup* popup;
 	MenuItemImage *menu_item_pause;
+	Player* m_pPlayer;
 };
 
 #endif

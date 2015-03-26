@@ -21,6 +21,8 @@ public:
 	void jump();
 	void touch(const Point& location);	
 	void update();
+	void pausePlayer();
+	void resumePlayer();
 
 	EGameOjectType getType(){ return m_eType; };
 	int getState(){ return m_eState; };

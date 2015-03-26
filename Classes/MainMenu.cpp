@@ -70,6 +70,7 @@ bool MainMenu::init()
 		// TextField
 		createTF();
 	}
+	
 
 	CCLOG("MainMenu initialized");
     return true;

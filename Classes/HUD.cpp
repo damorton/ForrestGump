@@ -22,6 +22,8 @@ bool HUD::init()
 	this->setColor(cocos2d::Color3B(0, 0, 0));
 	this->setContentSize(cocos2d::Size::Size(1, 1));
 	
+	m_pPlayer = WorldManager::getInstance()->getPlayer();
+
 	// Distance
 	auto distanceLabel = Label::createWithTTF("Distance ", LABEL_FONT, LABEL_FONT_SIZE);
 	distanceLabel->setPosition(Vec2(m_Origin.x + PADDING + distanceLabel->getContentSize().width / 2, m_Origin.y + VISIBLE_SIZE_HEIGHT - PADDING - distanceLabel->getContentSize().height / 2));
@@ -96,10 +98,10 @@ void HUD::initLabelWithValue(Label* label, Vec2 position, Label* value)
 
 void HUD::update()
 {
-	if (WorldManager::getInstance()->getPlayer() != NULL)
+	if (m_pPlayer != NULL)
 	{
-		m_pDistanceValueLabel->setString(std::to_string(WorldManager::getInstance()->getPlayer()->getDistance()) + "m");
-		m_pCoinsValueLabel->setString(std::to_string(WorldManager::getInstance()->getPlayer()->getCoins()));		
+		m_pDistanceValueLabel->setString(std::to_string(m_pPlayer->getDistance()) + "m");
+		m_pCoinsValueLabel->setString(std::to_string(m_pPlayer->getCoins()));
 	}
 }
 
@@ -115,14 +117,18 @@ void HUD::resume(CCObject* pSender)
 
 void HUD::mainMenu(CCObject* pSender)
 {
-	WorldManager::getInstance()->gameLayer()->mainMenu();
+	// Unpause the director	
+	WorldManager::getInstance()->gameLayer()->mainMenu();		
 }
 
 void HUD::togglePause(bool paused)
 {
 	popup->show(paused, true);
-	WorldManager::getInstance()->gameLayer()->setTouchEnabled(!paused);
-	menu_item_pause->setVisible(!paused);	
+	menu_item_pause->setVisible(!paused);
+
+	// Set game layer touch enabled
+	//WorldManager::getInstance()->gameLayer()->setTouchEnabled(!paused);
+	WorldManager::getInstance()->gameLayer()->pauseGame();
 }
 
 void HUD::hudCleanup()
