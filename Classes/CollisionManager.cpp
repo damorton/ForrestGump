@@ -89,6 +89,7 @@ void CollisionManager::checkCollisionsWithItems()
 						else if (tileSprite->getName() == "shield" || tileSprite->getName() == "shieldA")
 						{
 							WorldManager::getInstance()->getPlayer()->setGodMode();
+							WorldManager::getInstance()->getPlayer()->addItem();
 						}
 						tileSprite->setVisible(false);
 					}
@@ -119,6 +120,7 @@ void CollisionManager::checkCollisionsWithEnemies()
 							if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
 							{   
 								// Woo! I'm invincible!
+								WorldManager::getInstance()->getPlayer()->addEnemiesKilled();
 						    }
 						}
 						else

@@ -65,8 +65,11 @@ bool MainMenu::init()
 	listener->onTouchEnded = CC_CALLBACK_2(MainMenu::onTouchEnded, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-	// TextField
-	createTF();
+	if (!WorldManager::getInstance()->isXMLFileExist())
+	{
+		// TextField
+		createTF();
+	}
 
 	CCLOG("MainMenu initialized");
     return true;
@@ -83,7 +86,12 @@ void MainMenu::addParticlesToButtons(MenuItemImage* button)
 }
 
 void MainMenu::playGame(cocos2d::Ref *pSender)
-{
+{		
+	if (!WorldManager::getInstance()->isXMLFileExist())
+	{			
+		WorldManager::getInstance()->setUsername(m_pTextField->getString());			
+	}	
+	WorldManager::getInstance()->createDAO();
 	WorldManager::getInstance()->resetGameWorld();
 	CollisionManager::getInstance()->resetCollisionManager();
 	Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::createScene()));
