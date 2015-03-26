@@ -8,6 +8,14 @@
 #include "Player.h"
 #include <iostream>
 
+/* ---------------------------------------------------------------------------
+** SpawnManager.h
+**
+** Handles enemy spawns within the game.
+**
+** Author: Donnchadh Murphy, David Morton, Georgina Sheehan, Tiago Oliveira
+**-------------------------------------------------------------------------*/
+
 class SpawnManager : public cocos2d::Layer
 {
 public:	
