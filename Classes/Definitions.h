@@ -46,6 +46,7 @@ typedef enum {
 
 // Labels
 #define LABEL_FONT "fonts/go3v2.ttf"
+#define LABEL_FONT_ROBOTO "Roboto-Light.ttf"
 #define LABEL_FONT_SIZE (cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize().width / cocos2d::Director::getInstance()->getVisibleSize().width * 16)
 //#define LABEL_FONT_SIZE (18 * (VISIBLE_SIZE_HEIGHT / VISIBLE_SIZE_WIDTH))
 #define PADDING (VISIBLE_SIZE_HEIGHT * .03)
