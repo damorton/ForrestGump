@@ -18,8 +18,6 @@ bool CollectableFactory::init()
 	this->addItemLayer("items");
 	this->addItemLayer("boosters");
 	this->addItemLayer("food");
-	this->addItemLayer("shield");
-	this->addItemLayer("shieldA");
 	srand(time(NULL));
 	m_bIsSpawned = false;	
 	m_cActiveItems = 0;
@@ -64,7 +62,7 @@ bool CollectableFactory::initTilePositions(TMXLayer* layer, std::string name)
 bool CollectableFactory::spawnSprites()
 {		
 	int randomnumber;
-	int numberOfLayers = 8;	
+	int numberOfLayers = 7;	
 	randomnumber = (rand() % numberOfLayers);
 		
 	switch (randomnumber)
@@ -74,7 +72,6 @@ bool CollectableFactory::spawnSprites()
 		break;
 	case 1:
 		this->activateItems("coinsA");
-		this->activateItems("shieldA");
 		break;
 	case 2:
 		this->activateItems("coinsB");
@@ -84,17 +81,12 @@ bool CollectableFactory::spawnSprites()
 		break;
 	case 4:
 		this->activateItems("items");
-		this->activateItems("shield");
-
-		break;
+     	break;
 	case 5:
 		this->activateItems("boosters");
 		break;
 	case 6:
 		this->activateItems("food");
-		break;
-	case 7:
-		this->activateItems("shield");
 		break;
 	default:
 		CCLOG("segment spawn random number unknown");
@@ -171,7 +163,6 @@ void CollectableFactory::collectableFactoryCleanup()
 	m_pItemLayer = NULL;
 	m_pBoosterLayer = NULL;
 	m_pFoodLayer = NULL;
-	m_pShield = NULL;
 	m_vpItems.clear();
 	m_vpActiveItems.clear();	
 	//CCLOG("Collectable Factory cleanup");
