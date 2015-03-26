@@ -45,7 +45,7 @@ bool Splash::init()
 	auto scale = ScaleBy::create(50, 50);
 	player->runAction(scale);
 
-	// particle testing for splash screen
+	// particle for splash screen
 	CCParticleSystem *ccEmitter = CCParticleSystemQuad::create("particles/BoingStar.plist");
 	ccEmitter->setPosition(Point(visibleSize.width/2, visibleSize.height/2));
 	ccEmitter->setTotalParticles(1000);
