@@ -89,15 +89,15 @@ bool GameScene::initializeGame()
 }
 
 void GameScene::updateTimer(float dt)
-{
-	CCLOG("***************UPDATING GAME TIMER******************");
+{	
 	m_nGameTime++;
+	CCLOG("Updating game timer : %d seconds", m_nGameTime);
 }
 
 void GameScene::update(float delta)
 {
-	CCLOG("-------------GAME LOOP START--------------");	
-	CCLOG("-------------UPDATING GAME LAYER--------------");
+	//CCLOG("-------------GAME LOOP START--------------");	
+
 	// Game world speed
 	if (WorldManager::getInstance()->getGameWorldSpeed() < MAX_GAME_SPEED && m_pPlayer->getDistance() % 200 == 0)
 	{
@@ -113,7 +113,7 @@ void GameScene::update(float delta)
 	
 	CollisionManager::getInstance()->checkCollisions();
 	
-	CCLOG("-------------GAME LOOP END--------------");
+	//CCLOG("-------------GAME LOOP END--------------");
 }
 
 inline Point locationInGLFromTouch(Touch& touch)
@@ -134,24 +134,23 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 
 void GameScene::gameOver()
 {		
-	CCLOG("Game Scene: Game over called");	
-	//this->pauseGame();	
-	//this->unschedule(schedule_selector(GameScene::updateTimer));
-	// Time played in game	
+	//CCLOG("Game Scene: Game over called");
+
 	this->pause();
+
+	// Time played in game	
 	WorldManager::getInstance()->setTimePlayedSeconds(m_nGameTime);	
+
 	// Death sequence here!!
-	Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));
-	
+	Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));	
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);	
 	
-	//Director::getInstance()->resume();
-	//Director::getInstance()->getRunningScene()->getPhysicsWorld()->setAutoStep(true);
 }
 
 void GameScene::mainMenu()
 {
-	CCLOG("Game Scene: Main menu called");
+	//CCLOG("Game Scene: Main menu called");
+
 	// Pause game layer
 	this->pause();
 
@@ -165,7 +164,8 @@ void GameScene::mainMenu()
 
 void GameScene::pauseGame()
 {
-	CCLOG("Game Scene: Pause game called");
+	//CCLOG("Game Scene: Pause game called");
+
 	if (!m_bPaused)
 	{
 		m_bPaused = true;	

@@ -178,9 +178,12 @@ void Player::jump()
 
 void Player::update()
 {			
-	CCLOG("-------------UPDATING PLAYER--------------");
+	//CCLOG("Updating player...");
+
+	// Increment player distance travelled
 	m_nDistance++;
 
+	// Set countdown timer for god mode
 	if (isGod())
 	{
 		m_nCount++;
@@ -191,8 +194,10 @@ void Player::update()
 		}		
 	}	
 
-	// reset player poisiton 
+	// Reset player poisiton in window
 	this->setPositionX(PLAYER_POSITION_IN_WINDOW);
+
+
 	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
 	{	
 		// Running animation		

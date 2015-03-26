@@ -8,6 +8,7 @@ void GameDAO::create()
 {		
 	//std::string filename = cocos2d::FileUtils::getInstance()->fullPathForFilename(XMLDOC);
 	std::string writePath = cocos2d::FileUtils::getInstance()->getWritablePath();
+	
 	writePath.append(XMLDOC);
 	tinyxml2::XMLDocument doc;
 	tinyxml2::XMLNode* node = doc.NewElement("Game");
