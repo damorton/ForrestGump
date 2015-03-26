@@ -22,6 +22,7 @@ Shield* Shield::create(const std::string& filename)
 bool Shield::init()
 {
 	setType(SHIELD);
+	this->moveSprite();
 	return true;
 
 }
@@ -29,4 +30,20 @@ bool Shield::init()
 void Shield::shieldCleanUp()
 {
 	
+}
+
+void Shield::moveSprite()
+{
+	auto s = Director::getInstance()->getWinSize();
+
+	ccBezierConfig bezier;
+	bezier.controlPoint_1 = Vec2(0, s.height / 2);
+	bezier.controlPoint_2 = Vec2(100, -s.height / 2);
+	bezier.endPosition = Vec2(100, 100);
+
+	auto bezierForward = BezierBy::create(3, bezier);
+	auto bezierBack = bezierForward->reverse();
+	auto rep = RepeatForever::create(Sequence::create(bezierForward, bezierBack, nullptr));
+
+	this->runAction(rep);
 }

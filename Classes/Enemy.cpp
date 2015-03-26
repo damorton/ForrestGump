@@ -83,3 +83,4 @@ void Enemy::getAnimationWithFrames(char* enemyAnimation, int frames){
 	auto repeat = RepeatForever::create(animate);
 	this->runAction(repeat);
 }
+

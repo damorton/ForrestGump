@@ -23,7 +23,7 @@ public:
 	void setState(ECharacterState state){ m_eState = state; };
 	void getRandomSpeed();
 	int getSpeed(){ return m_nSpeed; };
-
+	
 	//ANIMATION
 	void getAnimationWithFrames(char* enemyAnimation, int frames);
 	void animateEnemy();

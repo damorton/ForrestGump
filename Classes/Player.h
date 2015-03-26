@@ -52,6 +52,7 @@ public:
 	
 	void addParticle();
 	void addParticlesGameObjects(std::string path, float a, float b, int totalPar, float duration);
+	void addEnemyDeathParticle();
 	void resetCoins();
 	void setGodMode();
 	void unsetGodMode();

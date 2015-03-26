@@ -13,6 +13,7 @@ public:
 	virtual void shieldCleanUp();
 	EPowerUpsType getType(){ return m_eType; };
 	void setType(EPowerUpsType type){ m_eType = type; };
+	void moveSprite();
 
 
 };

@@ -24,6 +24,7 @@ public:
 	void checkCollisionsWithItems();
 	void checkCollisionsWithEnemies();
 	void resetCollisionManager();
+	void checkCollisionsWithShields();
 
 	void setPlayer(Player* player){ m_pPlayer = player; };
 	void addItem(Sprite* item){ m_vpItems.push_back(item); };

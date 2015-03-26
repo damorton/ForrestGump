@@ -25,6 +25,7 @@ void CollisionManager::checkCollisions()
 {
 	this->checkCollisionsWithItems();
 	this->checkCollisionsWithEnemies();
+	this->checkCollisionsWithShields();
 }
 
 void CollisionManager::checkCollisionsWithItems()
@@ -88,7 +89,7 @@ void CollisionManager::checkCollisionsWithItems()
 						}
 						else if (tileSprite->getName() == "shield" || tileSprite->getName() == "shieldA")
 						{
-							WorldManager::getInstance()->getPlayer()->setGodMode();
+							//WorldManager::getInstance()->getPlayer()->setGodMode();
 						}
 						tileSprite->setVisible(false);
 					}
@@ -112,12 +113,14 @@ void CollisionManager::checkCollisionsWithEnemies()
 				{
 					if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
 					{
-						CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/orc_dieShorter.wav", false, 1.0, 1.0, 1.0);
+						
 						enemy->setVisible(false);
 						if (m_pPlayer->isGod())
 						{
 							if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
-							{   
+							{  
+								CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/orc_dieShorter.wav", false, 1.0, 1.0, 1.0);
+								m_pPlayer->addEnemyDeathParticle();
 								// Woo! I'm invincible!
 						    }
 						}
@@ -148,10 +151,32 @@ void CollisionManager::checkCollisionsWithEnemies()
 	}
 }
 
+void CollisionManager::checkCollisionsWithShields()
+{
+	if (!m_vpShields.empty())
+	{
+		for (std::vector<Shield*>::size_type it = 0; it < m_vpShields.size(); ++it)
+		{
+			auto shield = m_vpShields.at(it);
+			if (shield)
+			{
+				if (shield->isVisible())
+				{
+					if (m_pPlayer->getBoundingBox().intersectsRect(shield->getBoundingBox()))
+					{
+						shield->setVisible(false);
+						WorldManager::getInstance()->getPlayer()->setGodMode();
+					}
+				}
+			}
+		}
+	}
+}
 void CollisionManager::resetCollisionManager()
 {
 	m_vpEnemies.clear();
 	m_vpItems.clear();	
+	m_vpShields.clear();
 	CCLOG("Collision Manager reset");
 }
 
@@ -160,6 +185,7 @@ void CollisionManager::collisionManagerCleanup()
 	m_pPlayer = NULL;
 	m_vpEnemies.clear();
 	m_vpItems.clear();
+	m_vpShields.clear();
 	delete m_Instance;
 	m_Instance = NULL;
 	CCLOG("Collision Manager cleanup");

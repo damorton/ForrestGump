@@ -266,3 +266,12 @@ void Player::getAnimationWithFrames(char* enemyAnimation, int frames){
 	auto repeat = RepeatForever::create(animate);	
 	this->runAction(repeat);
 }
+
+void Player::addEnemyDeathParticle()
+{
+	auto EnemyDeathParticle = ParticleSystemQuad::create("particles/enemyDeath.plist");
+	EnemyDeathParticle->setPosition(this->getContentSize().width, this->getContentSize().height);
+	EnemyDeathParticle->setAutoRemoveOnFinish(true);
+	EnemyDeathParticle->setScale(0.4);
+	this->addChild(EnemyDeathParticle);
+}
