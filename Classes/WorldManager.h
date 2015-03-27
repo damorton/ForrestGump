@@ -1,3 +1,18 @@
+/*
+	Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+	http://www.grandtheftmuffins.esy.es/
+
+	Third year games design and development project. Grand Theft Muffins endless runner game
+	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org
+
+	WorldManager.h
+
+	Description: The world manager singleton controls the game world and enemy movement speed. It
+	also controls the world gravity and allows access to important game objects such as the player, 
+	data access objects, and all game scene layers. 
+*/
+
 #ifndef WORLDMANAGER_H_
 #define WORLDMANAGER_H_
 
@@ -41,7 +56,6 @@ public:
 	void setFloorSprite(cocos2d::Sprite* floor){ m_pFloorSprite = floor; };
 	void setSoundEnabled(bool sound){ m_bSoundEnabled = sound; };
 	
-
 	// Player 
 	Player* getPlayer(){ return m_pPlayer; };	
 	std::string getPlayerUsername();
