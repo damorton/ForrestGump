@@ -24,7 +24,6 @@ public:
 	void gameOver();
 	void mainMenu();
 	void pauseGame();	
-	void addScreenShake();	
 	void updateTimer(float dt);
 	
 private:

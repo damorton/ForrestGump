@@ -56,13 +56,13 @@ void Enemy::getRandomSpeed()
 // TODO : Run Artificial Intelligence algorithm function */
 void Enemy::runAI()
 {
-	CCLOG("Running Enemy AI");
+	//CCLOG("Running Enemy AI");
 }
 
 // TODO : Clean up function */
 void Enemy::enemyCleanUp()
 {	
-	CCLOG("Enemy cleanup");
+	//CCLOG("Enemy cleanup");
 }
 
 // Get Enemy by name and animate
