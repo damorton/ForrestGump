@@ -66,6 +66,7 @@ int SpawnManager::getRandomXPosForShield()
 	int min = (int)SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH * 5;
 	return (rand() % max + min);
 }
+
 void SpawnManager::createEnemy(std::string filename, std::string name, bool gravity, bool rotate)
 {
 	auto enemy = Enemy::create(filename);
@@ -303,6 +304,7 @@ void SpawnManager::resetShield(Shield* shield)
 		
 		// reset the sprite position to random x position and half the height
 		shieldSprite->setPosition(Vec2(this->getRandomXPosForShield() , VISIBLE_SIZE_HEIGHT / 2));
+
 		
 		// set visible to true
 		shieldSprite->setVisible(true);

@@ -29,6 +29,7 @@ public:
 	void createEnemy(std::string filename, std::string name, bool gravity, bool rotate);
 	void pauseGame();
 	void resumeGame();
+
     /* @brief function to spawn shields */
 	bool spawnShield();
     /* @brief function to create shields by passing in the filename */

@@ -186,28 +186,34 @@ void Player::jump()
 
 void Player::update()
 {			
-
-	// increase distance
+ 
 	CCLOG("-------------UPDATING PLAYER--------------");
 	m_nDistance++;
 
-	// if player is god
+	// Increment player distance travelled
+	m_nDistance++;
+
+	// if player is in god mode
 	if (isGod())
 	{
 		// increase count
 		m_nCount++;
+
 		// if count is greater than 500
 		if (m_nCount > 500)
 		{
 			// turn off god mode
 			this->unsetGodMode();
+
 			// reset count
 			m_nCount == 0;
 		}		
 	}	
 
-	// reset player poisiton 
+	// Reset player poisiton in window
 	this->setPositionX(PLAYER_POSITION_IN_WINDOW);
+
+
 	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
 	{	
 		// Running animation		

@@ -4,10 +4,11 @@
 #include "cocos2d.h"
 #include "WorldManager.h"
 
+// XML Implementation 
 void GameDAO::create()
 {		
 	//std::string filename = cocos2d::FileUtils::getInstance()->fullPathForFilename(XMLDOC);
-	std::string writePath = cocos2d::FileUtils::getInstance()->getWritablePath();
+	std::string writePath = cocos2d::FileUtils::getInstance()->getWritablePath();	
 	writePath.append(XMLDOC);
 	tinyxml2::XMLDocument doc;
 	tinyxml2::XMLNode* node = doc.NewElement("Game");
@@ -80,19 +81,18 @@ void GameDAO::update(std::shared_ptr<std::vector<User>> Users)
 			userElement->InsertEndChild(usernameElement);
 			usernameElement->InsertEndChild(username);
 			
-			//write the users scores
+			// Write the users scores
 			for(int j = 0; j < Users->at(i).getScores()->size(); j++)
 			{
 				//tinyxml2::XMLElement* scoreElement = doc.NewElement("Score");
 				tinyxml2::XMLElement* scoreElement = doc.NewElement(Users->at(i).getScores()->at(j).getName().c_str());
 				tinyxml2::XMLText* scoreValue = doc.NewText(Users->at(i).getScores()->at(j).getText().c_str());
+
 				userElement->InsertEndChild(scoreElement);
 				scoreElement->InsertEndChild(scoreValue);
 				
 			}
-
 			doc.InsertEndChild(root);
-
 		}
 		//doc.SaveFile(filename.c_str());
 		doc.SaveFile(writePath.c_str());
@@ -101,34 +101,38 @@ void GameDAO::update(std::shared_ptr<std::vector<User>> Users)
 
 void GameDAO::del()
 {
-
+	// Delete data from the XML file
 }
 
 
-// MySQL Database
+// MySQL Database Implemntation
 void GameDAOMySQL::create()
 {		
 	// Insert user into db if they are not already there
 }
 
-//read
-std::shared_ptr<std::vector<User>> GameDAOMySQL::read()
+void GameDAOMySQL::read(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response)
 {
 	// Read data from HTTPResponse message
-	return NULL;	
+	
 }
 
-//update
-void GameDAOMySQL::update(std::shared_ptr<std::vector<User>> Users)
+void GameDAOMySQL::update(std::string requestString)
 {
-	// Update the remote DB with POST
-	// if the remote DB does not have the user insert them
+	// Update the remote database with POST request
+	cocos2d::network::HttpRequest* remoteRequest = new (std::nothrow) cocos2d::network::HttpRequest();
+	remoteRequest->setUrl("http://grandtheftmuffins.esy.es/update_db.php/");
+	remoteRequest->setRequestType(cocos2d::network::HttpRequest::Type::POST);
+	remoteRequest->setResponseCallback(CC_CALLBACK_2(GameDAOMySQL::read, this));
+	remoteRequest->setRequestData(requestString.c_str(), requestString.length());	
+	cocos2d::network::HttpClient::getInstance()->send(remoteRequest);
+	//CCLOG("%s", requestString.c_str());	
+	remoteRequest->release();
 }
 
-//delete
 void GameDAOMySQL::del()
 {
-	// Delete record from the remote DB
+	// Delete record from the remote database
 }
 
 

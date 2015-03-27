@@ -50,7 +50,7 @@ public:
 
 	// DAO
 	std::shared_ptr<IGameDAO> getDAO(){ return m_DataAccessObject; };
-	std::shared_ptr<IGameDAO> getDAOMySQL(){ return m_DataAccessObjectMySQL; };
+	std::shared_ptr<IGameDAOMySQL> getDAOMySQL(){ return m_DataAccessObjectMySQL; };
 
 	void updateDAO();
 	void onHttpRequestCompleted(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response);
@@ -71,7 +71,7 @@ private:
 	~WorldManager(){ this->cleanUp(); }; 
 	static WorldManager* m_pInstance;
 	std::shared_ptr<IGameDAO> m_DataAccessObject;
-	std::shared_ptr<IGameDAO> m_DataAccessObjectMySQL;
+	std::shared_ptr<IGameDAOMySQL> m_DataAccessObjectMySQL;
 
 	Player* m_pPlayer;
 	Sprite* m_pShield;
