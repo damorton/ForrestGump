@@ -108,13 +108,24 @@ void GameDAO::del()
 // MySQL Database Implemntation
 void GameDAOMySQL::create()
 {		
-	// Insert user into db if they are not already there
+	// Insert user into database if they are not already there
 }
 
 void GameDAOMySQL::read(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response)
 {
-	// Read data from HTTPResponse message
-	
+	// Read data from HTTPResponse message	
+	/*	
+	if (response && response->getResponseCode() == 200 && response->getResponseData()) {
+	std::vector<char> *data = response->getResponseData();
+	std::string ret(&(data->front()), data->size());
+	CCLOG("%s", ("Response message: " + ret).c_str());
+	}
+	else
+	{
+	CCLOG("%s", ("Error " + std::to_string(response->getResponseCode()) + " in request").c_str()); //error
+	}
+	*/
+	//CCLOG("http request completed");
 }
 
 void GameDAOMySQL::update(std::string requestString)
