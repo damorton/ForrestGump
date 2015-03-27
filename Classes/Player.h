@@ -1,4 +1,5 @@
 /*
+<<<<<<< HEAD
 	Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
 
 	http://www.grandtheftmuffins.esy.es
@@ -12,6 +13,19 @@
 	Description: The player class handles all player functionality. It
 	keeps track on the player current state and actions at all times. We handle
 	touches here also by registering the touch to make the player jump etc.
+=======
+Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+http://www.grandtheftmuffins.esy.es/
+
+Third year games design and development project. Grand Theft Muffins endless runner game
+written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org
+
+Player.h
+
+Description: 
+
+>>>>>>> 3b80dad6cdcb577e50f924efcb97006687b50c27
 */
 
 #ifndef PLAYER_H_
@@ -24,6 +38,7 @@ USING_NS_CC;
 
 class Player : public Sprite, public Character
 {
+
 public:	
 	// Deconstrcutor
 	virtual ~Player(){ this->playerCleanup(); };
@@ -88,6 +103,7 @@ public:
 
 		@return high score
 	*/
+
 	int getHighScore(){ return m_nHighscore; };
 
 	/* 
@@ -131,6 +147,7 @@ public:
 		@return number of enemies killed
 	*/
 	int getEnemiesKilled(){ return m_nEnemiesKilled; };	
+
 
 	/* 
 		Gets the player shield

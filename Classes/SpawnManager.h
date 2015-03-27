@@ -22,8 +22,8 @@
 #include "Definitions.h"
 #include "CollisionManager.h"
 #include "Player.h"
-#include <iostream>
 #include "Shield.h"
+#include <iostream>
 
 class SpawnManager : public cocos2d::Layer
 {
@@ -53,6 +53,7 @@ public:
 
 	/* 
 		Adds enemy to active vector and sets enemy to visible
+
 		@param enemy object
 	*/
 	bool addEnemyToActiveVector(Enemy* enemy);
@@ -81,6 +82,9 @@ public:
 
 	// Resumes all enemies and their actions
 	void resumeGame();
+
+	// Spawns shield
+	bool spawnShield();
 	
 	// Function to create shields by passing in the filename
 	void createShields();
