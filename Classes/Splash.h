@@ -1,3 +1,17 @@
+/*
+Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+http://www.grandtheftmuffins.esy.es/
+
+Third year games design and development project. Grand Theft Muffins endless runner game
+written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org
+
+Splash.h
+
+Description: Creates splash scene which is the intro scene for Grand Theft Muffins
+
+*/
+
 #ifndef SPLASH_H
 #define SPLASH_H
 
@@ -7,20 +21,20 @@ class Splash : public cocos2d::Layer
 {
 public:	
 
-	// there's no 'id' in cpp, so we recommend returning the class instance pointer
+	// Create scene 
 	static cocos2d::Scene* createScene();
 
-	// Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
+	// Init function t
 	virtual bool init();
 
-	// a selector callback
+	// Selector Callback
 	void menuCloseCallback(cocos2d::Ref* pSender);
 
-	// implement the "static create()" method manually
+	// Implement the "static create()" method manually 
 	CREATE_FUNC(Splash);
 
 private:
-
+	// Function to go to main menu 
 	void goToMainMenuScene(float dt);
 };
 
