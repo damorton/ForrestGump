@@ -212,6 +212,7 @@ public:
 	*/
 	void getAnimationWithFrames(char* enemyAnimation, int frames);
 
+	// Initialize the parent node 
 	CREATE_FUNC(Player);
 
 private:	
