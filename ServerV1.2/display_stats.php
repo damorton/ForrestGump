@@ -1,20 +1,38 @@
 <?php
+/*
+	Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+	http://www.grandtheftmuffins.esy.es
+
+	Third year games design and development project. Grand Theft Muffins endless runner game
+	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org. And back-end game 
+	analytics and statistics system built using a LAMP stack, Linux, Apache, MySQL and PHP. Hosted
+	locally and remotely.
+
+	display_stats.php
+
+	Description: The game statistics table is generated dynamically when this script is called. The information
+	stored in the database is used to populate the table. Each time the website is accessed or refreshed the contents
+	of the database and the website will be generated. The database is queried and the results are displayed in descending
+	order by highscore to create a ranking system for players.
+	
+*/
 include 'connect.php';
 $conn = connect();
 
 // print whats in the database
-$query = "SELECT * FROM Player ORDER BY player_score DESC";
+$query = "SELECT * FROM Player ORDER BY player_score DESC LIMIT 10";
 $result = $conn->query($query);
 
 echo '
-<div id="game_stats" class="blurb">
+<div id="leaderboards" class="blurb">
 	<div class="container">
 		<div class="row">
 ';
 		
 echo '
 			<div class="table-responsive">		  
-				<h1>Player Statistics</h1>				
+				<h1>Top 10</h1>				
 				<table class="table">
 				<tr>
 					<th>Rank</th>										
@@ -60,10 +78,11 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
 	$playerGamesPlayedInDB = htmlspecialchars($playerGamesPlayedInDB,ENT_QUOTES);
 	//$playerDeathsInDB = htmlspecialchars($playerDeathsInDB,ENT_QUOTES);
 
+	// TODO : use the player name and statistics to generate localised data for the player
 	echo "  
 	<tr>
 		<td>$playerPosition</td>
-		<td>$playerNameInDB</td>
+		<td><a href='username_stats.php?playerUsername=$playerNameInDB'>$playerNameInDB</a></td>
 		<td class='info'>$playerScoreInDB</td>		
 		<td>$playerDistanceInDB</td>		
 		<td>$playerCoinsInDB</td>		
@@ -77,6 +96,8 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
 }
 
 $playerRank = 0;
+
+
 
 echo '		
 			</table>		 
