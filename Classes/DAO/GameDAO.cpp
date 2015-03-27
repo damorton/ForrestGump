@@ -174,20 +174,20 @@ void GameDAOMySQL::update(std::string requestString)
 
 	// Local MySQL
 	// Update the remote database with POST request
-	cocos2d::network::HttpRequest* remoteRequest = new (std::nothrow) cocos2d::network::HttpRequest();
+	cocos2d::network::HttpRequest* localRequest = new (std::nothrow) cocos2d::network::HttpRequest();
 
 	// Set the remote database URL
-	remoteRequest->setUrl("http://localhost/update_db.php/");
+	localRequest->setUrl("http://localhost/update_db.php/");
 
 	// Request type is POST
-	remoteRequest->setRequestType(cocos2d::network::HttpRequest::Type::POST);
-	remoteRequest->setResponseCallback(CC_CALLBACK_2(GameDAOMySQL::read, this));
-	remoteRequest->setRequestData(requestString.c_str(), requestString.length());
+	localRequest->setRequestType(cocos2d::network::HttpRequest::Type::POST);
+	localRequest->setResponseCallback(CC_CALLBACK_2(GameDAOMySQL::read, this));
+	localRequest->setRequestData(requestString.c_str(), requestString.length());
 
 	// Send the request to the PHP script on the server
-	cocos2d::network::HttpClient::getInstance()->send(remoteRequest);
+	cocos2d::network::HttpClient::getInstance()->send(localRequest);
 	//CCLOG("%s", requestString.c_str());	
-	remoteRequest->release();
+	localRequest->release();
 }
 
 void GameDAOMySQL::del()

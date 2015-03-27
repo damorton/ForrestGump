@@ -19,8 +19,9 @@
 #ifndef COLLECTABLE_FACTORY
 #define	COLLECTABLE_FACTORY
 
-#include "cocos2d.h"
+// Includes
 #include <iostream>
+#include "cocos2d.h"
 
 USING_NS_CC;
 

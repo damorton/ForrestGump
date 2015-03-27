@@ -1,25 +1,13 @@
 #ifndef DEFINITIONS_H__
 #define DEFINITIONS_H__
 
+// Includes
 #include "cocos2d.h"
 
+// Defines
 #define XMLDOC "game.xml"
-
-typedef enum {
-	TAG_GAME_LAYER,
-	TAG_HUD,
-	TAG_GAME_SCENE,
-	TAG_GAMEOVER,
-	TAG_SEGMENT,
-	TAG_SEGMENT_MANAGER,
-	TAG_HUD_MENU,
-	TAG_COIN,
-	TAG_ITEM,
-	TAG_BOOSTER,
-	TAG_FOOD,
-} tags;
-
 #define DISTANCE_VALUE_LABEL_COLOR 255, 0, 127 
+#define CONTENT_SCALE_FACTOR cocos2d::Director::getInstance()->getContentScaleFactor()
 
 // World
 #define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
@@ -27,7 +15,6 @@ typedef enum {
 #define SCREEN_ORIGIN (Director::getInstance()->getVisibleOrigin())
 #define GAME_SPEED_INC (VISIBLE_SIZE_WIDTH * .0022)
 #define GAME_SPEED_DEC GAME_SPEED_INC
-
 #define WORLD_MOVEMENT_SPEED (VISIBLE_SIZE_WIDTH * .0035)
 #define ENEMY_MOVEMENT_SPEED (VISIBLE_SIZE_WIDTH * .0045)
 #define MAX_GAME_SPEED (VISIBLE_SIZE_WIDTH * .006)
@@ -48,7 +35,7 @@ typedef enum {
 #define LABEL_FONT "fonts/go3v2.ttf"
 #define LABEL_FONT_ROBOTO "Roboto-Light.ttf"
 #define LABEL_FONT_SIZE (cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize().width / cocos2d::Director::getInstance()->getVisibleSize().width * 16)
-//#define LABEL_FONT_SIZE (18 * (VISIBLE_SIZE_HEIGHT / VISIBLE_SIZE_WIDTH))
+//#define LABEL_FONT_SIZE 32
 #define PADDING (VISIBLE_SIZE_HEIGHT * .03)
 
 // New design resolution
@@ -56,15 +43,33 @@ typedef enum {
 #define DESIGN_RESOLUTION_1024X768   1
 #define DESIGN_RESOLUTION_2048X1536  3
 
-/* If you want to switch design resolution, change next line */
+// If you want to switch design resolution, change next line 
 #define TARGET_DESIGN_RESOLUTION_SIZE  DESIGN_RESOLUTION_480X320
 
+// Enums
+typedef enum {
+	TAG_GAME_LAYER,
+	TAG_HUD,
+	TAG_GAME_SCENE,
+	TAG_GAMEOVER,
+	TAG_SEGMENT,
+	TAG_SEGMENT_MANAGER,
+	TAG_HUD_MENU,
+	TAG_COIN,
+	TAG_ITEM,
+	TAG_BOOSTER,
+	TAG_FOOD,
+} tags;
+
+// Structs
 typedef struct tagResource
 {
 	cocos2d::Size size;
 	char directory[100];
 }Resource;
 
+
+// Design resolutions setup
 static Resource smallResource = { cocos2d::Size(480, 320), "resolutions/small" };
 static Resource mediumResource = { cocos2d::Size(1024, 768), "resolutions/medium" };
 static Resource largeResource = { cocos2d::Size(2048, 1536), "resolutions/large" };
