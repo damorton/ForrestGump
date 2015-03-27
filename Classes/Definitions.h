@@ -31,8 +31,8 @@ USING_NS_CC;
 #define SCREEN_ORIGIN (Director::getInstance()->getVisibleOrigin())
 #define GAME_SPEED_INC 0.25
 #define GAME_SPEED_DEC GAME_SPEED_INC
-#define WORLD_MOVEMENT_SPEED 3.0
-#define ENEMY_MOVEMENT_SPEED 4.0
+#define WORLD_MOVEMENT_SPEED 2.0
+#define ENEMY_MOVEMENT_SPEED 3.0
 #define MAX_GAME_SPEED 7.0
 
 // Scenes
