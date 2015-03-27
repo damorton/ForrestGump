@@ -1,3 +1,17 @@
+/*
+Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+http://www.grandtheftmuffins.esy.es/
+
+Third year games design and development project. Grand Theft Muffins endless runner game
+written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org
+
+Player.cpp
+
+Description:
+
+*/
+
 #include "Definitions.h"
 #include "WorldManager.h"
 #include "Player.h"
@@ -77,11 +91,6 @@ bool Player::init()
 	this->addParticle();
 
 	return true;
-}
-
-void Player::addDistance()
-{
-	
 }
 
 // adds coins to the count when player collects coins

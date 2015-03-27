@@ -1,26 +1,34 @@
-// header files included
+/*
+Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+http://www.grandtheftmuffins.esy.es/
+
+Third year games design and development project. Grand Theft Muffins endless runner game
+written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org
+
+Shield.cpp
+
+Description: implementation for shield object
+
+*/
 #include "Shield.h"
 #include "WorldManager.h"
 
-// using cocos namespace
 USING_NS_CC;
 
-// function  to create the shield
+// create - creates the shield using file
 Shield* Shield::create(const std::string& filename)
 {
-	// creates a shield
+	// creates a shield using the image file, releases ownership of the shield,
+	// and calls the init function for the shield
 	Shield* pSprite = new Shield();
 
-	// creates the shield with the image file that is put in to be used for it
 	if (pSprite->initWithFile(filename))
 	{
-		// calls autorelease to release ownership
 		pSprite->autorelease();
 
-		// calls the shields init function
 		pSprite->init();
 
-		// returns the created sprite
 		return pSprite;
 
 	}
@@ -29,34 +37,28 @@ Shield* Shield::create(const std::string& filename)
 	return NULL;
 }
 
-// function to initialise the shield
+// init - function to initialise the shield
 bool Shield::init()
 {
-	// sets the type of powerUp to be a shield
 	setType(SHIELD);
 
-	// call to function to move the shield
 	//this->moveSprite();
-
-	// adds force field sprite to this shield
 	this->addSprite();
 
-	// adds the particle to the shield
 	this->addParticle();
 
-	// return true
 	return true;
 
 }
 
 void Shield::shieldCleanUp()
 {
-
+	// shield cleanup function
 }
 
 void Shield::update()
 {
-
+	// update function
 }
 
 // function to move the shield
@@ -74,13 +76,9 @@ void Shield::moveSprite()
 	// creates an action to move the shield using the bezier curve created
 	auto bezierForward = BezierBy::create(6, bezier);
 
-	// creates an action to reverse the bezier curve movement
+	// creates an action to reverse the bezier curve movement, creates a sequence to move it
 	auto bezierBack = bezierForward->reverse();
-
-	// creates a sequence to move repeat the movement of the shield
 	auto rep = RepeatForever::create(Sequence::create(bezierForward, bezierBack, nullptr));
-
-	// adds the action to the shield
 	this->runAction(rep);
 
 }
@@ -88,35 +86,21 @@ void Shield::moveSprite()
 // function to create and add a particle to the shield
 void Shield::addParticle()
 {
-	// creates the particle using the pList
+	// creates the particle using the pList, sets its position, removes particle when shield is destroyed
 	auto shieldParticle = ParticleSystemQuad::create("particles/shieldPowerUp.plist");
-
-	// sets the position of the particle
 	shieldParticle->setPosition(this->getContentSize().width / 2, this->getContentSize().height / 2);
-
-	// sets the particle to removed when shield is destroyed
 	shieldParticle->setAutoRemoveOnFinish(true);
-
-	// sets the rotation of the particle
 	shieldParticle->setRotation(360);
-
-	// sets the scale of the particle
 	shieldParticle->setScale(0.1);
-
-	// adds the particle to the shield
 	this->addChild(shieldParticle);
 }
 
 // adds a sprite to the shield
 void Shield::addSprite()
 {
-	// creates a sprite using a png file
+	// creates a sprite using a png file, sets its position & adds it to shield
 	auto outerShield = Sprite::create("sprites/shieldWithSwords.png");
-
-	// sets the position to be at the middle of the shield
 	outerShield->setPosition(this->getContentSize().width / 2, this->getContentSize().height / 2);
-
-	// adds the sprite to the shield object
 	this->addChild(outerShield);
 
 }
