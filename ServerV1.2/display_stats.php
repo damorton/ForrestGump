@@ -13,26 +13,31 @@ echo '
 ';
 		
 echo '
-			<div class="col-md-12">		  
+			<div class="table-responsive">		  
 				<h1>Player Statistics</h1>				
-				<table class="reference" style="width:100%">
+				<table class="table">
 				<tr>
-										
+					<th>Rank</th>										
 					<th>Username</th>					
 					<th>Highscore</th>
-					<th>Distance<br/>Travelled</th>
-					<th>Coins<br/>Collected</th>					
-					<th>Enemies<br/>Killed</th>					
-					<th>Items<br/>Collected</th>
-					<th>Seconds<br/>In Game</th>
-					<th>Games<br/>Played</th>
+					<th>Distance Travelled (M)</th>
+					<th>Coins Collected</th>					
+					<th>Enemies Killed</th>					
+					<th>Items Collected</th>
+					<th>Seconds In Game</th>
+					<th>Games Played</th>
 					
 				</tr>						
 ';
-				
+
+// Keep a count for the players ranking in the leaderboard
+$playerRank = 0;
+
 while($row = $result->fetch_array(MYSQLI_ASSOC))
 {	
+	$playerRank++;
 	//$playerIDInDB = isset($row["player_id"]) ? $row["player_id"] : "0";
+	$playerPosition = $playerRank;
 	$playerNameInDB = isset($row["player_username"]) ? $row["player_username"] : "unknown";
 	$playerScoreInDB = isset($row["player_score"]) ? $row['player_score'] : "0";	
 	$playerDistanceInDB = isset($row["player_distance"]) ? $row['player_distance'] : "0";	
@@ -44,6 +49,7 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
 	//$playerDeathsInDB = isset($row["player_deaths"]) ? $row['player_deaths'] : "0";	
 		
 	//$playerIDInDB = htmlspecialchars($playerIDInDB,ENT_QUOTES);
+	$playerPosition = htmlspecialchars($playerPosition,ENT_QUOTES);
 	$playerNameInDB = htmlspecialchars($playerNameInDB,ENT_QUOTES);
 	$playerScoreInDB = htmlspecialchars($playerScoreInDB,ENT_QUOTES);	
 	$playerDistanceInDB = htmlspecialchars($playerDistanceInDB,ENT_QUOTES);
@@ -56,10 +62,10 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
 
 	echo "  
 	<tr>
-		
+		<td>$playerPosition</td>
 		<td>$playerNameInDB</td>
-		<td>$playerScoreInDB</td>		
-		<td>$playerDistanceInDB m</td>		
+		<td class='info'>$playerScoreInDB</td>		
+		<td>$playerDistanceInDB</td>		
 		<td>$playerCoinsInDB</td>		
 		<td>$playerEnemiesKilledInDB</td>		
 		<td>$playerItemsCollectedInDB</td>		
@@ -70,6 +76,7 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
 	";
 }
 
+$playerRank = 0;
 
 echo '		
 			</table>		 
@@ -79,6 +86,5 @@ echo '
 </div>
 ';		
 
-$result->free();
-$conn->close();
+
 ?>
