@@ -72,7 +72,7 @@ bool MainMenu::init()
 		m_pPlayButton->setVisible(false);
 	}
 	
-	CCLOG("MainMenu initialized");
+	//CCLOG("MainMenu initialized");
     return true;
 }
 
@@ -104,7 +104,7 @@ void MainMenu::playGame(cocos2d::Ref *pSender)
 // TODO : Clean up function */
 void MainMenu::mainMenuCleanup()
 {
-	CCLOG("Main menu cleanup");
+	//CCLOG("Main menu cleanup");
 }
 
 // Getting the user name to save score

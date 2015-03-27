@@ -199,7 +199,7 @@ void Player::jump()
 void Player::update()
 {			
  
-	CCLOG("-------------UPDATING PLAYER--------------");
+	//CCLOG("-------------UPDATING PLAYER--------------");
 	m_nDistance++;
 
 	// Increment player distance travelled
@@ -268,7 +268,7 @@ void Player::touch(const Point& location)
 
 void Player::playerCleanup()
 {
-	CCLOG("Player cleanup");
+	//CCLOG("Player cleanup");
 }
 
 // Create the Animation Sprites, return animate object

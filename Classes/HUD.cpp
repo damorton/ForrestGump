@@ -134,5 +134,5 @@ void HUD::togglePause(bool paused)
 
 void HUD::hudCleanup()
 {
-	CCLOG("HUD Cleanup");
+	//CCLOG("HUD Cleanup");
 }

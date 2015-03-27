@@ -99,7 +99,7 @@ bool GameScene::initializeGame()
 	m_bPaused = false;
 
 	this->scheduleUpdate();	
-	CCLOG("Game scene initialized");
+	//CCLOG("Game scene initialized");
 	return true;
 }
 
@@ -107,7 +107,7 @@ bool GameScene::initializeGame()
 void GameScene::updateTimer(float dt)
 {	
 	m_nGameTime++;
-	CCLOG("Updating game timer : %d seconds", m_nGameTime);
+	//CCLOG("Updating game timer : %d seconds", m_nGameTime);
 }
 
 // Updates Game Scene
