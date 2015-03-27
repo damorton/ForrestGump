@@ -1,8 +1,10 @@
 #ifndef HUD_H_
 #define	HUD_H_
 
+// Includes
 #include "Definitions.h"
 
+// Forward declarations
 class Popup;
 class Player;
 

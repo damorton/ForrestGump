@@ -12,7 +12,7 @@ Description: Main menu placed at the beginning of the game.
 It allows the user to play the game.
 
 */
-
+// Includes
 #include "audio/include/SimpleAudioEngine.h"
 #include "MainMenu.h"
 #include "GameScene.h"

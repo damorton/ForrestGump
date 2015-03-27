@@ -14,6 +14,7 @@
 	The MySQL implementation communicates with a remote apache server allowing access to
 	a MySQL database using PHP5 to control communications between the game the database.
 */
+// Includes
 #include "GameDAO.h"
 #include "Definitions.h"
 #include "tinyxml2/tinyxml2.h"

@@ -11,6 +11,8 @@ GameScene.cpp
 Description: Game Scene implementation
 
 */
+
+// Includes
 #include "GameScene.h"
 #include "WorldManager.h"
 #include "CollisionManager.h"
