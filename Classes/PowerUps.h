@@ -1,38 +1,37 @@
+/*
+Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+http://www.grandtheftmuffins.esy.es/
+
+Third year games design and development project. Grand Theft Muffins endless runner game
+written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org
+
+PowerUps.h
+
+Description: Creates a PowerUp abstract class 
+
+*/
 #ifndef POWERUPS_H_
 #define POWERUPS_H_
 
-// include header files
-#include "cocos2d.h"
-
-// using cocos namespace
-USING_NS_CC;
-
-// create powerUps class
 class PowerUps 
 {
-	// public access specifier which specifies that these member variables and functions can be
-	// accessed from anywhere in the program
 public:
-	// enum to hold the type of powerUps
-	typedef enum { SHIELD } EPowerUpsType;
+	typedef enum { SHIELD } EPowerUpsType; // Enum to hold the type of powerUps
 
-	// destructor for powerUps
+	// Destructor 
 	virtual ~PowerUps(){};
 
-	// pure virtual init function to specify that any class that inherits from this has to implement this function
+	// Pure virtual init function 
 	virtual bool init() = 0;
 
-	// pure virtual getType function to specify that any class that inherits from this has to implement this function
-	// return its type
+	// Pure virtual getType function 
 	virtual EPowerUpsType getType() = 0;
 
-	// pure virtual set type function to specify that any class that inherits from this has to implement this function
-	// and set its type
+	// Pure virtual set type function
 	virtual void setType(EPowerUpsType type) = 0;
 	
-	// protected access specifier which gives accessibility to classes that inherit from this class
 protected:
-	// variable for type of powerUp
 	EPowerUpsType m_eType;
 };
 

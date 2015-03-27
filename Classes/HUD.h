@@ -1,11 +1,12 @@
 #ifndef HUD_H_
 #define	HUD_H_
 
-#include "cocos2d.h"
-#include "Popup.h"
-#include "Player.h"
+// Includes
+#include "Definitions.h"
 
-USING_NS_CC;
+// Forward declarations
+class Popup;
+class Player;
 
 class HUD : public cocos2d::Layer
 {
@@ -36,8 +37,8 @@ private:
 	Label* m_pItemsValueLabel;
 	Label* m_pBoostersValueLabel;
 	Label* m_pFoodValueLabel;
-	Popup* popup;
 	MenuItemImage *menu_item_pause;
+	Popup* popup;
 	Player* m_pPlayer;
 };
 

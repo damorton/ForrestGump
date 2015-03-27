@@ -1,7 +1,24 @@
-#include "Definitions.h"
-#include "WorldManager.h"
+/*
+	Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+	http://www.grandtheftmuffins.esy.es
+
+	Third year games design and development project. Grand Theft Muffins endless runner game
+	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org. Back-end game analytics
+	and statistics system built using a LAMP stack, Linux, Apache, MySQL and PHP. Hosted locally and remotely.
+
+	Player.cpp
+
+	Description: The player class handles all player functionality. It
+	keeps track on the player current state and actions at all times. We handle
+	touches here also by registering the touch to make the player jump etc.
+
+*/
+
+// Includes
 #include "Player.h"
-#include "GameOver.h"
+#include "WorldManager.h"
+#include "CollisionManager.h"
 #include "audio/include/SimpleAudioEngine.h"
 
 Player* Player::create(const std::string& filename)
@@ -77,11 +94,6 @@ bool Player::init()
 	this->addParticle();
 
 	return true;
-}
-
-void Player::addDistance()
-{
-	
 }
 
 // adds coins to the count when player collects coins
@@ -187,7 +199,7 @@ void Player::jump()
 void Player::update()
 {			
  
-	CCLOG("-------------UPDATING PLAYER--------------");
+	//CCLOG("-------------UPDATING PLAYER--------------");
 	m_nDistance++;
 
 	// Increment player distance travelled
@@ -243,9 +255,9 @@ void Player::update()
 	this->setPositionX(PLAYER_POSITION_IN_WINDOW);
 			
 
-	if (this->getPositionY() > VISIBLE_SIZE_HEIGHT - this->getContentSize().height / 2)
+	if (this->getPositionY() > VISIBLE_SIZE_HEIGHT)
 	{
-		this->setPositionY(VISIBLE_SIZE_HEIGHT - this->getContentSize().height / 2);
+		this->setPositionY(VISIBLE_SIZE_HEIGHT);
 	}		
 }
 
@@ -256,7 +268,7 @@ void Player::touch(const Point& location)
 
 void Player::playerCleanup()
 {
-	CCLOG("Player cleanup");
+	//CCLOG("Player cleanup");
 }
 
 // Create the Animation Sprites, return animate object

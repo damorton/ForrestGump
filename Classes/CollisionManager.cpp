@@ -1,11 +1,29 @@
+/*
+	Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+	http://www.grandtheftmuffins.esy.es
+
+	Third year games design and development project. Grand Theft Muffins endless runner game
+	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org. Back-end game analytics
+	and statistics system built using a LAMP stack, Linux, Apache, MySQL and PHP. Hosted locally and remotely.
+
+	CollisionManager.cpp
+
+	Description: Collision manager singleton handles all collisions that occur in game. Each game object
+	is registered with the collision manager and checked for collisions against all other active objects in the game.
+	The player is checked against each enemy in the active enemy vector, items in the active item vector and power ups.
+	When a collision occurs the event triggers the game objects behaviours such as adding a coin to the score of
+	being destroyed. 
+*/
+// Includes
 #include <iostream>
+#include "audio/include/SimpleAudioEngine.h"
 #include "CollisionManager.h"
 #include "WorldManager.h"
+#include "GameScene.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "GameScene.h"
-#include "GameOver.h"
-#include "audio/include/SimpleAudioEngine.h"
+#include "Shield.h"
 
 CollisionManager* CollisionManager::m_Instance = 0;
 
@@ -17,26 +35,23 @@ CollisionManager* CollisionManager::getInstance()
 }
 
 bool CollisionManager::init()
-{	
-	m_pPlayer = WorldManager::getInstance()->getPlayer();
+{		
+	m_pWorldManager = WorldManager::getInstance();
+	m_pPlayer = m_pWorldManager->getPlayer();
 	return true;
 }
 
-// function to get the collision manager to check collisions 
 void CollisionManager::checkCollisions()
 {
-	// calls the collision manager to check collision with the items
+	// Check collisions with all registerd game objects
 	this->checkCollisionsWithItems();
-
-	// calls the collision manager to check collision with the Enemies
 	this->checkCollisionsWithEnemies();
-
-	// calls the collision manager to check collision with the shields
 	this->checkCollisionsWithShields();
 }
 
 void CollisionManager::checkCollisionsWithItems()
 {
+	// Loop through the active item vector and check for collisions with the player
 	if (!m_vpItems.empty())
 	{
 		for (std::vector<Sprite*>::size_type it = 0; it < m_vpItems.size(); ++it)
@@ -46,6 +61,7 @@ void CollisionManager::checkCollisionsWithItems()
 			{
 				if (tileSprite->isVisible())
 				{
+					// Depending on the name of the item in the vector an event is triggered
 					if (m_pPlayer->getBoundingBox().intersectsRect(tileSprite->getBoundingBox()))
 					{
 						if (tileSprite->getName() == "introCoins")
@@ -75,8 +91,7 @@ void CollisionManager::checkCollisionsWithItems()
 						else if (tileSprite->getName() == "boosters")
 						{
 							m_pPlayer->addBooster();
-
-							// Scale player down
+							// Scale player down to make them smaller in game
 							if (m_pPlayer->getScale() > 0.5)
 							{
 								m_pPlayer->setScale(m_pPlayer->getScale() - 0.01);
@@ -87,13 +102,14 @@ void CollisionManager::checkCollisionsWithItems()
 						{
 							m_pPlayer->addFood();
 
-							// Scale player up
+							// Scale player up to increase player size
 							if (m_pPlayer->getScale() < 2.0)
 							{
 								m_pPlayer->setScale(m_pPlayer->getScale() + 0.01);
 								
 							}
 						}
+						// If the player collides with an item switch it off
 						tileSprite->setVisible(false);
 					}
 				}
@@ -105,6 +121,7 @@ void CollisionManager::checkCollisionsWithItems()
 
 void CollisionManager::checkCollisionsWithEnemies()
 {
+	// Loop through the active enemy vector and check for collisions with the player
 	if (!m_vpEnemies.empty())
 	{
 		for (std::vector<Enemy*>::size_type it = 0; it < m_vpEnemies.size(); ++it)
@@ -116,13 +133,17 @@ void CollisionManager::checkCollisionsWithEnemies()
 				{
 					if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
 					{
-						
+						// If the player is in God mode the enemy is destroyed
 						enemy->setVisible(false);
 						if (m_pPlayer->isGod())
 						{
 							if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
 							{  
+<<<<<<< HEAD
 								CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_.wav", false, 1.0, 1.0, 1.0);
+=======
+								CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40.wav", false, 1.0, 1.0, 1.0);
+>>>>>>> 1188667b8fd50cafdf9fca3b8b1c1726de9edc88
 								m_pPlayer->addEnemyDeathParticle();
 								// Woo! I'm invincible!
 								m_pPlayer->addEnemiesKilled();
@@ -130,21 +151,21 @@ void CollisionManager::checkCollisionsWithEnemies()
 						}
 						else
 						{					
+							// The player is killed and the gaem over scene is loaded
+							m_pWorldManager->gameLayer()->gameOver();
 							
-							WorldManager::getInstance()->gameLayer()->gameOver();
-							
-							// need to collect coins and not lose them?
+							// Player will lose all coins if hit by and enemy and will die if coins are 0
 							/*
 							if (m_pPlayer->getCoins() < 1)
 							{
-								
+								// Player is dead
+								// TODO :: load game over scene
 							}
 							else
 							{
-								WorldManager::getInstance()->gameLayer()->addScreenShake();
-								m_pPlayer->addParticlesGameObjects("particles/CoinLoss2.plist", m_pPlayer->getContentSize().width, m_pPlayer->getContentSize().height, m_pPlayer->getCoins(), 0.5);
-								CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/CoinDrop.wav", false, 0.5, 0.5, 0.5);
-								m_pPlayer->resetCoins();
+								// TODO : Add screen shake 
+								// TODO : reset coins
+								// TODO : play sound effect
 							}
 							*/
 						}						
@@ -155,32 +176,31 @@ void CollisionManager::checkCollisionsWithEnemies()
 	}
 }
 
-// function to check the collision with the shields
 void CollisionManager::checkCollisionsWithShields()
 {
-	// if the vector m_vpShields is not empty
+	// Loop through the shields vector and check for collisions with the player
 	if (!m_vpShields.empty())
 	{
-		// for loop to loop through the m_vpShields vector
 		for (std::vector<Shield*>::size_type it = 0; it < m_vpShields.size(); ++it)
 		{
-			// create a shield to start at location 0 in vector
 			auto shield = m_vpShields.at(it);
-
 			if (shield)
 			{
-				// if shield is visible
+				// Only check shields that are visible
 				if (shield->isVisible())
 				{
-					// if bounding box of player intersects with the bounding box of the shield
 					if (m_pPlayer->getBoundingBox().intersectsRect(shield->getBoundingBox()))
 					{
-						// set shield visibility to false
+						// Set the player to GOD MODE!!
 						shield->setVisible(false);
+<<<<<<< HEAD
 
 						// call to set the players god mode on
 						WorldManager::getInstance()->getPlayer()->setGodMode();
 						
+=======
+						m_pWorldManager->getPlayer()->setGodMode();
+>>>>>>> 1188667b8fd50cafdf9fca3b8b1c1726de9edc88
 					}
 				}
 			}
@@ -191,19 +211,18 @@ void CollisionManager::resetCollisionManager()
 {
 	m_vpEnemies.clear();
 	m_vpItems.clear();	
-	// clear m_vpShields vector
 	m_vpShields.clear();
-	CCLOG("Collision Manager reset");
+	//CCLOG("Collision Manager reset");
 }
 
 void CollisionManager::collisionManagerCleanup()
 {	
-	m_pPlayer = NULL;
+	// Clean up the collision manager
+	m_pPlayer = NULL; // auto release object
 	m_vpEnemies.clear();
 	m_vpItems.clear();
-	// clear m_vpShields vector
 	m_vpShields.clear();
-	delete m_Instance;
+	delete m_Instance; // Collision Manager
 	m_Instance = NULL;
-	CCLOG("Collision Manager cleanup");
+	//CCLOG("Collision Manager cleanup");
 }

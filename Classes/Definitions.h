@@ -1,36 +1,24 @@
 #ifndef DEFINITIONS_H__
 #define DEFINITIONS_H__
 
+// Includes
 #include "cocos2d.h"
+USING_NS_CC;
 
+// Defines
 #define XMLDOC "game.xml"
-
-typedef enum {
-	TAG_GAME_LAYER,
-	TAG_HUD,
-	TAG_GAME_SCENE,
-	TAG_GAMEOVER,
-	TAG_SEGMENT,
-	TAG_SEGMENT_MANAGER,
-	TAG_HUD_MENU,
-	TAG_COIN,
-	TAG_ITEM,
-	TAG_BOOSTER,
-	TAG_FOOD,
-} tags;
-
 #define DISTANCE_VALUE_LABEL_COLOR 255, 0, 127 
+#define CONTENT_SCALE_FACTOR cocos2d::Director::getInstance()->getContentScaleFactor()
 
 // World
 #define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
 #define VISIBLE_SIZE_HEIGHT (Director::getInstance()->getVisibleSize().height)
 #define SCREEN_ORIGIN (Director::getInstance()->getVisibleOrigin())
-#define GAME_SPEED_INC (VISIBLE_SIZE_WIDTH * .0022)
+#define GAME_SPEED_INC 1.0
 #define GAME_SPEED_DEC GAME_SPEED_INC
-
-#define WORLD_MOVEMENT_SPEED (VISIBLE_SIZE_WIDTH * .0035)
-#define ENEMY_MOVEMENT_SPEED (VISIBLE_SIZE_WIDTH * .0045)
-#define MAX_GAME_SPEED (VISIBLE_SIZE_WIDTH * .006)
+#define WORLD_MOVEMENT_SPEED 2.0
+#define ENEMY_MOVEMENT_SPEED 3.0
+#define MAX_GAME_SPEED 5.0
 
 // Scenes
 #define DISPLY_TIME_SPLASH_SCENCE 2
@@ -47,36 +35,38 @@ typedef enum {
 // Labels
 #define LABEL_FONT "fonts/go3v2.ttf"
 #define LABEL_FONT_ROBOTO "Roboto-Light.ttf"
-#define LABEL_FONT_SIZE (cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize().width / cocos2d::Director::getInstance()->getVisibleSize().width * 16)
-//#define LABEL_FONT_SIZE (18 * (VISIBLE_SIZE_HEIGHT / VISIBLE_SIZE_WIDTH))
-#define PADDING (VISIBLE_SIZE_HEIGHT * .03)
+//#define LABEL_FONT_SIZE (cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize().width / cocos2d::Director::getInstance()->getVisibleSize().width * 16)
+#define LABEL_FONT_SIZE 16
+#define PADDING 10
 
-// New design resolution
-#define DESIGN_RESOLUTION_480X320    0
-#define DESIGN_RESOLUTION_1024X768   1
-#define DESIGN_RESOLUTION_2048X1536  3
+// Enums
+typedef enum {
+	TAG_GAME_LAYER,
+	TAG_HUD,
+	TAG_GAME_SCENE,
+	TAG_GAMEOVER,
+	TAG_SEGMENT,
+	TAG_SEGMENT_MANAGER,
+	TAG_HUD_MENU,
+	TAG_COIN,
+	TAG_ITEM,
+	TAG_BOOSTER,
+	TAG_FOOD,
+} tags;
 
-/* If you want to switch design resolution, change next line */
-#define TARGET_DESIGN_RESOLUTION_SIZE  DESIGN_RESOLUTION_480X320
-
+// Structs
 typedef struct tagResource
 {
 	cocos2d::Size size;
 	char directory[100];
 }Resource;
 
+
+// Design resolutions setup
 static Resource smallResource = { cocos2d::Size(480, 320), "resolutions/small" };
 static Resource mediumResource = { cocos2d::Size(1024, 768), "resolutions/medium" };
 static Resource largeResource = { cocos2d::Size(2048, 1536), "resolutions/large" };
 
-#if (TARGET_DESIGN_RESOLUTION_SIZE == DESIGN_RESOLUTION_480X320)
 static cocos2d::Size designResolutionSize = cocos2d::Size(480, 320);
-#elif (TARGET_DESIGN_RESOLUTION_SIZE == DESIGN_RESOLUTION_1024X768)
-static cocos2d::Size designResolutionSize = cocos2d::Size(1024, 768);
-#elif (TARGET_DESIGN_RESOLUTION_SIZE == DESIGN_RESOLUTION_2048X1536)
-static cocos2d::Size designResolutionSize = cocos2d::Size(2048, 1536);
-#else
-#error unknown target design resolution!
-#endif
 
 #endif 

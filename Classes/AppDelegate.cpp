@@ -1,11 +1,27 @@
-#include "AppDelegate.h"
-#include "Definitions.h"
-#include "Splash.h"
-#include <string>
-#include "SimpleAudioEngine.h"
-#include <iostream>
+/*
+	Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
 
-USING_NS_CC;
+	http://www.grandtheftmuffins.esy.es
+
+	Third year games design and development project. Grand Theft Muffins endless runner game
+	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org. Back-end game analytics
+	and statistics system built using a LAMP stack, Linux, Apache, MySQL and PHP. Hosted locally and remotely.
+
+	AppDelegate.cpp
+
+	Description: AppDelegate is used by Cocos2dx to setup a project on a device. The Window is created using 
+	GLView and the resources folders are added to the search directories so that the device resolution can be used
+	to create assets that will suit different screen sizes. A scene is created and the singleton director will 
+	control the scene management App Delegate is created as standard in all new Cocos2dx projects and only slight 
+	modifications are needed to address different device resolutions.	
+*/
+// Includes
+#include <string>
+#include <iostream>
+#include "AppDelegate.h"
+#include "SimpleAudioEngine.h"
+#include "Splash.h"
+
 using namespace CocosDenshion;
 
 AppDelegate::AppDelegate() {
@@ -42,17 +58,17 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	// a bug in DirectX 11 level9-x on the device prevents ResolutionPolicy::NO_BORDER from working correctly
 	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::SHOW_ALL);
 #else
-	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
+	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::FIXED_WIDTH);
 #endif	
 	Size frameSize = glview->getFrameSize();
 
 	std::vector<std::string> searchPath;
-	
+		
 	if (frameSize.width > mediumResource.size.width)
-	{		
+	{			
 		CCLOG("Using large resources");
 		searchPath.push_back(largeResource.directory);
-		director->setContentScaleFactor(largeResource.size.width / designResolutionSize.width);
+		director->setContentScaleFactor(largeResource.size.width / designResolutionSize.width);		
 	}
 	else if (frameSize.width > smallResource.size.width)
 	{
@@ -66,7 +82,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 		searchPath.push_back(smallResource.directory);
 		director->setContentScaleFactor(smallResource.size.width / designResolutionSize.width);
 	}
-	
+			
 	// set searching path
 	FileUtils::getInstance()->setSearchPaths(searchPath);
 

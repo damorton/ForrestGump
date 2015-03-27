@@ -1,16 +1,36 @@
+<<<<<<< HEAD
+=======
+/*
+	Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+	http://www.grandtheftmuffins.esy.es
+
+	Third year games design and development project. Grand Theft Muffins endless runner game
+	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org. Back-end game analytics
+	and statistics system built using a LAMP stack, Linux, Apache, MySQL and PHP. Hosted locally and remotely.
+
+	CollisionManager.h
+
+	Description: Collision manager singleton handles all collisions that occur in game. Each game object
+	is registered with the collision manager and checked for collisions against all other active objects in the game.
+	The player is checked against each enemy in the active enemy vector, items in the active item vector and power ups.
+	When a collision occurs the event triggers the game objects behaviours such as adding a coin to the score of
+	being destroyed.
+*/
+>>>>>>> 1188667b8fd50cafdf9fca3b8b1c1726de9edc88
 #ifndef COLLISION_H_
 #define	COLLISION_H_
 
-#include "cocos2d.h"
-#include "CollectableFactory.h"
-#include "Player.h"
+// Includes
 #include <vector>
 #include <memory>
-#include "Enemy.h"
-#include "SpawnManager.h"
-#include "Shield.h"
+#include "Definitions.h"
 
+// Forward declarations
+class WorldManager;
+class Player;
 class Enemy;
+class Shield;
 
 class CollisionManager
 {
@@ -49,8 +69,6 @@ public:
 	// function to the remove the shield from the vector
 	void removeShield(){ m_vpShields.pop_back(); };
 	
-	
-
 private:	
 	static CollisionManager* m_Instance;
 	CollisionManager(){ this->init(); }; 
@@ -58,7 +76,15 @@ private:
 	Player* m_pPlayer;
 	std::vector<Enemy*> m_vpEnemies;
 	std::deque<Sprite*> m_vpItems;
+<<<<<<< HEAD
 	std::vector<Shield*> m_vpShields; // a vector to hold the shields
+=======
+
+	// a vector to hold the shields
+	std::vector<Shield*> m_vpShields; 
+	
+	WorldManager* m_pWorldManager;
+>>>>>>> 1188667b8fd50cafdf9fca3b8b1c1726de9edc88
 
 };
 

@@ -1,9 +1,22 @@
+/*
+	Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+	http://www.grandtheftmuffins.esy.es/
+
+	Third year games design and development project. Grand Theft Muffins endless runner game
+	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org. Back-end game analytics
+	and statistics system built using a LAMP stack, Linux, Apache, MySQL and PHP. Hosted locally and remotely.
+
+	Enemy.cpp
+
+	Description: Class responsable for create the enemies. There are two mains types of enemies, Flight enemies and Ground enemies.
+	This class is also responsable for animate themselves.
+
+*/
+// Includes
 #include "Enemy.h"
-#include "WorldManager.h"
-#include "Definitions.h"
 
-USING_NS_CC;
-
+// Create the Enemy object
 Enemy* Enemy::create(const std::string& filename)
 {
 	Enemy* pSprite = new Enemy();
@@ -20,19 +33,15 @@ Enemy* Enemy::create(const std::string& filename)
 	return NULL;
 }
 
+// Enemy Initialization 
 bool Enemy::init()
 {
 	setType(ENEMY);	
-	/*
-	auto movementParticle = CCParticleSystemQuad::create("particles/enemyMovement.plist");
-	movementParticle->setPosition(this->getPosition());
-	movementParticle->setAutoRemoveOnFinish(true);
-	this->addChild(movementParticle, 0, "movement");
-	*/
 	this->getRandomSpeed();
 	return true;
 }
 
+// Generate a random value to be used as speed movement
 void Enemy::getRandomSpeed()
 {
 	int max = 2;
@@ -40,19 +49,16 @@ void Enemy::getRandomSpeed()
 	m_nSpeed = (rand() % max + min);	
 }
 
+// TODO : Run Artificial Intelligence algorithm function */
 void Enemy::runAI()
 {
-	CCLOG("Running Enemy AI");
+	//CCLOG("Running Enemy AI");
 }
 
-void Enemy::update()
-{
-	
-}
-
+// TODO : Clean up function */
 void Enemy::enemyCleanUp()
 {	
-	CCLOG("Enemy cleanup");
+	//CCLOG("Enemy cleanup");
 }
 
 // Get Enemy by name and animate
