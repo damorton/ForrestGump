@@ -34,14 +34,14 @@
 // Labels
 #define LABEL_FONT "fonts/go3v2.ttf"
 #define LABEL_FONT_ROBOTO "Roboto-Light.ttf"
-#define LABEL_FONT_SIZE (cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize().width / cocos2d::Director::getInstance()->getVisibleSize().width * 16)
-//#define LABEL_FONT_SIZE 32
+//#define LABEL_FONT_SIZE (cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize().width / cocos2d::Director::getInstance()->getVisibleSize().width * 16)
+#define LABEL_FONT_SIZE 16
 #define PADDING (VISIBLE_SIZE_HEIGHT * .03)
 
 // New design resolution
 #define DESIGN_RESOLUTION_480X320    0
 #define DESIGN_RESOLUTION_1024X768   1
-#define DESIGN_RESOLUTION_2048X1536  3
+#define DESIGN_RESOLUTION_2048X1536  2
 
 // If you want to switch design resolution, change next line 
 #define TARGET_DESIGN_RESOLUTION_SIZE  DESIGN_RESOLUTION_480X320
