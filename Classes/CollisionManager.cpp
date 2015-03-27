@@ -22,10 +22,17 @@ bool CollisionManager::init()
 	return true;
 }
 
+// function to get the collision manager to check collisions 
 void CollisionManager::checkCollisions()
 {
+	// calls the collision manager to check collision with the items
 	this->checkCollisionsWithItems();
+
+	// calls the collision manager to check collision with the Enemies
 	this->checkCollisionsWithEnemies();
+
+	// calls the collision manager to check collision with the shields
+	this->checkCollisionsWithShields();
 }
 
 void CollisionManager::checkCollisionsWithItems()
@@ -87,11 +94,6 @@ void CollisionManager::checkCollisionsWithItems()
 								
 							}
 						}
-						else if (tileSprite->getName() == "shield" || tileSprite->getName() == "shieldA")
-						{
-							m_pPlayer->setGodMode();
-							m_pPlayer->addItem();
-						}
 						tileSprite->setVisible(false);
 					}
 				}
@@ -114,12 +116,14 @@ void CollisionManager::checkCollisionsWithEnemies()
 				{
 					if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
 					{
-						CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Powerup_32.wav", false, 1.0, 1.0, 1.0);
+						
 						enemy->setVisible(false);
 						if (m_pPlayer->isGod())
 						{
 							if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
-							{   
+							{  
+								CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/orc_dieShorter.wav", false, 1.0, 1.0, 1.0);
+								m_pPlayer->addEnemyDeathParticle();
 								// Woo! I'm invincible!
 								m_pPlayer->addEnemiesKilled();
 						    }
@@ -151,10 +155,43 @@ void CollisionManager::checkCollisionsWithEnemies()
 	}
 }
 
+// function to check the collision with the shields
+void CollisionManager::checkCollisionsWithShields()
+{
+	// if the vector m_vpShields is not empty
+	if (!m_vpShields.empty())
+	{
+		// for loop to loop through the m_vpShields vector
+		for (std::vector<Shield*>::size_type it = 0; it < m_vpShields.size(); ++it)
+		{
+			// create a shield to start at location 0 in vector
+			auto shield = m_vpShields.at(it);
+
+			if (shield)
+			{
+				// if shield is visible
+				if (shield->isVisible())
+				{
+					// if bounding box of player intersects with the bounding box of the shield
+					if (m_pPlayer->getBoundingBox().intersectsRect(shield->getBoundingBox()))
+					{
+						// set shield visibility to false
+						shield->setVisible(false);
+
+						// call to set the players god mode on
+						WorldManager::getInstance()->getPlayer()->setGodMode();
+					}
+				}
+			}
+		}
+	}
+}
 void CollisionManager::resetCollisionManager()
 {
 	m_vpEnemies.clear();
 	m_vpItems.clear();	
+	// clear m_vpShields vector
+	m_vpShields.clear();
 	CCLOG("Collision Manager reset");
 }
 
@@ -163,6 +200,8 @@ void CollisionManager::collisionManagerCleanup()
 	m_pPlayer = NULL;
 	m_vpEnemies.clear();
 	m_vpItems.clear();
+	// clear m_vpShields vector
+	m_vpShields.clear();
 	delete m_Instance;
 	m_Instance = NULL;
 	CCLOG("Collision Manager cleanup");
