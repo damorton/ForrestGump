@@ -35,7 +35,7 @@ bool Enemy::init()
 
 void Enemy::getRandomSpeed()
 {
-	int max = 3;
+	int max = 2;
 	int min = 0;
 	m_nSpeed = (rand() % max + min);	
 }

@@ -18,17 +18,25 @@ Player* Player::create(const std::string& filename)
 }
 
 bool Player::init()
-{	
-	m_strUsername = "David";
+{		
 	setType(PLAYER);
 	setAction(RUNNING);
 	setState(ALIVE);
 	setBPAction(BP_UP);
+		
+	// Player statistics from local DB
+	m_strUsername = WorldManager::getInstance()->getPlayerUsername();
+	m_nHighscore = std::atoi(WorldManager::getInstance()->getPlayerHighscore().c_str());
+	
+	// Player statistics per game
 	m_nDistance = 0;
 	m_nCoins = 0;
 	m_nBoosters = 0;
 	m_nFood = 0;
 	m_nItems = 0;
+	m_nEnemiesKilled = 0;		
+	
+	// God mode
 	m_bGodMode = false;
 	m_nCount = 0;
 	
@@ -51,7 +59,7 @@ bool Player::init()
 	auto jetpackFire = ParticleSystemQuad::create("particles/jetpackFire.plist");		
 	jetpackFire->setPosition(Vec2::ZERO);
 	jetpackFire->setAutoRemoveOnFinish(true);	
-	jetpackFire->setScale(0.5);
+	jetpackFire->setScale(0.4);
 	m_pJetpack->addChild(jetpackFire, 0, "jetpackFire");
 
 	m_pShield = Sprite::create("sprites/shield.png");
@@ -65,9 +73,10 @@ bool Player::init()
 
 	return true;
 }
+
 void Player::addDistance()
 {
-	m_nDistance++;
+	
 }
 
 void Player::addCoin()
@@ -80,6 +89,7 @@ void Player::addCoin()
 void Player::addBooster()
 {
 	m_nBoosters++;
+	m_nItems++;
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40.wav", false, 1.0f, 1.0f, 1.0f);
 	this->addParticlesGameObjects("particles/booster.plist", this->getContentSize().width / 2, 0, 1, 0.5);
 
@@ -88,7 +98,8 @@ void Player::addBooster()
 void Player::addFood()
 {
 	m_nFood++;
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Crunch_DavidYoung.wav", false, 1.0f, 1.0f, 1.0f);
+	m_nItems++;
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40.wav", false, 1.0f, 1.0f, 1.0f);
 	this->addParticlesGameObjects("particles/SplatterParticle2.plist", this->getContentSize().width / 2, this->getContentSize().height / 2, 2, 0.1);
 	this->addParticlesGameObjects("particles/Muffin.plist", this->getContentSize().width / 2, 0, 1, 0.5);
 }
@@ -166,7 +177,13 @@ void Player::jump()
 }
 
 void Player::update()
-{	
+{			
+	//CCLOG("Updating player...");
+
+	// Increment player distance travelled
+	m_nDistance++;
+
+	// Set countdown timer for god mode
 	if (isGod())
 	{
 		m_nCount++;
@@ -177,8 +194,10 @@ void Player::update()
 		}		
 	}	
 
-	// reset player poisiton 
+	// Reset player poisiton in window
 	this->setPositionX(PLAYER_POSITION_IN_WINDOW);
+
+
 	if (this->getBoundingBox().intersectsRect(WorldManager::getInstance()->getFloorSprite()->getBoundingBox()))
 	{	
 		// Running animation		
@@ -188,6 +207,7 @@ void Player::update()
 			m_pJetpack->setSpriteFrame(SpriteFrame::create("sprites/jetpackUp.png", Rect(0, 0, m_pJetpack->getContentSize().width, m_pJetpack->getContentSize().height)));
 			m_pJetpack->getChildByName("jetpackFire")->setPosition(Vec2::ZERO);
 			m_ePlayerAction = RUNNING;
+			setBPAction(BP_UP);
 			m_pEmitter->setScale(1.0);
 			m_pEmitter->resume();
 		}		
@@ -207,9 +227,9 @@ void Player::update()
 	this->setPositionX(PLAYER_POSITION_IN_WINDOW);
 			
 
-	if (this->getPositionY() > VISIBLE_SIZE_HEIGHT - this->getContentSize().height)
+	if (this->getPositionY() > VISIBLE_SIZE_HEIGHT - this->getContentSize().height / 2)
 	{
-		this->setPositionY(VISIBLE_SIZE_HEIGHT - this->getContentSize().height);
+		this->setPositionY(VISIBLE_SIZE_HEIGHT - this->getContentSize().height / 2);
 	}		
 }
 
@@ -240,3 +260,17 @@ void Player::getAnimationWithFrames(char* enemyAnimation, int frames){
 	auto repeat = RepeatForever::create(animate);	
 	this->runAction(repeat);
 }
+
+void Player::pausePlayer()
+{
+	// Pause the player
+	m_pJetpack->getChildByName("jetpackFire")->pause();
+	this->pause();	
+}
+
+void Player::resumePlayer()
+{
+	m_pJetpack->getChildByName("jetpackFire")->resume();
+	this->resume();	
+}
+

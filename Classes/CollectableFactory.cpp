@@ -36,13 +36,13 @@ void CollectableFactory::addItemLayer(std::string layerName)
 
 bool CollectableFactory::addTMXTileMap(const std::string& filename)
 {
-	m_pTileMap = TMXTiledMap::create(filename);
+	m_pTileMap = TMXTiledMap::create(filename);		
 	this->addChild(m_pTileMap);
 	return true;
 }
 
 bool CollectableFactory::initTilePositions(TMXLayer* layer, std::string name)
-{	
+{		
 	Size layerSize = layer->getLayerSize();
 	for (int i = 0; i < layerSize.width; i++)
 	{
@@ -50,7 +50,7 @@ bool CollectableFactory::initTilePositions(TMXLayer* layer, std::string name)
 		{
 			auto item = layer->tileAt(Vec2(i, j));
 			if (item)
-			{
+			{				
 				item->setName(name);
 				item->setPosition(Vec2(item->getPositionX() + VISIBLE_SIZE_WIDTH, SCREEN_ORIGIN.y + WorldManager::getInstance()->getFloorSprite()->getContentSize().height + item->getPositionY()));
 				item->setVisible(true);

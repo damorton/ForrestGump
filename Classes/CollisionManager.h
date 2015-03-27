@@ -43,7 +43,7 @@ private:
 	virtual ~CollisionManager(){ this->collisionManagerCleanup(); };
 	Player* m_pPlayer;
 	std::vector<Enemy*> m_vpEnemies;
-	std::deque<Sprite*> m_vpItems;
+	std::deque<Sprite*> m_vpItems;	
 };
 
 #endif

@@ -4,11 +4,11 @@
 #include "cocos2d.h"
 #include "WorldManager.h"
 
-//create
 void GameDAO::create()
 {		
 	//std::string filename = cocos2d::FileUtils::getInstance()->fullPathForFilename(XMLDOC);
 	std::string writePath = cocos2d::FileUtils::getInstance()->getWritablePath();
+	
 	writePath.append(XMLDOC);
 	tinyxml2::XMLDocument doc;
 	tinyxml2::XMLNode* node = doc.NewElement("Game");
@@ -17,7 +17,6 @@ void GameDAO::create()
 	doc.SaveFile(writePath.c_str());	
 }
 
-//read
 std::shared_ptr<std::vector<User>> GameDAO::read()
 {
 	std::shared_ptr<std::vector<User>> UserToReturn = std::shared_ptr<std::vector<User>>(new std::vector<User>());
@@ -39,11 +38,13 @@ std::shared_ptr<std::vector<User>> GameDAO::read()
 		{
 			User tempUser;
 			tempUser.setUsername(child->FirstChildElement()->GetText());
-
-			for(tinyxml2::XMLElement* scoreElement = child->FirstChildElement("Score"); scoreElement != NULL; scoreElement = scoreElement->NextSiblingElement())
+			//CCLOG("%s", child->FirstChildElement()->GetText());
+						
+			for(tinyxml2::XMLElement* scoreElement = child->FirstChildElement("Highscore"); scoreElement != NULL; scoreElement = scoreElement->NextSiblingElement())
 			{
-				tempUser.addScore(scoreElement->GetText());
-			}
+				//CCLOG("%s %s", scoreElement->GetText(), scoreElement->Name());
+				tempUser.addScore(scoreElement->GetText(), scoreElement->Name());
+			}		
 
 			UserToReturn->push_back(tempUser);
 		}
@@ -53,7 +54,6 @@ std::shared_ptr<std::vector<User>> GameDAO::read()
 	return NULL;
 }
 
-//update
 void GameDAO::update(std::shared_ptr<std::vector<User>> Users)
 {
 	//std::string filename = cocos2d::FileUtils::getInstance()->fullPathForFilename(XMLDOC);
@@ -84,7 +84,8 @@ void GameDAO::update(std::shared_ptr<std::vector<User>> Users)
 			//write the users scores
 			for(int j = 0; j < Users->at(i).getScores()->size(); j++)
 			{
-				tinyxml2::XMLElement* scoreElement = doc.NewElement("Score");
+				//tinyxml2::XMLElement* scoreElement = doc.NewElement("Score");
+				tinyxml2::XMLElement* scoreElement = doc.NewElement(Users->at(i).getScores()->at(j).getName().c_str());
 				tinyxml2::XMLText* scoreValue = doc.NewText(Users->at(i).getScores()->at(j).getText().c_str());
 				userElement->InsertEndChild(scoreElement);
 				scoreElement->InsertEndChild(scoreValue);
@@ -99,8 +100,40 @@ void GameDAO::update(std::shared_ptr<std::vector<User>> Users)
 	}
 }
 
-//delete
 void GameDAO::del()
 {
 
 }
+
+
+// MySQL Database
+void GameDAOMySQL::create()
+{		
+	// Insert user into db if they are not already there
+}
+
+//read
+std::shared_ptr<std::vector<User>> GameDAOMySQL::read()
+{
+	// Read data from HTTPResponse message
+	return NULL;	
+}
+
+//update
+void GameDAOMySQL::update(std::shared_ptr<std::vector<User>> Users)
+{
+	// Update the remote DB with POST
+	// if the remote DB does not have the user insert them
+}
+
+//delete
+void GameDAOMySQL::del()
+{
+	// Delete record from the remote DB
+}
+
+
+
+
+
+

@@ -33,11 +33,12 @@ bool GameOver::initializeGameOverScene()
 	m_Size = Director::getInstance()->getVisibleSize();
 	m_Origin = Director::getInstance()->getVisibleOrigin();
 
-	m_nDistance = 56754;
-	m_nCoins = 234;
-	m_nItems = 23;
-	m_nBoosters = 6;
-	m_nFood = 8906;
+	m_nDistance = 0;
+	m_nCoins = 0;
+	m_nItems = 0;
+	m_nBoosters = 0;
+	m_nFood = 0;
+	m_pPlayer = WorldManager::getInstance()->getPlayer();
 
 	auto gameOverBackground = Sprite::create("background/GameOverBackground.png");
 	gameOverBackground->setPosition(Vec2(m_Size.width / 2 + m_Origin.x, m_Size.height / 2 + m_Origin.y));
@@ -60,17 +61,17 @@ bool GameOver::initializeGameOverScene()
 
 void GameOver::displayPlayerStatistics()
 {
-	int coins = WorldManager::getInstance()->getPlayer()->getCoins();
-	int items = WorldManager::getInstance()->getPlayer()->getItems();
-	int boosters = WorldManager::getInstance()->getPlayer()->getBoosters();
-	int food = WorldManager::getInstance()->getPlayer()->getFood();
-	int distance = WorldManager::getInstance()->getPlayer()->getDistance();
+	int coins = m_pPlayer->getCoins();
+	int items = m_pPlayer->getItems();
+	int boosters = m_pPlayer->getBoosters();
+	int food = m_pPlayer->getFood();
+	int distance = m_pPlayer->getDistance();
 
 	m_nTotalScore = coins + items + boosters + food + distance;
 
 	// Distance
 	//auto totalScoreLabel = Label::createWithTTF(WorldManager::getInstance()->getPlayerUsername() + " YOU RAN", LABEL_FONT, LABEL_FONT_SIZE* 1.5);
-	auto totalScoreLabel = Label::createWithTTF("TOTAL SCORE", LABEL_FONT, LABEL_FONT_SIZE* 1.5);
+	auto totalScoreLabel = Label::createWithTTF("YOUR SCORE", LABEL_FONT, LABEL_FONT_SIZE* 1.5);
 	totalScoreLabel->setPosition(Vec2((m_Size.width * 0.25), m_Origin.y + (VISIBLE_SIZE_HEIGHT / 4 )*3 - totalScoreLabel->getContentSize().height / 2));
 	totalScoreLabel->setColor(Color3B(255, 255, 255));
 	totalScoreLabel->enableGlow(Color4B(255, 255, 51, 255));
@@ -92,10 +93,7 @@ void GameOver::displayPlayerStatistics()
 	this->addChild(newHighscore);
 
 	int previousHighscore = std::atoi(WorldManager::getInstance()->getPlayerHighscore().c_str());
-	//CCLOG("previous %d", previousHighscore);
-	int currentScore = WorldManager::getInstance()->getPlayer()->getDistance();
-	//CCLOG("current %d", currentScore);
-	if (currentScore > previousHighscore)
+	if (m_nTotalScore > previousHighscore)
 	{
 		//CCLOG("New higscore recorded!");
 		newHighscore->setVisible(true);
@@ -103,10 +101,10 @@ void GameOver::displayPlayerStatistics()
 		auto scaleDown = ScaleBy::create(.5, 0.5);
 		auto scaling = Sequence::create(scaleUp, scaleDown, NULL);
 		newHighscore->runAction(scaling);
-		this->storeHighscore();
+		m_pPlayer->setHighscore(m_nTotalScore);
 	}
 		
-	auto statsLabel = Label::createWithTTF("STATISTICS", LABEL_FONT, LABEL_FONT_SIZE * 1.5);	
+	auto statsLabel = Label::createWithTTF("STATISTICS", LABEL_FONT, LABEL_FONT_SIZE);	
 	statsLabel->setPosition(Point((m_Size.width * 0.75), m_Origin.y + m_Size.height - PADDING - statsLabel->getContentSize().height / 2));
 	statsLabel->setColor(Color3B(255, 255, 255));
 	statsLabel->enableOutline(Color4B(0, 0, 0, 255));
@@ -115,73 +113,41 @@ void GameOver::displayPlayerStatistics()
 	
 	// Distance
 	auto distanceLabel = Label::createWithTTF("Distance ", LABEL_FONT, LABEL_FONT_SIZE);
-	m_pDistanceValueLabel = Label::createWithTTF(std::to_string(WorldManager::getInstance()->getPlayer()->getDistance()), LABEL_FONT, LABEL_FONT_SIZE);
+	m_pDistanceValueLabel = Label::createWithTTF(std::to_string(m_pPlayer->getDistance()), LABEL_FONT, LABEL_FONT_SIZE);
 	this->initLabelWithValue(distanceLabel, m_pDistanceValueLabel, statsLabel);		
 
 	// Coins
 	auto coinsLabel = Label::createWithTTF("Coins ", LABEL_FONT, LABEL_FONT_SIZE);		
-	m_pCoinsValueLabel = Label::createWithTTF(std::to_string(WorldManager::getInstance()->getPlayer()->getCoins()), LABEL_FONT, LABEL_FONT_SIZE);
+	m_pCoinsValueLabel = Label::createWithTTF(std::to_string(m_pPlayer->getCoins()), LABEL_FONT, LABEL_FONT_SIZE);
 	this->initLabelWithValue(coinsLabel, m_pCoinsValueLabel, distanceLabel);
 	
 	// Items
 	auto itemsLabel = Label::createWithTTF("Items ", LABEL_FONT, LABEL_FONT_SIZE);
-	m_pItemsValueLabel = Label::createWithTTF(std::to_string(WorldManager::getInstance()->getPlayer()->getItems()), LABEL_FONT, LABEL_FONT_SIZE);
+	m_pItemsValueLabel = Label::createWithTTF(std::to_string(m_pPlayer->getItems()), LABEL_FONT, LABEL_FONT_SIZE);
 	this->initLabelWithValue(itemsLabel, m_pItemsValueLabel, coinsLabel);
 	
 	// Boosters
 	auto boostersLabel = Label::createWithTTF("Boosters ", LABEL_FONT, LABEL_FONT_SIZE);
-	m_pBoostersValueLabel = Label::createWithTTF(std::to_string(WorldManager::getInstance()->getPlayer()->getBoosters()), LABEL_FONT, LABEL_FONT_SIZE);
+	m_pBoostersValueLabel = Label::createWithTTF(std::to_string(m_pPlayer->getBoosters()), LABEL_FONT, LABEL_FONT_SIZE);
 	this->initLabelWithValue(boostersLabel, m_pBoostersValueLabel, itemsLabel);
 
 	// Food
 	auto foodLabel = Label::createWithTTF("Food ", LABEL_FONT, LABEL_FONT_SIZE);
-	m_pFoodValueLabel = Label::createWithTTF(std::to_string(WorldManager::getInstance()->getPlayer()->getFood()), LABEL_FONT, LABEL_FONT_SIZE);
+	m_pFoodValueLabel = Label::createWithTTF(std::to_string(m_pPlayer->getFood()), LABEL_FONT, LABEL_FONT_SIZE);
 	this->initLabelWithValue(foodLabel, m_pFoodValueLabel, boostersLabel);
 	
 	// Highscore
 	auto highScoreLabel = Label::createWithTTF("Highscore ", LABEL_FONT, LABEL_FONT_SIZE);
 	auto highScoreValueLabel = Label::createWithTTF(std::to_string(previousHighscore), LABEL_FONT, LABEL_FONT_SIZE);
 	this->initLabelWithValue(highScoreLabel, highScoreValueLabel, foodLabel);
-
-	// Duration of session
-	// Number of jumps
-	// Time on foot
-	// Time jumping
-	// Enemies dodged
-	// Enemies killed	
 	
-	cocos2d::network::HttpRequest* request = new (std::nothrow) cocos2d::network::HttpRequest();
-	request->setUrl("http://grandtheftmuffins.esy.es/test.php/");
-	request->setRequestType(cocos2d::network::HttpRequest::Type::POST);
-	request->setResponseCallback(CC_CALLBACK_2(GameOver::onHttpRequestCompleted, this));
-
-	// write the post data
-	String *data = String::createWithFormat("username=David&score=%s", std::to_string(m_nTotalScore).c_str());
-	request->setRequestData(data->getCString(), data->length());
-	request->setTag("myData");
-	cocos2d::network::HttpClient::getInstance()->send(request);
-	request->release();
-	
-	//CCLOG("display player stats");
-}
-
-void GameOver::onHttpRequestCompleted(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response)
-{
-	//CCLOG("http request completed");	
-	if (response && response->getResponseCode() == 200 && response->getResponseData()) {
-		std::vector<char> *data = response->getResponseData();
-		std::string ret(&(data->front()), data->size());
-		CCLOG("%s", ("Response message: " + ret).c_str());
-	}
-	else 
-	{
-		CCLOG("%s", ("Error " + std::to_string(response->getResponseCode()) + " in request").c_str()); //error
-	}
+	// Update the local DB
+	this->updateLocalDB();
 }
 
 void GameOver::initLabelWithValue(Label* label, Label* value, Label* labelAbove)
 {	
-	label->setPosition(Vec2((m_Size.width / 2) + PADDING + label->getContentSize().width / 2, labelAbove->getPositionY() - labelAbove->getContentSize().height / 2));
+	label->setPosition(Vec2((m_Size.width / 2) + PADDING + label->getContentSize().width / 2, labelAbove->getPositionY() - PADDING - labelAbove->getContentSize().height / 2));
 	label->setColor(Color3B(200, 200, 200));
 	label->enableOutline(Color4B(0, 0, 0, 255));
 	label->enableGlow(Color4B(0, 0, 0, 255));
@@ -193,9 +159,10 @@ void GameOver::initLabelWithValue(Label* label, Label* value, Label* labelAbove)
 	this->addChild(value);
 }
 
-void GameOver::storeHighscore()
+void GameOver::updateLocalDB()
 {
-	WorldManager::getInstance()->setPlayerHighscore(std::to_string(m_nTotalScore));
+	// Write player info to the local DB
+	WorldManager::getInstance()->updateDAO();
 }
 
 void GameOver::displayLeaderboard()

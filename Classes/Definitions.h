@@ -19,20 +19,18 @@ typedef enum {
 	TAG_FOOD,
 } tags;
 
-
-#define PADDING 10
-
 #define DISTANCE_VALUE_LABEL_COLOR 255, 0, 127 
 
 // World
 #define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
 #define VISIBLE_SIZE_HEIGHT (Director::getInstance()->getVisibleSize().height)
 #define SCREEN_ORIGIN (Director::getInstance()->getVisibleOrigin())
-#define GAME_SPEED_INC (float)1.05
-#define GAME_SPEED_DEC (float)1.05
-#define GRAVITATIONAL_FORCE Vec2(0, -200)
-#define WORLD_MOVEMENT_SPEED 3.0f
-#define ENEMY_MOVEMENT_SPEED 4.0f
+#define GAME_SPEED_INC (VISIBLE_SIZE_WIDTH * .0022)
+#define GAME_SPEED_DEC GAME_SPEED_INC
+
+#define WORLD_MOVEMENT_SPEED (VISIBLE_SIZE_WIDTH * .0035)
+#define ENEMY_MOVEMENT_SPEED (VISIBLE_SIZE_WIDTH * .0045)
+#define MAX_GAME_SPEED (VISIBLE_SIZE_WIDTH * .006)
 
 // Scenes
 #define DISPLY_TIME_SPLASH_SCENCE 2
@@ -40,15 +38,18 @@ typedef enum {
 
 // Player
 #define PLAYER_POSITION_IN_WINDOW ((Director::getInstance()->getVisibleSize().width / 10) * 2)
-#define MAX_PLAYER_VEL 200.0f
+#define MAX_PLAYER_VEL (VISIBLE_SIZE_HEIGHT * .70)
 #define PLAYER_JUMP_VEL Vec2(0.0f, MAX_PLAYER_VEL)
+#define GRAVITATIONAL_FORCE Vec2(0, -MAX_PLAYER_VEL)
 #define MAX_NO_OF_JUMPS 1
 #define JUMP_HEIGHT (Director::getInstance()->getVisibleSize().height * .75)
 
 // Labels
 #define LABEL_FONT "fonts/go3v2.ttf"
+#define LABEL_FONT_ROBOTO "Roboto-Light.ttf"
 #define LABEL_FONT_SIZE (cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize().width / cocos2d::Director::getInstance()->getVisibleSize().width * 16)
-#define PADDING 10
+//#define LABEL_FONT_SIZE (18 * (VISIBLE_SIZE_HEIGHT / VISIBLE_SIZE_WIDTH))
+#define PADDING (VISIBLE_SIZE_HEIGHT * .03)
 
 // New design resolution
 #define DESIGN_RESOLUTION_480X320    0

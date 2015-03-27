@@ -46,8 +46,8 @@ bool GameScene::initializeGame()
 		
 
 	// game play layer
-	gamePlayLayer = Layer::create();
-	this->addChild(gamePlayLayer, 0, TAG_GAME_LAYER);
+	//gamePlayLayer = Layer::create();
+	//this->addChild(gamePlayLayer, 0, TAG_GAME_LAYER);
 	
 	//Background
 	m_pParallax = Parallax::create();
@@ -55,8 +55,8 @@ bool GameScene::initializeGame()
 	m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png", "background/backgroundFourth.png", "background/floorBoundaries.png");
 
 	//Player
-	playerSprite = Player::create("sprites/playerRunning01.png");
-	this->addChild(playerSprite, 1);
+	m_pPlayer = Player::create("sprites/playerRunning01.png");
+	this->addChild(m_pPlayer, 1);
 		
 	// HUD layer
 	m_HudLayer = HUD::create();
@@ -75,8 +75,12 @@ bool GameScene::initializeGame()
 	listener->setSwallowTouches(true);
 	listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-
-
+	
+	// Game session timer
+	m_nGameTime = 0;
+	WorldManager::getInstance()->setTimePlayedSeconds(m_nGameTime);
+	this->schedule(schedule_selector(GameScene::updateTimer), 1.0f);	
+	
 	m_bPaused = false;
 
 	this->scheduleUpdate();	
@@ -84,32 +88,31 @@ bool GameScene::initializeGame()
 	return true;
 }
 
-/*void GameScene::addScreenShake()
+void GameScene::updateTimer(float dt)
 {	
-	auto jump = JumpBy::create(1, Point(1000, 1000), 0.5, 5);
-	auto reverse = jump->reverse();	
-	this->runAction(jump);
-	this->runAction(reverse);	
-}*/
+	m_nGameTime++;
+	CCLOG("Updating game timer : %d seconds", m_nGameTime);
+}
 
 void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	
+
 	// Game world speed
-	if (WorldManager::getInstance()->getPlayer()->getDistance() < 6000 && WorldManager::getInstance()->getPlayer()->getDistance() % 500 == 0)
+	if (WorldManager::getInstance()->getGameWorldSpeed() < MAX_GAME_SPEED && m_pPlayer->getDistance() % 200 == 0)
 	{
 		WorldManager::getInstance()->increaseGameWorldSpeed();
 		WorldManager::getInstance()->increaseEnemyMovementSpeed();
 	}
 
-	WorldManager::getInstance()->getPlayer()->update();
+	m_pPlayer->update();	
 	m_pSpawnManager->update();
 	m_pCollectableFactory->update();
 	m_pParallax->update();
 	m_HudLayer->update();
 	
 	CollisionManager::getInstance()->checkCollisions();
-
+	
 	//CCLOG("-------------GAME LOOP END--------------");
 }
 
@@ -121,43 +124,60 @@ inline Point locationInGLFromTouch(Touch& touch)
 
 bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event) 
 {
-	WorldManager::getInstance()->getPlayer()->touch(locationInGLFromTouch(*touch));
+	if (!m_bPaused)
+	{
+		m_pPlayer->jump();
+	}	
 	return true;
 }
 
+
 void GameScene::gameOver()
-{	
-	CCLOG("Game Scene: Game over called");
-	this->pauseGame();	
+{		
+	//CCLOG("Game Scene: Game over called");
+
+	this->pause();
+
+	// Time played in game	
+	WorldManager::getInstance()->setTimePlayedSeconds(m_nGameTime);	
+
 	// Death sequence here!!
-	Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));
+	Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));	
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);	
+	
 }
 
 void GameScene::mainMenu()
 {
-	CCLOG("Game Scene: Main menu called");
-	Director::getInstance()->replaceScene(TransitionFade::create(1, MainMenu::createScene()));
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);	
+	//CCLOG("Game Scene: Main menu called");
+
+	// Pause game layer
+	this->pause();
+
+	// Unpause director
+	this->pauseGame();
+	
+	// Move to Main Menu
+	Director::getInstance()->replaceScene(TransitionFade::create(1, MainMenu::createScene()));	
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);		
 }
 
 void GameScene::pauseGame()
 {
-	CCLOG("Game Scene: Pause game called");
+	//CCLOG("Game Scene: Pause game called");
+
 	if (!m_bPaused)
 	{
-		m_bPaused = true;
-		Director::getInstance()->getRunningScene()->pause();		
-		playerSprite->pauseSchedulerAndActions();
-		m_pSpawnManager->pauseGame();
-		this->pauseSchedulerAndActions();			
+		m_bPaused = true;	
+		CocosDenshion::SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+		Director::getInstance()->pause();
+		Director::getInstance()->getRunningScene()->getPhysicsWorld()->setAutoStep(false);		
 	}
 	else
 	{
 		m_bPaused = false;
-		Director::getInstance()->getRunningScene()->resume();		
-		playerSprite->resumeSchedulerAndActions();
-		m_pSpawnManager->resumeGame();
-		this->resumeSchedulerAndActions();				
+		CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+		Director::getInstance()->resume();
+		Director::getInstance()->getRunningScene()->getPhysicsWorld()->setAutoStep(true);		
 	}
 }

@@ -21,15 +21,21 @@ public:
 	void jump();
 	void touch(const Point& location);	
 	void update();
+	void pausePlayer();
+	void resumePlayer();
 
 	EGameOjectType getType(){ return m_eType; };
 	int getState(){ return m_eState; };
 	int getAction(){ return m_ePlayerAction; }
+	
+	int getHighScore(){ return m_nHighscore; };
 	int getDistance(){ return m_nDistance; };
 	int getCoins(){ return m_nCoins; };
 	int getItems(){ return m_nItems; };
 	int getBoosters(){ return m_nBoosters; };
 	int getFood(){ return m_nFood; };
+	int getEnemiesKilled(){ return m_nEnemiesKilled; };	
+
 	Sprite* getShield(){ return m_pShield; };
 
 	
@@ -37,11 +43,15 @@ public:
 	void setState(ECharacterState state){ m_eState = state; };
 	void setAction(EPlayerAction action){ m_ePlayerAction = action; };
 	void setBPAction(EBackpackAction bpAction){ m_eBackpackAction = bpAction; };
+
+	void setHighscore(int value){ m_nHighscore = value; };
 	void addDistance();
 	void addCoin();
 	void addItem();
 	void addBooster();
 	void addFood();
+	void addEnemiesKilled(){ m_nEnemiesKilled++; }
+	
 	void addParticle();
 	void addParticlesGameObjects(std::string path, float a, float b, int totalPar, float duration);
 	void resetCoins();
@@ -55,13 +65,17 @@ public:
 private:	
 	EPlayerAction m_ePlayerAction;
 	EBackpackAction m_eBackpackAction;
+
+	int m_nHighscore;
 	int m_nDistance;
 	int m_nCoins;
+	int m_nItems;
 	int m_nBoosters;
 	int m_nFood;
-	int m_nItems;		
-
-	int m_nNumberOfJumps;
+	int m_nEnemiesKilled;
+	
+	
+	// God Mode count
 	int m_nCount;
 
 	std::string m_strUsername;

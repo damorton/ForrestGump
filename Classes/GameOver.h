@@ -2,8 +2,7 @@
 #define GAMEOVER_H
 
 #include "cocos2d.h"
-#include "network/HttpClient.h"
-
+#include "Player.h"
 
 USING_NS_CC;
 
@@ -18,15 +17,12 @@ public:
 	void displayPlayerStatistics();
 	void initLabelWithValue(Label* label, Label* value, Label* statsLabel);
 	void displayLeaderboard();
-	void storeHighscore();
+	void updateLocalDB();
 	void resume(Ref *pSender);
 	void mainMenu(Ref *pSender);
 	void exit(Ref *pSender);
 	void playAgain(Ref *pSender);
 
-	void onHttpRequestCompleted(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response);
-
-	
 private:
 	Size m_Size;
 	Vec2 m_Origin;
@@ -42,6 +38,7 @@ private:
 	Label* m_pFoodValueLabel;
 	Label* m_newHighscore;
 	Label* m_pDistanceValueLabel;
+	Player *m_pPlayer;
 	
 };
 
