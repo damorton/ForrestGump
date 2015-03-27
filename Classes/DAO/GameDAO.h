@@ -20,6 +20,10 @@
 #include "User.h"
 #include "network\HttpClient.h"
 
+/*
+	Abstract classes for XML and MySQL data access objects using
+	CRUD. These serve as interfaces to the objects. 
+*/
 class IGameDAO
 {
 public:
@@ -61,7 +65,10 @@ private:
 };
 
 
-// XML implementation
+/*
+	XML file implementation. Uses a local XML file to store 
+	game analytics data and player information.
+*/
 class GameDAO : public IGameDAO
 {
 public:
@@ -70,13 +77,13 @@ public:
 	//create
 	void create();
 
-	// Read the local XML file
+	// Read from the local XML file
 	std::shared_ptr<std::vector<User>> read();
 
 	// Update the MySQL database on the remote server
 	void update(std::shared_ptr<std::vector<User>> Users);
 
-	//delete
+	// Delete data from the XML file
 	void del();
 private:
 
@@ -114,8 +121,4 @@ public:
 private:
 
 };
-
-
-
-
 #endif
