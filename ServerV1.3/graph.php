@@ -1,9 +1,27 @@
 <?php
+/*
+	Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
 
-// Create a line graph displaying the users deaths compared to time spent playing the game
+	http://www.grandtheftmuffins.esy.es
+
+	Third year games design and development project. Grand Theft Muffins endless runner game
+	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org. And back-end game 
+	analytics and statistics system built using a LAMP stack, Linux, Apache, MySQL and PHP. Hosted
+	locally and remotely.
+
+	graph.php
+
+	Description: The graph.php script can be used to generate graphs based on the players statistics
+	that are stored in the database. These graphs can then be displayed on the website.
+	TODO : read database and dynamically generate graphs
+*/
+
+// Include the PHPlot library
 require_once 'phplot-6.1.0/phplot.php';
 
-// Populate the graph with player statistics
+// Create a line graph displaying the users deaths compared to time spent playing the game
+
+// TODO: Populate the graph with player statistics
 $data = array(
 	// (time, deaths)
   array('', 1800,   5), array('', 1810,   7), array('', 1820,  10), array('', 1830,  13), array('', 1840,  17), array('', 1850,  23), array('', 1860,  31), array('', 1870,  39), array('', 1880,  50),

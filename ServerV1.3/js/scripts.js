@@ -1,3 +1,6 @@
+/*
+	This file has not been modified for the project.
+*/
 
 $(document).ready(function(){/* smooth scrolling for scroll to top */
 $('.scroll-top').click(function(){

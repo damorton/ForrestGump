@@ -14,13 +14,15 @@
 	Description: This will handle checking the database for the new user and adding them if they do not already exist. 
 	The secret key is generated when the game is first installed and paired with the username, this is then used to 
 	stop users being hacked. It provides added security for the game statistics and user data
+	
+	TODO : implement secret key in both game and back-end system
 */
 function createUserIfNotExists($connection, $playerUsername)
 {		
 	// Check that players are entering usernames in the correct format
 	if($playerUsername == NULL || strlen($playerUsername) < 4 || strlen($playerUsername) > 12)
 	{		
-		printf("Error: player username not in the correct format");
+		printf("Error: player username not in the correct format, don't give up! try again :)");
 	}	
 	
 	// Search for the player in the database

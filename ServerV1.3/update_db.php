@@ -1,6 +1,24 @@
 <?php	
+/*
+	Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
 
-// Read the values in the post
+	http://www.grandtheftmuffins.esy.es
+
+	Third year games design and development project. Grand Theft Muffins endless runner game
+	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org. And back-end game 
+	analytics and statistics system built using a LAMP stack, Linux, Apache, MySQL and PHP. Hosted
+	locally and remotely.
+
+	update_db.php
+
+	Description: The update_db.php script reads the data it receives from the game in a HTTP Request message.
+	The data is then checked and the database is updated accordingly. Users are created if they do not already
+	exist in the database.
+	
+*/
+
+// Read the values in the POST message received from the game
+// The isset() function is used to validate the values coming from the post message
 $playerUsername = isset($_POST['playerUsername']) ? $_POST['playerUsername'] : NULL;
 $playerHighscore = isset($_POST['playerHighscore']) ? $_POST['playerHighscore'] : NULL;	
 $playerDistance = isset($_POST['playerDistance']) ? $_POST['playerDistance'] : NULL;	
@@ -19,12 +37,13 @@ $conn = connect();
 require_once 'create_user.php';
 createUserIfNotExists($conn, $playerUsername);
 
-/// Grab data from the database for the player
+// Grab data from the database for the player
 $query = "SELECT * FROM Player WHERE player_username = '$playerUsername' ";
 $result = $conn->query($query);					
 
 //echo $playerHighscoreDB;
 
+// Loop through each row of the results. Should only be one row
 while($row = $result->fetch_array(MYSQLI_ASSOC))
 {
 	// Get stored data
@@ -84,6 +103,7 @@ $updateDBQuery = "	UPDATE Player
 			WHERE player_username = '$playerUsername'";			
 $conn->query($updateDBQuery);
 
+// Release resources created by the script
 $result->free();
 $conn->close();
 ?>

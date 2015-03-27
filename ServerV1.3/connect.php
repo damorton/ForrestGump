@@ -11,7 +11,7 @@
 
 	connect.php
 
-	Description: Connect will handle creating a connection to the MySQL database. The hostname is localhost because
+	Description: Connect will handle the connection to the MySQL database. The hostname is localhost because
 	the PHP scripts run on a machine with the same IP address as the MySQL database. Only the login details and database
 	name will be modified for locally hosted servers and databases.
 */
