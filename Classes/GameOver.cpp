@@ -1,11 +1,12 @@
+
+// Includes
 #include "GameOver.h"
 #include "MainMenu.h"
 #include "GameScene.h"
-#include "Definitions.h"
 #include "WorldManager.h"
+#include "CollisionManager.h"
+#include "Player.h"
 #include "audio/include/SimpleAudioEngine.h"
-
-USING_NS_CC;
 
 Scene* GameOver::createScene()
 {

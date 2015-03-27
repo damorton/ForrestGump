@@ -15,6 +15,7 @@
 	control the scene management App Delegate is created as standard in all new Cocos2dx projects and only slight 
 	modifications are needed to address different device resolutions.	
 */
+// Includes
 #include <string>
 #include <iostream>
 #include "AppDelegate.h"

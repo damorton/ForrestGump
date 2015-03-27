@@ -16,6 +16,7 @@
 	by the collectable factory.The TMX Tile Maps are created using the Tiled Map Editor software.
 	http://www.mapeditor.org
 */
+// Includes
 #include "CollectableFactory.h"
 #include "WorldManager.h"
 #include "CollisionManager.h"

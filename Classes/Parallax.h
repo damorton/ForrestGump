@@ -14,8 +14,10 @@ Description: Moves the background images.
 #ifndef __PARALLAX_H__
 #define __PARALLAX_H__
 
+// Includes
 #include "Definitions.h"
 
+// Forward declarations
 class WorldManager;
 
 class Parallax : public cocos2d::LayerColor

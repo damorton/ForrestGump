@@ -1,7 +1,10 @@
+
+// Includes
 #include "SpawnManager.h"
 #include "WorldManager.h"
+#include "CollisionManager.h"
 #include "Shield.h"
-USING_NS_CC;
+#include "Enemy.h"
 
 bool SpawnManager::init()
 {
@@ -18,7 +21,7 @@ bool SpawnManager::init()
 
 	// sets shield spawned to false 
 	m_bIsShieldSpawned = false;
-	CCLOG("Spawn Manager init");
+	//CCLOG("Spawn Manager init");
 	return true;
 }
 
@@ -29,7 +32,7 @@ void SpawnManager::spawnManagerCleanup()
 	m_vpActiveEnemies.clear();
 	m_vpShields.clear();
 	m_vpActiveShields.clear();
-	CCLOG("Spawn Manager cleanup");
+	//CCLOG("Spawn Manager cleanup");
 }
 
 void SpawnManager::createEnemies()

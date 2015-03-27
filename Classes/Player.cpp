@@ -21,10 +21,10 @@ This class is also responsible for animate themselves.
 
 */
 
-#include "Definitions.h"
-#include "WorldManager.h"
+// Includes
 #include "Player.h"
-#include "GameOver.h"
+#include "WorldManager.h"
+#include "CollisionManager.h"
 #include "audio/include/SimpleAudioEngine.h"
 
 // Creates the Player
@@ -211,7 +211,7 @@ void Player::jump()
 void Player::update()
 {			
  
-	CCLOG("-------------UPDATING PLAYER--------------");
+	//CCLOG("-------------UPDATING PLAYER--------------");
 	m_nDistance++;
 
 	// Increment player distance travelled
@@ -284,7 +284,7 @@ void Player::touch(const Point& location)
 // TODO : Implement clean up function 
 void Player::playerCleanup()
 {
-	CCLOG("Player cleanup");
+	//CCLOG("Player cleanup");
 }
 
 // Create the Animation Sprites, return animate object

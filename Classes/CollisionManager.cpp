@@ -15,12 +15,15 @@
 	When a collision occurs the event triggers the game objects behaviours such as adding a coin to the score of
 	being destroyed. 
 */
+// Includes
 #include <iostream>
 #include "audio/include/SimpleAudioEngine.h"
 #include "CollisionManager.h"
 #include "WorldManager.h"
+#include "GameScene.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Shield.h"
 
 CollisionManager* CollisionManager::m_Instance = 0;
 

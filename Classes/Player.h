@@ -11,14 +11,12 @@
 	keeps track on the player current state and actions at all times. We handle
 	touches here also by registering the touch to make the player jump etc.
 */
-
 #ifndef PLAYER_H_
 #define	PLAYER_H_
 
+// Includes
+#include "Definitions.h"
 #include "Character.h"
-#include "cocos2d.h"
-
-USING_NS_CC;
 
 class Player : public Sprite, public Character
 {

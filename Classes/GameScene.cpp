@@ -11,16 +11,19 @@ GameScene.cpp
 Description: Game Scene implementation
 
 */
+
+// Includes
 #include "GameScene.h"
 #include "WorldManager.h"
 #include "CollisionManager.h"
 #include "CollectableFactory.h"
-
-#include "MainMenu.h"
+#include "SpawnManager.h"
+#include "Parallax.h"
 #include "GameOver.h"
+#include "MainMenu.h"
+#include "HUD.h"
 #include "Player.h"
 #include "audio/include/SimpleAudioEngine.h"
-#include "Shield.h"
 
 Scene* GameScene::createScene()
 {	
@@ -31,9 +34,8 @@ Scene* GameScene::createScene()
 	
 	// Creates gameLayer with physics
 	auto gameLayer = GameScene::create();
-	gameLayer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics		
 	scene->addChild(gameLayer, 0, TAG_GAME_LAYER);
-
+	
 	return scene;
 }
 
@@ -99,7 +101,7 @@ bool GameScene::initializeGame()
 	m_bPaused = false;
 
 	this->scheduleUpdate();	
-	CCLOG("Game scene initialized");
+	//CCLOG("Game scene initialized");
 	return true;
 }
 
@@ -107,7 +109,7 @@ bool GameScene::initializeGame()
 void GameScene::updateTimer(float dt)
 {	
 	m_nGameTime++;
-	CCLOG("Updating game timer : %d seconds", m_nGameTime);
+	//CCLOG("Updating game timer : %d seconds", m_nGameTime);
 }
 
 // Updates Game Scene

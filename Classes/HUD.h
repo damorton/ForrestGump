@@ -1,8 +1,10 @@
 #ifndef HUD_H_
 #define	HUD_H_
 
+// Includes
 #include "Definitions.h"
 
+// Forward declarations
 class Popup;
 class Player;
 
@@ -35,8 +37,8 @@ private:
 	Label* m_pItemsValueLabel;
 	Label* m_pBoostersValueLabel;
 	Label* m_pFoodValueLabel;
-	Popup* popup;
 	MenuItemImage *menu_item_pause;
+	Popup* popup;
 	Player* m_pPlayer;
 };
 

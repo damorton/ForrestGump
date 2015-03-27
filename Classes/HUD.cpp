@@ -1,6 +1,10 @@
+
+// Includes
 #include "HUD.h"
 #include "WorldManager.h"
+#include "GameScene.h"
 #include "Popup.h"
+#include "Player.h"
 
 bool HUD::init()
 {	
@@ -132,5 +136,5 @@ void HUD::togglePause(bool paused)
 
 void HUD::hudCleanup()
 {
-	CCLOG("HUD Cleanup");
+	//CCLOG("HUD Cleanup");
 }
