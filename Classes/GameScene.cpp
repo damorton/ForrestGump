@@ -1,3 +1,16 @@
+/*
+Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+http://www.grandtheftmuffins.esy.es/
+
+Third year games design and development project. Grand Theft Muffins endless runner game
+written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org
+
+GameScene.cpp
+
+Description: Game Scene implementation
+
+*/
 #include "GameScene.h"
 #include "Definitions.h"
 #include "WorldManager.h"
@@ -12,11 +25,12 @@ USING_NS_CC;
 
 Scene* GameScene::createScene()
 {	
+	// Creates scene with physics
 	auto scene = Scene::createWithPhysics();
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);	
 	scene->getPhysicsWorld()->setGravity((WorldManager::getInstance()->getGravity()));
 	scene->setTag(TAG_GAME_SCENE);
 	
+	// Creates gameLayer with physics
 	auto gameLayer = GameScene::create();
 	gameLayer->SetPhysicsWorld(scene->getPhysicsWorld()); // set the layers physics		
 	scene->addChild(gameLayer, 0, TAG_GAME_LAYER);
@@ -24,6 +38,7 @@ Scene* GameScene::createScene()
 	return scene;
 }
 
+// Init 
 bool GameScene::init()
 {
 	if (!Layer::init())
@@ -33,29 +48,25 @@ bool GameScene::init()
 	this->initializeGame();
 	return true;
 }
-
+// Game Initialization 
 bool GameScene::initializeGame()
 {	
+	// Initializes all game aspects
 	WorldManager::getInstance()->setGameWorldSpeed(WORLD_MOVEMENT_SPEED);
 	WorldManager::getInstance()->setEnemyMovementSpeed(ENEMY_MOVEMENT_SPEED);
 	WorldManager::getInstance()->setGravity(GRAVITATIONAL_FORCE);
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	
+	// Plays Background Music for Game Scene
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/8bitDungeonLevel.wav", true);
-		
-
-	// game play layer
-	//gamePlayLayer = Layer::create();
-	//this->addChild(gamePlayLayer, 0, TAG_GAME_LAYER);
 	
-	//Background
+	// Background
 	m_pParallax = Parallax::create();
 	this->addChild(m_pParallax, -1, "parallax");
 	m_pParallax->addBackground("background/backgroundFirst.png", "background/backgroundSecond.png", "background/backgroundThird.png", "background/backgroundFourth.png", "background/floorBoundaries.png");
 
-	//Player
+	// Player
 	m_pPlayer = Player::create("sprites/playerRunning01.png");
 	this->addChild(m_pPlayer, 1);
 		
@@ -82,23 +93,22 @@ bool GameScene::initializeGame()
 	WorldManager::getInstance()->setTimePlayedSeconds(m_nGameTime);
 	this->schedule(schedule_selector(GameScene::updateTimer), 1.0f);	
 	
+	// Initializes paused to false
 	m_bPaused = false;
-
-	/*auto shield = Shield::create("sprites/shieldWithSwords.png");
-	shield->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));
-	this->addChild(shield);*/
 
 	this->scheduleUpdate();	
 	CCLOG("Game scene initialized");
 	return true;
 }
 
+// Updates Game Timer
 void GameScene::updateTimer(float dt)
 {	
 	m_nGameTime++;
 	CCLOG("Updating game timer : %d seconds", m_nGameTime);
 }
 
+// Updates Game Scene
 void GameScene::update(float delta)
 {
 	//CCLOG("-------------GAME LOOP START--------------");	
@@ -121,12 +131,14 @@ void GameScene::update(float delta)
 	//CCLOG("-------------GAME LOOP END--------------");
 }
 
+// Gets the Users Touch
 inline Point locationInGLFromTouch(Touch& touch)
 {
 	auto director = Director::getInstance();
 	return director->convertToGL(touch.getLocationInView());
 }
 
+// Sets Player to jump when screen is touched
 bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event) 
 {
 	if (!m_bPaused)
@@ -136,26 +148,22 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	return true;
 }
 
-
+// Goes to Game Over
 void GameScene::gameOver()
 {		
-	//CCLOG("Game Scene: Game over called");
-
 	this->pause();
 
 	// Time played in game	
 	WorldManager::getInstance()->setTimePlayedSeconds(m_nGameTime);	
 
-	// Death sequence here!!
 	Director::getInstance()->replaceScene(TransitionFade::create(1, GameOver::createScene()));	
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);	
 	
 }
 
+// Goes to main menu
 void GameScene::mainMenu()
 {
-	//CCLOG("Game Scene: Main menu called");
-
 	// Pause game layer
 	this->pause();
 
@@ -167,10 +175,9 @@ void GameScene::mainMenu()
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);		
 }
 
+// Pauses Game
 void GameScene::pauseGame()
 {
-	//CCLOG("Game Scene: Pause game called");
-
 	if (!m_bPaused)
 	{
 		m_bPaused = true;	

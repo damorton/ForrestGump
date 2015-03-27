@@ -1,4 +1,4 @@
-/*---------------------------------------------------------------------------
+/*
 Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
 
 http://www.grandtheftmuffins.esy.es/
@@ -10,7 +10,7 @@ Splash.h
 
 Description: Creates splash scene which is the intro scene for Grand Theft Muffins
 
----------------------------------------------------------------------------*/
+*/
 
 #ifndef SPLASH_H
 #define SPLASH_H
@@ -21,20 +21,20 @@ class Splash : public cocos2d::Layer
 {
 public:	
 
-	/* @brief function to create scene */
+	// Create scene 
 	static cocos2d::Scene* createScene();
 
-	/* @brief init function to initialise splash screen */
+	// Init function t
 	virtual bool init();
 
-	// @brief selector callback
+	// Selector Callback
 	void menuCloseCallback(cocos2d::Ref* pSender);
 
-	/* @brief implement the "static create()" method manually */
+	// Implement the "static create()" method manually 
 	CREATE_FUNC(Splash);
 
 private:
-	/* @brief function to go to main menu */
+	// Function to go to main menu 
 	void goToMainMenuScene(float dt);
 };
 
