@@ -61,6 +61,8 @@ bool CollectableFactory::initTilePositions(TMXLayer* layer, std::string name)
 
 bool CollectableFactory::spawnSprites()
 {		
+	// Sprites and spawned randomly and called by the name
+	// given to them when they were initialised
 	int randomnumber;
 	int numberOfLayers = 7;	
 	randomnumber = (rand() % numberOfLayers);
@@ -96,6 +98,8 @@ bool CollectableFactory::spawnSprites()
 
 bool CollectableFactory::activateItems(std::string name)
 {	
+	// Loop through the vector of items and initilise items identified
+	// by the name param
 	if (!m_vpItems.empty())
 	{
 		for (auto &item : m_vpItems)
@@ -104,6 +108,8 @@ bool CollectableFactory::activateItems(std::string name)
 			{
 				if (item->getName() == name)
 				{
+					// Items must be visible and in the active vector in order
+					// to be collected by the player
 					item->setVisible(true);
 					m_vpActiveItems.push_back(item);
 					m_cActiveItems++;

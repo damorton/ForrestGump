@@ -35,6 +35,7 @@ public:
 		Tile map contains a number of layers.
 
 		@param const std::string& filename TMX Tiled Map filepath
+		@return bool true if successful
 	*/
 	bool addTMXTileMap(const std::string& filename);
 
@@ -71,6 +72,7 @@ public:
 		@return true if successful
 	*/
 	bool activateItems(std::string name);
+	
 	
 	void setTileMap(TMXTiledMap* tilemap){ m_pTileMap = tilemap; };		
 	bool isSpawned(){ return m_bIsSpawned; };
