@@ -1,11 +1,10 @@
 #ifndef HUD_H_
 #define	HUD_H_
 
-#include "cocos2d.h"
-#include "Popup.h"
-#include "Player.h"
+#include "Definitions.h"
 
-USING_NS_CC;
+class Popup;
+class Player;
 
 class HUD : public cocos2d::Layer
 {

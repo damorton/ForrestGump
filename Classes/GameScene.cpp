@@ -12,16 +12,15 @@ Description: Game Scene implementation
 
 */
 #include "GameScene.h"
-#include "Definitions.h"
 #include "WorldManager.h"
 #include "CollisionManager.h"
+#include "CollectableFactory.h"
+
 #include "MainMenu.h"
 #include "GameOver.h"
 #include "Player.h"
 #include "audio/include/SimpleAudioEngine.h"
 #include "Shield.h"
-
-USING_NS_CC;
 
 Scene* GameScene::createScene()
 {	
@@ -51,10 +50,13 @@ bool GameScene::init()
 // Game Initialization 
 bool GameScene::initializeGame()
 {	
+
 	// Initializes all game aspects
-	WorldManager::getInstance()->setGameWorldSpeed(WORLD_MOVEMENT_SPEED);
-	WorldManager::getInstance()->setEnemyMovementSpeed(ENEMY_MOVEMENT_SPEED);
-	WorldManager::getInstance()->setGravity(GRAVITATIONAL_FORCE);
+	m_pWorldManager = WorldManager::getInstance();
+	m_pCollisionManager = CollisionManager::getInstance();
+	m_pWorldManager->setGameWorldSpeed(WORLD_MOVEMENT_SPEED);
+	m_pWorldManager->setEnemyMovementSpeed(ENEMY_MOVEMENT_SPEED);
+	m_pWorldManager->setGravity(GRAVITATIONAL_FORCE);
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
@@ -114,10 +116,10 @@ void GameScene::update(float delta)
 	//CCLOG("-------------GAME LOOP START--------------");	
 
 	// Game world speed
-	if (WorldManager::getInstance()->getGameWorldSpeed() < MAX_GAME_SPEED && m_pPlayer->getDistance() % 200 == 0)
+	if (m_pWorldManager->getGameWorldSpeed() < MAX_GAME_SPEED && m_pPlayer->getDistance() % 200 == 0)
 	{
-		WorldManager::getInstance()->increaseGameWorldSpeed();
-		WorldManager::getInstance()->increaseEnemyMovementSpeed();
+		m_pWorldManager->increaseGameWorldSpeed();
+		m_pWorldManager->increaseEnemyMovementSpeed();
 	}
 
 	m_pPlayer->update();	
@@ -126,7 +128,7 @@ void GameScene::update(float delta)
 	m_pParallax->update();
 	m_HudLayer->update();
 	
-	CollisionManager::getInstance()->checkCollisions();
+	m_pCollisionManager->checkCollisions();
 	
 	//CCLOG("-------------GAME LOOP END--------------");
 }

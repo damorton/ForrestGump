@@ -4,7 +4,8 @@
 	http://www.grandtheftmuffins.esy.es
 
 	Third year games design and development project. Grand Theft Muffins endless runner game
-	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org
+	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org. Back-end game analytics
+	and statistics system built using a LAMP stack, Linux, Apache, MySQL and PHP. Hosted locally and remotely.
 
 	CollectableFactory.h
 
@@ -15,7 +16,6 @@
 	by the collectable factory.The TMX Tile Maps are created using the Tiled Map Editor software.
 	http://www.mapeditor.org
 */
-
 #include "CollectableFactory.h"
 #include "Definitions.h"
 #include "WorldManager.h"
@@ -94,12 +94,12 @@ bool CollectableFactory::initTilePositions(TMXLayer* layer, std::string name)
 
 bool CollectableFactory::spawnSprites()
 {		
-	// Sprites and spawned randomly and called by the name
-	// given to them when they were initialised
+	// Sprites are spawned randomly and called by the name given to them when they were initialised
 	int randomnumber;
 	int numberOfLayers = 7;	
 	randomnumber = (rand() % numberOfLayers);
 		
+	// Switch statment will choose a layer based on the random number
 	switch (randomnumber)
 	{
 	case 0:
@@ -176,8 +176,7 @@ void CollectableFactory::resetItem(Sprite* item)
 
 void CollectableFactory::moveSprites()
 {	
-	// Loop through the active items vector and move each sprite from right to left
-	// accross the screen
+	// Loop through the active items vector and move each sprite from right to left accross the screen
 	if (!m_vpActiveItems.empty())
 	{		
 		for (std::vector<Sprite*>::size_type it = 0; it < m_vpActiveItems.size(); ++it)

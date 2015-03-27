@@ -14,13 +14,17 @@ Description: Creates Game scene for the game
 #ifndef __GAMESCENE_SCENE_H__
 #define __GAMESCENE_SCENE_H__
 
-#include "cocos2d.h"
+#include "Definitions.h"
+
 #include "CollectableFactory.h"
 #include "HUD.h"
 #include "Parallax.h"
 #include "Player.h"
 #include "SpawnManager.h"
 #include "Enemy.h"
+
+class WorldManager;
+class CollisionManager;
 
 USING_NS_CC;
 
@@ -69,6 +73,8 @@ private:
 	Player* m_pPlayer;
 	CollectableFactory* m_pCollectableFactory;
 	SpawnManager* m_pSpawnManager;
+	WorldManager* m_pWorldManager;
+	CollisionManager* m_pCollisionManager;
 	Enemy m_enemey;	
 
 	int spawnSegmentTimer;

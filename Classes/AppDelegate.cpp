@@ -1,3 +1,20 @@
+/*
+	Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+	http://www.grandtheftmuffins.esy.es
+
+	Third year games design and development project. Grand Theft Muffins endless runner game
+	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org. Back-end game analytics
+	and statistics system built using a LAMP stack, Linux, Apache, MySQL and PHP. Hosted locally and remotely.
+
+	AppDelegate.cpp
+
+	Description: AppDelegate is used by Cocos2dx to setup a project on a device. The Window is created using 
+	GLView and the resources folders are added to the search directories so that the device resolution can be used
+	to create assets that will suit different screen sizes. A scene is created and the singleton director will 
+	control the scene management App Delegate is created as standard in all new Cocos2dx projects and only slight 
+	modifications are needed to address different device resolutions.	
+*/
 #include "AppDelegate.h"
 #include "Definitions.h"
 #include "Splash.h"

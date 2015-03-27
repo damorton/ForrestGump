@@ -1,7 +1,7 @@
 #ifndef POPUP_H__
 #define POPUP_H__
 
-#include "cocos2d.h"
+#include "Definitions.h"
 
 class Popup : public cocos2d::Sprite
 {

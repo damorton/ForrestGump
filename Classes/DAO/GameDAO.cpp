@@ -2,9 +2,10 @@
 	Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
 
 	http://www.grandtheftmuffins.esy.es
-
+	
 	Third year games design and development project. Grand Theft Muffins endless runner game
-	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org
+	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org. Back-end game analytics
+	and statistics system built using a LAMP stack, Linux, Apache, MySQL and PHP. Hosted locally and remotely.
 
 	GameDAO.cpp
 
@@ -154,6 +155,7 @@ void GameDAOMySQL::read(cocos2d::network::HttpClient *sender, cocos2d::network::
 
 void GameDAOMySQL::update(std::string requestString)
 {
+	// Remote MySQL
 	// Update the remote database with POST request
 	cocos2d::network::HttpRequest* remoteRequest = new (std::nothrow) cocos2d::network::HttpRequest();
 
@@ -169,6 +171,23 @@ void GameDAOMySQL::update(std::string requestString)
 	cocos2d::network::HttpClient::getInstance()->send(remoteRequest);
 	//CCLOG("%s", requestString.c_str());	
 	remoteRequest->release();
+
+	// Local MySQL
+	// Update the remote database with POST request
+	cocos2d::network::HttpRequest* localRequest = new (std::nothrow) cocos2d::network::HttpRequest();
+
+	// Set the remote database URL
+	localRequest->setUrl("http://localhost/update_db.php/");
+
+	// Request type is POST
+	localRequest->setRequestType(cocos2d::network::HttpRequest::Type::POST);
+	localRequest->setResponseCallback(CC_CALLBACK_2(GameDAOMySQL::read, this));
+	localRequest->setRequestData(requestString.c_str(), requestString.length());
+
+	// Send the request to the PHP script on the server
+	cocos2d::network::HttpClient::getInstance()->send(localRequest);
+	//CCLOG("%s", requestString.c_str());	
+	localRequest->release();
 }
 
 void GameDAOMySQL::del()

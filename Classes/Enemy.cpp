@@ -42,7 +42,7 @@ void Enemy::getRandomSpeed()
 
 void Enemy::runAI()
 {
-	CCLOG("Running Enemy AI");
+	//CCLOG("Running Enemy AI");
 }
 
 void Enemy::update()
@@ -52,7 +52,7 @@ void Enemy::update()
 
 void Enemy::enemyCleanUp()
 {	
-	CCLOG("Enemy cleanup");
+	//CCLOG("Enemy cleanup");
 }
 
 // Get Enemy by name and animate

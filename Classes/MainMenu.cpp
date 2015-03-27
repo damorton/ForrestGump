@@ -1,9 +1,8 @@
+#include "audio/include/SimpleAudioEngine.h"
 #include "MainMenu.h"
 #include "GameScene.h"
 #include "WorldManager.h"
-#include "audio/include/SimpleAudioEngine.h"
-
-USING_NS_CC;
+#include "Popup.h"
 
 Scene* MainMenu::createScene()
 {
@@ -129,11 +128,6 @@ void MainMenu::sound(CCObject* pSender)
 	 
 }
 
-void MainMenu::mainMenuCleanup()
-{
-	CCLOG("Main menu cleanup");
-}
-
 void MainMenu::createTF()
 {
 	m_pTextField = TextFieldTTF::textFieldWithPlaceHolder("ENTER USERNAME", LABEL_FONT_ROBOTO, LABEL_FONT_SIZE);
@@ -192,7 +186,7 @@ bool MainMenu::onTextFieldInsertText(TextFieldTTF *pSender, const char *text, si
 		return true;
 	}
 		
-	// create a insert text sprite and do some action
+	// Create a insert text sprite and do some action to add an effect
 	auto label = Label::createWithSystemFont(text, LABEL_FONT_ROBOTO, LABEL_FONT_SIZE);
 	this->addChild(label);	
 	label->setColor(Color3B::YELLOW);
@@ -291,4 +285,10 @@ void MainMenu::keyboardWillShow(IMEKeyboardNotificationInfo &info)
 void MainMenu::keyboardWillHide(IMEKeyboardNotificationInfo &info)
 {
 	
+}
+
+void MainMenu::mainMenuCleanup()
+{
+	popupSettings = NULL;
+	//CCLOG("Main menu cleanup");
 }
