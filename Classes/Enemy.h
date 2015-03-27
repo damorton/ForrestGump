@@ -8,9 +8,9 @@ written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org
 
 Enemy.h
 
-Description: Class responsable for create the enemies.
+Description: Class responsible for create the enemies.
 There are two mains types of enemies, Flight enemies and Ground enemies.
-This class is also responsable for animate themselves.
+This class is also responsible for animate themselves.
 
 */
 

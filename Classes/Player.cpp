@@ -8,7 +8,9 @@ written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org
 
 Player.cpp
 
-Description:
+Description: Player is responsible to create our hero.
+Details such as collectables items and score are set here.
+This class is also responsible for animate themselves.
 
 */
 
@@ -18,6 +20,7 @@ Description:
 #include "GameOver.h"
 #include "audio/include/SimpleAudioEngine.h"
 
+// Creates the Player
 Player* Player::create(const std::string& filename)
 {
 	Player* pSprite = new Player();
@@ -31,6 +34,7 @@ Player* Player::create(const std::string& filename)
 	return NULL;
 }
 
+// Initialize the player class
 bool Player::init()
 {		
 	setType(PLAYER);
@@ -57,7 +61,7 @@ bool Player::init()
 	// Set the player position
 	this->setPosition(Vec2(PLAYER_POSITION_IN_WINDOW, SCREEN_ORIGIN.y + WorldManager::getInstance()->getFloorSprite()->getContentSize().height + this->getContentSize().height / 2));
 	
-	// set physics for the player
+	// Set physics for the player
 	auto playerPhysicsBody = PhysicsBody::createBox(Size(this->getContentSize().width, this->getContentSize().height -1), PHYSICSBODY_MATERIAL_DEFAULT);	
 	playerPhysicsBody->setDynamic(true);
 	playerPhysicsBody->setGravityEnable(true);
@@ -68,19 +72,19 @@ bool Player::init()
 	// Animate the player
 	this->getAnimationWithFrames("sprites/playerRunning%02d.png", 4);
 
-	// create jetpack for the player
+	// Create jetpack for the player
 	m_pJetpack = Sprite::create("sprites/jetpackUp.png");
 	m_pJetpack->setPosition(Vec2(0, this->getContentSize().height / 2));
 	this->addChild(m_pJetpack, -1);
 	
-	// create particles for the players jetpack
+	// Create particles for the players jetpack
 	auto jetpackFire = ParticleSystemQuad::create("particles/jetpackFire.plist");		
 	jetpackFire->setPosition(Vec2::ZERO);
 	jetpackFire->setAutoRemoveOnFinish(true);	
 	jetpackFire->setScale(0.4);
 	m_pJetpack->addChild(jetpackFire, 0, "jetpackFire");
 
-	// create the force field shield for the player
+	// Create the force field shield for the player
 	m_pShield = Sprite::create("sprites/shield.png");
 	m_pShield->setPosition(this->getContentSize().width / 2, this->getContentSize().height / 2);
 	m_pShield->setVisible(false);
@@ -93,7 +97,7 @@ bool Player::init()
 	return true;
 }
 
-// adds coins to the count when player collects coins
+// Adds coins to the count when player collects coins
 void Player::addCoin()
 {
 	m_nCoins++;
@@ -101,6 +105,7 @@ void Player::addCoin()
 	this->addParticlesGameObjects("particles/coin.plist", this->getContentSize().width, this->getContentSize().height, 1, 0.5);
 }
 
+// Adds boosters to the count when player collects boosters
 void Player::addBooster()
 {
 	m_nBoosters++;
@@ -110,6 +115,7 @@ void Player::addBooster()
 
 }
 
+// Adds food to the count when player collects food
 void Player::addFood()
 {
 	m_nFood++;
@@ -119,6 +125,7 @@ void Player::addFood()
 	this->addParticlesGameObjects("particles/Muffin.plist", this->getContentSize().width / 2, 0, 1, 0.5);
 }
 
+// Adds items to the count when player collects items
 void Player::addItem()
 {
 	m_nItems++;
@@ -126,6 +133,7 @@ void Player::addItem()
 	this->addParticlesGameObjects("particles/DiamondPar3.plist", this->getContentSize().width, this->getContentSize().height, 1, 0.5);
 }
 
+// Adds Particles effects
 void Player::addParticle()
 {
 	m_pEmitter = CCParticleSystemQuad::create("particles/Shadow.plist");
@@ -137,6 +145,7 @@ void Player::addParticle()
 	
 }
 
+// Activate the shield
 void Player::setGodMode()
 {
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Powerup_32.wav", false, 1.0, 1.0, 1.0);
@@ -145,6 +154,7 @@ void Player::setGodMode()
 	m_pShield->setVisible(true);	
 }
 
+// Desactivate the shield
 void Player::unsetGodMode()
 {
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Powerup_32.wav", false, 1.0, 1.0, 1.0);
@@ -152,6 +162,7 @@ void Player::unsetGodMode()
 	m_pShield->setVisible(false);
 }
 
+// Adds Particle Effects to the objects
 void Player::addParticlesGameObjects(std::string path, float a, float b, int totalPar, float duration)
 {
 	m_pGameObjectEmitter = CCParticleSystemQuad::create(path);
@@ -162,20 +173,16 @@ void Player::addParticlesGameObjects(std::string path, float a, float b, int tot
 	m_pGameObjectEmitter->setAutoRemoveOnFinish(true);
 }
 
-void Player::resetCoins()
-{
-	m_nCoins = 0;
-}
 // Player jump method
 void Player::jump()
 {	
-	// if player is running when jump is called
+	// If player is running when jump is called
 	if (m_ePlayerAction == RUNNING)
 	{
 		// Play a jump sound effect
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40.wav", false, 1.0f, 1.0f, 1.0f);		
 	}	
-	// if back pack action = BP_UP
+	// If back pack action = BP_UP
 	if (m_eBackpackAction == BP_UP)
 	{
 		m_pJetpack->setSpriteFrame(SpriteFrame::create("sprites/jetpackDown.png", Rect(0, 0, m_pJetpack->getContentSize().width, m_pJetpack->getContentSize().height)));
@@ -193,6 +200,7 @@ void Player::jump()
 	}
 }
 
+// Player update method
 void Player::update()
 {			
  
@@ -202,19 +210,19 @@ void Player::update()
 	// Increment player distance travelled
 	m_nDistance++;
 
-	// if player is in god mode
+	// If player is in god mode
 	if (isGod())
 	{
-		// increase count
+		// Increase count
 		m_nCount++;
 
-		// if count is greater than 500
+		// If count is greater than 500
 		if (m_nCount > 500)
 		{
-			// turn off god mode
+			// Turn off god mode
 			this->unsetGodMode();
 
-			// reset count
+			// Reset count
 			m_nCount == 0;
 		}		
 	}	
@@ -237,6 +245,8 @@ void Player::update()
 			m_pEmitter->resume();
 		}		
 	}
+
+	// Jumping animation
 	else
 	{
 		if (m_ePlayerAction == RUNNING)
@@ -248,7 +258,7 @@ void Player::update()
 		}		
 	}
 
-	// reset player poisiton 
+	// Reset player poisiton 
 	this->setPositionX(PLAYER_POSITION_IN_WINDOW);
 			
 
@@ -258,11 +268,13 @@ void Player::update()
 	}		
 }
 
+// On touch screen, hero jumps
 void Player::touch(const Point& location)
 {	
 	this->jump();	
 }
 
+// TODO : Implement clean up function 
 void Player::playerCleanup()
 {
 	CCLOG("Player cleanup");
@@ -286,6 +298,7 @@ void Player::getAnimationWithFrames(char* enemyAnimation, int frames){
 	this->runAction(repeat);
 }
 
+// Effects for Enemy death
 void Player::addEnemyDeathParticle()
 {
 	auto EnemyDeathParticle = ParticleSystemQuad::create("particles/enemyDeath.plist");
@@ -294,6 +307,8 @@ void Player::addEnemyDeathParticle()
 	EnemyDeathParticle->setScale(0.2);
 	this->addChild(EnemyDeathParticle);
 }
+
+// Pause hero movement
 void Player::pausePlayer()
 {
 	// Pause the player
@@ -301,6 +316,7 @@ void Player::pausePlayer()
 	this->pause();	
 }
 
+// Resume hero movement
 void Player::resumePlayer()
 {
 	m_pJetpack->getChildByName("jetpackFire")->resume();
