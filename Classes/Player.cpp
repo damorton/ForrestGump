@@ -9,15 +9,9 @@
 
 	Player.cpp
 
-<<<<<<< HEAD
-Description: Player is responsible to create our hero.
-Details such as collectables items and score are set here.
-This class is also responsible for animate themselves.
-=======
 	Description: The player class handles all player functionality. It
 	keeps track on the player current state and actions at all times. We handle
 	touches here also by registering the touch to make the player jump etc.
->>>>>>> d8740ba5c8541181b561aceb4e28f3902e617c6b
 
 */
 
