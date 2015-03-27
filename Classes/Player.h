@@ -1,3 +1,19 @@
+/*
+	Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+	http://www.grandtheftmuffins.esy.es
+
+	Third year games design and development project. Grand Theft Muffins endless runner game
+	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org. Back-end game analytics
+	and statistics system built using a LAMP stack, Linux, Apache, MySQL and PHP. Hosted locally and remotely.
+
+	Player.h
+
+	Description: The player class handles all player functionality. It
+	keeps track on the player current state and actions at all times. We handle
+	touches here also by registering the touch to make the player jump etc.
+*/
+
 #ifndef PLAYER_H_
 #define	PLAYER_H_
 
@@ -6,128 +22,194 @@
 
 USING_NS_CC;
 
-/* ---------------------------------------------------------------------------
-** Player.h
-**
-** Description: Player class which handles player functionality and current state.
-**
-** Author: Donnchadh Murphy, David Morton, Georgina Sheehan, Tiago Oliveira
-**-------------------------------------------------------------------------*/
-
 class Player : public Sprite, public Character
 {
 public:	
-	/* @brief player deconstructor */
+	// Deconstrcutor
 	virtual ~Player(){ this->playerCleanup(); };
-	/* @brief init function that sets our players initial states and registers the player with the Collision and World Manager */
+
+	// Init
 	virtual bool init();
-	/* @brief deallocates player resources */
+	
+	// Clean
 	void playerCleanup();
 
-	/* defining player actions */
+	// Defining player actions
 	typedef enum { BOOSTING, JUMPING, RUNNING } EPlayerAction;
-	/* defining player jetpack actions */
+
+	// Defining player jetpack actions
 	typedef enum { BP_UP, BP_DOWN } EBackpackAction;
-	/* creating player using filepath */
+
+	// Creating player using filepath
 	static Player* create(const std::string& filename);
 
-	/* @brief player jump function */
+	// Player jump function
 	void jump();
-	/* @brief deallocates player resources
-	   @param point touched
+
+	/* 
+		Handles player touches
+
+		@param point touched
 	*/
-	void touch(const Point& location);	
-	/* @brief player update function, handles state and position*/
+	void touch(const Point& location);
+
+	// Player update function, handles state and position
 	void update();
-	/* @brief pauses all player actions */
+
+	// Pauses all player actions
 	void pausePlayer();
-	/* @brief resumes all player actions */
+
+	// Resumes all player actions
 	void resumePlayer();
-	/* @brief gets game object type
-	   @return returns game obkect type
+
+	/* 
+		Gets game object type
+
+		@return game object type
 	*/
 	EGameOjectType getType(){ return m_eType; };
-	/* @brief gets the players current state 
-	   @return returns the players current state
+
+	/* 
+		Gets the players current state 
+
+		@return player state
 	*/
 	int getState(){ return m_eState; };
-	/* @brief gets the players current action
-	   @return returns the players current action
+
+	/* 
+		Gets the players current action
+
+		@return player action
 	*/
 	int getAction(){ return m_ePlayerAction; }
-	/* @brief gets the players high score
-	   @return returns the players high score
+
+	/* 
+		Gets the players high score
+
+		@return high score
 	*/
 	int getHighScore(){ return m_nHighscore; };
-	/* @brief gets the players current distance
-	   @return returns the players current distance
+
+	/* 
+		Gets the players current distance
+
+		@return distance
 	*/
 	int getDistance(){ return m_nDistance; };
-	/* @brief gets the players current coins
-	   @return returns the players current coins
+
+	/* 
+		Gets the players current coins
+
+		@return coins
 	*/
 	int getCoins(){ return m_nCoins; };
-	/* @brief gets the players current items
-	   @return returns the players current items
+
+	/* 
+		Gets the players current items
+
+		@return items
 	*/
 	int getItems(){ return m_nItems; };
-	/* @brief gets the players current boosters
-	   @return returns the players current boosters
+
+	/* 
+		Gets the players current boosters
+
+		@return boosters
 	*/
 	int getBoosters(){ return m_nBoosters; };
-	/* @brief gets the players current food
-	   @return returns the players current food
+
+	/* 
+		Gets the players current food
+
+		@return food
 	*/
 	int getFood(){ return m_nFood; };
-	/* @brief gets the number of enemies killed
-	   @return returns the number of enemies killed
+
+	/* 
+		Gets the number of enemies killed
+
+		@return number of enemies killed
 	*/
 	int getEnemiesKilled(){ return m_nEnemiesKilled; };	
-	/* @brief gets the player shield
-	   @return returns the shield sprite
+
+	/* 
+		Gets the player shield
+
+		@return the shield sprite
 	*/
 	Sprite* getShield(){ return m_pShield; };
-	/* @brief sets the players game object type */
+
+	// Sets the players game object type
 	void setType(EGameOjectType type){ m_eType = type; };
-	/* @brief sets the players state */
+
+	// Sets the players state
 	void setState(ECharacterState state){ m_eState = state; };
-	/* @brief sets the players action */
+
+	// Sets the players action
 	void setAction(EPlayerAction action){ m_ePlayerAction = action; };
-	/* @brief sets the players jetpacks action */
+
+	// Sets the players jetpacks action
 	void setBPAction(EBackpackAction bpAction){ m_eBackpackAction = bpAction; };
-	/* @brief sets the players highscore */
+
+	// Sets the players highscore
 	void setHighscore(int value){ m_nHighscore = value; };
-	/* @brief not implemented */
+
+	// Not implemented
 	void addDistance();
-	/* @brief adds audio and particle effects to the coin */
+
+	// Adds audio and particle effects to the coin
 	void addCoin();
-	/* @brief adds audio and particle effects to the items */
+
+	// Adds audio and particle effects to the items
 	void addItem();
-	/* @brief adds audio and particle effects to the boosters */
+
+	// Adds audio and particle effects to the boosters
 	void addBooster();
-	/* @brief adds audio and particle effects to the food */
+
+	// Adds audio and particle effects to the food
 	void addFood();
-	/* @brief adds audio and particle effects to killing enemies */
+
+	// Adds audio and particle effects to killing enemies
 	void addEnemiesKilled(){ m_nEnemiesKilled++; }
-	/* @brief adds particle effects */
+
+	// Adds particle effects
 	void addParticle();
-	/* @brief gets path to particles and allows us to edit them 
-	   @param path, particle width, particle height, number of particles, effect duration
+
+	/* 
+		Gets path to particles and allows us to edit them 
+
+		@param path
+		@param particle width
+		@param particle height
+		@param number of particles
+		@param effect duration
 	*/
 	void addParticlesGameObjects(std::string path, float a, float b, int totalPar, float duration);
-	/* @brief resets coins */
+
+	// Adds player death particles
 	void addEnemyDeathParticle();
+
+	// Resets coins
 	void resetCoins();
-	/* @brief enables God Mode */
+
+	// Enables God Mode
 	void setGodMode();
-	/* @brief disables God Mode */
+
+	// Disables God Mode
 	void unsetGodMode();
-	/* @brief checks to see if God Mode is enabled
-	   @return bool isGod
+
+	/* 
+		Checks to see if God Mode is enabled	
+
+		@return bool isGod
 	*/
 	bool isGod(){ return m_bGodMode; };
-	/* @brief gets the players animation
-	   @param players animation, number of frames
+
+	/* 
+		Gets the players animation
+
+		@param players animation
+		@param number of frames
 	*/
 	void getAnimationWithFrames(char* enemyAnimation, int frames);
 
