@@ -121,7 +121,8 @@ querying the database and returning specific results.-->
 			
 			<!-- Added : Create the graphs using the playerDeathsGraph.php scripts
 			TODO : create new scripts for generating specific graphs e.g time in game VS highscores-->
-			<img src="graphs/playerDeathsGraph.php"><img src="graphs/playerDeathsGraph.php">
+			<!--<img src="graphs/playerDeathsGraph.php"><img src="graphs/playerDeathsGraph.php">-->
+			<img src="graph.php"><img src="graph.php">
 		</div>
 	</div>
 </div>

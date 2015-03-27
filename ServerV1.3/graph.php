@@ -32,7 +32,7 @@ $data = array(
 );
 
 // Create a new graph
-$plot = new PHPlot(800, 600);
+$plot = new PHPlot(500,300);
 
 // Customize the graph
 $plot->SetImageBorderType('plain');
