@@ -18,13 +18,9 @@
 #include <iostream>
 #include "audio/include/SimpleAudioEngine.h"
 #include "CollisionManager.h"
-#include "CollectableFactory.h"
 #include "WorldManager.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "GameScene.h"
-#include "GameOver.h"
-
 
 CollisionManager* CollisionManager::m_Instance = 0;
 
@@ -36,8 +32,9 @@ CollisionManager* CollisionManager::getInstance()
 }
 
 bool CollisionManager::init()
-{	
-	m_pPlayer = WorldManager::getInstance()->getPlayer();
+{		
+	m_pWorldManager = WorldManager::getInstance();
+	m_pPlayer = m_pWorldManager->getPlayer();
 	return true;
 }
 
@@ -148,7 +145,7 @@ void CollisionManager::checkCollisionsWithEnemies()
 						else
 						{					
 							// The player is killed and the gaem over scene is loaded
-							WorldManager::getInstance()->gameLayer()->gameOver();
+							m_pWorldManager->gameLayer()->gameOver();
 							
 							// Player will lose all coins if hit by and enemy and will die if coins are 0
 							/*
@@ -189,7 +186,7 @@ void CollisionManager::checkCollisionsWithShields()
 					{
 						// Set the player to GOD MODE!!
 						shield->setVisible(false);
-						WorldManager::getInstance()->getPlayer()->setGodMode();
+						m_pWorldManager->getPlayer()->setGodMode();
 					}
 				}
 			}

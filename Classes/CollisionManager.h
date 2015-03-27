@@ -24,11 +24,10 @@
 #include "Definitions.h"
 
 // Forward declarations
+class WorldManager;
 class Player;
 class Enemy;
 class Shield;
-
-USING_NS_CC;
 
 class CollisionManager
 {
@@ -74,7 +73,9 @@ private:
 	std::deque<Sprite*> m_vpItems;
 
 	// a vector to hold the shields
-	std::vector<Shield*> m_vpShields;
+	std::vector<Shield*> m_vpShields; 
+	
+	WorldManager* m_pWorldManager;
 
 };
 

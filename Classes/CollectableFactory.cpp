@@ -17,7 +17,6 @@
 	http://www.mapeditor.org
 */
 #include "CollectableFactory.h"
-#include "Definitions.h"
 #include "WorldManager.h"
 #include "CollisionManager.h"
 
@@ -28,6 +27,8 @@ bool CollectableFactory::init()
 	{
 		return false;
 	}			
+	m_pWorldManager = WorldManager::getInstance();
+	m_pCollisionManager = CollisionManager::getInstance();
 
 	// Initialise and parse the TMX Tiled Map and its layers
 	this->addTMXTileMap("maps/SpawnManagerMap.tmx");	
@@ -81,7 +82,7 @@ bool CollectableFactory::initTilePositions(TMXLayer* layer, std::string name)
 			if (item)
 			{				
 				item->setName(name);
-				item->setPosition(Vec2(item->getPositionX() + VISIBLE_SIZE_WIDTH, SCREEN_ORIGIN.y + WorldManager::getInstance()->getFloorSprite()->getContentSize().height + item->getPositionY()));
+				item->setPosition(Vec2(item->getPositionX() + VISIBLE_SIZE_WIDTH, SCREEN_ORIGIN.y + m_pWorldManager->getFloorSprite()->getContentSize().height + item->getPositionY()));
 				item->setVisible(true);
 
 				// Register the item with the collectable factory
@@ -146,7 +147,7 @@ bool CollectableFactory::activateItems(std::string name)
 					item->setVisible(true);
 					m_vpActiveItems.push_back(item);
 					m_cActiveItems++;
-					CollisionManager::getInstance()->addItem(item);
+					m_pCollisionManager->addItem(item);
 				}
 			}
 		}		
@@ -167,7 +168,7 @@ void CollectableFactory::resetItem(Sprite* item)
 		m_cActiveItems--;
 
 		// Remove the sprite from the collision manager
-		CollisionManager::getInstance()->removeItem();
+		m_pCollisionManager->removeItem();
 	}
 
 	// If the active item count is zero, clear the vector to be safe
@@ -184,7 +185,7 @@ void CollectableFactory::moveSprites()
 			auto item = m_vpActiveItems.at(it);
 			if (item)
 			{
-				item->setPosition(Vec2(item->getPosition().x - WorldManager::getInstance()->getGameWorldSpeed(), item->getPosition().y));
+				item->setPosition(Vec2(item->getPosition().x - m_pWorldManager->getGameWorldSpeed(), item->getPosition().y));
 				if (item->getPosition().x < -item->getParent()->getContentSize().width){
 					this->resetItem(item);
 				}
@@ -210,6 +211,8 @@ void CollectableFactory::collectableFactoryCleanup()
 {
 	// Clean up the Collectable Factory
 	m_pTileMap = NULL;	
+	m_pWorldManager = NULL;
+	m_pCollisionManager = NULL;
 	m_vpItems.clear();
 	m_vpActiveItems.clear();	
 	//CCLOG("Collectable Factory cleanup");

@@ -21,22 +21,22 @@ class WorldManager;
 class Parallax : public cocos2d::LayerColor
 {
 	public:		
-		/* @brief init function that initialize the parallax class */
+		// init function that initialize the parallax class 
 		virtual bool init();
 
-		/* @brief Initialize the parent node */
+		// Initialize the parent node 
 		CREATE_FUNC(Parallax);
 
-		/* @brief Parallax deconstructor */
+		// Parallax deconstructor 
 		virtual ~Parallax(){ this->parallaxCleanup(); };
 
-		/* @brief TODO : Implement clean up function */
+		// TODO : Implement clean up function 
 		void parallaxCleanup();
 
-		/* @brief Set the speed of background movement */
+		// Set the speed of background movement 
 		float m_fSpeed;
 
-		/* @brief Background's Sprites */
+		// Background's Sprites 
 		Sprite* m_pSpriteBackgroundFirst;
 		Sprite* m_pSpriteBackgroundFirst1;
 		Sprite* m_pSpriteBackgroundSecond;
@@ -48,16 +48,16 @@ class Parallax : public cocos2d::LayerColor
 		Sprite* m_pSpriteFloor1;
 		Sprite* m_pSpriteFloor2;
 
-		/* @brief Add the backgrounds to the parallax layer */
+		// Add the backgrounds to the parallax layer 
 		bool addBackground(const std::string& filename1, const std::string& filename2, const std::string& filename3, const std::string& filename4, const std::string& filename5);
 
-		/* @brief Call the scroll function passing the background images */
+		// Call the scroll function passing the background images 
 		void update();
 
-		/* @brief Function scrollBackground move the whole background images using a preset speed */
+		// Function scrollBackground move the whole background images using a preset speed 
 		void scrollBackground(Sprite* bck1, Sprite* bck2, float speed);
 private:
-		/* @brief World Manager pointer  */
+		// World Manager pointer 
 		WorldManager* m_pWorldManager;
 };
 
