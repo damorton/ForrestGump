@@ -72,11 +72,12 @@ void Shield::moveSprite()
 	bezier.controlPoint_2 = Vec2(this->getPositionX() - 100, s.height / 2);
 	bezier.endPosition = Vec2(this->getPositionX() - VISIBLE_SIZE_WIDTH, s.height / 2);
 
+				
 	// creates an action to move the shield using the bezier curve created
 	auto bezierForward = BezierBy::create(6, bezier);
 
 	// creates an action to reverse the bezier curve movement, creates a sequence to move it
-	auto bezierBack = bezierForward->reverse();
+    auto bezierBack = bezierForward->reverse();
 	auto rep = RepeatForever::create(Sequence::create(bezierForward, bezierBack, nullptr));
 	this->runAction(rep);
 

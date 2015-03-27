@@ -137,6 +137,7 @@ private:
 
 	WorldManager* m_pWorldManager;
 	CollisionManager* m_pCollisionManager;
+
 };
 
 #endif

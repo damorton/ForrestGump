@@ -176,7 +176,9 @@ void SpawnManager::pauseGame()
 			}
 		}
 	}
+
 	if (!m_pCollisionManager->getShields().empty())
+
 	{
 		for (std::vector<Shield*>::size_type it = 0; it < m_pCollisionManager->getShields().size(); ++it)
 		{
@@ -203,7 +205,9 @@ void SpawnManager::resumeGame()
 			}
 		}
 	}
+
 	if (!m_pCollisionManager->getShields().empty())
+
 	{
 		for (std::vector<Shield*>::size_type it = 0; it < m_pCollisionManager->getShields().size(); ++it)
 		{

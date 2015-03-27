@@ -1,3 +1,4 @@
+
 /*
 	Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
 
@@ -15,6 +16,7 @@
 	When a collision occurs the event triggers the game objects behaviours such as adding a coin to the score of
 	being destroyed.
 */
+
 #ifndef COLLISION_H_
 #define	COLLISION_H_
 
@@ -41,7 +43,7 @@ public:
 	void checkCollisionsWithEnemies();
 	void resetCollisionManager();
 
-	// function to check collisions with shields
+	// function to check collisions with shields 
 	void checkCollisionsWithShields();
 
 	void setPlayer(Player* player){ m_pPlayer = player; };
@@ -55,7 +57,7 @@ public:
 	std::deque<Sprite*> getItemsVector(){ return m_vpItems; };
 	std::vector<Enemy*> getEnemies(){ return m_vpEnemies; };
 
-	// function to return a shield from the vector
+	// function to return a shield from the vector 
 	std::vector<Shield*> getShields(){ return m_vpShields; };
 	
 	void removeItem(){ m_vpItems.pop_front(); };

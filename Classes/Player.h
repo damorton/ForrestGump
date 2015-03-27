@@ -177,12 +177,13 @@ public:
 		Gets path to particles and allows us to edit them 
 
 		@param path
-		@param particle width
-		@param particle height
+		@param particle x position
+		@param particle y position
 		@param number of particles
 		@param effect duration
+		@param particle scale
 	*/
-	void addParticlesGameObjects(std::string path, float a, float b, int totalPar, float duration);
+	void addParticlesGameObjects(std::string path, float a, float b, int totalPar, float duration, float scale);
 
 	// Adds player death particles
 	void addEnemyDeathParticle();

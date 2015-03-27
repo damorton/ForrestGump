@@ -189,7 +189,9 @@ void CollisionManager::checkCollisionsWithShields()
 					{
 						// Set the player to GOD MODE!!
 						shield->setVisible(false);
+
 						m_pWorldManager->getPlayer()->setGodMode();
+
 					}
 				}
 			}
