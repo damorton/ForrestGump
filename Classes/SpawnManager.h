@@ -29,24 +29,24 @@ public:
 	void createEnemy(std::string filename, std::string name, bool gravity, bool rotate);
 	void pauseGame();
 	void resumeGame();
-
-	// function to spawn shields
+	/* @brief function to spawn shields */
 	bool spawnShield();
-
-	// function to create shields by passing in the filename
+	/* @brief function to create shields by passing in the filename */
 	void createShields();
-
-	// function to take in the arguments to create the shield and add it to spawn manager
+	/* @brief function to take in the arguments to create the shield and add it to spawn manager */
 	void createShield(std::string filename, bool gravity, bool rotate);
-
-	// function to add shield to the active vector
+	/* @brief function to add shield to the active vector
+	@param filename, gravity, rotate
+	*/
 	bool addShieldToActiveVector(Shield* shield);
-
-	// function to move the shields
+	/* @brief function to move the shields
+	@param Shield object
+	*/
 	void moveShields();
-
-	// function to reset the shield
+	/* @brief function to reset the shield */
 	void resetShield(Shield* shield);
+	/* @brief function to get random x position for the shield */
+	int getRandomXPosForShield();
 
 
 	CREATE_FUNC(SpawnManager);

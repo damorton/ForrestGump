@@ -22,10 +22,10 @@ Shield* Shield::create(const std::string& filename)
 
 		// returns the created sprite
 		return pSprite;
-		
+
 	}
 
-    CC_SAFE_DELETE(pSprite);
+	CC_SAFE_DELETE(pSprite);
 	return NULL;
 }
 
@@ -36,7 +36,7 @@ bool Shield::init()
 	setType(SHIELD);
 
 	// call to function to move the shield
-	this->moveSprite();
+	//this->moveSprite();
 
 	// adds force field sprite to this shield
 	this->addSprite();
@@ -51,7 +51,7 @@ bool Shield::init()
 
 void Shield::shieldCleanUp()
 {
-	
+
 }
 
 void Shield::update()
@@ -65,24 +65,24 @@ void Shield::moveSprite()
 	// creates a variable to hold the window sizew
 	auto s = Director::getInstance()->getWinSize();
 
-	            // creates a bezier curve with 3 control points
-				ccBezierConfig bezier;
-				bezier.controlPoint_1 = Vec2(this->getPositionX(), s.height / 2);
-				bezier.controlPoint_2 = Vec2(this->getPositionX() - 100, s.height / 2);
-				bezier.endPosition = Vec2(this->getPositionX() - VISIBLE_SIZE_WIDTH, s.height/2);
+	// creates a bezier curve with 3 control points
+	ccBezierConfig bezier;
+	bezier.controlPoint_1 = Vec2(this->getPositionX(), s.height / 2);
+	bezier.controlPoint_2 = Vec2(this->getPositionX() - 100, s.height / 2);
+	bezier.endPosition = Vec2(this->getPositionX() - VISIBLE_SIZE_WIDTH, s.height / 2);
 
-				// creates an action to move the shield using the bezier curve created
-				auto bezierForward = BezierBy::create(3, bezier);
+	// creates an action to move the shield using the bezier curve created
+	auto bezierForward = BezierBy::create(6, bezier);
 
-				// creates an action to reverse the bezier curve movement
-				auto bezierBack = bezierForward->reverse();
+	// creates an action to reverse the bezier curve movement
+	auto bezierBack = bezierForward->reverse();
 
-				// creates a sequence to move repeat the movement of the shield
-				auto rep = RepeatForever::create(Sequence::create(bezierForward, bezierBack, nullptr));
+	// creates a sequence to move repeat the movement of the shield
+	auto rep = RepeatForever::create(Sequence::create(bezierForward, bezierBack, nullptr));
 
-				// adds the action to the shield
-				this->runAction(rep);
-	
+	// adds the action to the shield
+	this->runAction(rep);
+
 }
 
 // function to create and add a particle to the shield
@@ -92,7 +92,7 @@ void Shield::addParticle()
 	auto shieldParticle = ParticleSystemQuad::create("particles/shieldPowerUp.plist");
 
 	// sets the position of the particle
-	shieldParticle->setPosition(this->getContentSize().width/2, this->getContentSize().height/2);
+	shieldParticle->setPosition(this->getContentSize().width / 2, this->getContentSize().height / 2);
 
 	// sets the particle to removed when shield is destroyed
 	shieldParticle->setAutoRemoveOnFinish(true);
@@ -118,6 +118,6 @@ void Shield::addSprite()
 
 	// adds the sprite to the shield object
 	this->addChild(outerShield);
-	
+
 }
 
