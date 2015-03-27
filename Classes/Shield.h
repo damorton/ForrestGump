@@ -1,40 +1,53 @@
+/*
+Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+http://www.grandtheftmuffins.esy.es/
+
+Third year games design and development project. Grand Theft Muffins endless runner game
+written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org
+
+Shield.h
+
+Description: Creates a shield object which inherits from powerUp.h and sprite
+
+*/
 #ifndef SHIELD_H_
 #define SHIELD_H_
 
-// header files to be included
 #include "PowerUps.h"
 #include "cocos2d.h"
-
-/* ---------------------------------------------------------------------------
-** Shield.h
-**
-** Description: Creates a shield object
-**
-** Author: Donnchadh Murphy, David Morton, Georgina Sheehan, Tiago Oliveira
-**-------------------------------------------------------------------------*/
 
 class Shield : public Sprite, public PowerUps
 {
 public:
-	/* @brief function to create a shield */
+	// Create
 	static Shield* create(const std::string& filename);
-	/* @briefdestructor for shield */
+
+	// Destructor
 	virtual ~Shield(){ this->shieldCleanUp(); };
-	/* @brief initialise function */
+
+	// Init 
 	virtual bool init();
-	/* @brief function to clear memory when shield is deleted */
+
+	// Clean Up
 	virtual void shieldCleanUp();
-	/* @brief function to return the power up type */
+
+	// Return PowerUp Type
 	EPowerUpsType getType(){ return m_eType; };
-	/* @brief function to set the type of powerUp */
+
+	// Set PowerUp Type
 	void setType(EPowerUpsType type){ m_eType = type; };
-	/* @brief function to move the shield */
+
+	// Move Shield
 	void moveSprite();
-	/* @brief function to add the particle to the shield */
+
+	// Add Particle
 	void addParticle();
-	/* @brief function to add a sprite to the shield */
+
+	// Add Sprite
 	void addSprite();
-	/* @brief function to update the shield */
+
+	// Update
 	void update();
 
 
