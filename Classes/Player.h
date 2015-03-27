@@ -8,9 +8,8 @@
 	and statistics system built using a LAMP stack, Linux, Apache, MySQL and PHP. Hosted locally and remotely.
 
 	Description: The player class handles all player functionality. It
-	keeps track on the player current state and actions at all times. We handle
-	touches here also by registering the touch to make the player jump etc.
-	TESTESTESTESTESTES
+ 	keeps track on the player current state and actions at all times. We handle
+ 	touches here also by registering the touch to make the player jump etc.
 */
 #ifndef PLAYER_H_
 #define	PLAYER_H_
