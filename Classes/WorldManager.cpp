@@ -13,6 +13,7 @@
 	also controls the world gravity and allows access to important game objects such as the player,
 	data access objects, and all game scene layers.
 */
+// Includes
 #include "WorldManager.h"
 #include <iostream>
 #include "Player.h"
