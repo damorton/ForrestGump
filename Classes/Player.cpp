@@ -101,7 +101,7 @@ void Player::addCoin()
 {
 	m_nCoins++;
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Pickup_Coin28.wav", false, 1.0f, 1.0f, 1.0f);
-	this->addParticlesGameObjects("particles/coin.plist", this->getContentSize().width, this->getContentSize().height, 1, 0.5);
+	this->addParticlesGameObjects("particles/Coins2.plist", this->getContentSize().width, this->getContentSize().height, 2, 1, 0.09);
 }
 
 void Player::addBooster()
@@ -109,7 +109,7 @@ void Player::addBooster()
 	m_nBoosters++;
 	m_nItems++;
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40.wav", false, 1.0f, 1.0f, 1.0f);
-	this->addParticlesGameObjects("particles/booster.plist", this->getContentSize().width / 2, 0, 1, 0.5);
+	this->addParticlesGameObjects("particles/booster.plist", this->getContentSize().width / 2, 0, 2, 0.5, 0.3);
 
 }
 
@@ -118,15 +118,15 @@ void Player::addFood()
 	m_nFood++;
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Crunch_DavidYoungShorter.wav", false, 1.0f, 1.0f, 1.0f);
 	m_nItems++;
-   this->addParticlesGameObjects("particles/SplatterParticle2.plist", this->getContentSize().width / 2, this->getContentSize().height / 2, 2, 0.1);
-	this->addParticlesGameObjects("particles/Muffin.plist", this->getContentSize().width / 2, 0, 1, 0.5);
+   this->addParticlesGameObjects("particles/SplatterParticle2.plist", this->getContentSize().width / 2, this->getContentSize().height / 2, 2, 0.1, 0.5);
+   this->addParticlesGameObjects("particles/Muffin.plist", this->getContentSize().width / 2, this->getContentSize().height, 2, 0.5, 0.3);
 }
 
 void Player::addItem()
 {
 	m_nItems++;
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40.wav", false, 1.0f, 1.0f, 1.0f);
-	this->addParticlesGameObjects("particles/DiamondPar3.plist", this->getContentSize().width, this->getContentSize().height, 1, 0.5);
+	this->addParticlesGameObjects("particles/DiamondPar3.plist", this->getContentSize().width, this->getContentSize().height, 2, 0.5, 0.3);
 }
 
 void Player::addParticle()
@@ -155,14 +155,16 @@ void Player::unsetGodMode()
 	m_pShield->setVisible(false);
 }
 
-void Player::addParticlesGameObjects(std::string path, float a, float b, int totalPar, float duration)
+void Player::addParticlesGameObjects(std::string path, float a, float b, int totalPar, float duration, float scale)
 {
-	m_pGameObjectEmitter = CCParticleSystemQuad::create(path);
+    m_pGameObjectEmitter = ParticleSystemQuad::create(path);
 	m_pGameObjectEmitter->setPosition(a, b);
 	m_pGameObjectEmitter->setTotalParticles(totalPar);
 	m_pGameObjectEmitter->setDuration(duration);
-	this->addChild(m_pGameObjectEmitter);
 	m_pGameObjectEmitter->setAutoRemoveOnFinish(true);
+	m_pGameObjectEmitter->setScale(scale);
+	this->addChild(m_pGameObjectEmitter);
+	
 }
 
 void Player::resetCoins()
@@ -289,9 +291,10 @@ void Player::getAnimationWithFrames(char* enemyAnimation, int frames){
 	this->runAction(repeat);
 }
 
+// add a particle to shield when enemies are killed
 void Player::addEnemyDeathParticle()
 {
-	auto EnemyDeathParticle = ParticleSystemQuad::create("particles/enemyDeath.plist");
+	auto EnemyDeathParticle = ParticleSystemQuad::create("particles/EnemyDeath.plist");
 	EnemyDeathParticle->setPosition(this->getContentSize().width, this->getContentSize().height);
 	EnemyDeathParticle->setAutoRemoveOnFinish(true);
 	EnemyDeathParticle->setScale(0.2);
