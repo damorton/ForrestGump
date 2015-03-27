@@ -4,6 +4,8 @@
 // Includes
 #include "cocos2d.h"
 
+USING_NS_CC;
+
 // Defines
 #define XMLDOC "game.xml"
 #define DISTANCE_VALUE_LABEL_COLOR 255, 0, 127 
@@ -13,11 +15,11 @@
 #define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
 #define VISIBLE_SIZE_HEIGHT (Director::getInstance()->getVisibleSize().height)
 #define SCREEN_ORIGIN (Director::getInstance()->getVisibleOrigin())
-#define GAME_SPEED_INC (VISIBLE_SIZE_WIDTH * .0022)
+#define GAME_SPEED_INC 1.0
 #define GAME_SPEED_DEC GAME_SPEED_INC
-#define WORLD_MOVEMENT_SPEED (VISIBLE_SIZE_WIDTH * .0035)
-#define ENEMY_MOVEMENT_SPEED (VISIBLE_SIZE_WIDTH * .0045)
-#define MAX_GAME_SPEED (VISIBLE_SIZE_WIDTH * .006)
+#define WORLD_MOVEMENT_SPEED 2.0
+#define ENEMY_MOVEMENT_SPEED 3.0
+#define MAX_GAME_SPEED 5.0
 
 // Scenes
 #define DISPLY_TIME_SPLASH_SCENCE 2

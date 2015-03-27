@@ -1,9 +1,8 @@
+#include "audio/include/SimpleAudioEngine.h"
 #include "MainMenu.h"
 #include "GameScene.h"
 #include "WorldManager.h"
-#include "audio/include/SimpleAudioEngine.h"
-
-USING_NS_CC;
+#include "Popup.h"
 
 Scene* MainMenu::createScene()
 {
@@ -127,11 +126,6 @@ void MainMenu::sound(CCObject* pSender)
 		WorldManager::getInstance()->setSoundEnabled(true);
 	}
 	 
-}
-
-void MainMenu::mainMenuCleanup()
-{
-	CCLOG("Main menu cleanup");
 }
 
 void MainMenu::createTF()
@@ -291,4 +285,10 @@ void MainMenu::keyboardWillShow(IMEKeyboardNotificationInfo &info)
 void MainMenu::keyboardWillHide(IMEKeyboardNotificationInfo &info)
 {
 	
+}
+
+void MainMenu::mainMenuCleanup()
+{
+	popupSettings = NULL;
+	//CCLOG("Main menu cleanup");
 }
