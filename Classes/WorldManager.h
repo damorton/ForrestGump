@@ -40,8 +40,8 @@ public:
 	static GameScene* gameLayer();
 
 	// Control the game world speed
-	void increaseGameWorldSpeed(){ m_fWorldSpeed *= GAME_SPEED_INC; };
-	void decreaseGameWorldSpeed(){ m_fWorldSpeed /= GAME_SPEED_DEC; };
+	void increaseGameWorldSpeed(){ m_fWorldSpeed += GAME_SPEED_INC; };
+	void decreaseGameWorldSpeed(){ m_fWorldSpeed -= GAME_SPEED_DEC; };
 	float getGameWorldSpeed(){ return m_fWorldSpeed; };
 	void setGameWorldSpeed(float speed){ m_fWorldSpeed = speed; };
 	void resetGameWorld();
@@ -76,8 +76,8 @@ public:
 	void onHttpRequestCompleted(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response);
 
 	// Enemy control data
-	void increaseEnemyMovementSpeed(){ m_fEnemyMovementSpeed *= GAME_SPEED_INC; };
-	void decreaseEnemyMovementSpeed(){ m_fEnemyMovementSpeed /= GAME_SPEED_DEC; };
+	void increaseEnemyMovementSpeed(){ m_fEnemyMovementSpeed += GAME_SPEED_INC; };
+	void decreaseEnemyMovementSpeed(){ m_fEnemyMovementSpeed -= GAME_SPEED_DEC; };
 	float getEnemyMovementSpeed(){ return m_fEnemyMovementSpeed; };
 	void setEnemyMovementSpeed(float speed){ m_fEnemyMovementSpeed = speed; };
 

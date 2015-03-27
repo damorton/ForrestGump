@@ -219,7 +219,7 @@ void SpawnManager::createShield(std::string filename, bool gravity, bool rotate)
 	// Creates shield, sets its position, and adds it
 	auto shield = Shield::create(filename);
 	shield->setPosition(Vec2(VISIBLE_SIZE_WIDTH, VISIBLE_SIZE_HEIGHT/2));
-    shield->setScale(2.0);
+    shield->setScale(1.5);
 	shield->setPosition(Vec2(this->getRandomXPosForShield(), this->getRandomHeight()));	
 
 	this->addChild(shield);
