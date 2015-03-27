@@ -62,8 +62,8 @@ int SpawnManager::getRandomXPos()
 
 int SpawnManager::getRandomXPosForShield()
 {
-	int max = (int)SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH * 8;
-	int min = (int)SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH * 5;
+	int max = (int)SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH * 10;
+	int min = (int)SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH * 1.2;
 	return (rand() % max + min);
 }
 
@@ -84,16 +84,6 @@ void SpawnManager::createEnemy(std::string filename, std::string name, bool grav
 	this->addChild(enemy);
 	CollisionManager::getInstance()->addEnemy(enemy);
 
-}
-
-bool SpawnManager::spawnEnemy()
-{	
-	int randomnumber;
-	int numberOfEnemies = CollisionManager::getInstance()->getEnemies().size();	
-	randomnumber = (rand() % numberOfEnemies);	
-	this->addEnemyToActiveVector(CollisionManager::getInstance()->getEnemies().at(randomnumber));	
-	m_bIsSpawned = true;
-	return true;
 }
 
 bool SpawnManager::addEnemyToActiveVector(Enemy* enemy)
@@ -211,11 +201,8 @@ void SpawnManager::createShield(std::string filename, bool gravity, bool rotate)
 {
 	// creates a shield from filename sent in
 	auto shield = Shield::create(filename);
-
-	// sets the shields position
-	shield->setPosition(Vec2(VISIBLE_SIZE_WIDTH, VISIBLE_SIZE_HEIGHT/2));
-
-	// adds the shield 
+	shield->setScale(2.0);
+	shield->setPosition(Vec2(this->getRandomXPosForShield(), this->getRandomHeight()));	
 	this->addChild(shield);
 
 	// adds the shield to the collision manager
@@ -227,27 +214,6 @@ void SpawnManager::createShields()
 {
 	// calls create shield and passes in the arguments to create the shield
 	this->createShield("sprites/shieldSmaller.png", true, false);
-}
-
-// function to spawn shields
-bool SpawnManager::spawnShield()
-{
-	// variable for random number
-	int randomnumber;
-
-	// variable for number of shields which = the amount of shields in the vector in collision manager
-	int numberOfShields = CollisionManager::getInstance()->getShields().size();
-
-	// random number calculated from value got from number of shields
-	randomnumber = (rand() % numberOfShields);
-
-	// adds a shield at random number
-	this->addShieldToActiveVector(CollisionManager::getInstance()->getShields().at(randomnumber));
-
-	// sets the shield is spawned to true
-	m_bIsShieldSpawned = true;
-
-	return true;
 }
 
 // function to add shield to active vector
@@ -275,8 +241,7 @@ void SpawnManager::moveShields()
 			auto shield = CollisionManager::getInstance()->getShields().at(it);
 
 			if (shield)
-			{
-				
+			{				
 				// move the shields to move across screen using Enemy movement speed
 				shield->setPosition(Point(shield->getPosition().x - WorldManager::getInstance()->getEnemyMovementSpeed(), shield->getPosition().y));
 
@@ -301,7 +266,7 @@ void SpawnManager::resetShield(Shield* shield)
 		Shield* shieldSprite = static_cast<Shield*>(shield);
 		
 		// reset the sprite position to random x position and half the height
-		shieldSprite->setPosition(Vec2(this->getRandomXPosForShield(), VISIBLE_SIZE_HEIGHT / 2));
+		shieldSprite->setPosition(Vec2(this->getRandomXPosForShield(), this->getRandomHeight()));
 		
 		// set visible to true
 		shieldSprite->setVisible(true);

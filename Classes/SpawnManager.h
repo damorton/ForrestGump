@@ -17,7 +17,6 @@ public:
 	virtual void spawnManagerCleanup();
 
 	void update();
-	bool spawnEnemy();
 	int getRandomHeight();
 	int getRandomXPos();
 	int getEnemyCount();
@@ -29,8 +28,7 @@ public:
 	void createEnemy(std::string filename, std::string name, bool gravity, bool rotate);
 	void pauseGame();
 	void resumeGame();
-	/* @brief function to spawn shields */
-	bool spawnShield();
+	
 	/* @brief function to create shields by passing in the filename */
 	void createShields();
 	/* @brief function to take in the arguments to create the shield and add it to spawn manager */
