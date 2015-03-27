@@ -13,12 +13,11 @@ It allows the user to play the game.
 
 */
 
+#include "audio/include/SimpleAudioEngine.h"
 #include "MainMenu.h"
 #include "GameScene.h"
 #include "WorldManager.h"
-#include "audio/include/SimpleAudioEngine.h"
-
-USING_NS_CC;
+#include "Popup.h"
 
 // Create the Main Menu Scene
 Scene* MainMenu::createScene()
@@ -249,4 +248,14 @@ static Rect getRect(Node * node)
 	rc.origin.x -= rc.size.width / 2;
 	rc.origin.y -= rc.size.height / 2;
 	return rc;
+}
+
+void MainMenu::keyboardWillShow(IMEKeyboardNotificationInfo &info)
+{
+	
+}
+
+void MainMenu::keyboardWillHide(IMEKeyboardNotificationInfo &info)
+{
+	
 }

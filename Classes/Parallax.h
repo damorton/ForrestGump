@@ -14,15 +14,13 @@ Description: Moves the background images.
 #ifndef __PARALLAX_H__
 #define __PARALLAX_H__
 
-#include "cocos2d.h"
 #include "Definitions.h"
 
-USING_NS_CC;
+class WorldManager;
 
 class Parallax : public cocos2d::LayerColor
 {
 	public:		
-
 		/* @brief init function that initialize the parallax class */
 		virtual bool init();
 
@@ -52,12 +50,15 @@ class Parallax : public cocos2d::LayerColor
 
 		/* @brief Add the backgrounds to the parallax layer */
 		bool addBackground(const std::string& filename1, const std::string& filename2, const std::string& filename3, const std::string& filename4, const std::string& filename5);
-		
+
 		/* @brief Call the scroll function passing the background images */
 		void update();
-		
+
 		/* @brief Function scrollBackground move the whole background images using a preset speed */
-		void scrollBackground(Sprite* bck1, Sprite* bck2, float speed);		
+		void scrollBackground(Sprite* bck1, Sprite* bck2, float speed);
+private:
+		/* @brief World Manager pointer  */
+		WorldManager* m_pWorldManager;
 };
 
 #endif // __PARALLAX_H__

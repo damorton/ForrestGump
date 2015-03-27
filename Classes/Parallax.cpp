@@ -12,7 +12,6 @@ Description: Moves the background images.
 */
 
 #include "Parallax.h"
-#include "Definitions.h"
 #include "WorldManager.h"
 
 // init - Initialization function
@@ -22,6 +21,8 @@ bool Parallax::init()
 	{
 		return false;
 	}
+
+	m_pWorldManager = WorldManager::getInstance();
 	return true;
 }
 
@@ -77,7 +78,7 @@ bool Parallax::addBackground(const std::string& filename1, const std::string& fi
 	auto floorEdgeBody = PhysicsBody::createBox(floorRect->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 	floorEdgeBody->setDynamic(false);
 	floorRect->setPhysicsBody(floorEdgeBody);		
-	WorldManager::getInstance()->setFloorSprite(floorRect);
+	m_pWorldManager->setFloorSprite(floorRect);
 
 	return true;	
 }
@@ -85,11 +86,11 @@ bool Parallax::addBackground(const std::string& filename1, const std::string& fi
 // update() - Call the scroll function
 void Parallax::update()
 {	
-	scrollBackground(m_pSpriteFloor1, m_pSpriteFloor2, WorldManager::getInstance()->getGameWorldSpeed());
-	scrollBackground(m_pSpriteBackgroundFirst, m_pSpriteBackgroundFirst1, WorldManager::getInstance()->getGameWorldSpeed() / 2.0);
-	scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, WorldManager::getInstance()->getGameWorldSpeed() / 3.0);
-	scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, WorldManager::getInstance()->getGameWorldSpeed() / 4.0);
-	scrollBackground(m_pSpriteBackgroundFourth, m_pSpriteBackgroundFourth1, WorldManager::getInstance()->getGameWorldSpeed() / 5.0);
+	scrollBackground(m_pSpriteFloor1, m_pSpriteFloor2, m_pWorldManager->getGameWorldSpeed());
+	scrollBackground(m_pSpriteBackgroundFirst, m_pSpriteBackgroundFirst1, m_pWorldManager->getGameWorldSpeed() / 2.0);
+	scrollBackground(m_pSpriteBackgroundSecond, m_pSpriteBackgroundSecond1, m_pWorldManager->getGameWorldSpeed() / 3.0);
+	scrollBackground(m_pSpriteBackgroundThird, m_pSpriteBackgroundThird1, m_pWorldManager->getGameWorldSpeed() / 4.0);
+	scrollBackground(m_pSpriteBackgroundFourth, m_pSpriteBackgroundFourth1, m_pWorldManager->getGameWorldSpeed() / 5.0);
 }
 
 //scrollBackground() - Move background images 
@@ -108,5 +109,6 @@ void Parallax::scrollBackground(CCSprite* bck1, CCSprite* bck2, float speed)
 
 void Parallax::parallaxCleanup()
 {
-	CCLOG("Parallax cleanup");
+	m_pWorldManager = NULL;
+	//CCLOG("Parallax cleanup");
 }

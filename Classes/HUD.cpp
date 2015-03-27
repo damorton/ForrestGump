@@ -1,7 +1,6 @@
 #include "HUD.h"
 #include "WorldManager.h"
-#include "Definitions.h"
-#include "MainMenu.h"
+#include "Popup.h"
 
 bool HUD::init()
 {	

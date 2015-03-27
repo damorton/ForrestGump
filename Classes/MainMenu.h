@@ -16,10 +16,9 @@ It allows the user to play the game.
 #ifndef MAINMENU_H_
 #define MAINMENU_H_
 
-#include "cocos2d.h"
-#include "Popup.h"
+#include "Definitions.h"
 
-USING_NS_CC;
+class Popup;
 
 class MainMenu : public cocos2d::Layer, public TextFieldDelegate
 {
