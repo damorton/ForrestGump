@@ -17,6 +17,7 @@
 #ifndef _USER_
 #define _USER_
 
+// Includes
 #include "Score.h"
 #include "Username.h"
 #include <vector>

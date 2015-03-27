@@ -16,6 +16,7 @@ It allows the user to play the game.
 #ifndef MAINMENU_H_
 #define MAINMENU_H_
 
+// Includes
 #include "Definitions.h"
 
 class Popup;

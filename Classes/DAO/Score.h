@@ -16,6 +16,8 @@
 
 #ifndef _SCORE_
 #define _SCORE_
+
+// Includes
 #include "TextItem.h"
 
 class Score : public TextItem
