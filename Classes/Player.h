@@ -7,6 +7,8 @@
 	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org. Back-end game analytics
 	and statistics system built using a LAMP stack, Linux, Apache, MySQL and PHP. Hosted locally and remotely.
 
+	Player.h
+
 	Description: The player class handles all player functionality. It
  	keeps track on the player current state and actions at all times. We handle
  	touches here also by registering the touch to make the player jump etc.
