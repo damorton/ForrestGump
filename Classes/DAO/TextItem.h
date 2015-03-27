@@ -24,7 +24,7 @@ public:
 	TextItem(std::string thisText, std::string thisName){ text = thisText; name = thisName; }
 	~TextItem(){}
 
-	// Set the name and value being stored in the XML file element
+	// Set the text items name and value 
 	std::string getText(){return text;}
 	std::string getName(){ return name; }
 	void setText(const char* newText){text.assign(newText);}	

@@ -28,7 +28,11 @@ public:
 	~User();
 	// Set the players username and scores
 	void setUsername(const char* name){ m_spUsername->setText(name); };
+
+	// Add score to the vector
 	void addScore(const char* value, const char* name){ m_vpScores->push_back(Score(std::string(value), std::string(name))); };		
+
+	// Getters
 	std::shared_ptr<Username> getUsername();
 	std::shared_ptr<std::vector<Score>> getScores();
 
