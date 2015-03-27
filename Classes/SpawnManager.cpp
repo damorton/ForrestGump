@@ -25,6 +25,10 @@ bool SpawnManager::init()
 	{
 		return false;
 	}
+
+	m_pWorldManager = WorldManager::getInstance();
+	m_pCollisionManager = CollisionManager::getInstance();
+
 	this->createEnemies();
 
 	// call to create shields
@@ -65,7 +69,7 @@ void SpawnManager::createEnemies()
 int SpawnManager::getRandomHeight()
 {	
 	int max = (int)SCREEN_ORIGIN.y + VISIBLE_SIZE_HEIGHT * .80;
-	int min = (int)SCREEN_ORIGIN.y + WorldManager::getInstance()->getFloorSprite()->getContentSize().height * 2;	
+	int min = (int)SCREEN_ORIGIN.y + m_pWorldManager->getFloorSprite()->getContentSize().height * 2;	
 	return (rand() % max + min);
 }
 
@@ -94,12 +98,12 @@ void SpawnManager::createEnemy(std::string filename, std::string name, bool grav
 	}
 	else if (name == "ground")
 	{
-		enemy->setPosition(Vec2(this->getRandomXPos(), SCREEN_ORIGIN.y + WorldManager::getInstance()->getFloorSprite()->getContentSize().height + enemy->getContentSize().height / 2));
+		enemy->setPosition(Vec2(this->getRandomXPos(), SCREEN_ORIGIN.y + m_pWorldManager->getFloorSprite()->getContentSize().height + enemy->getContentSize().height / 2));
 	}	
 	enemy->setVisible(true);
 	enemy->animateEnemy();
 	this->addChild(enemy);
-	CollisionManager::getInstance()->addEnemy(enemy);
+	m_pCollisionManager->addEnemy(enemy);
 
 }
 
@@ -121,16 +125,16 @@ void SpawnManager::update()
 
 void SpawnManager::moveSprites()
 {
-	if (!CollisionManager::getInstance()->getEnemies().empty())
+	if (!m_pCollisionManager->getEnemies().empty())
 	{
-		for (std::vector<Enemy*>::size_type it = 0; it < CollisionManager::getInstance()->getEnemies().size(); ++it)
+		for (std::vector<Enemy*>::size_type it = 0; it < m_pCollisionManager->getEnemies().size(); ++it)
 		{
-			auto enemy = CollisionManager::getInstance()->getEnemies().at(it);
+			auto enemy = m_pCollisionManager->getEnemies().at(it);
 
 			if (enemy)
 			{
 				// move by individual enemy speeds
-				enemy->setPosition(Vec2(enemy->getPosition().x - (enemy->getSpeed() + WorldManager::getInstance()->getEnemyMovementSpeed()), enemy->getPosition().y));
+				enemy->setPosition(Vec2(enemy->getPosition().x - (enemy->getSpeed() + m_pWorldManager->getEnemyMovementSpeed()), enemy->getPosition().y));
 
 				if (enemy->getPosition().x < SCREEN_ORIGIN.x - enemy->getContentSize().width / 2){
 					this->resetEnemy(enemy);
@@ -160,11 +164,11 @@ void SpawnManager::resetEnemy(Enemy* enemy)
 
 void SpawnManager::pauseGame()
 {
-	if (!CollisionManager::getInstance()->getEnemies().empty())
+	if (!m_pCollisionManager->getEnemies().empty())
 	{
-		for (std::vector<Enemy*>::size_type it = 0; it < CollisionManager::getInstance()->getEnemies().size(); ++it)
+		for (std::vector<Enemy*>::size_type it = 0; it < m_pCollisionManager->getEnemies().size(); ++it)
 		{
-			auto enemy = CollisionManager::getInstance()->getEnemies().at(it);
+			auto enemy = m_pCollisionManager->getEnemies().at(it);
 
 			if (enemy)
 			{
@@ -173,11 +177,12 @@ void SpawnManager::pauseGame()
 		}
 	}
 
-	if (!CollisionManager::getInstance()->getShields().empty())
+	if (!m_pCollisionManager->getShields().empty())
+
 	{
-		for (std::vector<Shield*>::size_type it = 0; it < CollisionManager::getInstance()->getShields().size(); ++it)
+		for (std::vector<Shield*>::size_type it = 0; it < m_pCollisionManager->getShields().size(); ++it)
 		{
-			auto shield = CollisionManager::getInstance()->getShields().at(it);
+			auto shield = m_pCollisionManager->getShields().at(it);
 
 			if (shield)
 			{
@@ -188,11 +193,11 @@ void SpawnManager::pauseGame()
 }
 void SpawnManager::resumeGame()
 {
-	if (!CollisionManager::getInstance()->getEnemies().empty())
+	if (!m_pCollisionManager->getEnemies().empty())
 	{
-		for (std::vector<Enemy*>::size_type it = 0; it < CollisionManager::getInstance()->getEnemies().size(); ++it)
+		for (std::vector<Enemy*>::size_type it = 0; it < m_pCollisionManager->getEnemies().size(); ++it)
 		{
-			auto enemy = CollisionManager::getInstance()->getEnemies().at(it);
+			auto enemy = m_pCollisionManager->getEnemies().at(it);
 
 			if (enemy)
 			{
@@ -201,11 +206,12 @@ void SpawnManager::resumeGame()
 		}
 	}
 
-	if (!CollisionManager::getInstance()->getShields().empty())
+	if (!m_pCollisionManager->getShields().empty())
+
 	{
-		for (std::vector<Shield*>::size_type it = 0; it < CollisionManager::getInstance()->getShields().size(); ++it)
+		for (std::vector<Shield*>::size_type it = 0; it < m_pCollisionManager->getShields().size(); ++it)
 		{
-			auto shield = CollisionManager::getInstance()->getShields().at(it);
+			auto shield = m_pCollisionManager->getShields().at(it);
 
 			if (shield)
 			{
@@ -221,13 +227,13 @@ void SpawnManager::createShield(std::string filename, bool gravity, bool rotate)
 	// Creates shield, sets its position, and adds it
 	auto shield = Shield::create(filename);
 	shield->setPosition(Vec2(VISIBLE_SIZE_WIDTH, VISIBLE_SIZE_HEIGHT/2));
-    shield->setScale(2.0);
+    shield->setScale(1.5);
 	shield->setPosition(Vec2(this->getRandomXPosForShield(), this->getRandomHeight()));	
 
 	this->addChild(shield);
 
 	// adds the shield to the collision manager
-	CollisionManager::getInstance()->addShield(shield);
+	m_pCollisionManager->addShield(shield);
 }
 
 // Create shields
@@ -242,11 +248,11 @@ bool SpawnManager::spawnShield()
 	int randomnumber;
 
 	// variable for number of shields which = the amount of shields in the vector in collision manager
-	int numberOfShields = CollisionManager::getInstance()->getShields().size();
+	int numberOfShields = m_pCollisionManager->getShields().size();
 
 	// random number calculated from value got from number of shields
 	randomnumber = (rand() % numberOfShields);
-	this->addShieldToActiveVector(CollisionManager::getInstance()->getShields().at(randomnumber));
+	this->addShieldToActiveVector(m_pCollisionManager->getShields().at(randomnumber));
 	m_bIsShieldSpawned = true;
 
 	return true;
@@ -264,16 +270,16 @@ bool SpawnManager::addShieldToActiveVector(Shield* shield)
 // Move Shields
 void SpawnManager::moveShields()
 {
-	if (!CollisionManager::getInstance()->getShields().empty())
+	if (!m_pCollisionManager->getShields().empty())
 	{
-		for (std::vector<Enemy*>::size_type it = 0; it < CollisionManager::getInstance()->getShields().size(); ++it)
+		for (std::vector<Enemy*>::size_type it = 0; it < m_pCollisionManager->getShields().size(); ++it)
 		{
-			auto shield = CollisionManager::getInstance()->getShields().at(it);
+			auto shield = m_pCollisionManager->getShields().at(it);
 
 			if (shield)
 			{				
 				// move the shields to move across screen using Enemy movement speed
-				shield->setPosition(Point(shield->getPosition().x - WorldManager::getInstance()->getEnemyMovementSpeed(), shield->getPosition().y));
+				shield->setPosition(Point(shield->getPosition().x - m_pWorldManager->getEnemyMovementSpeed(), shield->getPosition().y));
  
 				if (shield->getPosition().x < SCREEN_ORIGIN.x - shield->getContentSize().width / 2)
 				{

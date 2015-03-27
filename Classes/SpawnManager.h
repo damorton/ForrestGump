@@ -24,6 +24,8 @@
 class Player;
 class Enemy;
 class Shield;
+class WorldManager;
+class CollisionManager;
 
 class SpawnManager : public cocos2d::Layer
 {
@@ -132,6 +134,9 @@ private:
 
 	// Vector to hold active shields
 	std::vector<Shield*> m_vpActiveShields;
+
+	WorldManager* m_pWorldManager;
+	CollisionManager* m_pCollisionManager;
 
 };
 

@@ -229,7 +229,7 @@ void Player::update()
 			this->unsetGodMode();
 
 			// Reset count
-			m_nCount == 0;
+			m_nCount = 0;
 		}		
 	}	
 

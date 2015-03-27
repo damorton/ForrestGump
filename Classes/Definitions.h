@@ -29,11 +29,11 @@ USING_NS_CC;
 #define VISIBLE_SIZE_WIDTH (Director::getInstance()->getVisibleSize().width)
 #define VISIBLE_SIZE_HEIGHT (Director::getInstance()->getVisibleSize().height)
 #define SCREEN_ORIGIN (Director::getInstance()->getVisibleOrigin())
-#define GAME_SPEED_INC 1.0
+#define GAME_SPEED_INC 0.25
 #define GAME_SPEED_DEC GAME_SPEED_INC
 #define WORLD_MOVEMENT_SPEED 2.0
 #define ENEMY_MOVEMENT_SPEED 3.0
-#define MAX_GAME_SPEED 5.0
+#define MAX_GAME_SPEED 7.0
 
 // Scenes
 #define DISPLY_TIME_SPLASH_SCENCE 2
