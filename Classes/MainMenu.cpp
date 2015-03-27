@@ -46,11 +46,11 @@ bool MainMenu::init()
 	mainMenuBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(mainMenuBackground, -50);
 
-	// create the main menu items
+	// Create the main menu items
 	m_pPlayButton = MenuItemImage::create("buttons/PlayNormal.png", "buttons/PlaySelected.png", CC_CALLBACK_1(MainMenu::playGame, this));
 	m_pPlayButton->setPosition(Point(visibleSize.width / 2, SCREEN_ORIGIN.y + (visibleSize.height / 10) * 2));
 
-	// create menu and add menu items
+	// Create menu and add menu items
 	auto* menu = Menu::create(m_pPlayButton, NULL);
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu);
@@ -101,7 +101,7 @@ void MainMenu::playGame(cocos2d::Ref *pSender)
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);		
 }
 
-// TODO : clean up function */
+// TODO : Clean up function */
 void MainMenu::mainMenuCleanup()
 {
 	CCLOG("Main menu cleanup");
@@ -116,8 +116,8 @@ void MainMenu::createTF()
 
 	m_nCharLimit = 12;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)    
-	// on android, TextFieldTTF cannot auto adjust its position when soft-keyboard pop up
-	// so we had to set a higher position
+	// On android, TextFieldTTF cannot auto adjust its position when soft-keyboard pop up
+	// So we had to set a higher position
 	m_pTextField->setPosition(Vec2(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2 + 50));
 #else
 	m_pTextField->setPosition(Vec2(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT * .90));
@@ -153,18 +153,18 @@ bool MainMenu::onTextFieldInsertText(TextFieldTTF *pSender, const char *text, si
 		return true;
 	}	
 
-	// if the textfield's char count more than _charLimit, doesn't insert text anymore.
+	// If the textfield's char count more than _charLimit, doesn't insert text anymore.
 	if (pSender->getCharCount() >= m_nCharLimit)
 	{
 		return true;
 	}
 		
-	// create a insert text sprite and do some action
+	// Create a insert text sprite and do some action
 	auto label = Label::createWithSystemFont(text, LABEL_FONT_ROBOTO, LABEL_FONT_SIZE);
 	this->addChild(label);	
 	label->setColor(Color3B::YELLOW);
 
-	// move the sprite from top to position
+	// Move the sprite from top to position
 	auto endPos = pSender->getPosition();
 	if (pSender->getCharCount())
 	{
@@ -199,11 +199,11 @@ void MainMenu::callbackRemoveNodeWhenDidAction(Node * node)
 
 bool MainMenu::onTextFieldDeleteBackward(TextFieldTTF *pSender, const char *delText, size_t nLen)
 {		
-	// create a delete text sprite and do some action
+	// Create a delete text sprite and do some action
 	auto label = Label::createWithSystemFont(delText, LABEL_FONT_ROBOTO, LABEL_FONT_SIZE);
 	this->addChild(label);
 
-	// move the sprite to fly out
+	// Move the sprite to fly out
 	auto beginPos = pSender->getPosition();
 	auto textfieldSize = pSender->getContentSize();
 	auto labelSize = label->getContentSize();

@@ -92,6 +92,7 @@ void Parallax::update()
 	scrollBackground(m_pSpriteBackgroundFourth, m_pSpriteBackgroundFourth1, WorldManager::getInstance()->getGameWorldSpeed() / 5.0);
 }
 
+//scrollBackground() - Move background images 
 void Parallax::scrollBackground(CCSprite* bck1, CCSprite* bck2, float speed)
 {	
 	bck1->setPosition(Vec2(bck1->getPosition().x - speed, bck1->getPosition().y));

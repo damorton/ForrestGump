@@ -26,13 +26,13 @@ class Popup : public cocos2d::Sprite
 	cocos2d::CCMenu *menu;
 public:
 
-	/* @brief init function that initialize the popup class */
+	/* @brief Init function that initialize the popup class */
 	bool init();
 	
-	/* @brief createPopup function that call functions to create the popup everytime someone click in Pause */
+	/* @brief CreatePopup function that call functions to create the popup everytime someone click in Pause */
 	static Popup* createPopup();
 	
-	/* @brief show/hide the Pause menu on the screen */
+	/* @brief Show/Hide the Pause menu on the screen */
 	void show(bool shouldShow, bool);
 };
 
