@@ -36,7 +36,7 @@ bool Shield::init()
 	setType(SHIELD);
 
 	// call to function to move the shield
-	this->moveSprite();
+	//this->moveSprite();
 
 	// adds force field sprite to this shield
 	this->addSprite();
@@ -72,7 +72,7 @@ void Shield::moveSprite()
 				bezier.endPosition = Vec2(this->getPositionX() - VISIBLE_SIZE_WIDTH, s.height/2);
 
 				// creates an action to move the shield using the bezier curve created
-				auto bezierForward = BezierBy::create(3, bezier);
+				auto bezierForward = BezierBy::create(6, bezier);
 
 				// creates an action to reverse the bezier curve movement
 				auto bezierBack = bezierForward->reverse();

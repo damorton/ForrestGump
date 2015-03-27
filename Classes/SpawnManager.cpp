@@ -60,6 +60,12 @@ int SpawnManager::getRandomXPos()
 	return (rand() % max + min);
 }
 
+int SpawnManager::getRandomXPosForShield()
+{
+	int max = (int)SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH * 8;
+	int min = (int)SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH * 5;
+	return (rand() % max + min);
+}
 void SpawnManager::createEnemy(std::string filename, std::string name, bool gravity, bool rotate)
 {
 	auto enemy = Enemy::create(filename);
@@ -158,6 +164,19 @@ void SpawnManager::pauseGame()
 			}
 		}
 	}
+
+	if (!CollisionManager::getInstance()->getShields().empty())
+	{
+		for (std::vector<Shield*>::size_type it = 0; it < CollisionManager::getInstance()->getShields().size(); ++it)
+		{
+			auto shield = CollisionManager::getInstance()->getShields().at(it);
+
+			if (shield)
+			{
+				shield->pauseSchedulerAndActions();
+			}
+		}
+	}
 }
 void SpawnManager::resumeGame()
 {
@@ -170,6 +189,19 @@ void SpawnManager::resumeGame()
 			if (enemy)
 			{
 				enemy->resumeSchedulerAndActions();
+			}
+		}
+	}
+
+	if (!CollisionManager::getInstance()->getShields().empty())
+	{
+		for (std::vector<Shield*>::size_type it = 0; it < CollisionManager::getInstance()->getShields().size(); ++it)
+		{
+			auto shield = CollisionManager::getInstance()->getShields().at(it);
+
+			if (shield)
+			{
+				shield->resumeSchedulerAndActions();
 			}
 		}
 	}
@@ -270,7 +302,7 @@ void SpawnManager::resetShield(Shield* shield)
 		Shield* shieldSprite = static_cast<Shield*>(shield);
 		
 		// reset the sprite position to random x position and half the height
-		shieldSprite->setPosition(Vec2(this->getRandomXPos(), VISIBLE_SIZE_HEIGHT / 2));
+		shieldSprite->setPosition(Vec2(this->getRandomXPosForShield() , VISIBLE_SIZE_HEIGHT / 2));
 		
 		// set visible to true
 		shieldSprite->setVisible(true);

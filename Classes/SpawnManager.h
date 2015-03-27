@@ -29,25 +29,24 @@ public:
 	void createEnemy(std::string filename, std::string name, bool gravity, bool rotate);
 	void pauseGame();
 	void resumeGame();
-
-	// function to spawn shields
+    /* @brief function to spawn shields */
 	bool spawnShield();
-
-	// function to create shields by passing in the filename
+    /* @brief function to create shields by passing in the filename */
 	void createShields();
-
-	// function to take in the arguments to create the shield and add it to spawn manager
+	/* @brief function to take in the arguments to create the shield and add it to spawn manager */
 	void createShield(std::string filename, bool gravity, bool rotate);
-
-	// function to add shield to the active vector
+    /* @brief function to add shield to the active vector 
+	   @param filename, gravity, rotate 
+	*/
 	bool addShieldToActiveVector(Shield* shield);
-
-	// function to move the shields
+    /* @brief function to move the shields 
+	   @param Shield object
+	*/
 	void moveShields();
-
-	// function to reset the shield
+    /* @brief function to reset the shield */
 	void resetShield(Shield* shield);
-
+	/* @brief function to get random x position for the shield */
+	int getRandomXPosForShield();
 
 	CREATE_FUNC(SpawnManager);
 private:	
@@ -55,14 +54,9 @@ private:
 	std::vector<Enemy*> m_vpEnemies;	
 	std::vector<Enemy*> m_vpActiveEnemies;
 	bool m_bIsSpawned;
-	// bool variable to set if the shield is spawned
-	bool m_bIsShieldSpawned;
-
-	// vector to hold shields
-	std::vector<Shield*> m_vpShields;
-
-	// vector to hold active shields
-	std::vector<Shield*> m_vpActiveShields;
+	bool m_bIsShieldSpawned; // bool variable to set if the shield is spawned
+	std::vector<Shield*> m_vpShields; // vector to hold shields
+	std::vector<Shield*> m_vpActiveShields; // vector to hold active shields
 };
 
 #endif
