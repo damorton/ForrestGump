@@ -21,6 +21,7 @@
 #include <iostream>
 #include "Definitions.h"
 
+// Forward Declarations
 class Player;
 class Enemy;
 class Shield;

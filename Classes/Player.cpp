@@ -155,7 +155,7 @@ void Player::setGodMode()
 	m_pShield->setVisible(true);	
 }
 
-// Desactivate the shield
+// Deactivate the shield
 void Player::unsetGodMode()
 {
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Powerup_32.wav", false, 1.0, 1.0, 1.0);
