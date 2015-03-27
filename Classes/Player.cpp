@@ -243,9 +243,9 @@ void Player::update()
 	this->setPositionX(PLAYER_POSITION_IN_WINDOW);
 			
 
-	if (this->getPositionY() > VISIBLE_SIZE_HEIGHT - this->getContentSize().height / 2)
+	if (this->getPositionY() > VISIBLE_SIZE_HEIGHT)
 	{
-		this->setPositionY(VISIBLE_SIZE_HEIGHT - this->getContentSize().height / 2);
+		this->setPositionY(VISIBLE_SIZE_HEIGHT);
 	}		
 }
 
