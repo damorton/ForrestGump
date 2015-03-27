@@ -31,6 +31,8 @@ class Parallax : public cocos2d::LayerColor
 
 		/* @brief Parallax deconstructor */
 		virtual ~Parallax(){ this->parallaxCleanup(); };
+
+		/* @brief TODO : implement clean up function */
 		void parallaxCleanup();
 
 		/* @brief Set the speed of background movement */

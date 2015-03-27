@@ -30,6 +30,7 @@ AnimationMoves* AnimationMoves::getInstance()
 	return m_spInstance;
 }
 
+// init - return true as successful to initialize the class
 bool AnimationMoves::init()
 {	
 	return true;
