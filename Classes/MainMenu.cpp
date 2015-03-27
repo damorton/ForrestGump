@@ -30,20 +30,20 @@ bool MainMenu::init()
 	this->addChild(mainMenuBackground, -50);
 
 	// create the main menu items
-	auto playButton = MenuItemImage::create("buttons/PlayNormal.png", "buttons/PlaySelected.png", CC_CALLBACK_1(MainMenu::playGame, this));
-	playButton->setPosition(Point(visibleSize.width / 2, SCREEN_ORIGIN.y + (visibleSize.height / 10) * 2));
+	m_pPlayButton = MenuItemImage::create("buttons/PlayNormal.png", "buttons/PlaySelected.png", CC_CALLBACK_1(MainMenu::playGame, this));
+	m_pPlayButton->setPosition(Point(visibleSize.width / 2, SCREEN_ORIGIN.y + (visibleSize.height / 10) * 2));
 	auto highscoresButton = MenuItemImage::create("buttons/TrophyNormal.png", "buttons/TrophySelected.png", CC_CALLBACK_1(MainMenu::leaderboard, this));
 	highscoresButton->setPosition(Point(visibleSize.width / 4, SCREEN_ORIGIN.y + (visibleSize.height / 10) * 2));
 	auto settingsButton = MenuItemImage::create("buttons/settings2.png", "buttons/settings2.png", CC_CALLBACK_1(MainMenu::settings, this));
 	settingsButton->setPosition(Point(visibleSize.width / 4 * 3, SCREEN_ORIGIN.y + (visibleSize.height / 10) * 2));
 
 	// create menu and add menu items
-	//auto* menu = Menu::create(playButton, highscoresButton, settingsButton, NULL);
-	auto* menu = Menu::create(playButton, NULL);
+	//auto* menu = Menu::create(m_pPlayButton, highscoresButton, settingsButton, NULL);
+	auto* menu = Menu::create(m_pPlayButton, NULL);
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu);
 
-	addParticlesToButtons(playButton);
+	addParticlesToButtons(m_pPlayButton);
 	addParticlesToButtons(settingsButton);
 	addParticlesToButtons(highscoresButton);
 		
@@ -69,6 +69,7 @@ bool MainMenu::init()
 	{
 		// TextField
 		createTF();
+		m_pPlayButton->setVisible(false);
 	}
 	
 
@@ -135,8 +136,10 @@ void MainMenu::mainMenuCleanup()
 
 void MainMenu::createTF()
 {
-	m_pTextField = TextFieldTTF::textFieldWithPlaceHolder("ENTER USERNAME", LABEL_FONT, LABEL_FONT_SIZE);	
-	m_pTextField->setColor(Color3B::MAGENTA);	
+	m_pTextField = TextFieldTTF::textFieldWithPlaceHolder("ENTER USERNAME", LABEL_FONT_ROBOTO, LABEL_FONT_SIZE);
+	m_pTextField->setColor(Color3B::RED);	
+	m_pTextField->setColorSpaceHolder(Color3B::RED);
+
 	m_nCharLimit = 12;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)    
 	// on android, TextFieldTTF cannot auto adjust its position when soft-keyboard pop up
@@ -176,24 +179,23 @@ bool MainMenu::onTextFieldDetachWithIME(TextFieldTTF * pSender)
 
 bool MainMenu::onTextFieldInsertText(TextFieldTTF *pSender, const char *text, size_t nLen)
 {	
-	// if insert enter, treat as default to detach with ime
-	if ('\n' == *text)
+	// Do not allow the user to enter incorrect characters into username 
+	if (' ' == *text || '\n' == *text)
 	{
-		CCLOG("Enter hit");
-		return false;
-	}
+		CCLOG("Incorrect character entered into username");
+		return true;
+	}	
 
 	// if the textfield's char count more than _charLimit, doesn't insert text anymore.
 	if (pSender->getCharCount() >= m_nCharLimit)
 	{
 		return true;
 	}
-
-	// create a insert text sprite and do some action
-	auto label = Label::createWithSystemFont(text, LABEL_FONT, LABEL_FONT_SIZE);
-	this->addChild(label);
-	Color3B color(226, 121, 7);
-	label->setColor(color);
+		
+	// Create a insert text sprite and do some action to add an effect
+	auto label = Label::createWithSystemFont(text, LABEL_FONT_ROBOTO, LABEL_FONT_SIZE);
+	this->addChild(label);	
+	label->setColor(Color3B::YELLOW);
 
 	// move the sprite from top to position
 	auto endPos = pSender->getPosition();
@@ -217,6 +219,9 @@ bool MainMenu::onTextFieldInsertText(TextFieldTTF *pSender, const char *text, si
 		CallFuncN::create(CC_CALLBACK_1(MainMenu::callbackRemoveNodeWhenDidAction, this)),
 		nullptr);
 	label->runAction(seq);
+	CCLOG("Username character count : %d", m_pTextField->getCharCount());
+	// Check username
+	if (m_pTextField->getCharCount() >= 3) m_pPlayButton->setVisible(true);
 	return false;
 }
 
@@ -226,9 +231,9 @@ void MainMenu::callbackRemoveNodeWhenDidAction(Node * node)
 }
 
 bool MainMenu::onTextFieldDeleteBackward(TextFieldTTF *pSender, const char *delText, size_t nLen)
-{
+{		
 	// create a delete text sprite and do some action
-	auto label = Label::createWithSystemFont(delText, LABEL_FONT, LABEL_FONT_SIZE);
+	auto label = Label::createWithSystemFont(delText, LABEL_FONT_ROBOTO, LABEL_FONT_SIZE);
 	this->addChild(label);
 
 	// move the sprite to fly out
@@ -256,6 +261,10 @@ bool MainMenu::onTextFieldDeleteBackward(TextFieldTTF *pSender, const char *delT
 		CallFuncN::create(CC_CALLBACK_1(MainMenu::callbackRemoveNodeWhenDidAction, this)),
 		nullptr);
 	label->runAction(seq);
+
+	CCLOG("Username character count : %d", m_pTextField->getCharCount());
+	if (m_pTextField->getCharCount() <= 4) m_pPlayButton->setVisible(false);
+
 	return false;
 }
 

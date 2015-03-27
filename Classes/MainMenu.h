@@ -42,6 +42,7 @@ public:
 
 private:
 	MenuItemImage* soundButton;
+	MenuItemImage* m_pPlayButton;
 	bool soundEnabled;
 	Popup* popupSettings;
 	TextFieldTTF *m_pTextField;

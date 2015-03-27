@@ -12,9 +12,8 @@ echo '
     </div>
     <div class="navbar-collapse collapse" id="navbar">
       <ul class="nav navbar-nav">
-        <li><a href="#game_stats">Game Stats</a></li>
-        <li><a href="#sec2">Section 2</a></li>
-        <li><a href="#sec3">Section 3</a></li>
+        <li><a href="#game_stats">Player Stats</a></li>
+        
       </ul>
     </div>
    </div>
@@ -24,7 +23,8 @@ echo '
   <div class="container">
     <br/>
     <h1>Grand Theft Muffins</h1>
-      <p class="lead">Endless runner game Created using Cocos2dx</p>      
+      <p class="lead">Cocos2dx endless runner game</p>   
+	  <a href="" class="btn btn-default btn-lg">Download</a>
   </div>
 </div>
 ';

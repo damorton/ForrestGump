@@ -7,6 +7,7 @@
 #include "CollisionManager.h"
 #include "Player.h"
 #include <iostream>
+#include "Shield.h"
 
 /* ---------------------------------------------------------------------------
 ** SpawnManager.h
@@ -53,14 +54,38 @@ public:
 	void pauseGame();
 	/* @brief resumes all enemies and their actions */
 	void resumeGame();
+	
+	/* @brief function to create shields by passing in the filename */
+	void createShields();
+	/* @brief function to take in the arguments to create the shield and add it to spawn manager */
+	void createShield(std::string filename, bool gravity, bool rotate);
+	/* @brief function to add shield to the active vector
+	@param filename, gravity, rotate
+	*/
+	bool addShieldToActiveVector(Shield* shield);
+	/* @brief function to move the shields
+	@param Shield object
+	*/
+	void moveShields();
+	/* @brief function to reset the shield */
+	void resetShield(Shield* shield);
+	/* @brief function to get random x position for the shield */
+	int getRandomXPosForShield();
 
-	CREATE_FUNC(SpawnManager); // creating SpawnManager function
+	CREATE_FUNC(SpawnManager);
+private:	
+	Player* m_pPlayer;
+	std::vector<Enemy*> m_vpEnemies;	
+	std::vector<Enemy*> m_vpActiveEnemies;
+	bool m_bIsSpawned;
+	// bool variable to set if the shield is spawned
+	bool m_bIsShieldSpawned;
 
-private:
-	Player* m_pPlayer; // reference to player object
-	std::vector<Enemy*> m_vpEnemies; // reference to vector of enemies	
-	std::vector<Enemy*> m_vpActiveEnemies; // reference to vector of active enemies
-	bool m_bIsSpawned; // bool to show if an enemy is spawned or not
+	// vector to hold shields
+	std::vector<Shield*> m_vpShields;
+
+	// vector to hold active shields
+	std::vector<Shield*> m_vpActiveShields;
 };
 
 #endif
