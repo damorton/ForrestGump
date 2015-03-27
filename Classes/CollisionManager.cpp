@@ -122,7 +122,7 @@ void CollisionManager::checkCollisionsWithEnemies()
 						{
 							if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
 							{  
-								CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/orc_dieShorter.wav", false, 1.0, 1.0, 1.0);
+								CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40.wav", false, 1.0, 1.0, 1.0);
 								m_pPlayer->addEnemyDeathParticle();
 								// Woo! I'm invincible!
 								m_pPlayer->addEnemiesKilled();
