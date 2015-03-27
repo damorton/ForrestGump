@@ -7,7 +7,7 @@
 	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org. Back-end game analytics
 	and statistics system built using a LAMP stack, Linux, Apache, MySQL and PHP. Hosted locally and remotely.
 
-	SpawnManager.h
+	SpawnManager.cpp
 
 	Description: The SpawnManager controls all enemy spawns within the game.
 	It contains a reference to the enemy object. We create the enemies within
