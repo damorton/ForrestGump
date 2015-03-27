@@ -1,3 +1,21 @@
+/*
+	Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+	http://www.grandtheftmuffins.esy.es
+
+	Third year games design and development project. Grand Theft Muffins endless runner game
+	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org
+
+	CollectableFactory.h
+
+	Description: Collectable factory controls all collectable items by the player.
+	The collectables are created, managed and updated in the Collectable factory.
+	The Collectable factory imports TMXTileMaps and converts each tile on each layer into
+	a game sprite and manages their behaviour. Tile sprites are moved, reset, updated and removed
+	by the collectable factory.The TMX Tile Maps are created using the Tiled Map Editor software.
+	http://www.mapeditor.org
+*/
+
 #include "CollectableFactory.h"
 #include "Definitions.h"
 #include "WorldManager.h"
@@ -5,10 +23,13 @@
 
 bool CollectableFactory::init()
 {	
+	// Calls the super class constructor and adds the layer to the auto release pool
 	if (!Layer::init())
 	{
 		return false;
 	}			
+
+	// Initialise and parse the TMX Tiled Map and its layers
 	this->addTMXTileMap("maps/SpawnManagerMap.tmx");	
 	this->addItemLayer("introCoins");
 	this->addItemLayer("coins");
@@ -18,22 +39,30 @@ bool CollectableFactory::init()
 	this->addItemLayer("items");
 	this->addItemLayer("boosters");
 	this->addItemLayer("food");
+
+	// Seed the random number generator for the item layers
 	srand(time(NULL));
+	
+	// Spawn status and active item vector size, used to empty the collision managers item vector
 	m_bIsSpawned = false;	
 	m_cActiveItems = 0;
+
+	// Spawn the intro pattern of coins
 	this->activateItems("introCoins");
-	//CCLOG("Collectable factory init");
+	//CCLOG("Collectable factory initialised");
 	return true;
 }
 
 void CollectableFactory::addItemLayer(std::string layerName)
 {
+	// Get item layer by its name in the Tiled map
 	auto layer = m_pTileMap->getLayer(layerName);
 	this->initTilePositions(layer, layerName);
 }
 
 bool CollectableFactory::addTMXTileMap(const std::string& filename)
-{
+{	
+	// Create the TMXTiledMap object using the filename parameter add it to the Collectable Factory	
 	m_pTileMap = TMXTiledMap::create(filename);		
 	this->addChild(m_pTileMap);
 	return true;
@@ -41,17 +70,21 @@ bool CollectableFactory::addTMXTileMap(const std::string& filename)
 
 bool CollectableFactory::initTilePositions(TMXLayer* layer, std::string name)
 {		
+	// Loop through each tile in the tilemap and the set the sprites poisition in game
 	Size layerSize = layer->getLayerSize();
 	for (int i = 0; i < layerSize.width; i++)
 	{
 		for (int j = 0; j < layerSize.height; j++)
 		{
+			// Only set the positions, names and visibility of sprites in the tilemap
 			auto item = layer->tileAt(Vec2(i, j));
 			if (item)
 			{				
 				item->setName(name);
 				item->setPosition(Vec2(item->getPositionX() + VISIBLE_SIZE_WIDTH, SCREEN_ORIGIN.y + WorldManager::getInstance()->getFloorSprite()->getContentSize().height + item->getPositionY()));
 				item->setVisible(true);
+
+				// Register the item with the collectable factory
 				m_vpItems.push_back(item);				
 			}
 		}
@@ -125,17 +158,26 @@ void CollectableFactory::resetItem(Sprite* item)
 {		
 	if(item != NULL)
 	{
+		// Static cast the shared pointer to the item sprite 
 		Sprite* tile = static_cast<Sprite*>(item);		
+
+		// Reset the sprites position outside the screen view to the right and decrement the active vector count
 		tile->setPosition(Vec2(tile->getPositionX() + tile->getParent()->getContentSize().width*2 + VISIBLE_SIZE_WIDTH, tile->getPositionY()));
 		tile->setVisible(false);
 		m_cActiveItems--;
+
+		// Remove the sprite from the collision manager
 		CollisionManager::getInstance()->removeItem();
 	}
+
+	// If the active item count is zero, clear the vector to be safe
 	if (m_cActiveItems <= 0) m_vpActiveItems.clear();
 }
 
 void CollectableFactory::moveSprites()
 {	
+	// Loop through the active items vector and move each sprite from right to left
+	// accross the screen
 	if (!m_vpActiveItems.empty())
 	{		
 		for (std::vector<Sprite*>::size_type it = 0; it < m_vpActiveItems.size(); ++it)
@@ -154,21 +196,21 @@ void CollectableFactory::moveSprites()
 
 void CollectableFactory::update()
 {	
+	// Collectable factories update method is called from the main game loop
+	// Spawn a new set of items when there is not currently a set active
 	if (m_vpActiveItems.empty())
 	{
 		this->spawnSprites();
 	}
+	
+	// Move each item across the screen
 	this->moveSprites();
 }
 
 void CollectableFactory::collectableFactoryCleanup()
 {
-	m_pTileMap = NULL;
-	m_pCoinLayer = NULL;
-	m_pIntroCoinLayer = NULL;
-	m_pItemLayer = NULL;
-	m_pBoosterLayer = NULL;
-	m_pFoodLayer = NULL;
+	// Clean up the Collectable Factory
+	m_pTileMap = NULL;	
 	m_vpItems.clear();
 	m_vpActiveItems.clear();	
 	//CCLOG("Collectable Factory cleanup");

@@ -25,8 +25,8 @@ USING_NS_CC;
 
 class CollectableFactory : public cocos2d::Layer
 {
-public:		
-	virtual bool init();
+public:			
+	virtual bool init(); // Initialize the collectable factory
 	virtual void collectableFactoryCleanup();
 	virtual ~CollectableFactory(){ this->collectableFactoryCleanup(); };
 
@@ -72,26 +72,35 @@ public:
 		@return true if successful
 	*/
 	bool activateItems(std::string name);
-	
-	
-	void setTileMap(TMXTiledMap* tilemap){ m_pTileMap = tilemap; };		
+
+	// Check if a layer of items is currently spawned
 	bool isSpawned(){ return m_bIsSpawned; };
+
+	/*
+		Update controls all currently active items movements and is called
+		from the main game loop. It calls the move function and also checks
+		for spawn status
+	*/
 	void update();	
 	
+	// Move all sprites in the active items vector
 	void moveSprites();
+
+	// Reset the collectable sprite when it goes out of view
 	void resetItem(Sprite* item);
+
+	// Creates the Collectable Factory layer and adds it to the auto release pool	
 	CREATE_FUNC(CollectableFactory);
 private:
+
+	// TMX Tiled Map
 	TMXTiledMap* m_pTileMap;
-	TMXLayer* m_pIntroCoinLayer;
-	TMXLayer* m_pCoinLayer;
-	TMXLayer* m_pItemLayer;
-	TMXLayer* m_pBoosterLayer;
-	TMXLayer* m_pFoodLayer;
+	
+	// Collectable items status and containers
 	bool m_bIsSpawned;
 	std::vector<Sprite*> m_vpItems;
 	std::deque<Sprite*> m_vpActiveItems;
-	int m_cActiveItems;
+	int m_cActiveItems; // Used to clear the collision managers item vector
 };
 
 #endif
