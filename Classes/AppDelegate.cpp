@@ -15,14 +15,12 @@
 	control the scene management App Delegate is created as standard in all new Cocos2dx projects and only slight 
 	modifications are needed to address different device resolutions.	
 */
-#include "AppDelegate.h"
-#include "Definitions.h"
-#include "Splash.h"
 #include <string>
-#include "SimpleAudioEngine.h"
 #include <iostream>
+#include "AppDelegate.h"
+#include "SimpleAudioEngine.h"
+#include "Splash.h"
 
-USING_NS_CC;
 using namespace CocosDenshion;
 
 AppDelegate::AppDelegate() {

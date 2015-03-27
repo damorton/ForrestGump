@@ -21,9 +21,10 @@
 
 // Includes
 #include <iostream>
-#include "cocos2d.h"
+#include "Definitions.h"
 
-USING_NS_CC;
+class WorldManager;
+class CollisionManager;
 
 class CollectableFactory : public cocos2d::Layer
 {
@@ -103,6 +104,9 @@ private:
 	std::vector<Sprite*> m_vpItems;
 	std::deque<Sprite*> m_vpActiveItems;
 	int m_cActiveItems; // Used to clear the collision managers item vector
+
+	WorldManager* m_pWorldManager;
+	CollisionManager* m_pCollisionManager;
 };
 
 #endif
