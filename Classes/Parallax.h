@@ -23,7 +23,7 @@ class Parallax : public cocos2d::LayerColor
 {
 	public:		
 
-		/* @brief Init function that creates our parallax element */
+		/* @brief init function that initialize the parallax class */
 		virtual bool init();
 
 		/* @brief Initialize the parent node */
