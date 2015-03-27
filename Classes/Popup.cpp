@@ -14,17 +14,8 @@ Resume Button - back to Game scene
 Main Menu - leave the game and back to Main Menu scene
 
 */
-
+// Includes
 #include "Popup.h"
-#include "HUD.h"
-#include "Popup.h"
-#include "GameScene.h"
-#include "Definitions.h"
-#include "MainMenu.h"
-#include "WorldManager.h"
-#include "audio/include/SimpleAudioEngine.h"
-
-USING_NS_CC;
 
 // init - Initialization function that create popup element
 bool Popup::init()

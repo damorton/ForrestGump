@@ -14,19 +14,18 @@ Description: Creates Game scene for the game
 #ifndef __GAMESCENE_SCENE_H__
 #define __GAMESCENE_SCENE_H__
 
+// Includes
 #include "Definitions.h"
 
-#include "CollectableFactory.h"
-#include "HUD.h"
-#include "Parallax.h"
-#include "Player.h"
-#include "SpawnManager.h"
-#include "Enemy.h"
-
+// Forward declarations
 class WorldManager;
 class CollisionManager;
-
-USING_NS_CC;
+class CollectableFactory;
+class SpawnManager;
+class Parallax;
+class HUD;
+class Player;
+class Enemy;
 
 class GameScene : public cocos2d::Layer
 {
@@ -61,21 +60,15 @@ public:
 	// Updates Timer
 	void updateTimer(float dt);
 	
-private:
-	// Set the physics world 
-	void SetPhysicsWorld(PhysicsWorld *world) { m_pSceneWorld = world; };
-	
+private:		
     // Variables for different types of objects to be created in Game Scene
-	PhysicsWorld* m_pSceneWorld;			
 	HUD* m_HudLayer;
 	Parallax* m_pParallax;
-	Layer* gamePlayLayer;	
 	Player* m_pPlayer;
 	CollectableFactory* m_pCollectableFactory;
 	SpawnManager* m_pSpawnManager;
 	WorldManager* m_pWorldManager;
 	CollisionManager* m_pCollisionManager;
-	Enemy m_enemey;	
 
 	int spawnSegmentTimer;
 	bool m_bPaused;

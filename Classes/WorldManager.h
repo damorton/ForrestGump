@@ -13,20 +13,19 @@
 	also controls the world gravity and allows access to important game objects such as the player, 
 	data access objects, and all game scene layers. 
 */
-
 #ifndef WORLDMANAGER_H_
 #define WORLDMANAGER_H_
 
-#include "cocos2d.h"
-#include "Definitions.h"
-#include "Splash.h"
-#include "GameScene.h"
-#include "HUD.h"
-#include "Player.h"
-#include "Enemy.h"
-#include "DAO/GameDAO.h"
+// Includes
 #include <memory>
-#include "network\HttpClient.h"
+#include "Definitions.h"
+#include "DAO/GameDAO.h"
+
+// Forward declarations
+class GameScene;
+class HUD;
+class Player;
+class HttpClient;
 
 class WorldManager
 {

@@ -14,11 +14,6 @@ Description: Creates a PowerUp abstract class
 #ifndef POWERUPS_H_
 #define POWERUPS_H_
 
-#include "cocos2d.h"
-
-USING_NS_CC;
-
-
 class PowerUps 
 {
 public:

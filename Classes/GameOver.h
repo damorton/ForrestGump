@@ -1,10 +1,11 @@
 #ifndef GAMEOVER_H
 #define GAMEOVER_H
 
-#include "cocos2d.h"
-#include "Player.h"
+// Includes
+#include "Definitions.h"
 
-USING_NS_CC;
+// Forward declarations
+class Player;
 
 class GameOver : public cocos2d::Layer
 {

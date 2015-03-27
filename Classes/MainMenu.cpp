@@ -17,6 +17,7 @@ It allows the user to play the game.
 #include "MainMenu.h"
 #include "GameScene.h"
 #include "WorldManager.h"
+#include "CollisionManager.h"
 #include "Popup.h"
 
 // Create the Main Menu Scene

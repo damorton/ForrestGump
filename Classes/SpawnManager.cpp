@@ -1,7 +1,10 @@
+
+
 #include "SpawnManager.h"
 #include "WorldManager.h"
+#include "CollisionManager.h"
 #include "Shield.h"
-USING_NS_CC;
+#include "Enemy.h"
 
 bool SpawnManager::init()
 {

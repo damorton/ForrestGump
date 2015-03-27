@@ -14,8 +14,8 @@ Description: Creates a shield object which inherits from powerUp.h and sprite
 #ifndef SHIELD_H_
 #define SHIELD_H_
 
+#include "Definitions.h"
 #include "PowerUps.h"
-#include "cocos2d.h"
 
 class Shield : public Sprite, public PowerUps
 {

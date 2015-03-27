@@ -17,13 +17,12 @@
 #ifndef SPAWNMANAGER_H_
 #define SPAWNMANAGER_H_
 
-#include "cocos2d.h"
-#include "Enemy.h"
-#include "Definitions.h"
-#include "CollisionManager.h"
-#include "Player.h"
-#include "Shield.h"
 #include <iostream>
+#include "Definitions.h"
+
+class Player;
+class Enemy;
+class Shield;
 
 class SpawnManager : public cocos2d::Layer
 {

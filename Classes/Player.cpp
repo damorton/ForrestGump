@@ -15,10 +15,10 @@
 
 */
 
-#include "Definitions.h"
-#include "WorldManager.h"
+// Includes
 #include "Player.h"
-#include "GameOver.h"
+#include "WorldManager.h"
+#include "CollisionManager.h"
 #include "audio/include/SimpleAudioEngine.h"
 
 Player* Player::create(const std::string& filename)

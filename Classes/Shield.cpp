@@ -12,9 +12,6 @@ Description: implementation for shield object
 
 */
 #include "Shield.h"
-#include "WorldManager.h"
-
-USING_NS_CC;
 
 // create - creates the shield using file
 Shield* Shield::create(const std::string& filename)

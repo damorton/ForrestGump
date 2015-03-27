@@ -35,8 +35,8 @@ private:
 	Label* m_pItemsValueLabel;
 	Label* m_pBoostersValueLabel;
 	Label* m_pFoodValueLabel;
-	Popup* popup;
 	MenuItemImage *menu_item_pause;
+	Popup* popup;
 	Player* m_pPlayer;
 };
 

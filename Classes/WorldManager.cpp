@@ -14,9 +14,10 @@
 	data access objects, and all game scene layers.
 */
 #include "WorldManager.h"
-#include "DAO/User.h"
-#include "Definitions.h"
 #include <iostream>
+#include "Player.h"
+#include "DAO/User.h"
+#include "network\HttpClient.h"
 
 WorldManager* WorldManager::m_pInstance = 0;
 
