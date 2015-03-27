@@ -15,15 +15,23 @@ body {
 
 
 /* use special fonts in certain elements */
-h1,h2,h3,h4,.lead,.btn,.navbar, a {
+h1,h2,h3,h4,.lead,.btn,.navbar{
   text-transform:uppercase;
   font-family:'Voltaire',Arial,sans-serif;
   letter-spacing:2px;
 }
 
+/* LINKS */
+a {
+	font-family:'Voltaire',Arial,sans-serif;
+  	letter-spacing:2px;
+}
+
 h1 {
   font-size:50px;
 }
+
+
 
 /* make images gray */
 img.grayscale {
@@ -125,7 +133,7 @@ img.grayscale {
 }
 
 .alt li a:hover, .alt li.active {
-  background-color:#5D17BA;
+ 	background-color:#5D17BA;
 }
 
 
