@@ -6,8 +6,8 @@
 #include "Definitions.h"
 #include "CollisionManager.h"
 #include "Player.h"
-#include <iostream>
 #include "Shield.h"
+#include <iostream>
 
 class SpawnManager : public cocos2d::Layer
 {

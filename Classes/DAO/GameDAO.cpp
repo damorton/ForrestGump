@@ -171,7 +171,7 @@ void GameDAOMySQL::update(std::string requestString)
 	cocos2d::network::HttpClient::getInstance()->send(remoteRequest);
 	//CCLOG("%s", requestString.c_str());	
 	remoteRequest->release();
-
+	/*
 	// Local MySQL
 	// Update the remote database with POST request
 	cocos2d::network::HttpRequest* localRequest = new (std::nothrow) cocos2d::network::HttpRequest();
@@ -188,6 +188,7 @@ void GameDAOMySQL::update(std::string requestString)
 	cocos2d::network::HttpClient::getInstance()->send(localRequest);
 	//CCLOG("%s", requestString.c_str());	
 	localRequest->release();
+	*/
 }
 
 void GameDAOMySQL::del()

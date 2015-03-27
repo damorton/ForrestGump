@@ -1,3 +1,20 @@
+/*
+Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+http://www.grandtheftmuffins.esy.es/
+
+Third year games design and development project. Grand Theft Muffins endless runner game
+written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org
+
+Popup.cpp
+
+Description: Shows up a Sprite as Pause Menu with two buttons
+representing Resume Game and Main Menu.
+Resume Button - back to Game scene
+Main Menu - leave the game and back to Main Menu scene
+
+*/
+
 #include "Popup.h"
 #include "HUD.h"
 #include "Popup.h"
@@ -9,12 +26,13 @@
 
 USING_NS_CC;
 
-//init create popup element with text
+// init - Initialization function that create popup element
 bool Popup::init()
 {
 	if (!CCSprite::init()) {
 		return false;
 	}
+
 	// Background Menu	
 	auto m = Sprite::create("buttons/menu.png");	
 
@@ -27,7 +45,7 @@ bool Popup::init()
 	return true;
 }
 
-//Popup with title, insert text for parameter
+// createPopup - Popup with title, insert text for parameter
 Popup* Popup::createPopup()
 {
 	Popup *pop = new Popup();
@@ -39,26 +57,6 @@ Popup* Popup::createPopup()
 //Shows up a popup screen
 void Popup::show(bool shouldShow, bool sel)
 {
-	if (sel)
-	{
-		//GameScene *g = WorldManager::gameLayer();
-		//g->pauseGame();
-		//auto gameLayer = Director::getInstance()->getRunningScene()->getChildByTag(TAG_GAME_LAYER);		
-
-		// Stop sound
-		if (shouldShow)
-		{			
-			//CocosDenshion::SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
-			//gameLayer->pause();
-			//WorldManager::getInstance()->layerWithTag(TAG_GAME_LAYER)->pause();			
-		}
-		else
-		{
-			//CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
-			//gameLayer->resume();
-			//WorldManager::getInstance()->layerWithTag(TAG_GAME_LAYER)->resume();						
-		}
-	}
 	// Set my Sprite Pause visible
 	this->setVisible(shouldShow);	
 }

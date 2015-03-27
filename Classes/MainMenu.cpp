@@ -1,9 +1,25 @@
+/*
+Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+http://www.grandtheftmuffins.esy.es/
+
+Third year games design and development project. Grand Theft Muffins endless runner game
+written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org
+
+MainMenu.h
+
+Description: Main menu placed at the beginning of the game.
+It allows the user to play the game.
+
+*/
+
 #include "audio/include/SimpleAudioEngine.h"
 #include "MainMenu.h"
 #include "GameScene.h"
 #include "WorldManager.h"
 #include "Popup.h"
 
+// Create the Main Menu Scene
 Scene* MainMenu::createScene()
 {
     auto scene = Scene::create();    
@@ -12,6 +28,7 @@ Scene* MainMenu::createScene()
     return scene;
 }
 
+// Main Menu Initialization 
 bool MainMenu::init()
 {    
     if ( !Layer::init() )
@@ -28,35 +45,18 @@ bool MainMenu::init()
 	mainMenuBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(mainMenuBackground, -50);
 
-	// create the main menu items
+	// Create the main menu items
 	m_pPlayButton = MenuItemImage::create("buttons/PlayNormal.png", "buttons/PlaySelected.png", CC_CALLBACK_1(MainMenu::playGame, this));
 	m_pPlayButton->setPosition(Point(visibleSize.width / 2, SCREEN_ORIGIN.y + (visibleSize.height / 10) * 2));
-	auto highscoresButton = MenuItemImage::create("buttons/TrophyNormal.png", "buttons/TrophySelected.png", CC_CALLBACK_1(MainMenu::leaderboard, this));
-	highscoresButton->setPosition(Point(visibleSize.width / 4, SCREEN_ORIGIN.y + (visibleSize.height / 10) * 2));
-	auto settingsButton = MenuItemImage::create("buttons/settings2.png", "buttons/settings2.png", CC_CALLBACK_1(MainMenu::settings, this));
-	settingsButton->setPosition(Point(visibleSize.width / 4 * 3, SCREEN_ORIGIN.y + (visibleSize.height / 10) * 2));
 
-	// create menu and add menu items
-	//auto* menu = Menu::create(m_pPlayButton, highscoresButton, settingsButton, NULL);
+	// Create menu and add menu items
 	auto* menu = Menu::create(m_pPlayButton, NULL);
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu);
 
-	addParticlesToButtons(m_pPlayButton);
-	addParticlesToButtons(settingsButton);
-	addParticlesToButtons(highscoresButton);
-		
-	// Settings
-	popupSettings = Popup::createPopup();
-	auto backButton = MenuItemImage::create("buttons/back.png", "buttons/back.png", CC_CALLBACK_1(MainMenu::back, this));	
-	soundButton = MenuItemImage::create("buttons/soundON.png", "buttons/soundOFF.png", CC_CALLBACK_1(MainMenu::sound, this));
-	WorldManager::getInstance()->setSoundEnabled(true);
+	addParticlesToButtons(m_pPlayButton);	
 
-	// Create menu and add menu items
-	auto* menuSettings = Menu::create(soundButton, backButton, NULL);
-	menuSettings->alignItemsVertically();
-	popupSettings->addChild(menuSettings, 2);
-	this->addChild(popupSettings, 1);	
+	WorldManager::getInstance()->setSoundEnabled(true);
 
 	// Register Touch Event
 	auto listener = EventListenerTouchOneByOne::create();
@@ -71,11 +71,11 @@ bool MainMenu::init()
 		m_pPlayButton->setVisible(false);
 	}
 	
-
 	CCLOG("MainMenu initialized");
     return true;
 }
 
+// Adding effects to the Play Button 
 void MainMenu::addParticlesToButtons(MenuItemImage* button)
 {
 	auto emitter = ParticleSystemQuad::create("particles/Flower.plist");
@@ -86,6 +86,7 @@ void MainMenu::addParticlesToButtons(MenuItemImage* button)
 	button->addChild(emitter);
 }
 
+// Call the Game Scene
 void MainMenu::playGame(cocos2d::Ref *pSender)
 {		
 	if (!WorldManager::getInstance()->isXMLFileExist())
@@ -99,35 +100,13 @@ void MainMenu::playGame(cocos2d::Ref *pSender)
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);		
 }
 
-void MainMenu::leaderboard(cocos2d::Ref *pSender)
-{	
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);	
-}
-
-void MainMenu::settings(cocos2d::Ref *pSender)
-{		
-	popupSettings->show(true, false);
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/button-21.wav", false, 1.0f, 1.0f, 1.0f);	
-}
-
-void MainMenu::back(CCObject* pSender)
+// TODO : Clean up function */
+void MainMenu::mainMenuCleanup()
 {
-	popupSettings->show(false, false);	
+	CCLOG("Main menu cleanup");
 }
 
-void MainMenu::sound(CCObject* pSender)
-{
-	if (WorldManager::getInstance()->isSoundEnabled()){		
-		CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();		
-		WorldManager::getInstance()->setSoundEnabled(false);
-	}
-	else{		
-		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/bgm_menu.wav", true);
-		WorldManager::getInstance()->setSoundEnabled(true);
-	}
-	 
-}
-
+// Getting the user name to save score
 void MainMenu::createTF()
 {
 	m_pTextField = TextFieldTTF::textFieldWithPlaceHolder("ENTER USERNAME", LABEL_FONT_ROBOTO, LABEL_FONT_SIZE);
@@ -136,8 +115,8 @@ void MainMenu::createTF()
 
 	m_nCharLimit = 12;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)    
-	// on android, TextFieldTTF cannot auto adjust its position when soft-keyboard pop up
-	// so we had to set a higher position
+	// On android, TextFieldTTF cannot auto adjust its position when soft-keyboard pop up
+	// So we had to set a higher position
 	m_pTextField->setPosition(Vec2(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2 + 50));
 #else
 	m_pTextField->setPosition(Vec2(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT * .90));
@@ -147,23 +126,15 @@ void MainMenu::createTF()
 	this->addChild(m_pTextField);	
 }
 
+// Allow touches on screen
 bool MainMenu::onTouchBegan(Touch *pTouch, Event *pEvent)
 {
-	m_beginPos = pTouch->getLocation();
 	return true;
 }
 
-void MainMenu::onTouchEnded(Touch *pTouch, Event *pEvent)
-{
-	
-}
-
-
 bool MainMenu::onTextFieldAttachWithIME(TextFieldTTF * pSender)
 {
-
 	return false;
-
 }
 
 bool MainMenu::onTextFieldDetachWithIME(TextFieldTTF * pSender)
@@ -171,6 +142,7 @@ bool MainMenu::onTextFieldDetachWithIME(TextFieldTTF * pSender)
 	return false;
 }
 
+// Create a field to input user details
 bool MainMenu::onTextFieldInsertText(TextFieldTTF *pSender, const char *text, size_t nLen)
 {	
 	// Do not allow the user to enter incorrect characters into username 
@@ -180,7 +152,7 @@ bool MainMenu::onTextFieldInsertText(TextFieldTTF *pSender, const char *text, si
 		return true;
 	}	
 
-	// if the textfield's char count more than _charLimit, doesn't insert text anymore.
+	// If the textfield's char count more than _charLimit, doesn't insert text anymore.
 	if (pSender->getCharCount() >= m_nCharLimit)
 	{
 		return true;
@@ -191,7 +163,7 @@ bool MainMenu::onTextFieldInsertText(TextFieldTTF *pSender, const char *text, si
 	this->addChild(label);	
 	label->setColor(Color3B::YELLOW);
 
-	// move the sprite from top to position
+	// Move the sprite from top to position
 	auto endPos = pSender->getPosition();
 	if (pSender->getCharCount())
 	{
@@ -226,11 +198,11 @@ void MainMenu::callbackRemoveNodeWhenDidAction(Node * node)
 
 bool MainMenu::onTextFieldDeleteBackward(TextFieldTTF *pSender, const char *delText, size_t nLen)
 {		
-	// create a delete text sprite and do some action
+	// Create a delete text sprite and do some action
 	auto label = Label::createWithSystemFont(delText, LABEL_FONT_ROBOTO, LABEL_FONT_SIZE);
 	this->addChild(label);
 
-	// move the sprite to fly out
+	// Move the sprite to fly out
 	auto beginPos = pSender->getPosition();
 	auto textfieldSize = pSender->getContentSize();
 	auto labelSize = label->getContentSize();
@@ -267,6 +239,7 @@ bool MainMenu::onDraw(TextFieldTTF * pSender)
 	return false;
 }
 
+
 static Rect getRect(Node * node)
 {
 	Rect rc;
@@ -285,10 +258,4 @@ void MainMenu::keyboardWillShow(IMEKeyboardNotificationInfo &info)
 void MainMenu::keyboardWillHide(IMEKeyboardNotificationInfo &info)
 {
 	
-}
-
-void MainMenu::mainMenuCleanup()
-{
-	popupSettings = NULL;
-	//CCLOG("Main menu cleanup");
 }

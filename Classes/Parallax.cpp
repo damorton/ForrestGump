@@ -1,6 +1,20 @@
+/*
+Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+http://www.grandtheftmuffins.esy.es/
+
+Third year games design and development project. Grand Theft Muffins endless runner game
+written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org
+
+Parallax.cpp
+
+Description: Moves the background images.
+*/
+
 #include "Parallax.h"
 #include "WorldManager.h"
 
+// init - Initialization function
 bool Parallax::init()
 {
 	if (!LayerColor::initWithColor(Color4B(173, 216, 230, 255)))
@@ -12,6 +26,7 @@ bool Parallax::init()
 	return true;
 }
 
+// addBackground - Add the backgrounds
 bool Parallax::addBackground(const std::string& filename1, const std::string& filename2, const std::string& filename3, const std::string& filename4, const std::string& filename5)
 {
 	// Floor
@@ -68,6 +83,7 @@ bool Parallax::addBackground(const std::string& filename1, const std::string& fi
 	return true;	
 }
 
+// update() - Call the scroll function
 void Parallax::update()
 {	
 	scrollBackground(m_pSpriteFloor1, m_pSpriteFloor2, m_pWorldManager->getGameWorldSpeed());
@@ -77,6 +93,7 @@ void Parallax::update()
 	scrollBackground(m_pSpriteBackgroundFourth, m_pSpriteBackgroundFourth1, m_pWorldManager->getGameWorldSpeed() / 5.0);
 }
 
+//scrollBackground() - Move background images 
 void Parallax::scrollBackground(CCSprite* bck1, CCSprite* bck2, float speed)
 {	
 	bck1->setPosition(Vec2(bck1->getPosition().x - speed, bck1->getPosition().y));
