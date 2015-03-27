@@ -6,6 +6,7 @@
 #include "GameOver.h"
 #include "Player.h"
 #include "audio/include/SimpleAudioEngine.h"
+#include "Shield.h"
 
 USING_NS_CC;
 
@@ -82,6 +83,10 @@ bool GameScene::initializeGame()
 	this->schedule(schedule_selector(GameScene::updateTimer), 1.0f);	
 	
 	m_bPaused = false;
+
+	/*auto shield = Shield::create("sprites/shieldWithSwords.png");
+	shield->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));
+	this->addChild(shield);*/
 
 	this->scheduleUpdate();	
 	CCLOG("Game scene initialized");

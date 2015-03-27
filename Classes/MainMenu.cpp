@@ -159,7 +159,7 @@ bool MainMenu::onTextFieldInsertText(TextFieldTTF *pSender, const char *text, si
 		return true;
 	}
 		
-	// Create a insert text sprite and do some action
+	// Create a insert text sprite and do some action to add an effect
 	auto label = Label::createWithSystemFont(text, LABEL_FONT_ROBOTO, LABEL_FONT_SIZE);
 	this->addChild(label);	
 	label->setColor(Color3B::YELLOW);
