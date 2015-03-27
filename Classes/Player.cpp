@@ -185,16 +185,19 @@ void Player::jump()
 		// Play a jump sound effect
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40.wav", false, 1.0f, 1.0f, 1.0f);		
 	}	
-	// If back pack action = BP_UP
+	// If back pack action = BP_UP and jump is pressed
 	if (m_eBackpackAction == BP_UP)
 	{
+		// send player down
 		m_pJetpack->setSpriteFrame(SpriteFrame::create("sprites/jetpackDown.png", Rect(0, 0, m_pJetpack->getContentSize().width, m_pJetpack->getContentSize().height)));
 		m_pJetpack->getChildByName("jetpackFire")->setPosition(Vec2(0, m_pJetpack->getContentSize().height));				
 		setBPAction(BP_DOWN);
 		this->getPhysicsBody()->setVelocity(PLAYER_JUMP_VEL);
 	}
+	// else if action == BP_DOWN
 	else if (m_eBackpackAction == BP_DOWN)
 	{
+		// jump player up
 		m_pJetpack->setSpriteFrame(SpriteFrame::create("sprites/jetpackUp.png", Rect(0, 0, m_pJetpack->getContentSize().width, m_pJetpack->getContentSize().height)));
 		m_pJetpack->getChildByName("jetpackFire")->setPosition(Vec2::ZERO);			
 		setBPAction(BP_UP);
