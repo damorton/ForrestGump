@@ -1,3 +1,18 @@
+/*
+	Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+	http://www.grandtheftmuffins.esy.es/
+
+	Third year games design and development project. Grand Theft Muffins endless runner game
+	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org
+
+	HUD.cpp
+
+	Description: HUD layer is responsible by UI (User Interface).
+	Score and Distance are some feature controlled by HUD.
+	Pause menu is on HUD.
+
+*/
 
 // Includes
 #include "HUD.h"
@@ -6,6 +21,7 @@
 #include "Popup.h"
 #include "Player.h"
 
+// Init function that initialize the HUD class 
 bool HUD::init()
 {	
 	if (!Layer::init())
@@ -73,7 +89,7 @@ bool HUD::init()
 	auto resumeButton = MenuItemImage::create("buttons/btNotResumeGame.png", "buttons/btActResumeGame.png", CC_CALLBACK_1(HUD::resume, this));
 	auto mainMenuButton = MenuItemImage::create("buttons/btNotMainGame.png", "buttons/btActMainGame.png", CC_CALLBACK_1(HUD::mainMenu, this));
 
-	// create menu and add menu items
+	// Create menu and add menu items
 	auto* menu = Menu::create(resumeButton, mainMenuButton, NULL);
 	menu->setPosition(VISIBLE_SIZE_WIDTH / 2, VISIBLE_SIZE_HEIGHT / 2);
 	menu->alignItemsVertically();
@@ -86,6 +102,7 @@ bool HUD::init()
 	return true;
 }
 
+// Initiallizing label with value (Score, Distance)
 void HUD::initLabelWithValue(Label* label, Vec2 position, Label* value)
 {	
 	this->addChild(label);
@@ -99,6 +116,7 @@ void HUD::initLabelWithValue(Label* label, Vec2 position, Label* value)
 	value->enableGlow(Color4B(255, 255, 51, 255));
 }
 
+// Update method
 void HUD::update()
 {
 	if (m_pPlayer != NULL)
@@ -108,22 +126,26 @@ void HUD::update()
 	}
 }
 
+// Pause game
 void HUD::pause(CCObject* pSender)
 {
 	this->togglePause(true);
 }
 
+// Resume game
 void HUD::resume(CCObject* pSender)
 {
 	this->togglePause(false);
 }
 
+// Back to MainMenu scene
 void HUD::mainMenu(CCObject* pSender)
 {
 	// Unpause the director	
 	WorldManager::getInstance()->gameLayer()->mainMenu();		
 }
 
+// Switch between game paused or not
 void HUD::togglePause(bool paused)
 {
 	popup->show(paused, true);
@@ -134,6 +156,7 @@ void HUD::togglePause(bool paused)
 	WorldManager::getInstance()->gameLayer()->pauseGame();
 }
 
+// TODO : Implement clean up function 
 void HUD::hudCleanup()
 {
 	//CCLOG("HUD Cleanup");

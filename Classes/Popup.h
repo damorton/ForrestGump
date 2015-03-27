@@ -1,17 +1,14 @@
 /*
-Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+	Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
 
-http://www.grandtheftmuffins.esy.es/
+	http://www.grandtheftmuffins.esy.es/
 
-Third year games design and development project. Grand Theft Muffins endless runner game
-written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org
+	Third year games design and development project. Grand Theft Muffins endless runner game
+	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org
 
-Popup.h
+	Popup.h
 
-Description: Shows up a Sprite as Pause Menu with two buttons
-representing Resume Game and Main Menu.
-Resume Button - back to Game scene
-Main Menu - leave the game and back to Main Menu scene
+	Description: Pops up a Sprite pausing the background actions.
 
 */
 
@@ -23,17 +20,17 @@ Main Menu - leave the game and back to Main Menu scene
 
 class Popup : public cocos2d::Sprite
 {
-	/* @brief Pointer to Menu Cocos2D object */
+	// Pointer to Menu Cocos2D object 
 	cocos2d::CCMenu *menu;
 public:
 
-	/* @brief Init function that initialize the popup class */
+	// Init function that initialize the popup class 
 	bool init();
 	
-	/* @brief CreatePopup function that call functions to create the popup everytime someone click in Pause */
+	// CreatePopup function that call functions to create the popup everytime someone click in Pause 
 	static Popup* createPopup();
 	
-	/* @brief Show/Hide the Pause menu on the screen */
+	// Show/Hide the Pause menu on the screen 
 	void show(bool shouldShow, bool);
 };
 
