@@ -1,3 +1,18 @@
+/*
+	Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+	http://www.grandtheftmuffins.esy.es
+
+	Third year games design and development project. Grand Theft Muffins endless runner game
+	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org
+
+	GameDAO.cpp
+
+	Description: Data access object used to interface with database implementations.
+	XML implmenetation uses a local XML file to stored game data and player information.
+	The MySQL implementation communicates with a remote apache server allowing access to
+	a MySQL database using PHP5 to control communications between the game the database.
+*/
 #include "GameDAO.h"
 #include "Definitions.h"
 #include "tinyxml2/tinyxml2.h"
