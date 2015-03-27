@@ -15,6 +15,7 @@ Description: Creates splash scene which is the intro scene for Grand Theft Muffi
 #ifndef SPLASH_H
 #define SPLASH_H
 
+// Includes
 #include "cocos2d.h"
 
 class Splash : public cocos2d::Layer

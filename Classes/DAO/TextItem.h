@@ -15,6 +15,8 @@
 
 #ifndef _TEXT_ITEM_
 #define _TEXT_ITEM_
+
+// Includes
 #include <string>
 
 class TextItem 

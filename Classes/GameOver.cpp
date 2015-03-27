@@ -1,3 +1,18 @@
+/*
+	Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
+
+	http://www.grandtheftmuffins.esy.es
+
+	Third year games design and development project. Grand Theft Muffins endless runner game
+	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org. Back-end game analytics
+	and statistics system built using a LAMP stack, Linux, Apache, MySQL and PHP. Hosted locally and remotely.
+
+	GameOver.cpp
+
+	Description: The game over class handles with the end of the game. This
+	scene is shows up when our hero is caught by an enemy. It displays
+	highscore and all the Player Statistics during the game.
+*/
 
 // Includes
 #include "GameOver.h"
@@ -8,6 +23,7 @@
 #include "Player.h"
 #include "audio/include/SimpleAudioEngine.h"
 
+// Create the Game Over Scene
 Scene* GameOver::createScene()
 {
 	auto scene = Scene::create();
@@ -16,6 +32,7 @@ Scene* GameOver::createScene()
 	return scene;
 }
 
+// Game Over Initialization 
 bool GameOver::init()
 {    
     if ( !Layer::init() )
@@ -26,6 +43,7 @@ bool GameOver::init()
     return true;
 }
 
+// Check Game Over scene has initialized with success
 bool GameOver::initializeGameOverScene()
 {
 	bool success = true;
@@ -60,6 +78,7 @@ bool GameOver::initializeGameOverScene()
 	return success;
 }
 
+// Display Statistics
 void GameOver::displayPlayerStatistics()
 {
 	int coins = m_pPlayer->getCoins();
@@ -180,6 +199,7 @@ void GameOver::displayLeaderboard()
 	}
 }
 
+// Back to Game Scene to a new round
 void GameOver::playAgain(cocos2d::Ref *pSender)
 {
 	WorldManager::getInstance()->resetGameWorld();

@@ -10,8 +10,8 @@
 	Player.h
 
 	Description: The player class handles all player functionality. It
-	keeps track on the player current state and actions at all times. We handle
-	touches here also by registering the touch to make the player jump etc.
+ 	keeps track on the player current state and actions at all times. We handle
+ 	touches here also by registering the touch to make the player jump etc.
 */
 #ifndef PLAYER_H_
 #define	PLAYER_H_
@@ -22,8 +22,10 @@
 
 class Player : public Sprite, public Character
 {
-
 public:	
+	// Creating player using filepath
+	static Player* create(const std::string& filename);
+
 	// Deconstrcutor
 	virtual ~Player(){ this->playerCleanup(); };
 
@@ -38,9 +40,6 @@ public:
 
 	// Defining player jetpack actions
 	typedef enum { BP_UP, BP_DOWN } EBackpackAction;
-
-	// Creating player using filepath
-	static Player* create(const std::string& filename);
 
 	// Player jump function
 	void jump();
@@ -87,7 +86,6 @@ public:
 
 		@return high score
 	*/
-
 	int getHighScore(){ return m_nHighscore; };
 
 	/* 
@@ -131,7 +129,6 @@ public:
 		@return number of enemies killed
 	*/
 	int getEnemiesKilled(){ return m_nEnemiesKilled; };	
-
 
 	/* 
 		Gets the player shield
@@ -217,9 +214,11 @@ public:
 	CREATE_FUNC(Player);
 
 private:	
+	// Player and Backpack objects
 	EPlayerAction m_ePlayerAction;
 	EBackpackAction m_eBackpackAction;
 
+	// Variables to store the collectables points
 	int m_nHighscore;
 	int m_nDistance;
 	int m_nCoins;
@@ -229,15 +228,24 @@ private:
 	int m_nEnemiesKilled;
 	
 	
-	// God Mode count
+	// God mode count
 	int m_nCount;
 
+	// User name from local DB
 	std::string m_strUsername;
+
+	// Particles effects for jetpack and objects collectables
 	CCParticleSystem *m_pEmitter;
-	CCParticleSystem *m_pGameObjectEmitter;
-	Sprite* m_pJetpack;
+	CCParticleSystem *m_pGameObjectEmitter;	
+
+	// Bool check if the mode god is valid
 	bool m_bGodMode;
+
+	// Shield sprite
 	Sprite* m_pShield;
+
+	// Jetpack sprite
+	Sprite* m_pJetpack;
 };
 
 #endif
