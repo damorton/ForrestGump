@@ -25,6 +25,8 @@ public:
 	void resumePlayer();
 
 	EGameOjectType getType(){ return m_eType; };
+
+	/* @brief TODO : Implement getState to handle with Player states */
 	int getState(){ return m_eState; };
 	int getAction(){ return m_ePlayerAction; }
 	
