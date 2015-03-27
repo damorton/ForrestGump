@@ -19,6 +19,7 @@ It allows the user to play the game.
 // Includes
 #include "Definitions.h"
 
+// Forward Declarations
 class Popup;
 
 class MainMenu : public cocos2d::Layer, public TextFieldDelegate

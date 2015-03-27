@@ -14,6 +14,7 @@ Description: Creates a shield object which inherits from powerUp.h and sprite
 #ifndef SHIELD_H_
 #define SHIELD_H_
 
+// Includes
 #include "Definitions.h"
 #include "PowerUps.h"
 

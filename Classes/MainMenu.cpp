@@ -40,8 +40,11 @@ bool MainMenu::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+
+	// Plays Main Menu Background music
     CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/bgm_menu.wav", true);
 	
+	// Background
 	auto mainMenuBackground = Sprite::create("background/MainMenuBackground.png");
 	mainMenuBackground->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(mainMenuBackground, -50);
@@ -55,6 +58,7 @@ bool MainMenu::init()
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu);
 
+	// Particles for Button
 	addParticlesToButtons(m_pPlayButton);	
 
 	WorldManager::getInstance()->setSoundEnabled(true);
