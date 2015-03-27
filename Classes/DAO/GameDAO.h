@@ -1,7 +1,7 @@
 /*
 	Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
 
-	http://www.grandtheftmuffins.esy.es/
+	http://www.grandtheftmuffins.esy.es
 
 	Third year games design and development project. Grand Theft Muffins endless runner game
 	written in C++ using the Cocos2dx game engine. http://www.cocos2d-x.org
@@ -22,23 +22,23 @@
 
 /*
 	Abstract classes for XML and MySQL data access objects using
-	CRUD. These serve as interfaces to the objects. 
+	CRUD. These serve as interfaces to the DAO objects. 
 */
 class IGameDAO
 {
 public:
 	virtual ~IGameDAO(){};
 
-	//create
+	// Create 
 	virtual void create() = 0;
 
-	//read
+	// Read 
 	virtual std::shared_ptr<std::vector<User>> read() = 0;
 
-	//update
+	// Update
 	virtual void update(std::shared_ptr<std::vector<User>> Users) = 0;
 
-	//delete
+	// Delete
 	virtual void del() = 0;
 private:
 
@@ -49,16 +49,16 @@ class IGameDAOMySQL
 public:
 	virtual ~IGameDAOMySQL(){};
 
-	//create
+	// Create
 	virtual void create() = 0;
 
-	//read
+	// Read
 	virtual void read(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response) = 0;
 
-	//update
+	// Update
 	virtual void update(std::string requestString) = 0;
 
-	//delete
+	// Delete
 	virtual void del() = 0;
 private:
 
@@ -74,13 +74,21 @@ class GameDAO : public IGameDAO
 public:
 	virtual ~GameDAO(){};
 
-	//create
+	// Create the XML data access object
 	void create();
 
-	// Read from the local XML file
+	/*
+		Read users from the local XML file
+
+		@return std::shared_ptr<std::vector<User>> vector of users
+	*/
 	std::shared_ptr<std::vector<User>> read();
 
-	// Update the MySQL database on the remote server
+	/*
+		Update the local XML file
+
+		@param sstd::shared_ptr<std::vector<User>> Users, vector of users and scores
+	*/
 	void update(std::shared_ptr<std::vector<User>> Users);
 
 	// Delete data from the XML file

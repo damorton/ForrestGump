@@ -1,17 +1,28 @@
 <?php	
-
-include 'connect.php';
-
-function createUser($username)
-{	
-	$conn = connect();
-	$sql = "INSERT INTO Player (player_username)
-	VALUES ($username)";
-	if ($conn->query($sql) === TRUE) {
-		echo "New user created successfully";
-	} else {
-		echo "Error: " . $sql . "<br>" . $conn->error;
+function createUserIfNotExists($connection, $playerUsername)
+{		
+	// Check that players are entering usernames in the correct format
+	if($playerUsername == NULL || strlen($playerUsername) < 4 || strlen($playerUsername) > 12)
+	{		
+		printf("Error: player username not in the correct format");
+	}	
+	
+	// Search for the player in the database
+	$searchResult = $connection->query("SELECT player_username FROM Player WHERE player_username = '$playerUsername' LIMIT 1");
+	if ($searchResult->num_rows) {
+		// If the user exists do not add them again
+		printf("Error: player already exists in the database");
 	}
-	$conn->close();
+	else
+	{		
+		// Insert user into database if not NULL
+		if($playerUsername != NULL)
+		{
+			$connection->query("INSERT INTO Player (player_username) VALUES ('$playerUsername')");	
+		}
+	}
+	
+	// Free the query result
+	$searchResult->free();
 }
 ?>

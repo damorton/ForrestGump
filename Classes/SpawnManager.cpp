@@ -63,8 +63,8 @@ int SpawnManager::getRandomXPos()
 // Creates Random X position 
 int SpawnManager::getRandomXPosForShield()
 {
-	int max = (int)SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH * 8;
-	int min = (int)SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH * 5;
+	int max = (int)SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH * 10;
+	int min = (int)SCREEN_ORIGIN.x + VISIBLE_SIZE_WIDTH * 1.2;
 	return (rand() % max + min);
 }
 
@@ -85,16 +85,6 @@ void SpawnManager::createEnemy(std::string filename, std::string name, bool grav
 	this->addChild(enemy);
 	CollisionManager::getInstance()->addEnemy(enemy);
 
-}
-
-bool SpawnManager::spawnEnemy()
-{	
-	int randomnumber;
-	int numberOfEnemies = CollisionManager::getInstance()->getEnemies().size();	
-	randomnumber = (rand() % numberOfEnemies);	
-	this->addEnemyToActiveVector(CollisionManager::getInstance()->getEnemies().at(randomnumber));	
-	m_bIsSpawned = true;
-	return true;
 }
 
 bool SpawnManager::addEnemyToActiveVector(Enemy* enemy)
@@ -213,6 +203,9 @@ void SpawnManager::createShield(std::string filename, bool gravity, bool rotate)
 	// Creates shield, sets its position, and adds it
 	auto shield = Shield::create(filename);
 	shield->setPosition(Vec2(VISIBLE_SIZE_WIDTH, VISIBLE_SIZE_HEIGHT/2));
+    shield->setScale(2.0);
+	shield->setPosition(Vec2(this->getRandomXPosForShield(), this->getRandomHeight()));	
+
 	this->addChild(shield);
 
 	// adds the shield to the collision manager
@@ -260,8 +253,7 @@ void SpawnManager::moveShields()
 			auto shield = CollisionManager::getInstance()->getShields().at(it);
 
 			if (shield)
-			{
-				
+			{				
 				// move the shields to move across screen using Enemy movement speed
 				shield->setPosition(Point(shield->getPosition().x - WorldManager::getInstance()->getEnemyMovementSpeed(), shield->getPosition().y));
  
@@ -282,7 +274,7 @@ void SpawnManager::resetShield(Shield* shield)
 	{
 		// create pointer to shield to = cast to shield vector, set position & make visible
 		Shield* shieldSprite = static_cast<Shield*>(shield);
-		shieldSprite->setPosition(Vec2(this->getRandomXPosForShield(), VISIBLE_SIZE_HEIGHT / 2));
+		shieldSprite->setPosition(Vec2(this->getRandomXPosForShield(), this->getRandomHeight()));
 		shieldSprite->setVisible(true);
 	}
 }

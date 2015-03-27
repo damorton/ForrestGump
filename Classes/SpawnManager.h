@@ -17,7 +17,6 @@ public:
 	virtual void spawnManagerCleanup();
 
 	void update();
-	bool spawnEnemy();
 	int getRandomHeight();
 	int getRandomXPos();
 	int getEnemyCount();
@@ -30,7 +29,7 @@ public:
 	void pauseGame();
 	void resumeGame();
 
-	// Spawn shields */
+	// Spawn shields 
 	bool spawnShield();
 
 	// Create shields using filename 

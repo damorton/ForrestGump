@@ -15,7 +15,7 @@ body {
 
 
 /* use special fonts in certain elements */
-.reference ,h1,h2,h3,h4,.lead,.btn,.navbar, a {
+h1,h2,h3,h4,.lead,.btn,.navbar, a {
   text-transform:uppercase;
   font-family:'Voltaire',Arial,sans-serif;
   letter-spacing:2px;
@@ -106,7 +106,7 @@ img.grayscale {
 }
 
 .header {
-  height: 80%;
+  height: 50%;
   background: #f68076 url('http://www.bootply.com/assets/example/pt_topo_l.png') repeat center center fixed;
 }
 
@@ -200,3 +200,34 @@ footer {
 }
 
 /* -- end custom css for Bootstrap 3.x --*/
+
+/* 
+Generic Styling, for Desktops/Laptops 
+*/
+
+.table-responsive
+{
+    overflow-x: auto;
+	/*text-transform:uppercase;*/
+  	font-family:'Voltaire',Arial,sans-serif;
+  	letter-spacing:2px;
+}
+
+table { 
+	width: 100%; 
+	border-collapse: collapse; 
+}
+/* Zebra striping */
+tr:nth-of-type(odd) { 
+	background: #eee; 
+}
+th { 
+	background: #333; 
+	color: white; 
+	font-weight: bold; 
+}
+td, th { 
+	padding: 6px; 
+	border: 1px solid #ccc; 
+	text-align: left; 
+}
