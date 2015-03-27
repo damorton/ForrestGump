@@ -43,23 +43,21 @@ public:
 	void checkCollisionsWithEnemies();
 	void resetCollisionManager();
 
-	/* @brief function to check collisions with shields */
+	// function to check collisions with shields 
 	void checkCollisionsWithShields();
 
 	void setPlayer(Player* player){ m_pPlayer = player; };
 	void addItem(Sprite* item){ m_vpItems.push_back(item); };
 	void addEnemy(Enemy* enemy){ m_vpEnemies.push_back(enemy); };
 
-	/* @brief function to add a shield to the vector
-	   @param Shield object
-	 */
+	// function to add a shield to the vector
 	void addShield(Shield* shield){ m_vpShields.push_back(shield); };
 
 	Player* getPlayer(){ return m_pPlayer; };
 	std::deque<Sprite*> getItemsVector(){ return m_vpItems; };
 	std::vector<Enemy*> getEnemies(){ return m_vpEnemies; };
 
-	/* @brief function to return a shield from the vector */
+	// function to return a shield from the vector 
 	std::vector<Shield*> getShields(){ return m_vpShields; };
 	
 	void removeItem(){ m_vpItems.pop_front(); };
