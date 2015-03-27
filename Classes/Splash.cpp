@@ -12,6 +12,7 @@ Description: Implements the splash screen
 
 */
 
+// Includes
 #include "Splash.h"
 #include "MainMenu.h"
 #include "Definitions.h"

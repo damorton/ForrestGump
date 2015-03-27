@@ -16,6 +16,8 @@
 
 #ifndef _USERNAME_
 #define _USERNAME_
+
+// Includes
 #include "TextItem.h"
 
 class Username : public TextItem 

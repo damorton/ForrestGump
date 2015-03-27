@@ -11,6 +11,7 @@ Parallax.cpp
 Description: Moves the background images.
 */
 
+// Includes
 #include "Parallax.h"
 #include "WorldManager.h"
 

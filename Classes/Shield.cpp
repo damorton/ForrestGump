@@ -11,6 +11,8 @@ Shield.cpp
 Description: implementation for shield object
 
 */
+
+// Includes
 #include "Shield.h"
 
 // create - creates the shield using file
