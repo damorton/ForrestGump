@@ -59,17 +59,17 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	// a bug in DirectX 11 level9-x on the device prevents ResolutionPolicy::NO_BORDER from working correctly
 	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::SHOW_ALL);
 #else
-	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
+	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::FIXED_WIDTH);
 #endif	
 	Size frameSize = glview->getFrameSize();
 
 	std::vector<std::string> searchPath;
-	
+		
 	if (frameSize.width > mediumResource.size.width)
-	{		
+	{			
 		CCLOG("Using large resources");
 		searchPath.push_back(largeResource.directory);
-		director->setContentScaleFactor(largeResource.size.width / designResolutionSize.width);
+		director->setContentScaleFactor(largeResource.size.width / designResolutionSize.width);		
 	}
 	else if (frameSize.width > smallResource.size.width)
 	{
@@ -83,7 +83,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 		searchPath.push_back(smallResource.directory);
 		director->setContentScaleFactor(smallResource.size.width / designResolutionSize.width);
 	}
-	
+			
 	// set searching path
 	FileUtils::getInstance()->setSearchPaths(searchPath);
 
