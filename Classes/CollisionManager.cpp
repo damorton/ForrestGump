@@ -139,11 +139,7 @@ void CollisionManager::checkCollisionsWithEnemies()
 						{
 							if (m_pPlayer->getBoundingBox().intersectsRect(enemy->getBoundingBox()))
 							{  
-<<<<<<< HEAD
-								CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_.wav", false, 1.0, 1.0, 1.0);
-=======
 								CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/SFX_Pickup_40.wav", false, 1.0, 1.0, 1.0);
->>>>>>> 1188667b8fd50cafdf9fca3b8b1c1726de9edc88
 								m_pPlayer->addEnemyDeathParticle();
 								// Woo! I'm invincible!
 								m_pPlayer->addEnemiesKilled();
@@ -193,14 +189,9 @@ void CollisionManager::checkCollisionsWithShields()
 					{
 						// Set the player to GOD MODE!!
 						shield->setVisible(false);
-<<<<<<< HEAD
 
-						// call to set the players god mode on
-						WorldManager::getInstance()->getPlayer()->setGodMode();
-						
-=======
 						m_pWorldManager->getPlayer()->setGodMode();
->>>>>>> 1188667b8fd50cafdf9fca3b8b1c1726de9edc88
+
 					}
 				}
 			}

@@ -74,13 +74,8 @@ void Shield::moveSprite()
 	// creates an action to move the shield using the bezier curve created
 	auto bezierForward = BezierBy::create(6, bezier);
 
-<<<<<<< HEAD
-
-	// creates an action to reverse the bezier curve movement
-=======
 	// creates an action to reverse the bezier curve movement, creates a sequence to move it
->>>>>>> 1188667b8fd50cafdf9fca3b8b1c1726de9edc88
-	auto bezierBack = bezierForward->reverse();
+    auto bezierBack = bezierForward->reverse();
 	auto rep = RepeatForever::create(Sequence::create(bezierForward, bezierBack, nullptr));
 	this->runAction(rep);
 

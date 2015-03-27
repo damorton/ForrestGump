@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 /*
 	Copyright (c) 2015 David Morton, Donnchadh Murphy, Georgina Sheehan, Tiago Oliveira
 
@@ -17,7 +16,7 @@
 	When a collision occurs the event triggers the game objects behaviours such as adding a coin to the score of
 	being destroyed.
 */
->>>>>>> 1188667b8fd50cafdf9fca3b8b1c1726de9edc88
+
 #ifndef COLLISION_H_
 #define	COLLISION_H_
 
@@ -76,15 +75,11 @@ private:
 	Player* m_pPlayer;
 	std::vector<Enemy*> m_vpEnemies;
 	std::deque<Sprite*> m_vpItems;
-<<<<<<< HEAD
-	std::vector<Shield*> m_vpShields; // a vector to hold the shields
-=======
 
 	// a vector to hold the shields
 	std::vector<Shield*> m_vpShields; 
 	
 	WorldManager* m_pWorldManager;
->>>>>>> 1188667b8fd50cafdf9fca3b8b1c1726de9edc88
 
 };
 
