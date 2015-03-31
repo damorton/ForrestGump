@@ -9,7 +9,7 @@
 
 	GameScene.cpp
 
-	Description: Game Scene implementation
+	Description: Game Scene implementation contains the main game loop.
 
 */
 
