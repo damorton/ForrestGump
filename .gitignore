@@ -15,6 +15,7 @@ proj.win8.1-universal/
 
 #win32
 #proj.win32/
+proj.win32.old/
 
 #windows phone 8
 proj.wp8-xaml/
