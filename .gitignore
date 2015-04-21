@@ -14,7 +14,7 @@ proj.linux/
 proj.win8.1-universal/
 
 #win32
-proj.win32/
+#proj.win32/
 
 #windows phone 8
 proj.wp8-xaml/
